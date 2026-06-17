@@ -1,0 +1,33 @@
+import BusinessSections from "../components/BusinessSections";
+import CTA from "../components/CTA";
+import FeaturedProducts from "../components/FeaturedProducts";
+import Footer from "../components/Footer";
+import Hero from "../components/Hero";
+import IntroAnimation from "../components/IntroAnimation";
+import Navbar from "../components/Navbar";
+import Process from "../components/Process";
+import Services from "../components/Services";
+import SmoothScroll from "../components/SmoothScroll";
+import Stats from "../components/Stats";
+import Testimonials from "../components/Testimonials";
+
+export default function Home() {
+  return (
+    <>
+      <SmoothScroll />
+      <IntroAnimation />
+      <Navbar />
+      <main>
+        <Hero />
+        <Stats />
+        <BusinessSections />
+        <Services compact />
+        <FeaturedProducts limit={9} />
+        <Process />
+        <Testimonials />
+        <CTA />
+      </main>
+      <Footer />
+    </>
+  );
+}
