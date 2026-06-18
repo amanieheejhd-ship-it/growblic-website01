@@ -3,13 +3,20 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const dots = Array.from({ length: 18 });
+const dots = Array.from({ length: 8 });
 
 export default function OpeningSplash() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShow(false), 3200);
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile) {
+      setShow(false);
+      return;
+    }
+
+    const timer = setTimeout(() => setShow(false), 2200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -28,7 +35,7 @@ export default function OpeningSplash() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.35 }}
             transition={{ duration: 0.8 }}
-            className="absolute inset-0 bg-[linear-gradient(to_right,rgba(37,99,235,0.065)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.065)_1px,transparent_1px)] bg-[size:90px_90px]"
+            className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgba(37,99,235,0.065)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.065)_1px,transparent_1px)] bg-[size:90px_90px] md:block"
           />
 
           {dots.map((_, index) => (
@@ -72,13 +79,13 @@ export default function OpeningSplash() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-10 rounded-full border-2 border-blue-500/45 shadow-[0_0_60px_rgba(37,99,235,0.22)]"
+              className="absolute -inset-6 rounded-full border border-blue-500/35 md:-inset-10 md:border-2 md:shadow-[0_0_60px_rgba(37,99,235,0.22)]"
             />
 
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-20 rounded-full border-2 border-cyan-500/35 shadow-[0_0_80px_rgba(6,182,212,0.18)]"
+              className="absolute -inset-10 rounded-full border border-cyan-500/25 md:-inset-20 md:border-2 md:shadow-[0_0_80px_rgba(6,182,212,0.18)]"
             />
 
             <div className="relative mx-auto grid h-28 w-28 place-items-center rounded-[2.2rem] bg-white p-2 shadow-2xl shadow-cyan-400/25">

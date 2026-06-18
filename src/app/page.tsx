@@ -1,3 +1,4 @@
+import CompanyApps from "../components/CompanyApps";
 import BusinessSections from "../components/BusinessSections";
 import CTA from "../components/CTA";
 import FeaturedProducts from "../components/FeaturedProducts";
@@ -27,6 +28,7 @@ export default function Home() {
         <Testimonials />
         <CTA />
       </main>
+      <CompanyApps />
       <Footer />
     </>
   );

@@ -12,7 +12,7 @@ export default function Services({ compact = false }: { compact?: boolean }) {
         <div className="max-w-4xl">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">Services</p>
           <h2 className="mt-4 text-balance text-4xl font-semibold leading-tight tracking-tight text-[#050505] sm:text-6xl">
-            Apple-clean software services for serious product work.
+            Premium software services for serious product work.
           </h2>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
