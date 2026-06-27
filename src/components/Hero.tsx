@@ -8,7 +8,7 @@ const orbitItems = [
     title: "Websites",
     desc: "Premium UI",
     position: "top-[3%] left-1/2 -translate-x-1/2",
-    mobilePosition: "hero-engine-chip-websites",
+    mobilePosition: "hero-mobile-chip-top",
     glow: "from-blue-500 to-cyan-400",
     bg: "from-blue-50 to-cyan-50",
   },
@@ -16,7 +16,7 @@ const orbitItems = [
     title: "Mobile Apps",
     desc: "iOS + Android",
     position: "right-[1%] top-1/2 -translate-y-1/2",
-    mobilePosition: "hero-engine-chip-mobile",
+    mobilePosition: "hero-mobile-chip-right",
     glow: "from-violet-500 to-blue-500",
     bg: "from-violet-50 to-blue-50",
   },
@@ -24,7 +24,7 @@ const orbitItems = [
     title: "SaaS",
     desc: "Dashboards",
     position: "bottom-[3%] left-1/2 -translate-x-1/2",
-    mobilePosition: "hero-engine-chip-saas",
+    mobilePosition: "hero-mobile-chip-bottom",
     glow: "from-emerald-400 to-cyan-500",
     bg: "from-emerald-50 to-cyan-50",
   },
@@ -32,7 +32,7 @@ const orbitItems = [
     title: "AI Flow",
     desc: "Automation",
     position: "left-[1%] top-1/2 -translate-y-1/2",
-    mobilePosition: "hero-engine-chip-ai",
+    mobilePosition: "hero-mobile-chip-left",
     glow: "from-fuchsia-500 to-violet-500",
     bg: "from-fuchsia-50 to-violet-50",
   },
@@ -138,14 +138,13 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.96, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.18 }}
-          className="hero-engine-mobile md:hidden"
+          className="hero-mobile-engine md:hidden"
         >
-          <div className="hero-mobile-glow" />
-          <div className="hero-mobile-orbit hero-mobile-orbit-outer" />
+          <div className="hero-mobile-orbit" />
           <div className="hero-mobile-orbit hero-mobile-orbit-mid" />
           <div className="hero-mobile-orbit hero-mobile-orbit-inner" />
 
-          <div className="hero-mobile-card">
+          <div className="hero-mobile-center-card">
             <div className="hero-mobile-card-inner">
               <div className="hero-mobile-logo">
                 <img
@@ -155,7 +154,11 @@ export default function Hero() {
               </div>
 
               <p className="hero-mobile-eyebrow">Growblic Engine</p>
-              <h3 className="hero-mobile-title">Design Build Launch</h3>
+              <h3 className="hero-mobile-title">
+                <span>Design</span>
+                <span>Build</span>
+                <span>Launch</span>
+              </h3>
 
               <div className="hero-mobile-progress">
                 <span />

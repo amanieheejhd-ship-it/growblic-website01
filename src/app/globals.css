@@ -588,66 +588,59 @@ button {
     max-width: 100%;
   }
 
-  .hero-engine-mobile {
+  .hero-mobile-engine {
     position: relative;
     width: 100%;
     max-width: 360px;
-    height: 450px;
+    height: 430px;
     margin: 2rem auto 0;
-    overflow: hidden;
+    overflow: visible;
     isolation: isolate;
     touch-action: pan-y;
   }
 
-  .hero-mobile-glow,
   .hero-mobile-orbit,
-  .hero-mobile-card {
+  .hero-mobile-center-card {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
-  .hero-mobile-glow {
-    z-index: 0;
-    width: 330px;
-    height: 330px;
-    border-radius: 9999px;
-    background: linear-gradient(90deg, rgba(191, 219, 254, 0.65), rgba(165, 243, 252, 0.48), rgba(221, 214, 254, 0.52));
-    filter: blur(22px);
-  }
-
   .hero-mobile-orbit {
     z-index: 1;
+    width: 310px;
+    height: 310px;
     border: 1px solid rgba(191, 219, 254, 0.9);
     border-radius: 9999px;
-    background: rgba(251, 253, 255, 0.45);
-  }
-
-  .hero-mobile-orbit-outer {
-    width: 328px;
-    height: 328px;
-    box-shadow: 0 24px 54px rgba(37, 99, 235, 0.12);
+    background:
+      radial-gradient(circle, rgba(255, 255, 255, 0.76), rgba(239, 246, 255, 0.36)),
+      linear-gradient(90deg, rgba(191, 219, 254, 0.34), rgba(221, 214, 254, 0.28));
+    box-shadow: 0 24px 54px rgba(37, 99, 235, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.62);
   }
 
   .hero-mobile-orbit-mid {
-    width: 264px;
-    height: 264px;
+    width: 248px;
+    height: 248px;
+    background: transparent;
+    box-shadow: none;
   }
 
   .hero-mobile-orbit-inner {
-    width: 190px;
-    height: 190px;
+    width: 176px;
+    height: 176px;
+    background: transparent;
+    box-shadow: none;
   }
 
-  .hero-mobile-card {
+  .hero-mobile-center-card {
     z-index: 4;
-    width: 220px;
-    height: 260px;
+    width: 210px;
+    height: 250px;
     padding: 0.8rem;
     border: 1px solid rgba(191, 219, 254, 0.88);
-    border-radius: 28px;
-    background: rgba(251, 253, 255, 0.95);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.94);
     box-shadow: 0 20px 44px rgba(15, 23, 42, 0.14);
   }
 
@@ -694,12 +687,18 @@ button {
   }
 
   .hero-mobile-title {
+    display: grid;
+    gap: 0.05rem;
     margin-top: 0.55rem;
     color: #020617;
-    font-size: 2rem;
+    font-size: 2.05rem;
     font-weight: 900;
     letter-spacing: 0;
     line-height: 0.94;
+  }
+
+  .hero-mobile-title span {
+    display: block;
   }
 
   .hero-mobile-progress {
@@ -724,42 +723,45 @@ button {
     position: absolute;
     z-index: 5;
     display: flex;
-    width: 160px;
+    width: 158px;
+    max-width: 158px;
+    min-width: 158px;
     height: 80px;
-    align-items: center;
-    gap: 0.65rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
     overflow: hidden;
     border: 1px solid rgba(191, 219, 254, 0.86);
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.94);
-    padding: 0.8rem;
+    padding: 14px;
     box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
   }
 
-  .hero-engine-chip-websites {
+  .hero-mobile-chip-top {
     left: 50%;
     top: 0;
     transform: translateX(-50%);
   }
 
-  .hero-engine-chip-ai {
+  .hero-mobile-chip-left {
     left: 0;
-    top: 42%;
+    top: 44%;
   }
 
-  .hero-engine-chip-mobile {
+  .hero-mobile-chip-right {
     right: 0;
-    top: 42%;
+    top: 44%;
   }
 
-  .hero-engine-chip-saas {
+  .hero-mobile-chip-bottom {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  .hero-mobile-dot {
-    flex: 0 0 0.6rem;
+  .hero-mobile-chip .hero-mobile-dot {
+    flex: 0 0 auto;
     width: 0.6rem;
     height: 0.6rem;
     border-radius: 9999px;
@@ -785,18 +787,20 @@ button {
 }
 
 @media (max-width: 380px) {
-  .hero-engine-mobile {
+  .hero-mobile-engine {
     max-width: 336px;
     height: 430px;
   }
 
-  .hero-mobile-card {
+  .hero-mobile-center-card {
     width: 212px;
     height: 252px;
   }
 
   .hero-mobile-chip {
     width: 150px;
+    min-width: 150px;
+    max-width: 150px;
     height: 76px;
   }
 }
