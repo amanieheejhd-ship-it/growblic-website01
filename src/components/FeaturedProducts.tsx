@@ -4,7 +4,58 @@ import Link from "next/link";
 import { companyApps } from "../data/companyApps";
 
 export default function FeaturedProducts() {
-  const marqueeApps = [...companyApps, ...companyApps];
+  const firstRow = companyApps.filter((_, index) => index % 2 === 0);
+  const secondRow = companyApps.filter((_, index) => index % 2 !== 0);
+  const firstLoop = [...firstRow, ...firstRow];
+  const secondLoop = [...secondRow, ...secondRow];
+
+  const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
+    <Link
+      href={`/apps/${app.slug}`}
+      key={`${app.slug}-${index}`}
+      className="live-app-card group"
+    >
+      <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-3 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
+        <div className="relative flex items-start justify-between gap-5">
+          <span className="live-app-icon grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-[1.8rem] bg-white shadow-xl shadow-blue-100/70">
+            <img
+              src={app.logo}
+              alt={app.name}
+              className="h-full w-full object-cover"
+            />
+          </span>
+
+          <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700">
+            Live
+          </span>
+        </div>
+
+        <div className="live-app-content relative mt-8">
+          <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700">
+            {app.category}
+          </span>
+
+          <h3 className="live-app-title mt-6 min-h-[92px] text-3xl font-black leading-tight tracking-tight text-slate-950">
+            {app.name}
+          </h3>
+
+          <p className="live-app-description mt-5 line-clamp-4 text-base font-semibold leading-7 text-slate-600">
+            {app.short}
+          </p>
+        </div>
+
+        <div className="live-app-footer relative mt-auto flex items-center justify-between pt-8">
+          <span className="text-sm font-black text-slate-950">
+            View Product
+          </span>
+
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-slate-950 text-xl font-black text-white transition-all duration-500 group-hover:rotate-[-35deg] group-hover:bg-blue-700">
+            →
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
 
   return (
     <section
@@ -29,58 +80,21 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="live-apps-marquee relative overflow-hidden py-8">
+        <div className="live-apps-marquee relative overflow-hidden py-5">
           <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
           <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
 
-          <div className="live-apps-track flex gap-6 pb-6">
-            {marqueeApps.map((app, index) => (
-              <Link
-                href={`/apps/${app.slug}`}
-                key={`${app.slug}-${index}`}
-                className="live-app-card group"
-              >
-                <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-3 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
-                  <div className="relative flex items-start justify-between gap-5">
-                    <span className="live-app-icon grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-[1.8rem] bg-white shadow-xl shadow-blue-100/70">
-                      <img
-                        src={app.logo}
-                        alt={app.name}
-                        className="h-full w-full object-cover"
-                      />
-                    </span>
+          <div className="live-apps-track live-apps-track-left flex gap-6 pb-6">
+            {firstLoop.map(renderAppCard)}
+          </div>
+        </div>
 
-                    <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700">
-                      Live
-                    </span>
-                  </div>
+        <div className="live-apps-marquee relative overflow-hidden py-5">
+          <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
+          <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
 
-                  <div className="live-app-content relative mt-8">
-                    <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700">
-                      {app.category}
-                    </span>
-
-                    <h3 className="live-app-title mt-6 min-h-[92px] text-3xl font-black leading-tight tracking-tight text-slate-950">
-                      {app.name}
-                    </h3>
-
-                    <p className="live-app-description mt-5 line-clamp-4 text-base font-semibold leading-7 text-slate-600">
-                      {app.short}
-                    </p>
-                  </div>
-
-                  <div className="live-app-footer relative mt-auto flex items-center justify-between pt-8">
-                    <span className="text-sm font-black text-slate-950">
-                      View Product
-                    </span>
-
-                    <span className="grid h-12 w-12 place-items-center rounded-full bg-slate-950 text-xl font-black text-white transition-all duration-500 group-hover:rotate-[-35deg] group-hover:bg-blue-700">
-                      →
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+          <div className="live-apps-track live-apps-track-right flex gap-6 pb-6">
+            {secondLoop.map(renderAppCard)}
           </div>
         </div>
       </div>
