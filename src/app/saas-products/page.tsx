@@ -56,7 +56,7 @@ export default function SaasProductsPage() {
               </div>
 
               <div className="relative h-[560px] overflow-hidden rounded-[2.8rem]">
-                <Image src="/images/business/saas-1.jpg" alt="SaaS products" fill className="will-change-transform object-cover" priority unoptimized />
+                <Image src="/growblic-website01/images/business/saas-1.jpg" alt="SaaS products" fill className="will-change-transform object-cover" priority unoptimized />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/78 via-slate-950/12 to-transparent" />
               </div>
             </div>

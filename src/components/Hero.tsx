@@ -169,7 +169,7 @@ export default function Hero() {
 
               <div className="relative">
                 <div className="mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
-                <img src="/images/brand/growblic-logo.png" alt="Growblic" className="h-full w-full rounded-full object-cover" />
+                <img src="/growblic-website01/images/brand/growblic-logo.png" alt="Growblic" className="h-full w-full rounded-full object-cover" />
               </div>
 
                 <p className="mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">

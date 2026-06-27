@@ -65,7 +65,7 @@ export default function ClientLoginPage() {
                   <div className="flex items-center gap-4">
                     <span className="grid h-16 w-16 place-items-center overflow-hidden rounded-full shadow-xl shadow-blue-100">
                       <img
-                        src="/images/brand/growblic-logo.png"
+                        src="/growblic-website01/images/brand/growblic-logo.png"
                         alt="Growblic"
                         className="h-full w-full rounded-full object-cover"
                       />

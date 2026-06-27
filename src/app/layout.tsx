@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/images/brand/growblic-logo.png",
-    apple: "/images/brand/growblic-logo.png",
+    icon: "/growblic-website01/images/brand/growblic-logo.png",
+    apple: "/growblic-website01/images/brand/growblic-logo.png",
   },
 };
 

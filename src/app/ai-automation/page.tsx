@@ -6,7 +6,7 @@ export default function AiAutomationPage() {
       eyebrow="AI Automation"
       title="Smart automation that reduces manual work."
       description="We create automation flows that connect daily business tasks, reduce repetitive work, and help your team move faster with better consistency."
-      image="/images/business/ai-1.jpg"
+      image="/growblic-website01/images/business/ai-1.jpg"
       points={[
         "Workflow automation",
         "AI assisted support",

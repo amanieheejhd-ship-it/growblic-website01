@@ -8,31 +8,31 @@ const steps = [
     number: "01",
     title: "Understand",
     text: "Business goals, users, workflows, and product direction.",
-    image: "/images/process/research-unique.jpg",
+    image: "/growblic-website01/images/process/research-unique.jpg",
   },
   {
     number: "02",
     title: "Design",
     text: "Premium UI, clean screens, dashboards, and mobile flows.",
-    image: "/images/process/uiux-unique.jpg",
+    image: "/growblic-website01/images/process/uiux-unique.jpg",
   },
   {
     number: "03",
     title: "Build",
     text: "Frontend systems, APIs, SaaS modules, and automation.",
-    image: "/images/process/code-unique.jpg",
+    image: "/growblic-website01/images/process/code-unique.jpg",
   },
   {
     number: "04",
     title: "Launch",
     text: "Testing, polish, deployment, and real-user readiness.",
-    image: "/images/process/deploy-unique.jpg",
+    image: "/growblic-website01/images/process/deploy-unique.jpg",
   },
   {
     number: "05",
     title: "Improve",
     text: "Analytics, upgrades, support, optimization, and growth.",
-    image: "/images/process/growth-unique.jpg",
+    image: "/growblic-website01/images/process/growth-unique.jpg",
   },
 ];
 

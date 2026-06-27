@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className="relative mx-auto max-w-3xl rounded-[3rem] border border-blue-100/70 bg-white/90 p-8 text-center shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:p-12">
           <span className="mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full shadow-xl shadow-blue-100">
             <img
-              src="/images/brand/growblic-logo.png"
+              src="/growblic-website01/images/brand/growblic-logo.png"
               alt="Growblic"
               className="h-full w-full rounded-full object-cover"
             />

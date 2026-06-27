@@ -32,7 +32,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3">
               <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full shadow-md shadow-slate-200">
                 <img
-                  src="/images/brand/growblic-logo.png"
+                  src="/growblic-website01/images/brand/growblic-logo.png"
                   alt="Growblic"
                   className="h-full w-full rounded-full object-cover"
                 />

@@ -6,7 +6,7 @@ export default function SaasPage() {
       eyebrow="SaaS"
       title="SaaS products designed for growth."
       description="Growblic builds SaaS platforms with role-based dashboards, subscription-ready flows, admin controls, and scalable frontend systems."
-      image="/images/business/saas-1.jpg"
+      image="/growblic-website01/images/business/saas-1.jpg"
       points={[
         "Multi-role dashboards",
         "Tenant-ready structure",

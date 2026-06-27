@@ -48,7 +48,7 @@ export const products: Product[] = [
       "A premium CRM workspace for teams that need visibility from first lead to closed deal, with automation built into every follow-up.",
     status: "Live",
     icon: UsersRound,
-    imageSlides: ["/images/products/crm-1.jpg", "/images/products/crm-2.jpg", "/images/products/crm-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/crm-1.jpg", "/growblic-website01/images/products/crm-2.jpg", "/growblic-website01/images/products/crm-3.jpg"],
     screenshots: [
       { label: "Pipeline", metric: "248 active leads", tone: "blue" },
       { label: "Automation", metric: "74 follow-ups today", tone: "violet" },
@@ -69,7 +69,7 @@ export const products: Product[] = [
       "A complete school operating platform that connects administrators, teachers, students, and parents in one reliable digital system.",
     status: "Live",
     icon: School,
-    imageSlides: ["/images/products/school-1.jpg", "/images/products/school-2.jpg", "/images/products/school-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/school-1.jpg", "/growblic-website01/images/products/school-2.jpg", "/growblic-website01/images/products/school-3.jpg"],
     screenshots: [
       { label: "Attendance", metric: "94% present", tone: "emerald" },
       { label: "Fees", metric: "1,240 receipts", tone: "blue" },
@@ -90,7 +90,7 @@ export const products: Product[] = [
       "A modern HR operations hub that helps businesses manage people, payroll, attendance, documents, and approvals with less friction.",
     status: "Live",
     icon: ReceiptText,
-    imageSlides: ["/images/products/hr-1.jpg", "/images/products/hr-2.jpg", "/images/products/hr-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/hr-1.jpg", "/growblic-website01/images/products/hr-2.jpg", "/growblic-website01/images/products/hr-3.jpg"],
     screenshots: [
       { label: "Payroll", metric: "428 slips ready", tone: "blue" },
       { label: "Leaves", metric: "18 pending", tone: "cyan" },
@@ -111,7 +111,7 @@ export const products: Product[] = [
       "A finance control center for teams that need secure workflows, clear approvals, settlement visibility, and executive-grade reporting.",
     status: "Live",
     icon: Landmark,
-    imageSlides: ["/images/products/fintech-1.jpg", "/images/products/fintech-2.jpg", "/images/products/fintech-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/fintech-1.jpg", "/growblic-website01/images/products/fintech-2.jpg", "/growblic-website01/images/products/fintech-3.jpg"],
     screenshots: [
       { label: "Ledger", metric: "$4.8M tracked", tone: "slate" },
       { label: "Approvals", metric: "32 queued", tone: "blue" },
@@ -132,7 +132,7 @@ export const products: Product[] = [
       "A polished commerce app experience for brands that need fast discovery, smooth checkout, and practical back-office controls.",
     status: "Live",
     icon: ShoppingBag,
-    imageSlides: ["/images/products/ecommerce-1.jpg", "/images/products/ecommerce-2.jpg", "/images/products/ecommerce-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/ecommerce-1.jpg", "/growblic-website01/images/products/ecommerce-2.jpg", "/growblic-website01/images/products/ecommerce-3.jpg"],
     screenshots: [
       { label: "Catalog", metric: "1,840 SKUs", tone: "violet" },
       { label: "Checkout", metric: "2.1 min avg", tone: "blue" },
@@ -153,7 +153,7 @@ export const products: Product[] = [
       "A property-first CRM designed for inventory-heavy teams that need lead routing, site visit control, and broker performance clarity.",
     status: "Live",
     icon: Building2,
-    imageSlides: ["/images/products/realestate-1.jpg", "/images/products/realestate-2.jpg", "/images/products/realestate-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/realestate-1.jpg", "/growblic-website01/images/products/realestate-2.jpg", "/growblic-website01/images/products/realestate-3.jpg"],
     screenshots: [
       { label: "Inventory", metric: "312 units", tone: "blue" },
       { label: "Visits", metric: "46 scheduled", tone: "cyan" },
@@ -174,7 +174,7 @@ export const products: Product[] = [
       "A scheduling and booking platform for service businesses that need real-time availability, payments, reminders, and staff workflows.",
     status: "Live",
     icon: CalendarClock,
-    imageSlides: ["/images/products/booking-1.jpg", "/images/products/booking-2.jpg", "/images/products/booking-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/booking-1.jpg", "/growblic-website01/images/products/booking-2.jpg", "/growblic-website01/images/products/booking-3.jpg"],
     screenshots: [
       { label: "Calendar", metric: "186 bookings", tone: "cyan" },
       { label: "Availability", metric: "72 slots open", tone: "blue" },
@@ -195,7 +195,7 @@ export const products: Product[] = [
       "A business intelligence layer that turns scattered operational data into clean metrics, trends, and decisions for leadership.",
     status: "Live",
     icon: ChartNoAxesCombined,
-    imageSlides: ["/images/products/analytics-1.jpg", "/images/products/analytics-2.jpg", "/images/products/analytics-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/analytics-1.jpg", "/growblic-website01/images/products/analytics-2.jpg", "/growblic-website01/images/products/analytics-3.jpg"],
     screenshots: [
       { label: "Revenue", metric: "+28% growth", tone: "blue" },
       { label: "Cohorts", metric: "14 segments", tone: "violet" },
@@ -216,7 +216,7 @@ export const products: Product[] = [
       "An AI support workspace that handles common questions, routes complex issues, and helps teams learn from every conversation.",
     status: "Live",
     icon: Bot,
-    imageSlides: ["/images/products/ai-1.jpg", "/images/products/ai-2.jpg", "/images/products/ai-3.jpg"],
+    imageSlides: ["/growblic-website01/images/products/ai-1.jpg", "/growblic-website01/images/products/ai-2.jpg", "/growblic-website01/images/products/ai-3.jpg"],
     screenshots: [
       { label: "AI Inbox", metric: "1.8k chats", tone: "violet" },
       { label: "Resolution", metric: "67% automated", tone: "emerald" },

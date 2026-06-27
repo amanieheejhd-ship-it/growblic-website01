@@ -7,37 +7,37 @@ const products = [
     title: "Custom Software",
     href: "/software",
     text: "Internal platforms, dashboards, admin panels, and business workflow tools.",
-    image: "/images/business/web-1.jpg",
+    image: "/growblic-website01/images/business/web-1.jpg",
   },
   {
     title: "Mobile Apps",
     href: "/mobile-apps",
     text: "Premium mobile app experiences for iOS, Android, booking, ordering, and users.",
-    image: "/images/business/mobile-1.jpg",
+    image: "/growblic-website01/images/business/mobile-1.jpg",
   },
   {
     title: "SaaS Products",
     href: "/saas",
     text: "Subscription-ready platforms with roles, dashboards, modules, and scalable UI.",
-    image: "/images/business/saas-1.jpg",
+    image: "/growblic-website01/images/business/saas-1.jpg",
   },
   {
     title: "AI Automation",
     href: "/ai-automation",
     text: "Smart automation flows that reduce manual work and improve business speed.",
-    image: "/images/business/ai-1.jpg",
+    image: "/growblic-website01/images/business/ai-1.jpg",
   },
   {
     title: "CRM Platform",
     href: "/crm-platform",
     text: "Lead management, customer profiles, follow-ups, sales pipeline, and reports.",
-    image: "/images/products/crm-1.jpg",
+    image: "/growblic-website01/images/products/crm-1.jpg",
   },
   {
     title: "Analytics",
     href: "/analytics",
     text: "Business dashboards, KPI cards, charts, filters, reports, and insights.",
-    image: "/images/products/analytics-1.jpg",
+    image: "/growblic-website01/images/products/analytics-1.jpg",
   },
 ];
 

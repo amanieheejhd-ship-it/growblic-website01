@@ -43,7 +43,7 @@ export default function AboutPage() {
                 <div className="relative">
                   <span className="grid h-20 w-20 place-items-center overflow-hidden rounded-full shadow-xl">
                     <img
-                      src="/images/brand/growblic-logo.png"
+                      src="/growblic-website01/images/brand/growblic-logo.png"
                       alt="Growblic"
                       className="h-full w-full rounded-full object-cover"
                     />

@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 const menus = [
   {
     label: "Home",
-    image: "/images/business/dashboard-1.jpg",
+    image: "/growblic-website01/images/business/dashboard-1.jpg",
     eyebrow: "Launch Site",
     title: "Home",
     text: "Explore Growblic's premium product, service, and company experience.",
@@ -19,7 +19,7 @@ const menus = [
   },
   {
     label: "Products",
-    image: "/images/products/analytics-1.jpg",
+    image: "/growblic-website01/images/products/analytics-1.jpg",
     eyebrow: "Product Suite",
     title: "Products",
     text: "Ready-made product directions Growblic can build and scale for your business.",
@@ -33,7 +33,7 @@ const menus = [
   },
   {
     label: "Services",
-    image: "/images/business/web-1.jpg",
+    image: "/growblic-website01/images/business/web-1.jpg",
     eyebrow: "Build Services",
     title: "Services",
     text: "Websites, apps, SaaS products, and automation built with premium UI.",
@@ -47,7 +47,7 @@ const menus = [
   },
   {
     label: "About",
-    image: "/images/business/saas-1.jpg",
+    image: "/growblic-website01/images/business/saas-1.jpg",
     eyebrow: "Company",
     title: "About",
     text: "Growblic is focused on premium software, smooth product design, and scalable builds.",
@@ -60,7 +60,7 @@ const menus = [
   },
   {
     label: "Contact",
-    image: "/images/business/mobile-1.jpg",
+    image: "/growblic-website01/images/business/mobile-1.jpg",
     eyebrow: "Start Now",
     title: "Contact",
     text: "Start your project, book consultation, or connect with Growblic directly.",
@@ -110,7 +110,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3">
           <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full shadow-md shadow-slate-200">
             <img
-              src="/images/brand/growblic-logo.png"
+              src="/growblic-website01/images/brand/growblic-logo.png"
               alt="Growblic"
               className="h-full w-full rounded-full object-cover"
             />
