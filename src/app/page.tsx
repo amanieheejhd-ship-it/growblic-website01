@@ -11,6 +11,7 @@ import Stats from "../components/Stats";
 import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
 import FeaturedProducts from "../components/FeaturedProducts";
+import TrustSection from "../components/TrustSection";
 
 export default function Home() {
   return (
@@ -23,11 +24,12 @@ export default function Home() {
         <Stats />
         <BusinessSections />
         <Services compact />
+        <TrustSection />
         <FeaturedProducts />
         <Process />
         <Testimonials />
-      <FAQ />
-      <CTA />
+        <FAQ />
+        <CTA />
       </main>
       <Footer />
     </>

@@ -38,7 +38,12 @@ const orbitItems = [
   },
 ];
 
-const stats: [string, string][] = [];
+const stats: [string, string][] = [
+  ["35+", "Live Software & Apps"],
+  ["50+", "Projects Delivered"],
+  ["10+", "Business Categories"],
+  ["24/7", "Support Ready"],
+];
 
 export default function Hero() {
   return (
@@ -116,7 +121,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.32 }}
-            className="mt-10 grid max-w-xl grid-cols-3 gap-3"
+            className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
           >
             {stats.map(([value, label]) => (
               <div

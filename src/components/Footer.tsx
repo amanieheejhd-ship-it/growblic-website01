@@ -1,24 +1,27 @@
 import Link from "next/link";
 
 const services = [
-  { label: "Software", href: "/software" },
-  { label: "Mobile Apps", href: "/mobile-apps" },
-  { label: "SaaS", href: "/saas" },
+  { label: "Website Development", href: "/services" },
+  { label: "Software Development", href: "/software" },
+  { label: "SEO Services", href: "/services" },
+  { label: "Google Ads Management", href: "/services" },
+  { label: "Meta Ads Management", href: "/services" },
+  { label: "GMB Rating & Reviews", href: "/services" },
+  { label: "Mobile App Development", href: "/mobile-apps" },
   { label: "AI Automation", href: "/ai-automation" },
 ];
 
-const products = [
-  { label: "CRM Platform", href: "/crm-platform" },
-  { label: "FinTech App", href: "/fintech-app" },
-  { label: "HR System", href: "/hr-system" },
-  { label: "Analytics", href: "/analytics" },
-];
-
-const company = [
+const quickLinks = [
   { label: "About", href: "/about" },
-  { label: "Contact", href: "mailto:hello@growblic.com" },
+  { label: "Live Apps", href: "/#products" },
+  { label: "Start Project", href: "/start-project" },
   { label: "Support", href: "/support" },
   { label: "Client Login", href: "/client-login" },
+];
+
+const contact = [
+  { label: "Website: www.growblic.com", href: "https://www.growblic.com" },
+  { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
 ];
 
 export default function Footer() {
@@ -27,7 +30,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_85%_80%,rgba(6,182,212,0.08),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+        <div className="grid gap-12 md:grid-cols-[1.15fr_1fr_0.75fr_0.9fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
               <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full shadow-md shadow-slate-200">
@@ -42,7 +45,16 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="mt-5 max-w-md text-base leading-7 text-slate-500">
+            <div className="mt-5">
+              <p className="text-lg font-black text-slate-950">
+                Growblic Pvt Limited
+              </p>
+              <p className="mt-1 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">
+                Software Development Company
+              </p>
+            </div>
+
+            <p className="mt-4 max-w-md text-base leading-7 text-slate-500">
               Growblic builds websites, mobile apps, SaaS products, dashboards,
               and automation systems for modern businesses.
             </p>
@@ -52,45 +64,45 @@ export default function Footer() {
 
           <div>
             <h3 className="text-lg font-black text-slate-950">Services</h3>
-            <div className="mt-6 space-y-4">
+            <div className="mt-6 grid gap-3">
               {services.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block text-lg font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-black text-slate-950">Products</h3>
-            <div className="mt-6 space-y-4">
-              {products.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block text-lg font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-black text-slate-950">Company</h3>
-            <div className="mt-6 space-y-4">
-              {company.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="block text-lg font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
+                  className="block text-base font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
                 >
                   {item.label}
                 </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-black text-slate-950">Quick Links</h3>
+            <div className="mt-6 space-y-4">
+              {quickLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="block text-base font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-black text-slate-950">Contact</h3>
+            <div className="mt-6 space-y-4">
+              {contact.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="block text-base font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
+                >
+                  {item.label}
+                </a>
               ))}
             </div>
           </div>

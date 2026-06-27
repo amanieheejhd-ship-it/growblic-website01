@@ -3,7 +3,6 @@ import SmoothScroll from "../components/SmoothScroll";
 import "./globals.css";
 import OpeningSplash from "../components/OpeningSplash";
 
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -11,11 +10,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Growblic | Premium Software Development Company",
+    default: "Growblic - Software Development, Apps, Websites & AI Automation",
     template: "%s | Growblic",
   },
   description:
-    "Growblic builds premium websites, mobile apps, SaaS products, dashboards, CRM platforms, and AI automation systems for modern businesses.",
+    "Growblic builds modern websites, mobile apps, SaaS platforms, dashboards, SEO solutions, digital marketing systems, and AI automation tools for growing businesses.",
   keywords: [
     "Growblic",
     "software development company",
@@ -23,13 +22,14 @@ export const metadata: Metadata = {
     "mobile app development",
     "SaaS development",
     "AI automation",
-    "CRM platform",
-    "dashboard development",
+    "SEO services",
+    "Google Ads",
+    "Meta Ads",
   ],
   openGraph: {
-    title: "Growblic | Premium Software Development Company",
+    title: "Growblic - Software Development, Apps, Websites & AI Automation",
     description:
-      "Websites, mobile apps, SaaS products, dashboards, and AI automation systems.",
+      "Modern websites, mobile apps, SaaS platforms, dashboards, SEO solutions, digital marketing systems, and AI automation tools.",
     url: "https://www.growblic.com",
     siteName: "Growblic",
     type: "website",
@@ -48,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-[#fbfdff] text-[#050505]">
-                <OpeningSplash />
+        <OpeningSplash />
         <SmoothScroll />
         {children}
       </body>
