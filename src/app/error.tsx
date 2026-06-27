@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link";
 
-export default function NotFound() {
+export default function Error() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
       <section className="relative flex min-h-screen items-center justify-center px-6 py-20">
@@ -13,7 +15,7 @@ export default function NotFound() {
           </div>
 
           <p className="mt-8 text-sm font-black uppercase tracking-[0.28em] text-blue-600">
-            Growblic - Software Development Company
+            Something went wrong
           </p>
 
           <h1 className="mt-5 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
