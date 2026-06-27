@@ -38,13 +38,6 @@ const orbitItems = [
   },
 ];
 
-const stats: [string, string][] = [
-  ["35+", "Live Software & Apps"],
-  ["50+", "Projects Delivered"],
-  ["10+", "Business Categories"],
-  ["24/7", "Support Ready"],
-];
-
 export default function Hero() {
   return (
     <section className="home-hero-section relative min-h-screen overflow-hidden bg-[#fbfcff] px-6 pb-20 pt-32">
@@ -117,26 +110,6 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.32 }}
-            className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
-          >
-            {stats.map(([value, label]) => (
-              <div
-                key={label}
-                className="rounded-2xl border border-blue-100/70 bg-[#fbfdff]/88 p-4 shadow-lg shadow-slate-200/60 backdrop-blur transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-xl"
-              >
-                <p className="text-3xl font-black tracking-tight text-slate-950">
-                  {value}
-                </p>
-                <p className="mt-1 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
-                  {label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         <motion.div
