@@ -255,6 +255,14 @@ button {
 
 
 .live-apps-track {
+  display: flex;
+  width: max-content;
+  max-width: none;
+  min-width: max-content;
+  gap: 1.5rem;
+  overflow: visible;
+  animation: liveAppsMarquee 64s linear infinite;
+  will-change: transform;
   scrollbar-width: none;
   -ms-overflow-style: none;
   scroll-behavior: auto;
@@ -265,13 +273,13 @@ button {
 }
 
 .live-app-card {
-  width: 330px !important;
-  min-width: 330px !important;
-  height: 560px !important;
-  flex: 0 0 330px !important;
+  width: 360px !important;
+  min-width: 360px !important;
+  height: 540px !important;
+  flex: 0 0 360px !important;
 }
 
-@keyframes liveAppsMobileMarquee {
+@keyframes liveAppsMarquee {
   from {
     transform: translate3d(0, 0, 0);
   }
@@ -284,6 +292,10 @@ button {
 @media (min-width: 769px) {
   .live-apps-marquee:hover .live-apps-track {
     animation-play-state: paused;
+  }
+
+  .live-apps-marquee {
+    overflow: hidden;
   }
 }
 
@@ -464,7 +476,6 @@ button {
     touch-action: pan-y !important;
   }
 
-  .live-apps-arrow,
   .live-apps-fade {
     display: none !important;
   }
@@ -478,7 +489,7 @@ button {
     gap: 0.85rem !important;
     overflow: visible !important;
     padding: 0 1rem !important;
-    animation: liveAppsMobileMarquee 62s linear infinite !important;
+    animation: liveAppsMarquee 34s linear infinite !important;
     will-change: transform;
   }
 
@@ -487,7 +498,7 @@ button {
     width: clamp(230px, 68vw, 260px) !important;
     min-width: clamp(230px, 68vw, 260px) !important;
     max-width: 260px !important;
-    height: 205px !important;
+    height: 215px !important;
   }
 
   .live-app-card-shell {
