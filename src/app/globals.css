@@ -660,14 +660,6 @@ canvas {
     max-width: 100% !important;
   }
 
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .flex {
-    flex-wrap: wrap;
-  }
-
   .min-h-screen {
     min-height: auto !important;
   }
@@ -754,18 +746,6 @@ canvas {
   svg {
     max-width: 100% !important;
     height: auto !important;
-  }
-
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  [class*="grid-cols-2"],
-  [class*="grid-cols-3"],
-  [class*="grid-cols-4"],
-  [class*="grid-cols-5"],
-  [class*="grid-cols-6"] {
-    grid-template-columns: 1fr !important;
   }
 
   [class*="w-["],
@@ -936,15 +916,6 @@ main {
     line-height: 1.65 !important;
   }
 
-  .grid {
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
-
-  [class*="grid-cols-"] {
-    grid-template-columns: 1fr !important;
-  }
-
   .flex {
     min-width: 0 !important;
   }
@@ -983,11 +954,6 @@ main {
     max-width: 100% !important;
     height: auto !important;
     object-fit: cover;
-  }
-
-  a[href*="/apps/"],
-  a[href*="/products/"] {
-    width: 100% !important;
   }
 
   article,
@@ -1029,110 +995,9 @@ main {
   }
 }
 
-/* ---------- Fix Growblic Apps section on phone ---------- */
-
-@media (max-width: 768px) {
-  /* Apps section ko horizontal premium carousel bana do */
-  section:has(a[href*="/apps/"]) .grid {
-    display: flex !important;
-    grid-template-columns: none !important;
-    gap: 1rem !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding: 0.25rem 0.25rem 1.5rem !important;
-  }
-
-  section:has(a[href*="/apps/"]) .grid::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] {
-    flex: 0 0 82vw !important;
-    width: 82vw !important;
-    max-width: 82vw !important;
-    min-width: 82vw !important;
-    scroll-snap-align: start !important;
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-  }
-
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] * {
-    opacity: 1 !important;
-    filter: none !important;
-  }
-
-  section:has(a[href*="/apps/"]) article,
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] > div {
-    min-height: 420px !important;
-    height: auto !important;
-    border-radius: 2rem !important;
-    background: rgba(255, 255, 255, 0.92) !important;
-    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.08) !important;
-  }
-
-  section:has(a[href*="/apps/"]) h2 {
-    font-size: clamp(2rem, 10vw, 3.2rem) !important;
-    line-height: 1.02 !important;
-  }
-
-  section:has(a[href*="/apps/"]) h3,
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] h3 {
-    color: #020617 !important;
-    font-size: 1.8rem !important;
-    line-height: 1.05 !important;
-  }
-
-  section:has(a[href*="/apps/"]) p,
-  section:has(a[href*="/apps/"]) span {
-    color: #475569 !important;
-  }
-
-  section:has(a[href*="/apps/"]) img {
-    width: 88px !important;
-    height: 88px !important;
-    object-fit: cover !important;
-    border-radius: 1.5rem !important;
-  }
-
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] button,
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] .rounded-full {
-    opacity: 1 !important;
-  }
-}
-
-/* Small phone polish */
-@media (max-width: 480px) {
-  section:has(a[href*="/apps/"]) {
-    padding-left: 1rem !important;
-    padding-right: 0 !important;
-  }
-
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] {
-    flex-basis: 84vw !important;
-    width: 84vw !important;
-    max-width: 84vw !important;
-    min-width: 84vw !important;
-  }
-
-  section:has(a[href*="/apps/"]) article,
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] > div {
-    min-height: 390px !important;
-  }
-}
-
 /* ---------- Phone performance + clean layout fix ---------- */
 
 @media (max-width: 768px) {
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 120ms !important;
-    scroll-behavior: auto !important;
-  }
-
   html,
   body {
     width: 100% !important;
@@ -1158,12 +1023,6 @@ main {
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
   }
 
-  [class*="scale-"],
-  [class*="rotate-"],
-  [class*="translate-"] {
-    transform: none !important;
-  }
-
   section {
     padding: 3rem 1rem !important;
     overflow: hidden !important;
@@ -1184,13 +1043,6 @@ main {
   p {
     font-size: 0.98rem !important;
     line-height: 1.65 !important;
-  }
-
-  .grid,
-  [class*="grid-cols-"] {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
   }
 
   article,
@@ -1215,55 +1067,131 @@ main {
     object-fit: contain !important;
   }
 
-  /* Live apps cards phone par clean */
-  section:has(a[href*="/apps/"]) {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+}
+
+@keyframes liveAppsMobileMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
   }
 
-  section:has(a[href*="/apps/"]) .grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    overflow: visible !important;
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (min-width: 769px) {
+  .live-apps-marquee:hover .live-apps-track {
+    animation-play-state: paused;
+  }
+}
+
+@media (max-width: 768px) {
+  .live-apps-section {
+    padding: 3.25rem 0 3.75rem !important;
+    overflow: hidden !important;
   }
 
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] {
+  .live-apps-section > div {
+    max-width: none !important;
     width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    opacity: 1 !important;
-    filter: none !important;
   }
 
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] * {
-    opacity: 1 !important;
-    filter: none !important;
-    color: inherit;
+  .live-apps-header {
+    display: grid !important;
+    gap: 1rem !important;
+    margin-bottom: 1.25rem !important;
+    padding: 0 1rem !important;
   }
 
-  section:has(a[href*="/apps/"]) article,
-  section:has(a[href*="/apps/"]) a[href*="/apps/"] > div {
-    min-height: auto !important;
+  .live-apps-header h2 {
+    max-width: 22rem !important;
+    font-size: clamp(2rem, 9vw, 2.7rem) !important;
+    line-height: 1.03 !important;
+  }
+
+  .live-apps-header > p {
+    max-width: 24rem !important;
+    font-size: 0.98rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .live-apps-marquee {
+    width: 100% !important;
+    overflow: hidden !important;
+    padding: 0.75rem 0 1.25rem !important;
+    touch-action: pan-y !important;
+  }
+
+  .live-apps-arrow,
+  .live-apps-fade {
+    display: none !important;
+  }
+
+  .live-apps-track {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    max-width: none !important;
+    min-width: max-content !important;
+    gap: 1rem !important;
+    overflow: visible !important;
+    padding: 0 1rem !important;
+    animation: liveAppsMobileMarquee 70s linear infinite !important;
+    will-change: transform;
+  }
+
+  .live-app-card {
+    flex: 0 0 clamp(240px, 72vw, 280px) !important;
+    width: clamp(240px, 72vw, 280px) !important;
+    min-width: clamp(240px, 72vw, 280px) !important;
+    max-width: 280px !important;
     height: auto !important;
-    padding: 1.25rem !important;
+  }
+
+  .live-app-card-shell {
+    min-height: 300px !important;
+    height: 100% !important;
+    padding: 1.1rem !important;
+    border-radius: 1.35rem !important;
     background: #ffffff !important;
-    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
-  section:has(a[href*="/apps/"]) img {
-    width: 72px !important;
-    height: 72px !important;
-    border-radius: 1.25rem !important;
+  .live-app-icon {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.14) !important;
   }
 
-  section:has(a[href*="/apps/"]) h3 {
-    font-size: 1.45rem !important;
-    line-height: 1.1 !important;
-    color: #020617 !important;
+  .live-app-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
   }
 
-  section:has(a[href*="/apps/"]) p {
-    color: #475569 !important;
+  .live-app-card .rounded-full {
+    border-radius: 9999px !important;
+  }
+
+  .live-app-title {
+    min-height: 0 !important;
+    margin-top: 1rem !important;
+    font-size: clamp(1.15rem, 5.2vw, 1.35rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .live-app-description {
+    display: -webkit-box !important;
+    margin-top: 0.75rem !important;
+    overflow: hidden !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 0.9rem !important;
+    line-height: 1.45 !important;
   }
 }
 

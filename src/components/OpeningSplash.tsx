@@ -12,12 +12,12 @@ export default function OpeningSplash() {
     const isMobile = window.innerWidth < 768;
 
     if (isMobile) {
-      setShow(false);
-      return;
+      const mobileTimer = window.setTimeout(() => setShow(false), 0);
+      return () => window.clearTimeout(mobileTimer);
     }
 
-    const timer = setTimeout(() => setShow(false), 2200);
-    return () => clearTimeout(timer);
+    const timer = window.setTimeout(() => setShow(false), 2200);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (

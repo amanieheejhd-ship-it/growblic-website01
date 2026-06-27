@@ -146,7 +146,7 @@ export default function ClasstaAdminPage() {
 
               <div className="mt-6 rounded-[2rem] border border-blue-100 bg-blue-50/70 p-6">
                 <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-700">
-                  What's New
+                  What&apos;s New
                 </p>
 
                 <p className="mt-4 text-sm font-bold leading-7 text-slate-700">

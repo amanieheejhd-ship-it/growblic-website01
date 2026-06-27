@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import BackButton from "@/components/BackButton";
 
 type Props = {
@@ -149,18 +150,18 @@ export default function ServicePageTemplate({
               </div>
 
               <div className="flex flex-wrap gap-3 lg:justify-end">
-                <a
+                <Link
                   href="/start-project"
                   className="rounded-full bg-[#fbfdff] px-7 py-4 text-sm font-black text-slate-950 shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5"
                 >
                   Contact Growblic →
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/"
                   className="rounded-full border border-white/20 px-7 py-4 text-sm font-black text-white transition-all duration-500 ease-out hover:-translate-y-1.5 hover:bg-[#fbfdff]/10"
                 >
                   Back Home
-                </a>
+                </Link>
               </div>
             </div>
           </div>

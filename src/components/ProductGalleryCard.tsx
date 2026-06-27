@@ -1,5 +1,15 @@
 import ProductCardSlider from "./ProductCardSlider";
 
+type GallerySlide =
+  | string
+  | {
+      title?: string;
+      label?: string;
+      image?: string;
+      src?: string;
+      url?: string;
+    };
+
 export default function ProductGalleryCard({
   title = "Product Preview",
   description = "A premium product interface preview built for modern teams.",
@@ -8,13 +18,13 @@ export default function ProductGalleryCard({
 }: {
   title?: string;
   description?: string;
-  slides?: any[];
+  slides?: GallerySlide[];
   tone?: string;
   className?: string;
   image?: string;
   index?: number;
   productTitle?: string;
-  shot?: any;
+  shot?: GallerySlide;
   toneClass?: string;
 }) {
   return (

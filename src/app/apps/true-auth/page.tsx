@@ -146,7 +146,7 @@ export default function TrueAuthPage() {
 
               <div className="mt-6 rounded-[2rem] border border-blue-100 bg-blue-50 p-6">
                 <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-700">
-                  What's New
+                  What&apos;s New
                 </p>
 
                 <ul className="mt-4 space-y-3 text-sm font-bold text-slate-700">

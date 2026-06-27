@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const orbitItems = [
   {
@@ -93,18 +94,18 @@ export default function Hero() {
             transition={{ duration: 0.65, delay: 0.24 }}
             className="mt-9 flex flex-wrap gap-4"
           >
-            <a
+            <Link
               href="/products"
               className="rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
             >
               Explore Products →
-            </a>
-            <a
+            </Link>
+            <Link
               href="/start-project"
               className="rounded-full border border-blue-100/70 bg-[#fbfdff] px-7 py-4 text-sm font-black text-slate-800 shadow-lg transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-xl"
             >
               Start a Project
-            </a>
+            </Link>
           </motion.div>
 
           <motion.div
