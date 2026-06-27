@@ -147,81 +147,6 @@ button {
   }
 }
 
-/* mobile-responsive-final */
-
-
-@media (max-width: 768px) {
-  html,
-  body {
-    width: 100%;
-    overflow-x: hidden;
-  }
-
-  h1 {
-    word-break: keep-all;
-  }
-
-  section {
-    overflow-x: hidden;
-  }
-}
-
-@media (max-width: 768px) {
-  * {
-    scroll-behavior: auto !important;
-  }
-
-  body {
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  [class*="backdrop-blur"] {
-    backdrop-filter: none !important;
-  }
-
-  [class*="blur-3xl"],
-  [class*="blur-2xl"] {
-    filter: blur(18px) !important;
-  }
-
-  .shadow-2xl,
-  .shadow-xl {
-    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08) !important;
-  }
-}
-
-/* single finger mobile scroll fix */
-html,
-body {
-  overflow-x: hidden;
-  overflow-y: auto;
-  touch-action: pan-y;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (pointer: coarse) {
-  html,
-  body,
-  main,
-  section {
-    overflow-y: auto !important;
-    touch-action: pan-y !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  body {
-    position: static !important;
-  }
-
-  [data-lenis-prevent],
-  [data-lenis-prevent-wheel],
-  [data-lenis-prevent-touch] {
-    overscroll-behavior: auto !important;
-  }
-}
-
-
 /* app-click-slider-buttons */
 .app-click-slider {
   scrollbar-width: none;
@@ -344,466 +269,6 @@ body {
   min-width: 330px !important;
   height: 560px !important;
   flex: 0 0 330px !important;
-}
-
-/* ---------- Mobile responsive safety fixes ---------- */
-
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-img,
-svg,
-video,
-canvas {
-  max-width: 100%;
-  height: auto;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  body {
-    overflow-x: hidden;
-  }
-
-  section {
-    overflow-x: hidden;
-  }
-
-  h1 {
-    font-size: clamp(2.6rem, 13vw, 4.5rem) !important;
-    line-height: 0.95 !important;
-    letter-spacing: -0.06em !important;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 9vw, 3.2rem) !important;
-    line-height: 1 !important;
-    letter-spacing: -0.05em !important;
-  }
-
-  h3 {
-    font-size: clamp(1.35rem, 6vw, 2rem) !important;
-    line-height: 1.1 !important;
-  }
-
-  p {
-    font-size: 1rem !important;
-    line-height: 1.75 !important;
-  }
-
-  .container,
-  .mx-auto {
-    max-width: 100% !important;
-  }
-
-  .min-h-screen {
-    min-height: auto !important;
-  }
-
-  [class*="max-w-"] {
-    max-width: 100% !important;
-  }
-
-  [class*="w-["] {
-    max-width: 100% !important;
-  }
-
-  [class*="rounded-["] {
-    border-radius: 1.5rem !important;
-  }
-
-  [class*="px-"],
-  [class*="p-"] {
-    max-width: 100%;
-  }
-
-  a,
-  button {
-    max-width: 100%;
-  }
-
-  .fixed.left-4.top-24 {
-    top: 0.85rem !important;
-    left: 0.85rem !important;
-    z-index: 9999 !important;
-    padding: 0.55rem 0.85rem !important;
-    font-size: 0.82rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: clamp(2.35rem, 15vw, 3.6rem) !important;
-  }
-
-  h2 {
-    font-size: clamp(1.85rem, 11vw, 2.8rem) !important;
-  }
-
-  p {
-    font-size: 0.96rem !important;
-  }
-
-  section {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-
-  .rounded-full {
-    max-width: 100%;
-  }
-}
-
-/* ---------- Strong phone responsive fix ---------- */
-
-@media (max-width: 768px) {
-  html,
-  body,
-  main {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-
-  body {
-    min-width: 0 !important;
-  }
-
-  section,
-  header,
-  footer,
-  nav {
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-  }
-
-  img,
-  video,
-  svg {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  [class*="w-["],
-  [class*="min-w-["],
-  [class*="max-w-"] {
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-
-  [class*="px-10"],
-  [class*="px-12"],
-  [class*="px-16"],
-  [class*="px-20"],
-  [class*="px-24"] {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-
-  [class*="py-20"],
-  [class*="py-24"],
-  [class*="py-28"],
-  [class*="py-32"] {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-  }
-
-  h1 {
-    font-size: clamp(2.1rem, 11vw, 3.8rem) !important;
-    line-height: 1 !important;
-    word-break: break-word;
-  }
-
-  h2 {
-    font-size: clamp(1.8rem, 9vw, 3rem) !important;
-    line-height: 1.05 !important;
-    word-break: break-word;
-  }
-
-  h3 {
-    font-size: clamp(1.25rem, 6vw, 2rem) !important;
-    line-height: 1.15 !important;
-  }
-
-  p {
-    font-size: 0.98rem !important;
-    line-height: 1.7 !important;
-  }
-
-  a,
-  button {
-    min-width: 0 !important;
-    max-width: 100% !important;
-  }
-
-  .fixed {
-    max-width: calc(100vw - 2rem) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  section {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  }
-}
-
-/* ---------- Fix phone touch scrolling ---------- */
-
-html,
-body {
-  height: auto !important;
-  min-height: 100% !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  touch-action: pan-y !important;
-  -webkit-overflow-scrolling: touch !important;
-  overscroll-behavior-y: auto !important;
-}
-
-body {
-  position: static !important;
-}
-
-main {
-  min-height: 100vh !important;
-  overflow: visible !important;
-  touch-action: pan-y !important;
-}
-
-@media (max-width: 768px) {
-  html,
-  body,
-  main {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    touch-action: pan-y !important;
-    -webkit-overflow-scrolling: touch !important;
-  }
-
-  section {
-    overflow: visible !important;
-    touch-action: pan-y !important;
-  }
-}
-
-/* ---------- Clean premium mobile layout patch ---------- */
-
-@media (max-width: 768px) {
-  html {
-    font-size: 15px;
-  }
-
-  body {
-    width: 100% !important;
-    overflow-x: hidden !important;
-  }
-
-  body * {
-    max-width: 100%;
-  }
-
-  section {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
-  }
-
-  nav,
-  header {
-    width: 100% !important;
-    max-width: 100vw !important;
-  }
-
-  nav {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
-  }
-
-  nav a,
-  nav button {
-    font-size: 0.85rem !important;
-    white-space: nowrap;
-  }
-
-  h1 {
-    font-size: clamp(2.15rem, 12vw, 3.7rem) !important;
-    line-height: 1.02 !important;
-    letter-spacing: -0.05em !important;
-    text-wrap: balance;
-  }
-
-  h2 {
-    font-size: clamp(1.8rem, 9.5vw, 3rem) !important;
-    line-height: 1.08 !important;
-    letter-spacing: -0.04em !important;
-    text-wrap: balance;
-  }
-
-  h3 {
-    font-size: clamp(1.25rem, 6vw, 1.9rem) !important;
-    line-height: 1.15 !important;
-  }
-
-  p {
-    font-size: 0.98rem !important;
-    line-height: 1.65 !important;
-  }
-
-  .flex {
-    min-width: 0 !important;
-  }
-
-  .flex:not(nav .flex) {
-    gap: 0.75rem;
-  }
-
-  [class*="min-h-screen"] {
-    min-height: auto !important;
-  }
-
-  [class*="h-screen"] {
-    height: auto !important;
-  }
-
-  [class*="w-screen"] {
-    width: 100% !important;
-  }
-
-  [class*="min-w-"] {
-    min-width: 0 !important;
-  }
-
-  [class*="max-w-"] {
-    max-width: 100% !important;
-  }
-
-  [class*="rounded-[2"],
-  [class*="rounded-[3"] {
-    border-radius: 1.5rem !important;
-  }
-
-  img,
-  video {
-    max-width: 100% !important;
-    height: auto !important;
-    object-fit: cover;
-  }
-
-  article,
-  li {
-    width: 100% !important;
-  }
-
-  button,
-  a {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .fixed.left-4 {
-    left: 0.75rem !important;
-  }
-
-  .fixed.top-24 {
-    top: 0.75rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  section {
-    padding-left: 0.9rem !important;
-    padding-right: 0.9rem !important;
-  }
-
-  h1 {
-    font-size: clamp(2rem, 12.5vw, 3.1rem) !important;
-  }
-
-  h2 {
-    font-size: clamp(1.65rem, 9.5vw, 2.45rem) !important;
-  }
-
-  .shadow-2xl,
-  .shadow-xl {
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08) !important;
-  }
-}
-
-/* ---------- Phone performance + clean layout fix ---------- */
-
-@media (max-width: 768px) {
-  html,
-  body {
-    width: 100% !important;
-    overflow-x: hidden !important;
-    background: #f8fbff !important;
-  }
-
-  body {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeSpeed;
-  }
-
-  /* Heavy effects phone par light */
-  [class*="blur"],
-  [class*="backdrop-blur"] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  [class*="shadow-2xl"],
-  [class*="shadow-xl"],
-  [class*="shadow-lg"] {
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
-  }
-
-  h1 {
-    font-size: clamp(2.1rem, 11vw, 3.25rem) !important;
-    line-height: 1.02 !important;
-    letter-spacing: -0.055em !important;
-  }
-
-  h2 {
-    font-size: clamp(1.8rem, 9vw, 2.7rem) !important;
-    line-height: 1.08 !important;
-    letter-spacing: -0.045em !important;
-  }
-
-  p {
-    font-size: 0.98rem !important;
-    line-height: 1.65 !important;
-  }
-
-  article,
-  [class*="rounded-"] {
-    border-radius: 1.35rem !important;
-  }
-
-  img {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* Hero bottom visual ko compact */
-  section:first-of-type {
-    min-height: auto !important;
-    padding-top: 2.5rem !important;
-  }
-
-  section:first-of-type img,
-  section:first-of-type video {
-    max-height: 360px !important;
-    object-fit: contain !important;
-  }
-
 }
 
 @keyframes liveAppsMobileMarquee {
@@ -1112,204 +577,240 @@ main {
 }
 
 @media (max-width: 768px) {
-  .hero-engine-visual {
-    position: relative !important;
-    width: 100% !important;
-    max-width: 360px !important;
-    height: 456px !important;
-    min-height: 456px !important;
-    margin: 2rem auto 0 !important;
-    overflow: visible !important;
-    touch-action: pan-y !important;
+  .home-hero-section {
+    min-height: auto;
+    overflow-x: hidden;
+    padding: 7rem 1rem 3.5rem;
   }
 
-  .hero-engine-visual,
-  .hero-engine-visual * {
-    max-width: none !important;
-    box-sizing: border-box;
+  .home-hero-layout {
+    gap: 0;
+    max-width: 100%;
   }
 
-  .hero-engine-glow,
-  .hero-engine-orbit,
-  .hero-engine-spin {
-    left: 50% !important;
-    top: 50% !important;
-    translate: -50% -50% !important;
-    border-radius: 9999px !important;
+  .hero-engine-mobile {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 450px;
+    margin: 2rem auto 0;
+    overflow: hidden;
+    isolation: isolate;
+    touch-action: pan-y;
   }
 
-  .hero-engine-glow {
-    width: 348px !important;
-    height: 348px !important;
-    filter: blur(18px) !important;
+  .hero-mobile-glow,
+  .hero-mobile-orbit,
+  .hero-mobile-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .hero-engine-orbit-outer {
-    width: 338px !important;
-    height: 338px !important;
+  .hero-mobile-glow {
+    z-index: 0;
+    width: 330px;
+    height: 330px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, rgba(191, 219, 254, 0.65), rgba(165, 243, 252, 0.48), rgba(221, 214, 254, 0.52));
+    filter: blur(22px);
   }
 
-  .hero-engine-orbit-mid {
-    width: 278px !important;
-    height: 278px !important;
+  .hero-mobile-orbit {
+    z-index: 1;
+    border: 1px solid rgba(191, 219, 254, 0.9);
+    border-radius: 9999px;
+    background: rgba(251, 253, 255, 0.45);
   }
 
-  .hero-engine-orbit-inner {
-    width: 204px !important;
-    height: 204px !important;
+  .hero-mobile-orbit-outer {
+    width: 328px;
+    height: 328px;
+    box-shadow: 0 24px 54px rgba(37, 99, 235, 0.12);
   }
 
-  .hero-engine-spin-outer {
-    width: 310px !important;
-    height: 310px !important;
+  .hero-mobile-orbit-mid {
+    width: 264px;
+    height: 264px;
   }
 
-  .hero-engine-spin-inner {
-    width: 226px !important;
-    height: 226px !important;
+  .hero-mobile-orbit-inner {
+    width: 190px;
+    height: 190px;
   }
 
-  .hero-engine-card {
-    left: 50% !important;
-    top: 50% !important;
-    translate: -50% -50% !important;
-    width: 224px !important;
-    min-width: 224px !important;
-    max-width: 224px !important;
-    height: 282px !important;
-    padding: 0.85rem !important;
-    overflow: hidden !important;
-    border-radius: 1.75rem !important;
+  .hero-mobile-card {
+    z-index: 4;
+    width: 220px;
+    height: 260px;
+    padding: 0.8rem;
+    border: 1px solid rgba(191, 219, 254, 0.88);
+    border-radius: 28px;
+    background: rgba(251, 253, 255, 0.95);
+    box-shadow: 0 20px 44px rgba(15, 23, 42, 0.14);
   }
 
-  .hero-engine-card-inner {
-    height: 100% !important;
-    padding: 1rem !important;
-    border-radius: 1.45rem !important;
+  .hero-mobile-card-inner {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(191, 219, 254, 0.76);
+    border-radius: 22px;
+    background: linear-gradient(135deg, #ffffff, rgba(239, 246, 255, 0.92), rgba(245, 243, 255, 0.86));
+    padding: 1rem;
+    text-align: center;
   }
 
-  .hero-engine-logo {
-    width: 58px !important;
-    height: 58px !important;
-    padding: 0.35rem !important;
+  .hero-mobile-logo {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(191, 219, 254, 0.9);
+    border-radius: 9999px;
+    background: #ffffff;
+    padding: 0.35rem;
+    box-shadow: 0 14px 26px rgba(15, 23, 42, 0.1);
   }
 
-  .hero-engine-logo img {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    max-height: none !important;
-    object-fit: cover !important;
+  .hero-mobile-logo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    object-fit: cover;
   }
 
-  .hero-engine-eyebrow {
-    margin-top: 1.35rem !important;
-    font-size: 0.62rem !important;
-    line-height: 1.2 !important;
-    letter-spacing: 0.18em !important;
+  .hero-mobile-eyebrow {
+    margin-top: 1.25rem;
+    color: #1d4ed8;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    line-height: 1.2;
+    text-transform: uppercase;
   }
 
-  .hero-engine-title {
-    margin-top: 0.6rem !important;
-    font-size: 2.05rem !important;
-    line-height: 0.94 !important;
-    letter-spacing: 0 !important;
+  .hero-mobile-title {
+    margin-top: 0.55rem;
+    color: #020617;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 0.94;
   }
 
-  .hero-engine-card .h-2 {
-    width: 6.5rem !important;
+  .hero-mobile-progress {
+    width: 6.5rem;
+    height: 0.45rem;
+    margin: 1.25rem auto 0;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: #e2e8f0;
   }
 
-  .hero-engine-chip {
-    width: 160px !important;
-    min-width: 160px !important;
-    max-width: 160px !important;
-    height: 78px !important;
-    padding: 0.8rem !important;
-    overflow: hidden !important;
-    border-radius: 1.45rem !important;
-    translate: none !important;
-    touch-action: pan-y !important;
+  .hero-mobile-progress span {
+    display: block;
+    width: 50%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2563eb, #22d3ee, #8b5cf6);
+    animation: heroMobileProgress 2.6s ease-in-out infinite;
+  }
+
+  .hero-mobile-chip {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    width: 160px;
+    height: 80px;
+    align-items: center;
+    gap: 0.65rem;
+    overflow: hidden;
+    border: 1px solid rgba(191, 219, 254, 0.86);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 0.8rem;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
   }
 
   .hero-engine-chip-websites {
-    top: 0 !important;
-    left: 50% !important;
-    right: auto !important;
-    bottom: auto !important;
-    translate: -50% 0 !important;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
   }
 
   .hero-engine-chip-ai {
-    top: 42% !important;
-    left: 0 !important;
-    right: auto !important;
-    bottom: auto !important;
+    left: 0;
+    top: 42%;
   }
 
   .hero-engine-chip-mobile {
-    top: 42% !important;
-    right: 0 !important;
-    left: auto !important;
-    bottom: auto !important;
+    right: 0;
+    top: 42%;
   }
 
   .hero-engine-chip-saas {
-    bottom: 0 !important;
-    left: 50% !important;
-    right: auto !important;
-    top: auto !important;
-    translate: -50% 0 !important;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .hero-engine-chip h4 {
-    font-size: 0.95rem !important;
-    line-height: 1.05 !important;
-    letter-spacing: 0 !important;
+  .hero-mobile-dot {
+    flex: 0 0 0.6rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 9999px;
+    box-shadow: 0 0 16px rgba(37, 99, 235, 0.45);
+  }
+
+  .hero-mobile-chip h4 {
+    color: #020617;
+    font-size: 0.95rem;
+    font-weight: 900;
+    line-height: 1.05;
     white-space: nowrap;
   }
 
-  .hero-engine-chip p {
-    margin-top: 0.35rem !important;
-    font-size: 0.78rem !important;
-    line-height: 1.25 !important;
+  .hero-mobile-chip p {
+    margin-top: 0.35rem;
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
     white-space: nowrap;
-  }
-
-  .hero-engine-chip span {
-    width: 0.55rem !important;
-    height: 0.55rem !important;
-    min-width: 0.55rem !important;
-  }
-
-  .hero-engine-ground {
-    width: 190px !important;
-    max-width: 190px !important;
-    height: 0.55rem !important;
-    bottom: 8% !important;
-    left: 50% !important;
-    translate: -50% 0 !important;
   }
 }
 
 @media (max-width: 380px) {
-  .hero-engine-visual {
-    max-width: 336px !important;
-    height: 438px !important;
-    min-height: 438px !important;
+  .hero-engine-mobile {
+    max-width: 336px;
+    height: 430px;
   }
 
-  .hero-engine-card {
-    width: 212px !important;
-    min-width: 212px !important;
-    max-width: 212px !important;
-    height: 270px !important;
+  .hero-mobile-card {
+    width: 212px;
+    height: 252px;
   }
 
-  .hero-engine-chip {
-    width: 150px !important;
-    min-width: 150px !important;
-    max-width: 150px !important;
-    height: 76px !important;
+  .hero-mobile-chip {
+    width: 150px;
+    height: 76px;
+  }
+}
+
+@keyframes heroMobileProgress {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(50%);
+  }
+
+  100% {
+    transform: translateX(200%);
   }
 }

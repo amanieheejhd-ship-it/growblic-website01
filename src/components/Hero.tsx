@@ -42,7 +42,7 @@ const stats: [string, string][] = [];
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#fbfcff] px-6 pb-20 pt-32">
+    <section className="home-hero-section relative min-h-screen overflow-hidden bg-[#fbfcff] px-6 pb-20 pt-32">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_8%,rgba(37,99,235,0.15),transparent_32%),radial-gradient(circle_at_82%_28%,rgba(6,182,212,0.13),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(168,85,247,0.11),transparent_30%),radial-gradient(circle_at_8%_80%,rgba(16,185,129,0.08),transparent_26%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:88px_88px] opacity-35" />
 
@@ -57,7 +57,7 @@ export default function Hero() {
         className="absolute right-[8%] bottom-[18%] h-52 w-52 rounded-full bg-cyan-200/35 blur-3xl"
       />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
+      <div className="home-hero-layout relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -135,10 +135,53 @@ export default function Hero() {
         </div>
 
         <motion.div
+          initial={{ opacity: 0, scale: 0.96, y: 24 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.18 }}
+          className="hero-engine-mobile md:hidden"
+        >
+          <div className="hero-mobile-glow" />
+          <div className="hero-mobile-orbit hero-mobile-orbit-outer" />
+          <div className="hero-mobile-orbit hero-mobile-orbit-mid" />
+          <div className="hero-mobile-orbit hero-mobile-orbit-inner" />
+
+          <div className="hero-mobile-card">
+            <div className="hero-mobile-card-inner">
+              <div className="hero-mobile-logo">
+                <img
+                  src="/growblic-website01/images/brand/growblic-logo.png"
+                  alt="Growblic"
+                />
+              </div>
+
+              <p className="hero-mobile-eyebrow">Growblic Engine</p>
+              <h3 className="hero-mobile-title">Design Build Launch</h3>
+
+              <div className="hero-mobile-progress">
+                <span />
+              </div>
+            </div>
+          </div>
+
+          {orbitItems.map((item) => (
+            <div
+              key={`mobile-${item.title}`}
+              className={`hero-mobile-chip ${item.mobilePosition}`}
+            >
+              <span className={`hero-mobile-dot bg-gradient-to-r ${item.glow}`} />
+              <div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.18 }}
-          className="hero-engine-visual relative min-h-[650px]"
+          className="hero-engine-visual relative hidden min-h-[650px] md:block"
         >
           <div className="hero-engine-glow absolute left-1/2 top-1/2 h-[610px] w-[610px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/30 via-cyan-200/25 to-violet-200/30 blur-2xl" />
           <div className="hero-engine-orbit hero-engine-orbit-outer absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-[#fbfdff]/55 shadow-2xl shadow-blue-100/80 backdrop-blur-xl" />
