@@ -1281,3 +1281,56 @@ main {
     font-size: clamp(1.7rem, 9vw, 2.35rem) !important;
   }
 }
+
+/* ---------- Mobile live apps infinite marquee ---------- */
+
+.mobile-app-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 0.35rem 0 1rem;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.mobile-app-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  animation: growblicAppsMove 34s linear infinite;
+  will-change: transform;
+}
+
+.mobile-app-track-reverse {
+  animation-direction: reverse;
+  animation-duration: 42s;
+}
+
+.mobile-app-marquee:hover .mobile-app-track {
+  animation-play-state: paused;
+}
+
+@keyframes growblicAppsMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-app-marquee a {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .mobile-app-marquee a,
+  .mobile-app-marquee a * {
+    color: inherit;
+  }
+
+  .mobile-app-marquee img {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
