@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function BackButton() {
@@ -7,10 +8,13 @@ export default function BackButton() {
 
   return (
     <button
+      type="button"
       onClick={() => router.back()}
-      className="absolute left-4 md:left-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200/80 bg-white/95 !text-slate-900 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white"
+      aria-label="Go back"
+      className="fixed left-4 top-24 z-50 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-semibold text-slate-700 shadow-lg shadow-slate-200/70 backdrop-blur transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700 hover:shadow-xl"
     >
-      ← Back
+      <ArrowLeft className="h-4 w-4" />
+      <span>Back</span>
     </button>
   );
 }
