@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const steps = [
   {
@@ -9,30 +10,35 @@ const steps = [
     title: "Understand",
     text: "Business goals, users, workflows, and product direction.",
     image: "/growblic-website01/images/process/research-unique.jpg",
+    href: "/process/understand",
   },
   {
     number: "02",
     title: "Design",
     text: "Premium UI, clean screens, dashboards, and mobile flows.",
     image: "/growblic-website01/images/process/uiux-unique.jpg",
+    href: "/process/design",
   },
   {
     number: "03",
     title: "Build",
     text: "Frontend systems, APIs, SaaS modules, and automation.",
     image: "/growblic-website01/images/process/code-unique.jpg",
+    href: "/process/build",
   },
   {
     number: "04",
     title: "Launch",
     text: "Testing, polish, deployment, and real-user readiness.",
     image: "/growblic-website01/images/process/deploy-unique.jpg",
+    href: "/process/launch",
   },
   {
     number: "05",
     title: "Improve",
     text: "Analytics, upgrades, support, optimization, and growth.",
     image: "/growblic-website01/images/process/growth-unique.jpg",
+    href: "/process/improve",
   },
 ];
 
@@ -68,44 +74,50 @@ export default function Process() {
 
           <div className="relative grid grid-cols-5 gap-3">
             {steps.map((step, index) => (
-              <motion.article
+              <Link
                 key={step.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group relative h-[360px] overflow-hidden rounded-[2rem] border border-blue-100/70 bg-slate-100 shadow-xl shadow-blue-100/50 transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
+                href={step.href}
+                aria-label={`Open ${step.title} process guide`}
+                className="block cursor-pointer rounded-[2rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
               >
-                <Image
-                  src={step.image}
-                  alt={step.title}
-                  fill
-                  sizes="240px"
-                  className="will-change-transform object-cover transition-transform duration-700 group-hover:scale-105"
-                  priority={index === 0}
-                  unoptimized
-                />
+                <motion.article
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="group relative h-[360px] overflow-hidden rounded-[2rem] border border-blue-100/70 bg-slate-100 shadow-xl shadow-blue-100/50 transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
+                >
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    sizes="240px"
+                    className="will-change-transform object-cover transition-transform duration-700 group-hover:scale-105"
+                    priority={index === 0}
+                    unoptimized
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/86 via-slate-950/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/86 via-slate-950/25 to-transparent" />
 
-                <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-2xl border border-white/20 bg-[#fbfdff]/18 text-xs font-black text-white shadow-xl backdrop-blur-xl">
-                  {step.number}
-                </div>
-
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="rounded-[1.35rem] border border-white/20 bg-[#fbfdff]/16 p-3.5 text-white shadow-2xl backdrop-blur-xl">
-                    <h3 className="text-2xl font-black tracking-tight">
-                      {step.title}
-                    </h3>
-
-                    <p className="mt-2 text-xs font-semibold leading-5 text-white/78">
-                      {step.text}
-                    </p>
-
-                    <div className="mt-4 h-1.5 w-12 rounded-full bg-[#fbfdff]/35 transition-all duration-500 ease-out group-hover:w-20 group-hover:bg-[#fbfdff]" />
+                  <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-2xl border border-white/20 bg-[#fbfdff]/18 text-xs font-black text-white shadow-xl backdrop-blur-xl">
+                    {step.number}
                   </div>
-                </div>
-              </motion.article>
+
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="rounded-[1.35rem] border border-white/20 bg-[#fbfdff]/16 p-3.5 text-white shadow-2xl backdrop-blur-xl">
+                      <h3 className="text-2xl font-black tracking-tight">
+                        {step.title}
+                      </h3>
+
+                      <p className="mt-2 text-xs font-semibold leading-5 text-white/78">
+                        {step.text}
+                      </p>
+
+                      <div className="mt-4 h-1.5 w-12 rounded-full bg-[#fbfdff]/35 transition-all duration-500 ease-out group-hover:w-20 group-hover:bg-[#fbfdff]" />
+                    </div>
+                  </div>
+                </motion.article>
+              </Link>
             ))}
           </div>
         </div>
@@ -113,39 +125,45 @@ export default function Process() {
         <div className="process-mobile-marquee md:hidden">
           <div className="process-mobile-track">
             {mobileStepsLoop.map((step, index) => (
-              <motion.article
+              <Link
                 key={`process-mobile-${step.title}-${index}`}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.35, delay: (index % steps.length) * 0.04 }}
-                className="process-mobile-card"
+                href={step.href}
+                aria-label={`Open ${step.title} process guide`}
+                className="process-mobile-card block cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
               >
-                <div className="process-mobile-image">
-                  <Image
-                    src={step.image}
-                    alt={step.title}
-                    fill
-                    sizes="260px"
-                    className="object-cover"
-                    priority={index === 0 || index === steps.length}
-                    unoptimized
-                  />
-                  <div className="process-mobile-badge">
-                    {step.number}
+                <motion.article
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.35, delay: (index % steps.length) * 0.04 }}
+                  className="h-full"
+                >
+                  <div className="process-mobile-image">
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      fill
+                      sizes="260px"
+                      className="object-cover"
+                      priority={index === 0 || index === steps.length}
+                      unoptimized
+                    />
+                    <div className="process-mobile-badge">
+                      {step.number}
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <h3 className="process-mobile-title">
-                    {step.title}
-                  </h3>
+                  <div className="p-4">
+                    <h3 className="process-mobile-title">
+                      {step.title}
+                    </h3>
 
-                  <p className="process-mobile-description">
-                    {step.text}
-                  </p>
-                </div>
-              </motion.article>
+                    <p className="process-mobile-description">
+                      {step.text}
+                    </p>
+                  </div>
+                </motion.article>
+              </Link>
             ))}
           </div>
         </div>
