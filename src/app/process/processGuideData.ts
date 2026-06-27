@@ -1,11 +1,43 @@
+export type ProcessVisualType =
+  | "understand"
+  | "design"
+  | "build"
+  | "launch"
+  | "improve";
+
+export type ProcessGuideSection = {
+  heading: string;
+  body: string;
+  points: string[];
+};
+
+export type ProcessGuide = {
+  stepNumber: string;
+  breadcrumb: string;
+  title: string;
+  subtitle: string;
+  tags: string[];
+  accent: string;
+  visualType: ProcessVisualType;
+  bestFor: string[];
+  sections: ProcessGuideSection[];
+};
+
 export const processGuides = {
   understand: {
+    stepNumber: "01",
     breadcrumb: "Understand",
     title: "Understand the business before building the product",
     subtitle:
       "Every strong product starts with clear goals, user needs, workflows, and the right product direction.",
     tags: ["Planning", "User Flow", "Product Strategy"],
     accent: "from-blue-600 via-cyan-500 to-sky-400",
+    visualType: "understand",
+    bestFor: [
+      "New product ideas that need clear direction.",
+      "Founders planning an MVP or internal tool.",
+      "Teams replacing manual workflows with software.",
+    ],
     sections: [
       {
         heading: "Why this step matters",
@@ -17,7 +49,7 @@ export const processGuides = {
         ],
       },
       {
-        heading: "What Growblic maps first",
+        heading: "What Growblic does",
         body: "Growblic studies the idea as a working business system, not only as a list of pages or screens.",
         points: [
           "Core features, user flows, and operational workflows.",
@@ -37,15 +69,22 @@ export const processGuides = {
     ],
   },
   design: {
+    stepNumber: "02",
     breadcrumb: "Design",
     title: "Design clean screens and product flows",
     subtitle:
       "We shape the product experience with premium UI, clear journeys, and screens that users can understand quickly.",
     tags: ["UI Design", "UX Flow", "Wireframes"],
     accent: "from-violet-600 via-blue-500 to-cyan-400",
+    visualType: "design",
+    bestFor: [
+      "Products that need clearer user journeys.",
+      "Websites, apps, dashboards, and SaaS screens.",
+      "Teams that want design clarity before development.",
+    ],
     sections: [
       {
-        heading: "Turning ideas into screens",
+        heading: "Why this step matters",
         body: "Design turns the strategy into visible product screens, flows, and interface decisions that feel clear and premium.",
         points: [
           "Wireframes for key pages, dashboards, and user journeys.",
@@ -54,7 +93,7 @@ export const processGuides = {
         ],
       },
       {
-        heading: "What good design solves",
+        heading: "What Growblic does",
         body: "Good design reduces confusion, makes actions easier, and helps users trust the product faster.",
         points: [
           "Clear navigation, readable screens, and focused layouts.",
@@ -74,15 +113,22 @@ export const processGuides = {
     ],
   },
   build: {
+    stepNumber: "03",
     breadcrumb: "Build",
     title: "Build reliable websites, apps, dashboards, and SaaS systems",
     subtitle:
       "Growblic turns approved designs into working software with clean frontend, backend, APIs, and automation.",
     tags: ["Development", "APIs", "SaaS"],
     accent: "from-slate-950 via-blue-700 to-cyan-500",
+    visualType: "build",
+    bestFor: [
+      "Custom websites, dashboards, apps, and SaaS systems.",
+      "Products that need APIs, databases, or admin panels.",
+      "Businesses moving from design into real software.",
+    ],
     sections: [
       {
-        heading: "From design to working product",
+        heading: "Why this step matters",
         body: "The build phase converts planned screens and workflows into usable software that can support real business operations.",
         points: [
           "Frontend interfaces for websites, apps, and dashboards.",
@@ -91,7 +137,7 @@ export const processGuides = {
         ],
       },
       {
-        heading: "Engineering focus",
+        heading: "What Growblic does",
         body: "Growblic keeps development structured so the product remains maintainable as features and users grow.",
         points: [
           "Clean components, reusable modules, and practical architecture.",
@@ -111,15 +157,22 @@ export const processGuides = {
     ],
   },
   launch: {
+    stepNumber: "04",
     breadcrumb: "Launch",
     title: "Launch with testing, polish, and deployment support",
     subtitle:
       "Before release, we test the product, improve performance, fix issues, and prepare it for real users.",
     tags: ["Testing", "Deployment", "Release"],
     accent: "from-emerald-500 via-cyan-500 to-blue-600",
+    visualType: "launch",
+    bestFor: [
+      "Products preparing for customers or internal teams.",
+      "Web apps, mobile apps, and SaaS launches.",
+      "Teams that need final QA and deployment support.",
+    ],
     sections: [
       {
-        heading: "Preparing for launch",
+        heading: "Why this step matters",
         body: "Launch preparation makes sure the product is stable, responsive, and ready for customers or internal teams.",
         points: [
           "Final polish, responsive testing, and bug fixes.",
@@ -128,7 +181,7 @@ export const processGuides = {
         ],
       },
       {
-        heading: "What we test",
+        heading: "What Growblic does",
         body: "Growblic reviews important user paths, device behavior, and performance before release.",
         points: [
           "Mobile, tablet, and desktop responsiveness.",
@@ -148,15 +201,22 @@ export const processGuides = {
     ],
   },
   improve: {
+    stepNumber: "05",
     breadcrumb: "Improve",
     title: "Improve the product after launch",
     subtitle:
       "After launch, Growblic helps improve features, track feedback, optimize performance, and support business growth.",
     tags: ["Support", "Analytics", "Growth"],
     accent: "from-cyan-500 via-blue-600 to-violet-600",
+    visualType: "improve",
+    bestFor: [
+      "Products that need updates after launch.",
+      "Teams improving conversion, workflows, or support.",
+      "Businesses planning new modules and growth features.",
+    ],
     sections: [
       {
-        heading: "Growth does not stop at launch",
+        heading: "Why this step matters",
         body: "Real products improve as users respond, business needs change, and new opportunities appear.",
         points: [
           "Plan new features based on feedback and priority.",
@@ -165,7 +225,7 @@ export const processGuides = {
         ],
       },
       {
-        heading: "What can be improved",
+        heading: "What Growblic does",
         body: "Growblic can help refine the product experience, add business tools, and keep the system moving forward.",
         points: [
           "Analytics, upgrades, reports, and admin improvements.",
@@ -184,6 +244,4 @@ export const processGuides = {
       },
     ],
   },
-};
-
-export type ProcessGuide = (typeof processGuides)[keyof typeof processGuides];
+} satisfies Record<string, ProcessGuide>;
