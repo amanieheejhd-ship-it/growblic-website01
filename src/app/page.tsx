@@ -5,7 +5,9 @@ import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import FloatingContactButton from "../components/FloatingContactButton";
 import Hero from "../components/Hero";
+import Insights from "../components/Insights";
 import IntroAnimation from "../components/IntroAnimation";
+import Journey from "../components/Journey";
 import Navbar from "../components/Navbar";
 import Process from "../components/Process";
 import Services from "../components/Services";
@@ -31,6 +33,8 @@ export default function Home() {
         <FeaturedProducts />
         <CaseStudies />
         <Process />
+        <Insights />
+        <Journey />
         <Testimonials />
         <FAQ />
         <ContactSection />
