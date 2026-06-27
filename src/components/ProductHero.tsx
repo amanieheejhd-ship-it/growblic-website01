@@ -6,6 +6,11 @@ import ProductCardSlider from "./ProductCardSlider";
 
 export default function ProductHero({ product }: { product: Product }) {
   const Icon = product.icon;
+  const slides = (product.imageSlides ?? []).map((image) => ({
+    image,
+    title: product.title,
+  }));
+
 
   return (
     <section className="relative overflow-hidden bg-[#fbfdff] px-6 pb-20 pt-36">
@@ -38,7 +43,7 @@ export default function ProductHero({ product }: { product: Product }) {
           </div>
         </div>
         <div className="soft-gradient-border rounded-[2.25rem] bg-[#fbfdff] p-5 shadow-2xl shadow-slate-900/10">
-          <ProductCardSlider screenshots={product.screenshots} imageSlides={product.imageSlides}  slides={getProductSlides(product.name || product.title)} />
+          <ProductCardSlider slides={slides} />
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {product.modules.slice(0, 3).map((module) => (
               <div key={module} className="rounded-2xl bg-[#f5f7fb] p-4 text-sm font-semibold text-slate-700">

@@ -1,6 +1,7 @@
 import CompanyApps from "../components/CompanyApps";
 import BusinessSections from "../components/BusinessSections";
 import CTA from "../components/CTA";
+import FeaturedProducts from "../components/FeaturedProducts";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import IntroAnimation from "../components/IntroAnimation";
@@ -11,7 +12,6 @@ import SmoothScroll from "../components/SmoothScroll";
 import Stats from "../components/Stats";
 import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
-import FeaturedProducts from "../components/FeaturedProducts";
 
 export default function Home() {
   return (
@@ -24,11 +24,11 @@ export default function Home() {
         <Stats />
         <BusinessSections />
         <Services compact />
-        <FeaturedProducts />
+        <FeaturedProducts limit={9} />
         <Process />
         <Testimonials />
-      <FAQ />
-<CTA />
+        <FAQ />
+      <CTA />
       </main>
       <CompanyApps />
       <Footer />

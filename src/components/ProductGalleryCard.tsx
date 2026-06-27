@@ -11,6 +11,11 @@ export default function ProductGalleryCard({
   slides?: any[];
   tone?: string;
   className?: string;
+  image?: string;
+  index?: number;
+  productTitle?: string;
+  shot?: any;
+  toneClass?: string;
 }) {
   return (
     <article

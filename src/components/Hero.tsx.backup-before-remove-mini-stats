@@ -33,7 +33,11 @@ const orbitItems = [
   },
 ];
 
-const stats: [string, string][] = [];
+const stats = [
+  ["35+", "Live builds"],
+  ["4+", "Core services"],
+  ["24/7", "Support"],
+];
 
 export default function Hero() {
   return (

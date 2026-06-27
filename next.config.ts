@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
+const repoName = "growblic-website01";
+
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["192.168.1.35"],
+  output: "export",
+  basePath: `/${repoName}`,
+  assetPrefix: `/${repoName}/`,
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;

@@ -541,3 +541,65 @@ body {
     font-size: 3rem;
   }
 }
+
+
+/* one-live-apps-section-style */
+.app-hover-slider {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: auto;
+}
+
+.app-hover-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.app-hover-card {
+  width: 330px !important;
+  min-width: 330px !important;
+  height: 560px !important;
+  flex: 0 0 330px !important;
+}
+
+.app-side-hover-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 50;
+  display: grid;
+  height: 92px;
+  width: 92px;
+  transform: translateY(-50%);
+  place-items: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(15, 23, 42, 0.92);
+  color: white;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 30px 80px rgba(59, 130, 246, 0.35);
+  backdrop-filter: blur(18px);
+  transition: transform 300ms ease, background 300ms ease, opacity 300ms ease;
+  opacity: 0.85;
+}
+
+.app-side-hover-btn:hover {
+  transform: translateY(-50%) scale(1.12);
+  background: rgba(29, 78, 216, 0.95);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .app-hover-card {
+    width: 285px !important;
+    min-width: 285px !important;
+    height: 540px !important;
+    flex: 0 0 285px !important;
+  }
+
+  .app-side-hover-btn {
+    height: 66px;
+    width: 66px;
+    font-size: 3rem;
+  }
+}

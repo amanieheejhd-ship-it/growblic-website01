@@ -24,11 +24,12 @@ export default function Home() {
         <Stats />
         <BusinessSections />
         <Services compact />
-        <FeaturedProducts />
+        <FeaturedProducts limit={9} />
         <Process />
         <Testimonials />
-      <FAQ />
-<CTA />
+<FAQ />
+      <FeaturedProducts />
+      <CTA />
       </main>
       <CompanyApps />
       <Footer />

@@ -19,6 +19,11 @@ export default function ProductCard({
   onHover?: (slug: string | null) => void;
 }) {
   const Icon = product.icon;
+  const slides = (product.imageSlides ?? []).map((image) => ({
+    image,
+    title: product.title,
+  }));
+
 
   return (
     <motion.article
@@ -36,7 +41,7 @@ export default function ProductCard({
         className="soft-gradient-border group relative flex h-full min-h-[510px] flex-col overflow-hidden rounded-[2rem] bg-[#fbfdff] p-4 shadow-xl shadow-slate-900/7 transition hover:shadow-2xl hover:shadow-blue-900/12"
       >
         <span className="pointer-events-none absolute -left-1/2 top-0 z-10 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-0 transition duration-700 group-hover:left-full group-hover:opacity-100" />
-        <ProductCardSlider screenshots={product.screenshots} imageSlides={product.imageSlides} paused={active}  slides={getProductSlides(product.name || product.title)} />
+        <ProductCardSlider slides={slides} />
         <div className="flex flex-1 flex-col p-2 pt-5">
           <div className="flex items-center justify-between gap-3">
             <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
