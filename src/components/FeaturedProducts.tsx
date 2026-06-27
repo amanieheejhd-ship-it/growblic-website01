@@ -119,13 +119,13 @@ export default function FeaturedProducts() {
 
           <div
             ref={sliderRef}
-            className="live-apps-track app-hover-slider flex gap-6 overflow-x-auto pb-6"
+            className="live-apps-track flex gap-6 overflow-x-auto pb-6"
           >
             {appsLoop.map((app, index) => (
               <Link
                 href={`/apps/${app.slug}`}
                 key={`${app.slug}-${index}`}
-                className="live-app-card app-hover-card group"
+                className="live-app-card group"
               >
                 <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-3 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
                   <div className="relative flex items-start justify-between gap-5">
