@@ -59,12 +59,12 @@ export default function Process() {
           </p>
         </div>
 
-        <div className="how-build-frame relative overflow-hidden rounded-[2.7rem] border border-blue-100/70 bg-[#fbfdff]/90 p-3 shadow-2xl shadow-slate-200/75 backdrop-blur-xl">
+        <div className="how-build-frame relative hidden overflow-hidden rounded-[2.7rem] border border-blue-100/70 bg-[#fbfdff]/90 p-3 shadow-2xl shadow-slate-200/75 backdrop-blur-xl md:block">
           <div className="absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
           <div className="absolute -left-24 top-8 h-64 w-64 rounded-full bg-blue-100/70 blur-3xl" />
           <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-cyan-100/70 blur-3xl" />
 
-          <div className="how-build-scroll relative grid grid-cols-5 gap-3">
+          <div className="relative grid grid-cols-5 gap-3">
             {steps.map((step, index) => (
               <motion.article
                 key={step.title}
@@ -72,7 +72,7 @@ export default function Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="how-build-card group relative h-[360px] overflow-hidden rounded-[2rem] border border-blue-100/70 bg-slate-100 shadow-xl shadow-blue-100/50 transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
+                className="group relative h-[360px] overflow-hidden rounded-[2rem] border border-blue-100/70 bg-slate-100 shadow-xl shadow-blue-100/50 transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
               >
                 <Image
                   src={step.image}
@@ -86,22 +86,62 @@ export default function Process() {
 
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/86 via-slate-950/25 to-transparent" />
 
-                <div className="how-build-number absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-2xl border border-white/20 bg-[#fbfdff]/18 text-xs font-black text-white shadow-xl backdrop-blur-xl">
+                <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-2xl border border-white/20 bg-[#fbfdff]/18 text-xs font-black text-white shadow-xl backdrop-blur-xl">
                   {step.number}
                 </div>
 
-                <div className="how-build-content absolute bottom-4 left-4 right-4">
-                  <div className="how-build-copy rounded-[1.35rem] border border-white/20 bg-[#fbfdff]/16 p-3.5 text-white shadow-2xl backdrop-blur-xl">
-                    <h3 className="how-build-title text-2xl font-black tracking-tight">
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="rounded-[1.35rem] border border-white/20 bg-[#fbfdff]/16 p-3.5 text-white shadow-2xl backdrop-blur-xl">
+                    <h3 className="text-2xl font-black tracking-tight">
                       {step.title}
                     </h3>
 
-                    <p className="how-build-text mt-2 text-xs font-semibold leading-5 text-white/78">
+                    <p className="mt-2 text-xs font-semibold leading-5 text-white/78">
                       {step.text}
                     </p>
 
                     <div className="mt-4 h-1.5 w-12 rounded-full bg-[#fbfdff]/35 transition-all duration-500 ease-out group-hover:w-20 group-hover:bg-[#fbfdff]" />
                   </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+
+        <div className="md:hidden">
+          <div className="how-build-mobile-scroll flex gap-4 overflow-x-auto px-1 pb-5 pt-1 snap-x snap-mandatory">
+            {steps.map((step, index) => (
+              <motion.article
+                key={`mobile-${step.title}`}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.35, delay: index * 0.04 }}
+                className="how-build-mobile-card snap-start overflow-hidden rounded-[28px] border border-blue-100/80 bg-white shadow-xl shadow-blue-100/45"
+              >
+                <div className="relative h-[120px] w-full overflow-hidden rounded-t-[28px] bg-slate-100">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    sizes="280px"
+                    className="object-cover"
+                    priority={index === 0}
+                    unoptimized
+                  />
+                  <div className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-2xl border border-white/75 bg-white/90 text-sm font-black text-blue-700 shadow-lg backdrop-blur">
+                    {step.number}
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <h3 className="text-[22px] font-black leading-tight tracking-tight text-slate-950">
+                    {step.title}
+                  </h3>
+
+                  <p className="mt-3 text-[15px] font-semibold leading-6 text-slate-600">
+                    {step.text}
+                  </p>
                 </div>
               </motion.article>
             ))}
