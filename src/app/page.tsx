@@ -1,6 +1,9 @@
 import BusinessSections from "../components/BusinessSections";
+import CaseStudies from "../components/CaseStudies";
+import ContactSection from "../components/ContactSection";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
+import FloatingContactButton from "../components/FloatingContactButton";
 import Hero from "../components/Hero";
 import IntroAnimation from "../components/IntroAnimation";
 import Navbar from "../components/Navbar";
@@ -26,12 +29,15 @@ export default function Home() {
         <Services compact />
         <TrustSection />
         <FeaturedProducts />
+        <CaseStudies />
         <Process />
         <Testimonials />
         <FAQ />
+        <ContactSection />
         <CTA />
       </main>
       <Footer />
+      <FloatingContactButton />
     </>
   );
 }

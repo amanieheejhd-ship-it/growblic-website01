@@ -13,8 +13,8 @@ const services = [
 
 const quickLinks = [
   { label: "About", href: "/about" },
-  { label: "Live Apps", href: "/#products" },
-  { label: "Start Project", href: "/start-project" },
+  { label: "Live Apps", href: "/#apps" },
+  { label: "Start Project", href: "/#contact" },
   { label: "Support", href: "/support" },
   { label: "Client Login", href: "/client-login" },
 ];

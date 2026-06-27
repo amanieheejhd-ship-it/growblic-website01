@@ -39,14 +39,14 @@ export default function CTA() {
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/start-project"
+            href="#contact"
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#050505] px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-slate-800"
           >
             Get Free Consultation
             <ArrowRight size={17} />
           </Link>
           <Link
-            href="#products"
+            href="#apps"
             className="inline-flex min-h-12 items-center justify-center rounded-full border border-blue-100/70 bg-[#fbfdff] px-7 py-3.5 text-sm font-semibold text-[#050505] shadow-lg shadow-slate-900/5 transition hover:-translate-y-0.5 hover:bg-blue-50"
           >
             View Live Apps

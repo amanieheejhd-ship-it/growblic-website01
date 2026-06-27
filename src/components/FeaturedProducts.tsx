@@ -61,6 +61,7 @@ export default function FeaturedProducts() {
       id="products"
       className="live-apps-section relative overflow-hidden px-6 py-24"
     >
+      <span id="apps" className="absolute -top-24" aria-hidden="true" />
       <div className="mx-auto max-w-7xl">
         <div className="live-apps-header mb-12 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
           <div>

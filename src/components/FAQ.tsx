@@ -27,6 +27,26 @@ const faqs = [
     q: "Do you give support after delivery?",
     a: "Yes. We provide updates, maintenance, bug fixing, improvements, and long-term support based on project needs.",
   },
+  {
+    q: "How long does it take to build a website or app?",
+    a: "Timelines depend on scope, but simple websites can launch faster while apps and SaaS platforms need planned design, development, and testing phases.",
+  },
+  {
+    q: "Do you provide admin panel with mobile apps?",
+    a: "Yes. Mobile app projects can include an admin panel for users, content, bookings, reports, and business controls.",
+  },
+  {
+    q: "Can Growblic build custom SaaS platforms?",
+    a: "Yes. We build SaaS platforms with login, dashboards, roles, subscriptions, analytics, and scalable product foundations.",
+  },
+  {
+    q: "Do you help with SEO and digital marketing?",
+    a: "Yes. Growblic can support SEO-ready website structure, SEO services, Google Ads, Meta Ads, and digital growth systems.",
+  },
+  {
+    q: "Can you support after launch?",
+    a: "Yes. We can help with improvements, maintenance, bug fixes, new features, and launch support after delivery.",
+  },
 ];
 
 export default function FAQ() {
@@ -107,7 +127,7 @@ export default function FAQ() {
             </div>
 
             <a
-              href="/start-project"
+              href="#contact"
               className="rounded-full bg-white px-7 py-4 text-center text-sm font-black text-slate-950 transition-all duration-300 hover:-translate-y-1"
             >
               Start Project →
