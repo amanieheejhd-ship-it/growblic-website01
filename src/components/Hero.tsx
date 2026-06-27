@@ -8,6 +8,7 @@ const orbitItems = [
     title: "Websites",
     desc: "Premium UI",
     position: "top-[3%] left-1/2 -translate-x-1/2",
+    mobilePosition: "hero-engine-chip-websites",
     glow: "from-blue-500 to-cyan-400",
     bg: "from-blue-50 to-cyan-50",
   },
@@ -15,6 +16,7 @@ const orbitItems = [
     title: "Mobile Apps",
     desc: "iOS + Android",
     position: "right-[1%] top-1/2 -translate-y-1/2",
+    mobilePosition: "hero-engine-chip-mobile",
     glow: "from-violet-500 to-blue-500",
     bg: "from-violet-50 to-blue-50",
   },
@@ -22,6 +24,7 @@ const orbitItems = [
     title: "SaaS",
     desc: "Dashboards",
     position: "bottom-[3%] left-1/2 -translate-x-1/2",
+    mobilePosition: "hero-engine-chip-saas",
     glow: "from-emerald-400 to-cyan-500",
     bg: "from-emerald-50 to-cyan-50",
   },
@@ -29,6 +32,7 @@ const orbitItems = [
     title: "AI Flow",
     desc: "Automation",
     position: "left-[1%] top-1/2 -translate-y-1/2",
+    mobilePosition: "hero-engine-chip-ai",
     glow: "from-fuchsia-500 to-violet-500",
     bg: "from-fuchsia-50 to-violet-50",
   },
@@ -134,17 +138,17 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.18 }}
-          className="relative min-h-[650px]"
+          className="hero-engine-visual relative min-h-[650px]"
         >
-          <div className="absolute left-1/2 top-1/2 h-[610px] w-[610px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/30 via-cyan-200/25 to-violet-200/30 blur-2xl" />
-          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-[#fbfdff]/55 shadow-2xl shadow-blue-100/80 backdrop-blur-xl" />
-          <div className="absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
-          <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
+          <div className="hero-engine-glow absolute left-1/2 top-1/2 h-[610px] w-[610px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/30 via-cyan-200/25 to-violet-200/30 blur-2xl" />
+          <div className="hero-engine-orbit hero-engine-orbit-outer absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-[#fbfdff]/55 shadow-2xl shadow-blue-100/80 backdrop-blur-xl" />
+          <div className="hero-engine-orbit hero-engine-orbit-mid absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
+          <div className="hero-engine-orbit hero-engine-orbit-inner absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
 
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="hero-engine-spin hero-engine-spin-outer absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full"
           >
             <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-600 shadow-[0_0_24px_rgba(37,99,235,0.9)]" />
             <span className="absolute bottom-0 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-cyan-500 shadow-[0_0_24px_rgba(6,182,212,0.9)]" />
@@ -153,7 +157,7 @@ export default function Hero() {
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-            className="absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="hero-engine-spin hero-engine-spin-inner absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full"
           >
             <span className="absolute right-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-violet-500 shadow-[0_0_22px_rgba(168,85,247,0.8)]" />
             <span className="absolute left-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_22px_rgba(59,130,246,0.8)]" />
@@ -162,21 +166,21 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute left-1/2 top-1/2 z-20 w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-[3rem] border border-blue-100/70 bg-[#fbfdff]/92 p-5 shadow-2xl shadow-slate-300/80 backdrop-blur-xl"
+            className="hero-engine-card absolute left-1/2 top-1/2 z-20 w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-[3rem] border border-blue-100/70 bg-[#fbfdff]/92 p-5 shadow-2xl shadow-slate-300/80 backdrop-blur-xl"
           >
-            <div className="relative overflow-hidden rounded-[2.35rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/80 to-violet-50/70 p-6 text-center">
+            <div className="hero-engine-card-inner relative overflow-hidden rounded-[2.35rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/80 to-violet-50/70 p-6 text-center">
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-cyan-200/60 blur-2xl" />
               <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-violet-200/60 blur-2xl" />
 
               <div className="relative">
-                <div className="mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
-                <img src="/growblic-website01/images/brand/growblic-logo.png" alt="Growblic" className="h-full w-full rounded-full object-cover" />
-              </div>
+                <div className="hero-engine-logo mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
+                  <img src="/growblic-website01/images/brand/growblic-logo.png" alt="Growblic" className="h-full w-full rounded-full object-cover" />
+                </div>
 
-                <p className="mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">
+                <p className="hero-engine-eyebrow mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">
                   Growblic Engine
                 </p>
-                <h3 className="mt-3 text-5xl font-black leading-none tracking-tight text-slate-950">
+                <h3 className="hero-engine-title mt-3 text-5xl font-black leading-none tracking-tight text-slate-950">
                   Design Build Launch
                 </h3>
 
@@ -201,7 +205,7 @@ export default function Hero() {
                 scale: { duration: 0.55, delay: 0.35 + index * 0.08 },
                 y: { duration: 4.2 + index * 0.45, repeat: Infinity, ease: "easeInOut" },
               }}
-              className={`absolute z-30 ${item.position} w-[178px] overflow-hidden rounded-[1.8rem] border border-blue-100/70 bg-gradient-to-br ${item.bg} p-4 shadow-2xl shadow-slate-200/75 backdrop-blur-xl`}
+              className={`hero-engine-chip ${item.mobilePosition} absolute z-30 ${item.position} w-[178px] overflow-hidden rounded-[1.8rem] border border-blue-100/70 bg-gradient-to-br ${item.bg} p-4 shadow-2xl shadow-slate-200/75 backdrop-blur-xl`}
             >
               <div className={`absolute -right-8 -top-8 h-20 w-20 rounded-full bg-gradient-to-br ${item.glow} opacity-25 blur-xl`} />
               <div className="relative flex items-center gap-3">
@@ -219,7 +223,7 @@ export default function Hero() {
           <motion.div
             animate={{ opacity: [0.35, 0.9, 0.35], scale: [1, 1.06, 1] }}
             transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-[8%] left-1/2 h-3 w-64 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-500 blur-sm"
+            className="hero-engine-ground absolute bottom-[8%] left-1/2 h-3 w-64 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-500 blur-sm"
           />
         </motion.div>
       </div>
