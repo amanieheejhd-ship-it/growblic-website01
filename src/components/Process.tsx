@@ -37,6 +37,8 @@ const steps = [
 ];
 
 export default function Process() {
+  const mobileStepsLoop = [...steps, ...steps];
+
   return (
     <section className="how-build-section relative overflow-hidden bg-[#fbfdff] px-6 py-12">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_85%_90%,rgba(6,182,212,0.08),transparent_28%)]" />
@@ -108,38 +110,38 @@ export default function Process() {
           </div>
         </div>
 
-        <div className="md:hidden">
-          <div className="how-build-mobile-scroll flex gap-4 overflow-x-auto px-1 pb-5 pt-1 snap-x snap-mandatory">
-            {steps.map((step, index) => (
+        <div className="process-mobile-marquee md:hidden">
+          <div className="process-mobile-track">
+            {mobileStepsLoop.map((step, index) => (
               <motion.article
-                key={`mobile-${step.title}`}
+                key={`process-mobile-${step.title}-${index}`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.35, delay: index * 0.04 }}
-                className="how-build-mobile-card snap-start overflow-hidden rounded-[28px] border border-blue-100/80 bg-white shadow-xl shadow-blue-100/45"
+                transition={{ duration: 0.35, delay: (index % steps.length) * 0.04 }}
+                className="process-mobile-card overflow-hidden rounded-[28px] border border-blue-100/80 bg-white/95 shadow-xl shadow-blue-100/45"
               >
-                <div className="relative h-[120px] w-full overflow-hidden rounded-t-[28px] bg-slate-100">
+                <div className="relative h-[70px] w-full overflow-hidden rounded-t-[28px] bg-slate-100">
                   <Image
                     src={step.image}
                     alt={step.title}
                     fill
-                    sizes="280px"
+                    sizes="260px"
                     className="object-cover"
-                    priority={index === 0}
+                    priority={index === 0 || index === steps.length}
                     unoptimized
                   />
-                  <div className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-2xl border border-white/75 bg-white/90 text-sm font-black text-blue-700 shadow-lg backdrop-blur">
+                  <div className="absolute left-3 top-3 grid h-10 w-10 place-items-center rounded-2xl border border-white/75 bg-white/90 text-xs font-black text-blue-700 shadow-lg backdrop-blur">
                     {step.number}
                   </div>
                 </div>
 
                 <div className="p-4">
-                  <h3 className="text-[22px] font-black leading-tight tracking-tight text-slate-950">
+                  <h3 className="text-lg font-black leading-tight tracking-tight text-slate-950">
                     {step.title}
                   </h3>
 
-                  <p className="mt-3 text-[15px] font-semibold leading-6 text-slate-600">
+                  <p className="process-mobile-text mt-2 text-sm font-semibold leading-6 text-slate-600">
                     {step.text}
                   </p>
                 </div>

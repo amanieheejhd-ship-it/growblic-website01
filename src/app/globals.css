@@ -850,23 +850,54 @@ main {
     line-height: 1.55 !important;
   }
 
-  .how-build-mobile-scroll {
-    max-width: 100% !important;
-    touch-action: pan-y pan-x;
+  .process-mobile-marquee {
+    width: 100% !important;
+    overflow: hidden !important;
+    padding: 0.25rem 0 0.75rem !important;
+    touch-action: pan-y !important;
+  }
+
+  .process-mobile-track {
+    display: flex !important;
+    width: max-content !important;
+    max-width: none !important;
+    min-width: max-content !important;
+    gap: 1rem !important;
+    animation: processMobileMarquee 32s linear infinite;
+    will-change: transform;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
   }
 
-  .how-build-mobile-scroll::-webkit-scrollbar {
-    display: none;
+  .process-mobile-card {
+    flex: 0 0 clamp(240px, 70vw, 260px) !important;
+    width: clamp(240px, 70vw, 260px) !important;
+    min-width: clamp(240px, 70vw, 260px) !important;
+    max-width: 260px !important;
+    height: 245px !important;
+    border-radius: 1.75rem !important;
   }
 
-  .how-build-mobile-card {
-    flex: 0 0 280px !important;
-    width: 280px !important;
-    min-width: 280px !important;
-    max-width: 280px !important;
-    min-height: 300px !important;
+  .process-mobile-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .process-mobile-text {
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
+@keyframes processMobileMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
