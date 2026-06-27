@@ -1028,3 +1028,97 @@ main {
     box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08) !important;
   }
 }
+
+/* ---------- Fix Growblic Apps section on phone ---------- */
+
+@media (max-width: 768px) {
+  /* Apps section ko horizontal premium carousel bana do */
+  section:has(a[href*="/apps/"]) .grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 1rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0.25rem 0.25rem 1.5rem !important;
+  }
+
+  section:has(a[href*="/apps/"]) .grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] {
+    flex: 0 0 82vw !important;
+    width: 82vw !important;
+    max-width: 82vw !important;
+    min-width: 82vw !important;
+    scroll-snap-align: start !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] * {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  section:has(a[href*="/apps/"]) article,
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] > div {
+    min-height: 420px !important;
+    height: auto !important;
+    border-radius: 2rem !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  section:has(a[href*="/apps/"]) h2 {
+    font-size: clamp(2rem, 10vw, 3.2rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  section:has(a[href*="/apps/"]) h3,
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] h3 {
+    color: #020617 !important;
+    font-size: 1.8rem !important;
+    line-height: 1.05 !important;
+  }
+
+  section:has(a[href*="/apps/"]) p,
+  section:has(a[href*="/apps/"]) span {
+    color: #475569 !important;
+  }
+
+  section:has(a[href*="/apps/"]) img {
+    width: 88px !important;
+    height: 88px !important;
+    object-fit: cover !important;
+    border-radius: 1.5rem !important;
+  }
+
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] button,
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] .rounded-full {
+    opacity: 1 !important;
+  }
+}
+
+/* Small phone polish */
+@media (max-width: 480px) {
+  section:has(a[href*="/apps/"]) {
+    padding-left: 1rem !important;
+    padding-right: 0 !important;
+  }
+
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] {
+    flex-basis: 84vw !important;
+    width: 84vw !important;
+    max-width: 84vw !important;
+    min-width: 84vw !important;
+  }
+
+  section:has(a[href*="/apps/"]) article,
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] > div {
+    min-height: 390px !important;
+  }
+}
