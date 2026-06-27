@@ -832,3 +832,42 @@ canvas {
     padding-right: 1rem !important;
   }
 }
+
+/* ---------- Fix phone touch scrolling ---------- */
+
+html,
+body {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  touch-action: pan-y !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body {
+  position: static !important;
+}
+
+main {
+  min-height: 100vh !important;
+  overflow: visible !important;
+  touch-action: pan-y !important;
+}
+
+@media (max-width: 768px) {
+  html,
+  body,
+  main {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    touch-action: pan-y !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  section {
+    overflow: visible !important;
+    touch-action: pan-y !important;
+  }
+}
