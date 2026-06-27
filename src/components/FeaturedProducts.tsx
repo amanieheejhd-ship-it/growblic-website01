@@ -142,8 +142,8 @@ export default function FeaturedProducts() {
                     </span>
                   </div>
 
-                  <div className="relative mt-8">
-                    <span className="rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700">
+                  <div className="live-app-content relative mt-8">
+                    <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700">
                       {app.category}
                     </span>
 
@@ -156,7 +156,7 @@ export default function FeaturedProducts() {
                     </p>
                   </div>
 
-                  <div className="relative mt-auto flex items-center justify-between pt-8">
+                  <div className="live-app-footer relative mt-auto flex items-center justify-between pt-8">
                     <span className="text-sm font-black text-slate-950">
                       View Product
                     </span>
