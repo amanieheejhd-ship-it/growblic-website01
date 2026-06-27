@@ -45,7 +45,7 @@ function StrategyMap({ accent }: { accent: string }) {
           </div>
         </div>
 
-        <div className="grid min-h-[320px] place-items-center rounded-[1.5rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-5">
+        <div className="grid min-h-[280px] place-items-center rounded-[1.5rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-5">
           <div className="relative h-64 w-full max-w-md">
             <div className={`absolute left-1/2 top-1/2 grid h-24 w-24 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[1.75rem] bg-gradient-to-br ${accent} text-sm font-black text-white shadow-xl shadow-blue-500/20`}>
               Product
@@ -82,7 +82,7 @@ function WireframeVisual({ accent }: { accent: string }) {
           <div
             key={screen}
             className={`rounded-[1.7rem] border border-slate-200 bg-[#fbfdff] p-4 shadow-lg shadow-blue-100/45 ${
-              index === 1 ? "lg:min-h-[380px]" : "lg:min-h-[310px]"
+              index === 1 ? "lg:min-h-[340px]" : "lg:min-h-[280px]"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -247,7 +247,7 @@ function GrowthVisual({ accent }: { accent: string }) {
           </div>
         </div>
         <div className="rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-violet-50 p-5">
-          <div className="flex h-full min-h-[320px] items-end gap-3 rounded-[1.35rem] border border-white bg-white/70 p-5">
+          <div className="flex h-full min-h-[280px] items-end gap-3 rounded-[1.35rem] border border-white bg-white/70 p-5">
             {[42, 58, 50, 72, 66, 88].map((height, index) => (
               <div key={`${height}-${index}`} className="flex flex-1 flex-col items-center gap-3">
                 <div
@@ -264,10 +264,165 @@ function GrowthVisual({ accent }: { accent: string }) {
   );
 }
 
+function SectionHeading({
+  eyebrow,
+  title,
+  body,
+}: {
+  eyebrow: string;
+  title: string;
+  body?: string;
+}) {
+  return (
+    <div>
+      <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-600">
+        {eyebrow}
+      </p>
+      <h2 className="mt-3 text-2xl font-black leading-tight text-slate-950 sm:text-3xl">
+        {title}
+      </h2>
+      {body && <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">{body}</p>}
+    </div>
+  );
+}
+
+function OutcomeCards({ guide }: { guide: ProcessGuide }) {
+  return (
+    <section className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/70 to-cyan-50/80 p-6 shadow-2xl shadow-blue-950/10 sm:rounded-[2.25rem] sm:p-8">
+      <SectionHeading
+        eyebrow="What you get"
+        title="What you get in this step"
+        body="Each phase creates practical assets and decisions that help the next stage move with less friction."
+      />
+      <div className="mt-7 grid gap-4 md:grid-cols-3">
+        {guide.outcomes.map((outcome, index) => (
+          <div
+            key={outcome.title}
+            className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-xl shadow-blue-950/5"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <span className={`h-10 w-10 rounded-2xl bg-gradient-to-br ${guide.accent}`} />
+              <span className="text-sm font-black text-slate-300">
+                0{index + 1}
+              </span>
+            </div>
+            <h3 className="mt-6 text-lg font-black leading-snug text-slate-950">
+              {outcome.title}
+            </h3>
+            <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
+              {outcome.body}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProcessSnapshot({ guide }: { guide: ProcessGuide }) {
+  return (
+    <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-blue-950/5 sm:rounded-[2.25rem] sm:p-6">
+      <div className="grid gap-4 lg:grid-cols-[240px_minmax(0,1fr)] lg:items-center">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-600">
+            Snapshot
+          </p>
+          <h2 className="mt-3 text-2xl font-black leading-tight text-slate-950">
+            Process snapshot
+          </h2>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {guide.snapshot.map((item, index) => (
+            <div
+              key={item.label}
+              className="rounded-[1.35rem] border border-blue-100 bg-[#fbfdff] p-4"
+            >
+              <div className="flex items-center gap-3">
+                <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${guide.accent} text-xs font-black text-white`}>
+                  {index + 1}
+                </span>
+                <p className="text-xs font-black uppercase text-slate-400">
+                  {item.label}
+                </p>
+              </div>
+              <p className="mt-4 text-base font-black leading-snug text-slate-950">
+                {item.value}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection({ guide }: { guide: ProcessGuide }) {
+  return (
+    <section className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-xl shadow-blue-950/5 sm:rounded-[2rem] sm:p-8">
+      <SectionHeading
+        eyebrow="Questions"
+        title="Common questions in this phase"
+      />
+      <div className="mt-7 grid gap-3">
+        {guide.faqs.map((faq) => (
+          <details
+            key={faq.question}
+            className="group rounded-2xl border border-slate-100 bg-[#fbfdff] p-4 open:border-blue-100 open:bg-white"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-black leading-6 text-slate-950">
+              <span>{faq.question}</span>
+              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full bg-gradient-to-br ${guide.accent} text-lg leading-none text-white transition group-open:rotate-45`}>
+                +
+              </span>
+            </summary>
+            <p className="mt-4 text-sm font-semibold leading-7 text-slate-600 sm:text-base">
+              {faq.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function RelatedSteps({ guide }: { guide: ProcessGuide }) {
+  return (
+    <section className="mx-auto mt-10 max-w-6xl">
+      <SectionHeading
+        eyebrow="Next reading"
+        title="Related process steps"
+        body="Explore nearby phases when you want to move backward for clarity or forward toward delivery."
+      />
+      <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {guide.relatedSteps.map((step) => (
+          <Link
+            key={step.href}
+            href={step.href}
+            className="group rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-xl shadow-blue-950/5 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-950/10"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="text-lg font-black text-slate-950">
+                {step.title}
+              </h3>
+              <span className={`h-9 w-9 rounded-2xl bg-gradient-to-br ${guide.accent} opacity-80 transition group-hover:opacity-100`} />
+            </div>
+            <p className="mt-4 text-sm font-semibold leading-6 text-slate-600">
+              {step.description}
+            </p>
+            <p className="mt-5 text-sm font-black text-blue-700">
+              Read guide
+            </p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function ProcessGuidePage({ guide }: { guide: ProcessGuide }) {
   return (
     <main className="min-h-screen overflow-hidden bg-white">
-      <section className="relative border-b border-slate-100 bg-[#fbfdff] px-5 pb-14 pt-10 sm:px-6 sm:pb-20 sm:pt-14">
+      <section className="relative border-b border-slate-100 bg-[#fbfdff] px-5 pb-12 pt-10 sm:px-6 sm:pb-16 sm:pt-14">
         <div className="mx-auto max-w-6xl">
           <nav className="flex flex-wrap items-center justify-center gap-2 text-sm font-bold text-slate-500 sm:justify-start">
             <Link href="/" className="transition hover:text-blue-700">
@@ -308,14 +463,19 @@ export default function ProcessGuidePage({ guide }: { guide: ProcessGuide }) {
             </p>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-10">
             <ProcessVisual guide={guide} />
           </div>
         </div>
       </section>
 
-      <section className="bg-white px-5 py-14 sm:px-6 sm:py-20">
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
+      <section className="bg-white px-5 py-12 sm:px-6 sm:py-16">
+        <div className="mx-auto grid max-w-6xl gap-5">
+          <OutcomeCards guide={guide} />
+          <ProcessSnapshot guide={guide} />
+        </div>
+
+        <div className="mx-auto mt-8 grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
           <article className="grid gap-5">
             {guide.sections.map((section) => (
               <section
@@ -341,6 +501,7 @@ export default function ProcessGuidePage({ guide }: { guide: ProcessGuide }) {
                 </ul>
               </section>
             ))}
+            <FaqSection guide={guide} />
           </article>
 
           <aside className="lg:sticky lg:top-8">
@@ -356,6 +517,14 @@ export default function ProcessGuidePage({ guide }: { guide: ProcessGuide }) {
               <h2 className="mt-6 text-3xl font-black leading-tight text-slate-950">
                 {guide.breadcrumb}
               </h2>
+              <div className="mt-5 rounded-[1.35rem] border border-blue-100 bg-white p-4">
+                <p className="text-sm font-black text-slate-950">
+                  Phase output
+                </p>
+                <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
+                  {guide.snapshot[3].value}
+                </p>
+              </div>
               <div className="mt-6 rounded-[1.35rem] border border-slate-200 bg-white p-4">
                 <p className="text-sm font-black text-slate-950">Best for</p>
                 <ul className="mt-4 grid gap-3">
@@ -387,6 +556,8 @@ export default function ProcessGuidePage({ guide }: { guide: ProcessGuide }) {
             </div>
           </aside>
         </div>
+
+        <RelatedSteps guide={guide} />
 
         <div className="mx-auto mt-10 max-w-6xl rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 shadow-2xl shadow-blue-950/10 sm:rounded-[2.25rem] sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div>
