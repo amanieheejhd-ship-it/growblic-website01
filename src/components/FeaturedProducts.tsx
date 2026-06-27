@@ -108,7 +108,7 @@ export default function FeaturedProducts() {
           <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
 
           <div
-            className={`live-apps-track${isArrowHovered ? " live-apps-track-fast" : ""} flex gap-6 pb-6`}
+            className={`live-apps-track${isArrowHovered ? " live-apps-track-fast" : ""}`}
           >
             {loopApps.map(renderAppCard)}
           </div>

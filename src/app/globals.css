@@ -254,41 +254,43 @@ button {
 }
 
 
-.live-apps-track {
-  display: flex;
-  width: max-content;
-  max-width: none;
-  min-width: max-content;
-  gap: 1.5rem;
-  overflow: visible;
-  animation: liveAppsLeftToRight 65s linear infinite;
-  will-change: transform;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scroll-behavior: auto;
+.live-apps-section {
+  overflow: hidden;
 }
 
-.live-apps-track::-webkit-scrollbar {
-  display: none;
+.live-apps-marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.live-apps-track {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  width: max-content;
+  will-change: transform;
+  animation-name: liveAppsMoveLeftToRight;
+  animation-duration: 65s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .live-app-card {
-  width: 360px !important;
-  min-width: 360px !important;
-  height: 540px !important;
-  flex: 0 0 360px !important;
+  flex: 0 0 360px;
+  width: 360px;
 }
 
 .live-apps-track-fast {
-  animation-duration: 22s;
+  animation-duration: 18s;
 }
 
-@keyframes liveAppsLeftToRight {
-  from {
+@keyframes liveAppsMoveLeftToRight {
+  0% {
     transform: translate3d(-50%, 0, 0);
   }
 
-  to {
+  100% {
     transform: translate3d(0, 0, 0);
   }
 }
@@ -486,14 +488,14 @@ button {
 
   .live-apps-track {
     display: flex !important;
+    align-items: stretch !important;
     flex-wrap: nowrap !important;
     width: max-content !important;
-    max-width: none !important;
-    min-width: max-content !important;
-    gap: 0.85rem !important;
-    overflow: visible !important;
-    padding: 0 1rem !important;
-    animation: liveAppsLeftToRight 34s linear infinite !important;
+    gap: 12px !important;
+    animation-name: liveAppsMoveLeftToRight !important;
+    animation-duration: 34s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
     will-change: transform;
   }
 
@@ -505,7 +507,6 @@ button {
     flex: 0 0 240px !important;
     width: 240px !important;
     min-width: 240px !important;
-    max-width: 260px !important;
     height: 215px !important;
   }
 
