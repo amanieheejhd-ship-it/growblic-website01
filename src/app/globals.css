@@ -1122,3 +1122,162 @@ main {
     min-height: 390px !important;
   }
 }
+
+/* ---------- Phone performance + clean layout fix ---------- */
+
+@media (max-width: 768px) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html,
+  body {
+    width: 100% !important;
+    overflow-x: hidden !important;
+    background: #f8fbff !important;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeSpeed;
+  }
+
+  /* Heavy effects phone par light */
+  [class*="blur"],
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  [class*="shadow-2xl"],
+  [class*="shadow-xl"],
+  [class*="shadow-lg"] {
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  [class*="scale-"],
+  [class*="rotate-"],
+  [class*="translate-"] {
+    transform: none !important;
+  }
+
+  section {
+    padding: 3rem 1rem !important;
+    overflow: hidden !important;
+  }
+
+  h1 {
+    font-size: clamp(2.1rem, 11vw, 3.25rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 9vw, 2.7rem) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  p {
+    font-size: 0.98rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .grid,
+  [class*="grid-cols-"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  article,
+  [class*="rounded-"] {
+    border-radius: 1.35rem !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Hero bottom visual ko compact */
+  section:first-of-type {
+    min-height: auto !important;
+    padding-top: 2.5rem !important;
+  }
+
+  section:first-of-type img,
+  section:first-of-type video {
+    max-height: 360px !important;
+    object-fit: contain !important;
+  }
+
+  /* Live apps cards phone par clean */
+  section:has(a[href*="/apps/"]) {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  section:has(a[href*="/apps/"]) .grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    overflow: visible !important;
+  }
+
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] * {
+    opacity: 1 !important;
+    filter: none !important;
+    color: inherit;
+  }
+
+  section:has(a[href*="/apps/"]) article,
+  section:has(a[href*="/apps/"]) a[href*="/apps/"] > div {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 1.25rem !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  }
+
+  section:has(a[href*="/apps/"]) img {
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 1.25rem !important;
+  }
+
+  section:has(a[href*="/apps/"]) h3 {
+    font-size: 1.45rem !important;
+    line-height: 1.1 !important;
+    color: #020617 !important;
+  }
+
+  section:has(a[href*="/apps/"]) p {
+    color: #475569 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 11vw, 3rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(1.7rem, 9vw, 2.35rem) !important;
+  }
+}
