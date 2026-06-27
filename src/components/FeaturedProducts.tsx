@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { companyApps } from "../data/companyApps";
 
 export default function FeaturedProducts() {
-  const firstRow = companyApps.filter((_, index) => index % 2 === 0);
-  const secondRow = companyApps.filter((_, index) => index % 2 !== 0);
-  const firstLoop = [...firstRow, ...firstRow];
-  const secondLoop = [...secondRow, ...secondRow];
+  const [isArrowHovered, setIsArrowHovered] = useState(false);
+  const loopApps = [...companyApps, ...companyApps];
 
   const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
     <Link
@@ -80,21 +79,38 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="live-apps-marquee relative overflow-hidden py-5">
+        <div className="live-apps-marquee relative overflow-hidden py-8">
+          <button
+            type="button"
+            className="live-app-arrow absolute left-4 md:left-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200/80 bg-white/95 !text-slate-900 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white"
+            aria-label="Speed up live apps marquee"
+            onMouseEnter={() => setIsArrowHovered(true)}
+            onMouseLeave={() => setIsArrowHovered(false)}
+            onFocus={() => setIsArrowHovered(true)}
+            onBlur={() => setIsArrowHovered(false)}
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            className="live-app-arrow absolute right-4 md:right-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200/80 bg-white/95 !text-slate-900 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white"
+            aria-label="Speed up live apps marquee"
+            onMouseEnter={() => setIsArrowHovered(true)}
+            onMouseLeave={() => setIsArrowHovered(false)}
+            onFocus={() => setIsArrowHovered(true)}
+            onBlur={() => setIsArrowHovered(false)}
+          >
+            ›
+          </button>
+
           <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
           <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
 
-          <div className="live-apps-track live-apps-track-left flex gap-6 pb-6">
-            {firstLoop.map(renderAppCard)}
-          </div>
-        </div>
-
-        <div className="live-apps-marquee relative overflow-hidden py-5">
-          <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
-          <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
-
-          <div className="live-apps-track live-apps-track-right flex gap-6 pb-6">
-            {secondLoop.map(renderAppCard)}
+          <div
+            className={`live-apps-track${isArrowHovered ? " live-apps-track-fast" : ""} flex gap-6 pb-6`}
+          >
+            {loopApps.map(renderAppCard)}
           </div>
         </div>
       </div>
