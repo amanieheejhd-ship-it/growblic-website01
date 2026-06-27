@@ -823,6 +823,10 @@ main {
 }
 
 @media (max-width: 768px) {
+  .how-build-frame {
+    display: none !important;
+  }
+
   .how-build-section {
     padding: 3rem 1rem 3.25rem !important;
     overflow: hidden !important;
@@ -851,8 +855,10 @@ main {
   }
 
   .process-mobile-marquee {
+    display: block !important;
     width: 100% !important;
     overflow: hidden !important;
+    margin-top: 1.5rem !important;
     padding: 0.25rem 0 0.75rem !important;
     touch-action: pan-y !important;
   }
@@ -863,7 +869,7 @@ main {
     max-width: none !important;
     min-width: max-content !important;
     gap: 1rem !important;
-    animation: processMobileMarquee 32s linear infinite;
+    animation: processMobileMarqueeFinal 32s linear infinite;
     will-change: transform;
     -webkit-overflow-scrolling: touch;
   }
@@ -874,7 +880,20 @@ main {
     min-width: clamp(240px, 70vw, 260px) !important;
     max-width: 260px !important;
     height: 245px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(191, 219, 254, 0.82) !important;
     border-radius: 1.75rem !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    box-shadow: 0 16px 38px rgba(37, 99, 235, 0.14) !important;
+  }
+
+  .process-mobile-image {
+    position: relative;
+    width: 100% !important;
+    height: 78px !important;
+    overflow: hidden !important;
+    border-radius: 1.75rem 1.75rem 0 0 !important;
+    background: #e2e8f0;
   }
 
   .process-mobile-card img {
@@ -883,15 +902,56 @@ main {
     object-fit: cover !important;
   }
 
-  .process-mobile-text {
+  .process-mobile-badge {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.75rem;
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    border-radius: 0.95rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: #1d4ed8;
+    font-size: 0.75rem;
+    font-weight: 900;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(10px);
+  }
+
+  .process-mobile-card > div:last-child {
+    padding: 1rem !important;
+  }
+
+  .process-mobile-title {
+    font-size: 1.125rem !important;
+    font-weight: 900 !important;
+    line-height: 1.12 !important;
+    letter-spacing: 0 !important;
+    color: #020617 !important;
+  }
+
+  .process-mobile-description {
     display: -webkit-box !important;
+    margin-top: 0.55rem !important;
     overflow: hidden !important;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    color: #475569 !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
   }
 }
 
-@keyframes processMobileMarquee {
+@media (min-width: 769px) {
+  .process-mobile-marquee {
+    display: none !important;
+  }
+}
+
+@keyframes processMobileMarqueeFinal {
   from {
     transform: translate3d(0, 0, 0);
   }

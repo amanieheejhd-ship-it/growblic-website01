@@ -119,9 +119,9 @@ export default function Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.35, delay: (index % steps.length) * 0.04 }}
-                className="process-mobile-card overflow-hidden rounded-[28px] border border-blue-100/80 bg-white/95 shadow-xl shadow-blue-100/45"
+                className="process-mobile-card"
               >
-                <div className="relative h-[70px] w-full overflow-hidden rounded-t-[28px] bg-slate-100">
+                <div className="process-mobile-image">
                   <Image
                     src={step.image}
                     alt={step.title}
@@ -131,17 +131,17 @@ export default function Process() {
                     priority={index === 0 || index === steps.length}
                     unoptimized
                   />
-                  <div className="absolute left-3 top-3 grid h-10 w-10 place-items-center rounded-2xl border border-white/75 bg-white/90 text-xs font-black text-blue-700 shadow-lg backdrop-blur">
+                  <div className="process-mobile-badge">
                     {step.number}
                   </div>
                 </div>
 
-                <div className="p-4">
-                  <h3 className="text-lg font-black leading-tight tracking-tight text-slate-950">
+                <div>
+                  <h3 className="process-mobile-title">
                     {step.title}
                   </h3>
 
-                  <p className="process-mobile-text mt-2 text-sm font-semibold leading-6 text-slate-600">
+                  <p className="process-mobile-description">
                     {step.text}
                   </p>
                 </div>
