@@ -15,8 +15,7 @@ const menus = [
       { label: "Stats", href: "/#stats" },
       { label: "Product engine", href: "/#engine" },
       { label: "Business systems", href: "/#systems" },
-    ],
-  },
+    ] },
   {
     label: "Products",
     image: "/growblic-website01/images/products/analytics-1.jpg",
@@ -29,8 +28,7 @@ const menus = [
       { label: "FinTech App", href: "/fintech-app" },
       { label: "HR System", href: "/hr-system" },
       { label: "Analytics", href: "/analytics" },
-    ],
-  },
+    ] },
   {
     label: "Services",
     image: "/growblic-website01/images/business/web-1.jpg",
@@ -43,8 +41,7 @@ const menus = [
       { label: "SaaS", href: "/saas" },
       { label: "AI Automation", href: "/ai-automation" },
       { label: "Support", href: "/support" },
-    ],
-  },
+    ] },
   {
     label: "About",
     image: "/growblic-website01/images/business/saas-1.jpg",
@@ -56,8 +53,7 @@ const menus = [
       { label: "Why Growblic", href: "/why-growblic" },
       { label: "Process", href: "/process" },
       { label: "Client Login", href: "/client-login" },
-    ],
-  },
+    ] },
   {
     label: "Contact",
     image: "/growblic-website01/images/business/mobile-1.jpg",
@@ -69,15 +65,13 @@ const menus = [
       { label: "Book Free Consultation", href: "/start-project" },
       { label: "Support", href: "/support" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/bintu-malik-6b7917387/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3Bn%2F%2B36pheQBKUivaxal4GUQ%3D%3D" },
-    ],
-  },
+    ] },
 ];
 
 const allLinks = menus.flatMap((menu) =>
   menu.links.map((link) => ({
     ...link,
-    group: menu.label,
-  }))
+    group: menu.label }))
 );
 
 export default function Navbar() {
@@ -93,8 +87,7 @@ export default function Navbar() {
     if (!value) {
       return activeMenu.links.map((link) => ({
         ...link,
-        group: activeMenu.label,
-      }));
+        group: activeMenu.label }));
     }
 
     return allLinks.filter(
