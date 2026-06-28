@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -59,24 +60,29 @@ export default function CareersPage() {
         <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
 
         <div className="relative mx-auto max-w-7xl px-6 pt-8 sm:px-8 lg:px-10">
-          <div className="flex flex-col gap-7 rounded-[2rem] border border-white/10 bg-white/[0.03] p-4 backdrop-blur md:flex-row md:items-center md:justify-between md:rounded-full md:px-6">
-            <Link href="/careers" className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-sm font-black">
-                G
-              </span>
-              <span className="text-lg font-black uppercase tracking-[0.18em] text-white">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+            <Link href="/careers" className="flex items-center gap-4">
+              <Image
+                src="https://play-lh.googleusercontent.com/g0grr8jGzVcS1_uUzh05Ht2a7w7PcavodUBDgK7XOel8DwYKNSVtNZaF6HmqUFPK37xlr4WafEddfvWeyeDSKA=w240-h480-rw"
+                alt="Growblic logo"
+                width={44}
+                height={44}
+                className="h-11 w-11 rounded-2xl object-cover"
+                unoptimized
+              />
+              <span className="text-xl font-black uppercase tracking-[0.20em] text-white">
                 Growblic Careers
               </span>
             </Link>
 
-            <nav className="flex flex-wrap items-center gap-4 text-xs font-black uppercase tracking-[0.18em] text-slate-200 sm:gap-6">
-              <a href="#open-positions" className="transition hover:text-white">Openings</a>
-              <span className="hidden text-white/30 sm:inline">|</span>
-              <a href="#perks" className="transition hover:text-white">Perks</a>
-              <span className="hidden text-white/30 sm:inline">|</span>
-              <a href="#values" className="transition hover:text-white">Values</a>
-              <span className="hidden text-white/30 sm:inline">|</span>
-              <a href="#culture" className="transition hover:text-white">Culture⌄</a>
+            <nav className="flex flex-wrap items-center gap-4 text-xs font-black uppercase tracking-[0.20em] text-white sm:gap-6">
+              <a href="#open-positions" className="transition hover:text-blue-200">Openings</a>
+              <span className="hidden text-white/45 sm:inline">|</span>
+              <a href="#perks" className="transition hover:text-blue-200">Perks</a>
+              <span className="hidden text-white/45 sm:inline">|</span>
+              <a href="#values" className="transition hover:text-blue-200">Values</a>
+              <span className="hidden text-white/45 sm:inline">|</span>
+              <a href="#culture" className="transition hover:text-blue-200">Culture⌄</a>
             </nav>
           </div>
         </div>
@@ -106,14 +112,14 @@ export default function CareersPage() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-7 py-4 text-sm font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15"
+                className="inline-flex items-center justify-center rounded-full border border-white/35 bg-transparent px-7 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950"
               >
                 Contact Growblic
               </Link>
             </div>
 
             <div className="mt-12 grid max-w-5xl gap-5 md:grid-cols-[1fr_1fr]">
-              <div className="flex h-16 items-center border border-white/35 bg-black/20 px-5 text-sm font-bold tracking-[0.12em] text-slate-300 backdrop-blur">
+              <div className="flex h-16 items-center border border-white/45 bg-transparent px-5 text-sm font-bold tracking-[0.12em] text-slate-300">
                 seek and you shall find
               </div>
               <a
