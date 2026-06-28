@@ -24,13 +24,13 @@ export default function FeaturedProducts() {
             />
           </span>
 
-          <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700">
             Live
           </span>
         </div>
 
         <div className="live-app-content relative mt-8">
-          <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700">
             {app.category}
           </span>
 
@@ -48,7 +48,7 @@ export default function FeaturedProducts() {
             View Product
           </span>
 
-          <span className="grid h-12 w-12 place-items-center rounded-full bg-slate-950 text-xl font-black text-white transition-all duration-500 group-hover:rotate-[-35deg] group-hover:bg-blue-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-slate-950 text-xl font-black text-white transition-all duration-500 group-hover:rotate-[-35deg] group-hover:bg-blue-700">
             →
           </span>
         </div>
@@ -83,26 +83,26 @@ export default function FeaturedProducts() {
         <div className="live-apps-marquee relative overflow-hidden py-8">
           <button
             type="button"
-            className="live-app-arrow absolute left-4 md:left-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/70/80 bg-white/90/95 !text-slate-950 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300"
+            className="live-app-arrow absolute left-4 md:left-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200/80 bg-white/95 !text-slate-900 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white"
             aria-label="Speed up live apps marquee"
             onMouseEnter={() => setIsArrowHovered(true)}
             onMouseLeave={() => setIsArrowHovered(false)}
             onFocus={() => setIsArrowHovered(true)}
             onBlur={() => setIsArrowHovered(false)}
           >
-            ←
+            ‹
           </button>
 
           <button
             type="button"
-            className="live-app-arrow absolute right-4 md:right-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/70/80 bg-white/90/95 !text-slate-950 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300"
+            className="live-app-arrow absolute right-4 md:right-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200/80 bg-white/95 !text-slate-900 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white"
             aria-label="Speed up live apps marquee"
             onMouseEnter={() => setIsArrowHovered(true)}
             onMouseLeave={() => setIsArrowHovered(false)}
             onFocus={() => setIsArrowHovered(true)}
             onBlur={() => setIsArrowHovered(false)}
           >
-            →
+            ›
           </button>
 
           <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
