@@ -3,8 +3,36 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Perks | Growblic Careers",
-  description: "Growblic gives you space to learn, build, improve, and work on real business projects.",
+  description:
+    "Growblic perks help people learn faster, build real products, and grow with modern digital work.",
 };
+
+const perks = [
+  {
+    title: "real product work",
+    text: "work on websites, apps, dashboards, SaaS products, automation systems, and business tools that actually get shipped.",
+  },
+  {
+    title: "remote friendly",
+    text: "collaborate from anywhere with focused communication, clear tasks, and outcome-based execution.",
+  },
+  {
+    title: "modern stack",
+    text: "learn and work with modern tools like Next.js, React, APIs, dashboards, automation, and product design systems.",
+  },
+  {
+    title: "fast learning",
+    text: "every project teaches design, code, product thinking, client handling, and better execution.",
+  },
+  {
+    title: "premium work culture",
+    text: "we care about clean UI, strong UX, performance, copy, branding, and small details that build trust.",
+  },
+  {
+    title: "growth path",
+    text: "as Growblic grows, you get opportunities to take ownership of bigger products, clients, and systems.",
+  },
+];
 
 export default function PerksPage() {
   return (
@@ -21,29 +49,28 @@ export default function PerksPage() {
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
-            Growblic gives you space to learn, build, improve, and work on real business projects.
+            Growblic gives you the space to learn, build, improve, and work on real
+            business projects with a serious product mindset.
           </p>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Real product work</h3>
-              <p className="mt-4 leading-8 text-slate-600">Work on actual websites, apps, dashboards, and SaaS products.</p>
-            </article>
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Remote-friendly workflow</h3>
-              <p className="mt-4 leading-8 text-slate-600">Collaborate from anywhere with focused execution.</p>
-            </article>
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Modern tech stack</h3>
-              <p className="mt-4 leading-8 text-slate-600">Work with Next.js, React, APIs, dashboards, and automation tools.</p>
-            </article>
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Fast learning culture</h3>
-              <p className="mt-4 leading-8 text-slate-600">Improve your skills through real project delivery.</p>
-            </article>
+      <section className="px-6 pb-24 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-blue-100 bg-white p-8 shadow-2xl shadow-blue-100/70 sm:p-12">
+          <div className="grid gap-x-20 gap-y-20 lg:grid-cols-2">
+            {perks.map((item) => (
+              <article key={item.title}>
+                <h2 className="text-4xl font-black tracking-tight text-slate-950">
+                  {item.title}
+                </h2>
+                <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
+                  {item.text}
+                </p>
+              </article>
+            ))}
           </div>
 
-          <div className="mt-14 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-16 flex flex-col gap-4 border-t border-blue-100 pt-8 sm:flex-row">
             <Link
               href="/careers"
               className="inline-flex items-center justify-center rounded-full border border-blue-100 bg-white px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
@@ -51,10 +78,10 @@ export default function PerksPage() {
               Back to Careers
             </Link>
             <Link
-              href="/contact"
+              href="/careers/values"
               className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
-              Contact Growblic →
+              See Values →
             </Link>
           </div>
         </div>

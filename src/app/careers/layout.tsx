@@ -5,13 +5,6 @@ import { ReactNode } from "react";
 const logoUrl =
   "https://play-lh.googleusercontent.com/g0grr8jGzVcS1_uUzh05Ht2a7w7PcavodUBDgK7XOel8DwYKNSVtNZaF6HmqUFPK37xlr4WafEddfvWeyeDSKA=w240-h480-rw";
 
-const navLinks = [
-  { label: "Openings", href: "/careers/openings" },
-  { label: "Perks", href: "/careers/perks" },
-  { label: "Values", href: "/careers/values" },
-  { label: "Culture", href: "/careers/culture" },
-];
-
 export default function CareersLayout({ children }: { children: ReactNode }) {
   return (
     <main className="min-h-screen bg-[#f6f8ff] text-slate-950">
@@ -32,16 +25,42 @@ export default function CareersLayout({ children }: { children: ReactNode }) {
           </Link>
 
           <nav className="flex flex-wrap items-center gap-4 text-xs font-black uppercase tracking-[0.18em] text-slate-700 sm:gap-6">
-            {navLinks.map((item, index) => (
-              <div key={item.href} className="flex items-center gap-4 sm:gap-6">
-                <Link href={item.href} className="transition hover:text-blue-700">
-                  {item.label}
+            <Link href="/careers/openings" className="transition hover:text-blue-700">
+              Openings
+            </Link>
+            <span className="text-slate-300">|</span>
+
+            <Link href="/careers/perks" className="transition hover:text-blue-700">
+              Perks
+            </Link>
+            <span className="text-slate-300">|</span>
+
+            <Link href="/careers/values" className="transition hover:text-blue-700">
+              Values
+            </Link>
+            <span className="text-slate-300">|</span>
+
+            <details className="group relative">
+              <summary className="list-none cursor-pointer transition hover:text-blue-700">
+                Culture <span className="inline-block transition group-open:rotate-180">⌄</span>
+              </summary>
+
+              <div className="absolute right-0 top-8 z-50 w-64 rounded-3xl border border-blue-100 bg-white p-5 text-center shadow-2xl shadow-blue-100/70">
+                <Link
+                  href="/careers/insights"
+                  className="block rounded-2xl px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
+                >
+                  Insights
                 </Link>
-                {index !== navLinks.length - 1 ? (
-                  <span className="text-slate-300">|</span>
-                ) : null}
+
+                <Link
+                  href="/careers/humans"
+                  className="mt-2 block rounded-2xl px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
+                >
+                  Humans of Growblic
+                </Link>
               </div>
-            ))}
+            </details>
           </nav>
         </div>
       </header>
