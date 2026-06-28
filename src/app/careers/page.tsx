@@ -58,7 +58,30 @@ export default function CareersPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.35),transparent_35%),linear-gradient(120deg,rgba(15,23,42,0.75),rgba(2,6,23,0.95))]" />
         <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
 
-        <div className="relative mx-auto flex min-h-[640px] max-w-7xl items-center px-6 py-24 sm:px-8 lg:px-10">
+        <div className="relative mx-auto max-w-7xl px-6 pt-8 sm:px-8 lg:px-10">
+          <div className="flex flex-col gap-7 rounded-[2rem] border border-white/10 bg-white/[0.03] p-4 backdrop-blur md:flex-row md:items-center md:justify-between md:rounded-full md:px-6">
+            <Link href="/careers" className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-sm font-black">
+                G
+              </span>
+              <span className="text-lg font-black uppercase tracking-[0.18em] text-white">
+                Growblic Careers
+              </span>
+            </Link>
+
+            <nav className="flex flex-wrap items-center gap-4 text-xs font-black uppercase tracking-[0.18em] text-slate-200 sm:gap-6">
+              <a href="#open-positions" className="transition hover:text-white">Openings</a>
+              <span className="hidden text-white/30 sm:inline">|</span>
+              <a href="#perks" className="transition hover:text-white">Perks</a>
+              <span className="hidden text-white/30 sm:inline">|</span>
+              <a href="#values" className="transition hover:text-white">Values</a>
+              <span className="hidden text-white/30 sm:inline">|</span>
+              <a href="#culture" className="transition hover:text-white">Culture⌄</a>
+            </nav>
+          </div>
+        </div>
+
+        <div className="relative mx-auto flex min-h-[560px] max-w-7xl items-center px-6 py-20 sm:px-8 lg:px-10">
           <div className="max-w-3xl">
             <p className="mb-5 inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.32em] text-blue-100">
               Careers at Growblic
@@ -87,6 +110,18 @@ export default function CareersPage() {
               >
                 Contact Growblic
               </Link>
+            </div>
+
+            <div className="mt-12 grid max-w-5xl gap-5 md:grid-cols-[1fr_1fr]">
+              <div className="flex h-16 items-center border border-white/35 bg-black/20 px-5 text-sm font-bold tracking-[0.12em] text-slate-300 backdrop-blur">
+                seek and you shall find
+              </div>
+              <a
+                href="#open-positions"
+                className="flex h-16 items-center justify-center bg-white px-5 text-sm font-black uppercase tracking-[0.22em] text-slate-950 transition hover:bg-blue-50"
+              >
+                Discover roles <span className="ml-4 text-xl">→</span>
+              </a>
             </div>
           </div>
         </div>
@@ -148,8 +183,8 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 sm:px-8 lg:px-10">
-        <div className="rounded-[2.5rem] bg-slate-950 p-8 text-white shadow-[0_30px_100px_rgba(15,23,42,0.20)] sm:p-12">
+      <section className="mx-auto max-w-7xl px-6 pb-20 sm:px-8 lg:px-10" id="perks">
+        <div id="values" className="rounded-[2.5rem] bg-slate-950 p-8 text-white shadow-[0_30px_100px_rgba(15,23,42,0.20)] sm:p-12">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-300">
@@ -178,7 +213,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-10">
+      <section className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-10" id="culture">
         <div className="rounded-[2.5rem] border border-slate-200 bg-white p-8 text-center shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-12">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-700">
             Join our team
