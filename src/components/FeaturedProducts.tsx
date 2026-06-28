@@ -75,13 +75,13 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
             />
           </span>
 
-          <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95">
             Live
           </span>
         </div>
 
         <div className="live-app-content relative mt-8">
-          <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95">
             {app.category}
           </span>
 
@@ -132,24 +132,32 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
         </div>
 
         <div className={`live-apps-marquee relative overflow-hidden py-8 ${isHoldingArrow ? "is-holding-arrow" : ""}`}>
-          <button onClick={() => handleScroll("left")} onMouseDown={() => startArrowHold("left")} onMouseUp={stopArrowHold} onMouseLeave={stopArrowHold} onTouchStart={() => startArrowHold("left")} onTouchEnd={stopArrowHold}
+          <button
             type="button"
-            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
-            aria-label="Speed up live apps marquee"
-            onMouseEnter={() => setIsArrowHovered(true)}
-            onFocus={() => setIsArrowHovered(true)}
-            onBlur={() => setIsArrowHovered(false)}
+            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
+            aria-label="Scroll apps left"
+            onClick={() => handleScroll("left")}
+            onMouseEnter={() => startArrowHold("left")}
+            onMouseLeave={stopArrowHold}
+            onFocus={() => startArrowHold("left")}
+            onBlur={stopArrowHold}
+            onTouchStart={() => startArrowHold("left")}
+            onTouchEnd={stopArrowHold}
           >
             ←
           </button>
 
-          <button onClick={() => handleScroll("right")} onMouseDown={() => startArrowHold("right")} onMouseUp={stopArrowHold} onMouseLeave={stopArrowHold} onTouchStart={() => startArrowHold("right")} onTouchEnd={stopArrowHold}
+          <button
             type="button"
-            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
-            aria-label="Speed up live apps marquee"
-            onMouseEnter={() => setIsArrowHovered(true)}
-            onFocus={() => setIsArrowHovered(true)}
-            onBlur={() => setIsArrowHovered(false)}
+            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
+            aria-label="Scroll apps right"
+            onClick={() => handleScroll("right")}
+            onMouseEnter={() => startArrowHold("right")}
+            onMouseLeave={stopArrowHold}
+            onFocus={() => startArrowHold("right")}
+            onBlur={stopArrowHold}
+            onTouchStart={() => startArrowHold("right")}
+            onTouchEnd={stopArrowHold}
           >
             →
           </button>
