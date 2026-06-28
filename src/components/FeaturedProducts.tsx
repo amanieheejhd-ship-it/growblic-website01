@@ -40,20 +40,15 @@ export default function FeaturedProducts() {
     holdDirectionRef.current = direction;
     setIsHoldingArrow(true);
 
-    slider.scrollBy({
-      left: direction === "left" ? -260 : 260,
-      behavior: "smooth",
-    });
-
     holdTimerRef.current = window.setInterval(() => {
       const currentSlider = sliderRef.current;
       if (!currentSlider || !holdDirectionRef.current) return;
 
       currentSlider.scrollBy({
-        left: holdDirectionRef.current === "left" ? -90 : 90,
+        left: holdDirectionRef.current === "left" ? -85 : 85,
         behavior: "auto",
       });
-    }, 30);
+    }, 28);
   };
 
 const [isArrowHovered, setIsArrowHovered] = useState(false);
@@ -132,24 +127,30 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
         </div>
 
         <div className={`live-apps-marquee relative overflow-hidden py-8 ${isHoldingArrow ? "is-holding-arrow" : ""}`}>
-          <button onClick={() => handleScroll("left")} onMouseDown={() => startArrowHold("left")} onMouseUp={stopArrowHold} onMouseLeave={stopArrowHold} onTouchStart={() => startArrowHold("left")} onTouchEnd={stopArrowHold}
+          <button
             type="button"
-            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
-            aria-label="Speed up live apps marquee"
-            onMouseEnter={() => setIsArrowHovered(true)}
-            onFocus={() => setIsArrowHovered(true)}
-            onBlur={() => setIsArrowHovered(false)}
+            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
+            aria-label="Scroll apps left"
+            onClick={() => handleScroll("left")}
+            onPointerEnter={() => startArrowHold("left")}
+            onPointerLeave={stopArrowHold}
+            onPointerCancel={stopArrowHold}
+            onBlur={stopArrowHold}
+            onTouchEnd={stopArrowHold}
           >
             ←
           </button>
 
-          <button onClick={() => handleScroll("right")} onMouseDown={() => startArrowHold("right")} onMouseUp={stopArrowHold} onMouseLeave={stopArrowHold} onTouchStart={() => startArrowHold("right")} onTouchEnd={stopArrowHold}
+          <button
             type="button"
-            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
-            aria-label="Speed up live apps marquee"
-            onMouseEnter={() => setIsArrowHovered(true)}
-            onFocus={() => setIsArrowHovered(true)}
-            onBlur={() => setIsArrowHovered(false)}
+            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
+            aria-label="Scroll apps right"
+            onClick={() => handleScroll("right")}
+            onPointerEnter={() => startArrowHold("right")}
+            onPointerLeave={stopArrowHold}
+            onPointerCancel={stopArrowHold}
+            onBlur={stopArrowHold}
+            onTouchEnd={stopArrowHold}
           >
             →
           </button>
