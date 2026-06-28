@@ -266,12 +266,15 @@ export default function BlogFilterGrid({
                         alt={post.title}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                       />
+                      <span className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-blue-700 shadow-lg shadow-blue-950/10 backdrop-blur">
+                        {post.category}
+                      </span>
                     </div>
 
                     <div className="flex flex-1 flex-col p-6">
                       <div className="flex items-start justify-between gap-3">
                         <span className="w-fit rounded-full border border-blue-100 bg-[#fbfdff] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-blue-700">
-                          {post.category}
+                          {post.guideLabel}
                         </span>
                         <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-blue-100 bg-white text-slate-950 shadow-sm transition group-hover:bg-slate-950 group-hover:text-white">
                           <ArrowUpRight size={17} />
