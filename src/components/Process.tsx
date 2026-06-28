@@ -46,7 +46,7 @@ export default function Process() {
   const mobileStepsLoop = [...steps, ...steps];
 
   return (
-    <section className="how-build-section relative overflow-hidden bg-[#fbfdff] px-6 py-12">
+    <section id="process" className="how-build-section relative overflow-hidden bg-[#fbfdff] px-6 py-12">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_85%_90%,rgba(6,182,212,0.08),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-7xl">
