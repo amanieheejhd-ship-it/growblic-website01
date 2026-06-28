@@ -24,9 +24,9 @@
   <circle cx="205" cy="116" r="8" fill="#F59E0B"/>
   <circle cx="232" cy="116" r="8" fill="#22C55E"/>
   <rect x="274" y="96" width="378" height="40" rx="20" fill="white" stroke="#DBEAFE"/>
-  <text x="298" y="122" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#0F172A">Custom Workflow System</text>
+  <text x="298" y="122" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#0F172A">Workflow System</text>
   <rect x="816" y="96" width="196" height="40" rx="20" fill="url(#accent)"/>
-  <text x="844" y="122" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="white">Built for your process</text>
+  <text x="844" y="122" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="white">Built for process</text>
   <rect x="164" y="178" width="210" height="410" rx="26" fill="#F8FBFF" stroke="#DBEAFE"/>
   <text x="194" y="224" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Workflow</text>
   <rect x="194" y="258" width="144" height="42" rx="15" fill="#2563EB"/>
@@ -42,22 +42,22 @@
   <rect x="414" y="190" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#BFDBFE" stroke-width="2"/>
   <rect x="444" y="220" width="58" height="58" rx="18" fill="#DBEAFE"/>
   <text x="523" y="244" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Client Request</text>
-  <text x="523" y="274" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">New enquiry captured</text>
+  <text x="523" y="274" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">New enquiry</text>
   <rect x="444" y="298" width="178" height="14" rx="7" fill="#93C5FD"/>
   <rect x="728" y="190" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#C4B5FD" stroke-width="2"/>
   <rect x="758" y="220" width="58" height="58" rx="18" fill="#EDE9FE"/>
   <text x="837" y="244" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Project Planning</text>
-  <text x="837" y="274" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Scope, timeline, owner</text>
+  <text x="837" y="274" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Scope & owner</text>
   <rect x="758" y="298" width="178" height="14" rx="7" fill="#A78BFA"/>
   <rect x="414" y="392" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#99F6E4" stroke-width="2"/>
   <rect x="444" y="422" width="58" height="58" rx="18" fill="#CCFBF1"/>
   <text x="523" y="446" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Team Tasks</text>
-  <text x="523" y="476" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Assigned and tracked</text>
+  <text x="523" y="476" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Assigned</text>
   <rect x="444" y="500" width="178" height="14" rx="7" fill="#2DD4BF"/>
   <rect x="728" y="392" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#BAE6FD" stroke-width="2"/>
   <rect x="758" y="422" width="58" height="58" rx="18" fill="#E0F2FE"/>
   <text x="837" y="446" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Delivery Status</text>
-  <text x="837" y="476" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Approved for launch</text>
+  <text x="837" y="476" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Approved</text>
   <rect x="758" y="500" width="178" height="14" rx="7" fill="#38BDF8"/>
   <path d="M676 263H728" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
   <path d="M704 247L728 263L704 279" stroke="#2563EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -65,5 +65,5 @@
   <path d="M843 368L859 392L875 368" stroke="#7C3AED" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M728 465H676" stroke="#06B6D4" stroke-width="6" stroke-linecap="round"/>
   <path d="M700 449L676 465L700 481" stroke="#06B6D4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="462" y="584" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#64748B">Automated approvals, team ownership, billing, and delivery reporting in one workflow.</text>
+  <text x="462" y="584" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#64748B">Approvals, ownership, billing, and reports in one workflow.</text>
 </svg>
