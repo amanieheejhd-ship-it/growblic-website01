@@ -1,11 +1,11 @@
 import { ArrowUpRight, CalendarDays, CheckCircle2, Clock3, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { blogPosts, type BlogPost } from "@/app/blog/blogData";
-
-const withBasePath = (path: string) => `/growblic-website01${path}`;
+import BlogCoverImage from "./BlogCoverImage";
 
 export default function BlogArticlePage({ post }: { post: BlogPost }) {
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const articlePoints = post.sections.slice(0, 5).map((section) => section.heading);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
@@ -57,11 +57,11 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
           </div>
 
           <div className="mt-10 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-2 shadow-2xl shadow-blue-950/10 sm:rounded-[2.25rem] sm:p-3">
-            <div className="relative min-h-[260px] overflow-hidden rounded-[1.55rem] bg-[#f8fbff] sm:min-h-[430px] lg:min-h-[520px]">
-              <img
-                src={withBasePath(post.coverImage)}
+            <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden rounded-[1.55rem] bg-[#f8fbff] sm:aspect-[16/9]">
+              <BlogCoverImage
+                src={post.coverImage}
                 alt={post.title}
-                className="h-full min-h-[260px] w-full object-contain sm:min-h-[430px] lg:min-h-[520px]"
+                className="h-full w-full object-cover"
               />
             </div>
           </div>
@@ -158,7 +158,23 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
           <aside className="grid gap-5 lg:sticky lg:top-8">
             <div className="rounded-[2rem] border border-blue-100 bg-[#fbfdff] p-6 shadow-2xl shadow-blue-950/10">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
-                Article summary
+                In this article
+              </p>
+              <div className="mt-5 grid gap-3">
+                {articlePoints.map((item, index) => (
+                  <div key={item} className="flex gap-3 rounded-2xl border border-slate-100 bg-white p-3 text-sm font-bold leading-6 text-slate-600">
+                    <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${post.accent} text-[11px] font-black text-white`}>
+                      {index + 1}
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-blue-950/5">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                What you&apos;ll learn
               </p>
               <div className="mt-5 grid gap-3">
                 {post.keyTakeaways.map((item) => (
@@ -178,7 +194,7 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 {post.relatedServices.map((service) => (
                   <Link
                     key={service}
-                    href="/#contact"
+                    href="/services"
                     className="flex items-center justify-between gap-3 rounded-2xl border border-blue-100 bg-[#fbfdff] p-3 text-sm font-black text-slate-700 transition hover:border-blue-200 hover:bg-white hover:text-blue-700"
                   >
                     <span>{service}</span>
@@ -217,10 +233,10 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 ))}
               </ul>
               <Link
-                href="/#contact"
+                href="/start-project"
                 className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
-                Start a Project
+                Start Project →
               </Link>
             </div>
 
@@ -233,10 +249,10 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 launch-ready digital product.
               </p>
               <Link
-                href="/#contact"
+                href="/start-project"
                 className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-blue-700 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-slate-950"
               >
-                Start a Project
+                Start Project →
               </Link>
             </div>
 
@@ -252,8 +268,8 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                     className="group grid grid-cols-[72px_minmax(0,1fr)] gap-3 rounded-2xl border border-slate-100 bg-[#fbfdff] p-3 transition hover:border-blue-200 hover:bg-white"
                   >
                     <div className="relative h-20 overflow-hidden rounded-xl bg-blue-50">
-                      <img
-                        src={withBasePath(item.coverImage)}
+                      <BlogCoverImage
+                        src={item.coverImage}
                         alt={item.title}
                         className="h-full w-full object-cover"
                       />
@@ -283,7 +299,7 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 Keep reading
               </p>
               <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950">
-                Related product guides
+                Related articles
               </h2>
             </div>
           </div>
@@ -295,8 +311,8 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 className="group overflow-hidden rounded-[1.8rem] border border-blue-100 bg-white shadow-xl shadow-blue-950/5 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70"
               >
                 <div className="relative h-44 bg-blue-50">
-                  <img
-                    src={withBasePath(item.coverImage)}
+                  <BlogCoverImage
+                    src={item.coverImage}
                     alt={item.title}
                     className="h-full w-full object-cover transition group-hover:scale-105"
                   />
@@ -320,19 +336,19 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
         <div className="mx-auto mt-10 max-w-6xl rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 shadow-2xl shadow-blue-950/10 sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div>
             <p className="text-3xl font-black leading-tight text-slate-950">
-              Ready to build something like this?
+              Want to build something like this?
             </p>
             <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-              Growblic can help you plan, design, develop, and launch your next
-              website, app, SaaS, dashboard, or automation system.
+              Growblic helps businesses plan, design, and launch websites, apps,
+              SaaS products, dashboards, and automation systems.
             </p>
           </div>
           <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:mt-0">
-            <Link href="/#contact" className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700">
-              Start a Project
+            <Link href="/start-project" className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700">
+              Start Project →
             </Link>
-            <Link href="/#apps" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700">
-              View Live Apps
+            <Link href="/services" className="inline-flex min-h-12 items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700">
+              Explore Services →
             </Link>
           </div>
         </div>
