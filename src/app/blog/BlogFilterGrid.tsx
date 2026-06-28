@@ -56,15 +56,6 @@ export default function BlogFilterGrid({
     categoryOptions.find((option) => option.slug === selectedParam) ?? categoryOptions[0];
   const isAll = activeOption.slug === "all";
 
-  const categoryCounts = useMemo(() => {
-    return categoryOptions.reduce<Record<string, number>>((counts, option) => {
-      counts[option.slug] = option.match
-        ? blogPosts.filter((post) => post.category === option.match).length
-        : blogPosts.length;
-      return counts;
-    }, {});
-  }, [blogPosts]);
-
   const serviceAreaCount = useMemo(
     () => new Set(blogPosts.map((post) => post.category)).size,
     [blogPosts],
@@ -169,20 +160,13 @@ export default function BlogFilterGrid({
                   key={category.slug}
                   type="button"
                   onClick={() => updateCategory(category.slug)}
-                  className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-black uppercase tracking-[0.12em] shadow-sm transition focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 ${
+                  className={`inline-flex shrink-0 items-center justify-center rounded-full border px-4 py-2.5 text-xs font-black uppercase tracking-[0.12em] shadow-sm transition focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 ${
                     active
                       ? "border-slate-950 bg-slate-950 text-white shadow-slate-950/15"
                       : "border-blue-100 bg-[#fbfdff] text-blue-700 shadow-blue-100/60 hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white"
                   }`}
                 >
-                  <span>{category.label}</span>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[11px] ${
-                      active ? "bg-white/15 text-white" : "bg-blue-50 text-blue-700"
-                    }`}
-                  >
-                    {categoryCounts[category.slug]}
-                  </span>
+                  {category.label}
                 </button>
               );
             })}
