@@ -1,40 +1,95 @@
 import Link from "next/link";
 
-const services = [
+const companyLinks = [
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Products", href: "/products" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/#contact" },
+];
+
+const serviceLinks = [
   { label: "Website Development", href: "/services" },
   { label: "Software Development", href: "/software" },
-  { label: "SEO Services", href: "/services" },
-  { label: "Google Ads Management", href: "/services" },
-  { label: "Meta Ads Management", href: "/services" },
-  { label: "GMB Rating & Reviews", href: "/services" },
-  { label: "Mobile App Development", href: "/mobile-apps" },
+  { label: "Mobile Apps", href: "/mobile-apps" },
+  { label: "SaaS Products", href: "/saas" },
   { label: "AI Automation", href: "/ai-automation" },
 ];
 
-const quickLinks = [
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Live Apps", href: "/#apps" },
-  { label: "Start Project", href: "/#contact" },
-  { label: "Support", href: "/support" },
+const growblicLinks = [
+  { label: "Start Project", href: "/start-project" },
   { label: "Client Login", href: "/client-login" },
+  { label: "Support", href: "/support" },
+  { label: "Why Growblic", href: "/why-growblic" },
 ];
 
-const contact = [
-  { label: "Website: www.growblic.com", href: "https://www.growblic.com" },
+const connectLinks = [
   { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
+  { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true },
+  {
+    label: "India",
+    href: "https://www.google.com/maps/search/?api=1&query=India",
+    external: true,
+  },
 ];
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string; external?: boolean }[];
+}) {
+  return (
+    <div>
+      <h3 className="text-sm font-black uppercase tracking-[0.18em] text-slate-950">
+        {title}
+      </h3>
+      <div className="mt-5 grid gap-3">
+        {links.map((item) =>
+          item.external ? (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-bold leading-6 text-slate-500 transition hover:text-blue-700"
+            >
+              {item.label}
+            </a>
+          ) : item.href.startsWith("mailto:") ? (
+            <a
+              key={item.label}
+              href={item.href}
+              className="text-sm font-bold leading-6 text-slate-500 transition hover:text-blue-700"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="text-sm font-bold leading-6 text-slate-500 transition hover:text-blue-700"
+            >
+              {item.label}
+            </Link>
+          ),
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-blue-100/70 bg-[#fbfdff] px-6 py-16">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.08),transparent_30%),radial-gradient(circle_at_85%_80%,rgba(6,182,212,0.08),transparent_28%)]" />
+    <footer className="relative overflow-hidden border-t border-blue-100/80 bg-[#fbfdff] px-5 py-10 sm:px-6 sm:py-14">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(37,99,235,0.09),transparent_28%),radial-gradient(circle_at_88%_80%,rgba(6,182,212,0.09),transparent_28%)]" />
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-[1.15fr_1fr_0.75fr_0.9fr]">
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.25rem] border border-blue-100/80 bg-white/86 p-6 shadow-2xl shadow-blue-100/55 backdrop-blur-xl sm:p-8 lg:p-10">
+        <div className="grid gap-10 lg:grid-cols-[1.15fr_2fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full shadow-md shadow-slate-200">
+              <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
                 <img
                   src="/growblic-website01/images/brand/growblic-logo.png"
                   alt="Growblic"
@@ -46,88 +101,32 @@ export default function Footer() {
               </span>
             </Link>
 
-            <div className="mt-5">
-              <p className="text-lg font-black text-slate-950">
-                Growblic Pvt Limited
-              </p>
-              <p className="mt-1 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">
-                Software Development Company
-              </p>
-            </div>
-
-            <p className="mt-4 max-w-md text-base leading-7 text-slate-500">
-              Growblic builds websites, mobile apps, SaaS products, dashboards,
-              and automation systems for modern businesses.
+            <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-blue-700">
+              Software Development Company
+            </p>
+            <p className="mt-4 max-w-md text-base font-semibold leading-8 text-slate-600">
+              Building premium websites, apps, SaaS products, and automation systems.
             </p>
 
-            <div className="mt-6 h-2 w-28 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-500" />
+            <Link
+              href="/start-project"
+              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+            >
+              Start Project →
+            </Link>
           </div>
 
-          <div>
-            <h3 className="text-lg font-black text-slate-950">Services</h3>
-            <div className="mt-6 grid gap-3">
-              {services.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block text-base font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-black text-slate-950">Quick Links</h3>
-            <div className="mt-6 space-y-4">
-              {quickLinks.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block text-base font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-black text-slate-950">Contact</h3>
-            <div className="mt-6 space-y-4">
-              {contact.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="block text-base font-medium text-slate-500 transition-colors duration-300 hover:text-blue-600"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <FooterColumn title="Company" links={companyLinks} />
+            <FooterColumn title="Services" links={serviceLinks} />
+            <FooterColumn title="Growblic" links={growblicLinks} />
+            <FooterColumn title="Connect" links={connectLinks} />
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-blue-100/70 pt-8 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-blue-100/80 pt-6 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
-
-          <div className="flex gap-5">
-            <a
-              href="https://www.linkedin.com/in/bintu-malik-6b7917387/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3Bn%2F%2B36pheQBKUivaxal4GUQ%3D%3D"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors duration-300 hover:text-blue-600"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="mailto:hello@growblic.com"
-              className="transition-colors duration-300 hover:text-blue-600"
-            >
-              Email
-            </a>
-          </div>
+          <p>Building premium websites, apps, SaaS products, and automation systems.</p>
         </div>
       </div>
     </footer>
