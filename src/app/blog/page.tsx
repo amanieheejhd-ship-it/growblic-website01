@@ -131,7 +131,7 @@ export default function BlogPage() {
                                   : "bg-cyan-600"
                             }`}
                           >
-                            0{index + 1}
+                            <span className="h-3 w-3 rounded-full bg-white" />
                           </span>
                         </div>
                         <div className="mt-4 grid grid-cols-3 gap-2">

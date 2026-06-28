@@ -120,7 +120,7 @@ export default function OpeningSplash() {
               transition={{ duration: 1.4, delay: 1.2 }}
               className="mt-6 text-xs font-bold uppercase tracking-[0.28em] text-slate-400"
             >
-              Loading experience
+              
             </motion.div>
           </motion.div>
 
