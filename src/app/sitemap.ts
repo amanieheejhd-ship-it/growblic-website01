@@ -8,6 +8,7 @@ export const dynamic = "force-static";
 const corePages = [
   { path: "/", priority: 1 },
   { path: "/about", priority: 0.85 },
+  { path: "/careers", priority: 0.82 },
   { path: "/services",
 priority: 0.95 },
   { path: "/products", priority: 0.9 },
