@@ -16,7 +16,7 @@ export const services = [
     description:
       "Launch a fast, premium website that builds trust and converts visitors into qualified leads.",
     features: ["Premium business UI", "SEO-ready pages", "Lead-focused structure"],
-    href: "/start-project",
+    href: "/website-development",
     icon: Globe2,
   },
   {
@@ -56,7 +56,7 @@ export const services = [
     description:
       "Improve discoverability with search-friendly pages, cleaner structure, and content built around buyer intent.",
     features: ["Technical SEO setup", "Keyword-led pages", "Local search basics"],
-    href: "/start-project",
+    href: "/seo-services",
     icon: Search,
   },
   {
@@ -64,7 +64,7 @@ export const services = [
     description:
       "Run focused Google Ads campaigns that send the right traffic to landing pages built to convert.",
     features: ["Campaign setup", "Conversion tracking", "Lead-focused landing flow"],
-    href: "/start-project",
+    href: "/google-ads-management",
     icon: MousePointerClick,
   },
   {
@@ -72,7 +72,7 @@ export const services = [
     description:
       "Reach customers across Facebook and Instagram with clear creative, targeting, and campaign structure.",
     features: ["Audience planning", "Creative direction", "Campaign optimization"],
-    href: "/start-project",
+    href: "/meta-ads-management",
     icon: Megaphone,
   },
   {
@@ -80,7 +80,7 @@ export const services = [
     description:
       "Strengthen local credibility with a cleaner Google Business presence and review-growth support.",
     features: ["Profile improvement", "Review strategy", "Local trust signals"],
-    href: "/start-project",
+    href: "/gmb-rating-reviews",
     icon: Star,
   },
 ];
