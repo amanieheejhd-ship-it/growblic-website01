@@ -1,0 +1,61 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="0.55" stop-color="#EFF6FF"/>
+      <stop offset="1" stop-color="#F5F3FF"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="170" y1="94" x2="1030" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071426"/>
+      <stop offset="0.56" stop-color="#0F2440"/>
+      <stop offset="1" stop-color="#312E81"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="284" y1="204" x2="912" y2="586" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="0.5" stop-color="#06B6D4"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <circle cx="170" cy="134" r="160" fill="#DBEAFE"/>
+  <circle cx="1028" cy="166" r="176" fill="#CFFAFE"/>
+  <circle cx="996" cy="620" r="180" fill="#EDE9FE"/>
+
+  <rect x="128" y="92" width="944" height="584" rx="48" fill="#0B1220" opacity="0.16"/>
+  <rect x="112" y="72" width="976" height="584" rx="48" fill="url(#hero)"/>
+  <text x="172" y="150" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#FFFFFF">SaaS Product System</text>
+  <text x="174" y="184" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" fill="#BAE6FD">Accounts, plans, modules, billing, and admin control</text>
+
+  <rect x="164" y="236" width="236" height="348" rx="32" fill="#101C31" stroke="#263B62" stroke-width="2"/>
+  <text x="204" y="286" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF">Admin</text>
+  <rect x="202" y="324" width="138" height="40" rx="16" fill="#2563EB"/>
+  <text x="232" y="350" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#FFFFFF">Overview</text>
+  <text x="226" y="412" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#B6C8E6">Users</text>
+  <text x="226" y="468" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#B6C8E6">Plans</text>
+  <text x="226" y="524" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#B6C8E6">Billing</text>
+
+  <rect x="434" y="236" width="602" height="348" rx="34" fill="#F8FBFF"/>
+  <rect x="482" y="282" width="506" height="58" rx="20" fill="#FFFFFF" stroke="#DBEAFE" stroke-width="2"/>
+  <text x="514" y="318" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Subscription Dashboard</text>
+  <rect x="852" y="296" width="102" height="30" rx="15" fill="url(#accent)"/>
+  <text x="881" y="316" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="900" fill="#FFFFFF">Live</text>
+
+  <rect x="482" y="374" width="146" height="118" rx="26" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="2"/>
+  <text x="512" y="414" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#1D4ED8">Users</text>
+  <text x="512" y="452" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900" fill="#0F172A">2.4k</text>
+  <rect x="512" y="466" width="76" height="9" rx="4.5" fill="#60A5FA"/>
+
+  <rect x="660" y="374" width="146" height="118" rx="26" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="2"/>
+  <text x="690" y="414" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0E7490">Plans</text>
+  <text x="690" y="452" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900" fill="#0F172A">5</text>
+  <rect x="690" y="466" width="92" height="9" rx="4.5" fill="#22D3EE"/>
+
+  <rect x="838" y="374" width="146" height="118" rx="26" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="2"/>
+  <text x="868" y="414" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#6D28D9">MRR</text>
+  <text x="868" y="452" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="900" fill="#0F172A">+18%</text>
+  <rect x="868" y="466" width="84" height="9" rx="4.5" fill="#A78BFA"/>
+
+  <rect x="482" y="520" width="506" height="34" rx="17" fill="#E0F2FE"/>
+  <rect x="482" y="520" width="342" height="34" rx="17" fill="url(#accent)"/>
+  <text x="512" y="542" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#FFFFFF">Product activation flow 68%</text>
+</svg>
