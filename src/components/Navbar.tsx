@@ -130,7 +130,7 @@ export default function Navbar() {
                     : "text-slate-700 hover:bg-blue-50 hover:text-blue-700"
                 }`}
               >
-                {menu.label} <span className="ml-2 opacity-60">⌄</span>
+                {menu.label} <span className="ml-2 opacity-60"></span>
               </button>
             ))}
           </div>
