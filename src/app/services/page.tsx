@@ -4,6 +4,14 @@ import Navbar from "@/components/Navbar";
 import Services from "@/components/Services";
 import SmoothScroll from "@/components/SmoothScroll";
 import { Bot, Cloud, Code2, Smartphone } from "lucide-react";
+import { createPageMetadata } from "../seo";
+
+export const metadata = createPageMetadata({
+  title: "Services - Website, App, SaaS and AI Automation Development",
+  description:
+    "Explore Growblic services for website development, custom software, mobile apps, SaaS products, dashboards, SEO, ads, and AI automation systems.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

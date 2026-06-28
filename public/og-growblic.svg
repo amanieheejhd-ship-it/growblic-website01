@@ -1,0 +1,44 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#08111F"/>
+  <defs>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 120) rotate(42) scale(420 310)">
+      <stop stop-color="#2563EB" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1010 500) rotate(146) scale(430 320)">
+      <stop stop-color="#06B6D4" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#06B6D4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(790 130) rotate(116) scale(360 270)">
+      <stop stop-color="#8B5CF6" stop-opacity="0.52"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="214" y1="441" x2="989" y2="441" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="0.5" stop-color="#06B6D4"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+  <rect width="1200" height="630" fill="url(#glowC)"/>
+  <g opacity="0.14">
+    <path d="M0 110H1200M0 220H1200M0 330H1200M0 440H1200M0 550H1200" stroke="white"/>
+    <path d="M120 0V630M240 0V630M360 0V630M480 0V630M600 0V630M720 0V630M840 0V630M960 0V630M1080 0V630" stroke="white"/>
+  </g>
+  <rect x="104" y="76" width="992" height="478" rx="44" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.18"/>
+  <rect x="148" y="120" width="904" height="390" rx="32" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.16"/>
+  <circle cx="186" cy="160" r="8" fill="#F87171"/>
+  <circle cx="214" cy="160" r="8" fill="#FBBF24"/>
+  <circle cx="242" cy="160" r="8" fill="#34D399"/>
+  <text x="148" y="276" fill="white" font-family="Inter, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="-2">Growblic</text>
+  <text x="152" y="343" fill="#D8E8FF" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700">Software development company for modern businesses</text>
+  <rect x="154" y="418" width="892" height="8" rx="4" fill="url(#line)"/>
+  <text x="152" y="470" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800">Websites • Apps • SaaS • AI Automation</text>
+  <g transform="translate(830 218)">
+    <rect x="0" y="0" width="176" height="128" rx="22" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <rect x="24" y="28" width="84" height="12" rx="6" fill="#93C5FD"/>
+    <rect x="24" y="58" width="128" height="10" rx="5" fill="#FFFFFF" fill-opacity="0.35"/>
+    <rect x="24" y="82" width="102" height="10" rx="5" fill="#67E8F9"/>
+  </g>
+</svg>

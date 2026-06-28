@@ -17,6 +17,14 @@ import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
 import FeaturedProducts from "../components/FeaturedProducts";
 import TrustSection from "../components/TrustSection";
+import { createPageMetadata } from "./seo";
+
+export const metadata = createPageMetadata({
+  title: "Growblic - Software Development Company",
+  description:
+    "Growblic builds premium websites, mobile apps, SaaS products, dashboards, AI automation systems, and business software for modern companies.",
+  path: "/",
+});
 
 export default function Home() {
   return (

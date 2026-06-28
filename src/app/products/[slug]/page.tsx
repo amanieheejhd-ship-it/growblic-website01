@@ -7,6 +7,7 @@ import ProductHero from "@/components/ProductHero";
 import RelatedProducts from "@/components/RelatedProducts";
 import SmoothScroll from "@/components/SmoothScroll";
 import { getProductBySlug, products } from "@/data/products";
+import { createPageMetadata } from "@/app/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -29,7 +30,12 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 
   return {
-    title: `${product.title} | Growblic`,
+    ...createPageMetadata({
+      title: `${product.title} - Growblic Product System`,
+      description: product.shortDescription,
+      path: `/products/${product.slug}`,
+      image: product.imageSlides[0] ?? "/og-growblic.svg",
+    }),
     description: product.shortDescription,
   };
 }

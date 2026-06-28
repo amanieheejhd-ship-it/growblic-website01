@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import SmoothScroll from "../components/SmoothScroll";
 import "./globals.css";
 import OpeningSplash from "../components/OpeningSplash";
+import { absoluteUrl, createPageMetadata, defaultSeo, siteUrl } from "./seo";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -9,30 +10,38 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  ...createPageMetadata({
+    title: defaultSeo.title,
+    description: defaultSeo.description,
+    path: "/",
+  }),
+  metadataBase: new URL(`${siteUrl}/`),
   title: {
-    default: "Growblic - Software Development, Apps, Websites & AI Automation",
+    default: defaultSeo.title,
     template: "%s | Growblic",
   },
-  description:
-    "Growblic builds modern websites, mobile apps, SaaS platforms, dashboards, SEO solutions, digital marketing systems, and AI automation tools for growing businesses.",
-  keywords: [
-    "Growblic",
-    "software development company",
-    "website development",
-    "mobile app development",
-    "SaaS development",
-    "AI automation",
-    "SEO services",
-    "Google Ads",
-    "Meta Ads",
-  ],
+  description: defaultSeo.description,
+  keywords: defaultSeo.keywords,
   openGraph: {
-    title: "Growblic - Software Development, Apps, Websites & AI Automation",
-    description:
-      "Modern websites, mobile apps, SaaS platforms, dashboards, SEO solutions, digital marketing systems, and AI automation tools.",
-    url: "https://www.growblic.com",
+    title: defaultSeo.title,
+    description: defaultSeo.description,
+    url: siteUrl,
     siteName: "Growblic",
     type: "website",
+    images: [
+      {
+        url: absoluteUrl(defaultSeo.image),
+        width: 1200,
+        height: 630,
+        alt: "Growblic software development company",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultSeo.title,
+    description: defaultSeo.description,
+    images: [absoluteUrl(defaultSeo.image)],
   },
   icons: {
     icon: "/growblic-website01/images/brand/growblic-logo.png",

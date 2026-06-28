@@ -1,4 +1,12 @@
 import BackButton from "../../components/BackButton";
+import { createPageMetadata } from "../seo";
+
+export const metadata = createPageMetadata({
+  title: "Support - Growblic Product Care",
+  description:
+    "Get support for Growblic websites, mobile apps, SaaS products, dashboards, automation systems, updates, performance checks, and product improvements.",
+  path: "/support",
+});
 
 const supportItems = [
   "Bug fixes",

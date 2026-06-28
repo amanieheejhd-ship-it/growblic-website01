@@ -4,12 +4,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { blogPosts } from "./blogData";
 import BlogFilterGrid from "./BlogFilterGrid";
+import { createPageMetadata } from "../seo";
 
-export const metadata: Metadata = {
-  title: "Growblic Blog | Software Product Guides",
+export const metadata: Metadata = createPageMetadata({
+  title: "Growblic Blog - Software Product Guides",
   description:
-    "Practical articles from Growblic on websites, mobile apps, SaaS platforms, dashboards, admin panels, and AI automation.",
-};
+    "Read practical Growblic guides on websites, mobile apps, SaaS platforms, dashboards, admin panels, AI automation, and software product planning.",
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const featuredPost = blogPosts.find((post) => post.slug === "custom-software") ?? blogPosts[0];

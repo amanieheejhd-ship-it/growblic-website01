@@ -11,6 +11,14 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import BackButton from "../../components/BackButton";
+import { createPageMetadata } from "../seo";
+
+export const metadata = createPageMetadata({
+  title: "About Growblic - Software Development Company",
+  description:
+    "Learn how Growblic helps businesses move from idea to launch with premium websites, mobile apps, SaaS products, dashboards, automation systems, and business software.",
+  path: "/about",
+});
 
 const buildAreas = [
   {

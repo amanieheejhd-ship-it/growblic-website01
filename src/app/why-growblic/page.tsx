@@ -1,4 +1,12 @@
 import BackButton from "../../components/BackButton";
+import { createPageMetadata } from "../seo";
+
+export const metadata = createPageMetadata({
+  title: "Why Growblic - Premium Software Development Partner",
+  description:
+    "See why businesses choose Growblic for premium UI, modern development, product-first planning, scalable software, and long-term support.",
+  path: "/why-growblic",
+});
 
 const reasons = [
   "Premium UI design",

@@ -1,5 +1,6 @@
 import BackButton from "../../components/BackButton";
 import StartProjectForm from "../../components/StartProjectForm";
+import { createPageMetadata } from "../seo";
 
 const options = [
   "Website or landing page",
@@ -10,11 +11,12 @@ const options = [
   "Custom software",
 ];
 
-export const metadata = {
-  title: "Start a Project | Growblic",
+export const metadata = createPageMetadata({
+  title: "Start a Project - Growblic",
   description:
-    "Start your website, mobile app, SaaS, dashboard, CRM, or AI automation project with Growblic.",
-};
+    "Start your website, mobile app, SaaS product, dashboard, CRM, business software, or AI automation project with Growblic.",
+  path: "/start-project",
+});
 
 export default function StartProjectPage() {
   return (
