@@ -83,26 +83,26 @@ export default function FeaturedProducts() {
         <div className="live-apps-marquee relative overflow-hidden py-8">
           <button
             type="button"
-            className="live-app-arrow absolute left-4 md:left-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/70/80 bg-white/90/95 !text-slate-950 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300"
+            className="app-slider-arrow app-slider-arrow-left group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/85 text-xl font-semibold text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Speed up live apps marquee"
             onMouseEnter={() => setIsArrowHovered(true)}
             onMouseLeave={() => setIsArrowHovered(false)}
             onFocus={() => setIsArrowHovered(true)}
             onBlur={() => setIsArrowHovered(false)}
           >
-            ←
+            <span className="app-slider-arrow-icon">←</span>
           </button>
 
           <button
             type="button"
-            className="live-app-arrow absolute right-4 md:right-6 top-1/2 z-40 flex !h-11 !w-11 md:!h-12 md:!w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/70/80 bg-white/90/95 !text-slate-950 shadow-[0_16px_45px_rgba(15,23,42,0.16)] backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:bg-slate-950 hover:!text-white backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300"
+            className="app-slider-arrow app-slider-arrow-right group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/85 text-xl font-semibold text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Speed up live apps marquee"
             onMouseEnter={() => setIsArrowHovered(true)}
             onMouseLeave={() => setIsArrowHovered(false)}
             onFocus={() => setIsArrowHovered(true)}
             onBlur={() => setIsArrowHovered(false)}
           >
-            →
+            <span className="app-slider-arrow-icon">→</span>
           </button>
 
           <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />

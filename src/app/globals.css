@@ -846,3 +846,45 @@ button {
     transform: translateX(200%);
   }
 }
+
+
+/* premium-growblic-app-slider-v2 */
+.app-click-slider,
+.app-hover-slider {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.app-click-slider > *,
+.app-hover-slider > * {
+  scroll-snap-align: start;
+}
+
+.app-slider-arrow {
+  position: relative;
+  isolation: isolate;
+}
+
+.app-slider-arrow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(226,232,240,.45));
+  z-index: -1;
+}
+
+.app-slider-arrow-icon {
+  display: inline-flex;
+  transform: translateY(-1px);
+  transition: transform .25s ease;
+}
+
+.app-slider-arrow-left:hover .app-slider-arrow-icon {
+  transform: translateX(-2px) translateY(-1px);
+}
+
+.app-slider-arrow-right:hover .app-slider-arrow-icon {
+  transform: translateX(2px) translateY(-1px);
+}
+
