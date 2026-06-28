@@ -1,31 +1,69 @@
 <svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="700" rx="48" fill="#F8FBFF"/>
-  <circle cx="230" cy="120" r="190" fill="#CFFAFE"/>
-  <circle cx="1010" cy="190" r="210" fill="#EDE9FE"/>
-  <rect x="116" y="96" width="968" height="508" rx="42" fill="white" stroke="#DBEAFE" stroke-width="2"/>
-  <rect x="256" y="124" width="250" height="452" rx="48" fill="#0F172A"/>
-  <rect x="276" y="152" width="210" height="396" rx="34" fill="#FFFFFF"/>
-  <rect x="302" y="184" width="158" height="132" rx="28" fill="url(#g1)"/>
-  <rect x="302" y="344" width="158" height="20" rx="10" fill="#CBD5E1"/>
-  <rect x="302" y="382" width="116" height="16" rx="8" fill="#E2E8F0"/>
-  <rect x="302" y="428" width="158" height="76" rx="22" fill="#EFF6FF"/>
-  <rect x="548" y="158" width="374" height="104" rx="28" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
-  <circle cx="600" cy="210" r="26" fill="#2563EB"/>
-  <rect x="646" y="188" width="198" height="16" rx="8" fill="#64748B"/>
-  <rect x="646" y="222" width="138" height="14" rx="7" fill="#CBD5E1"/>
-  <rect x="610" y="302" width="334" height="86" rx="26" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/>
-  <rect x="642" y="334" width="176" height="16" rx="8" fill="#7C3AED"/>
-  <rect x="642" y="362" width="120" height="12" rx="6" fill="#C4B5FD"/>
-  <rect x="548" y="428" width="390" height="94" rx="28" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="2"/>
-  <rect x="582" y="462" width="220" height="16" rx="8" fill="#06B6D4"/>
-  <rect x="582" y="492" width="160" height="12" rx="6" fill="#67E8F9"/>
-  <circle cx="946" cy="438" r="72" fill="#DBEAFE"/>
-  <circle cx="946" cy="438" r="42" fill="#60A5FA"/>
   <defs>
-    <linearGradient id="g1" x1="302" y1="184" x2="460" y2="316" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB"/>
-      <stop offset="0.55" stop-color="#06B6D4"/>
-      <stop offset="1" stop-color="#8B5CF6"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FCFF"/><stop offset="0.52" stop-color="#ECFEFF"/><stop offset="1" stop-color="#F5F3FF"/>
     </linearGradient>
+    <linearGradient id="phone" x1="310" y1="92" x2="890" y2="612" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/><stop offset="0.5" stop-color="#06B6D4"/><stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <filter id="shadow" x="150" y="35" width="900" height="640" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="32" flood-color="#1E3A8A" flood-opacity="0.16"/>
+    </filter>
   </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <circle cx="170" cy="120" r="170" fill="#DBEAFE" opacity="0.75"/>
+  <circle cx="1030" cy="590" r="190" fill="#EDE9FE" opacity="0.8"/>
+  <text x="92" y="92" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900" fill="#0F172A">Mobile App Experience</text>
+  <text x="94" y="130" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800" fill="#2563EB">Booking, payments, live tracking, and notifications</text>
+  <g filter="url(#shadow)">
+    <rect x="214" y="154" width="244" height="462" rx="42" fill="#0F172A"/>
+    <rect x="232" y="176" width="208" height="418" rx="32" fill="white"/>
+    <rect x="282" y="194" width="108" height="8" rx="4" fill="#CBD5E1"/>
+    <text x="260" y="246" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Home</text>
+    <rect x="260" y="270" width="150" height="46" rx="23" fill="url(#phone)"/>
+    <text x="298" y="299" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="white">Open App</text>
+    <rect x="260" y="342" width="150" height="82" rx="22" fill="#EFF6FF" stroke="#BFDBFE"/>
+    <text x="282" y="373" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#1D4ED8">New Booking</text>
+    <text x="282" y="402" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Today, 4:30 PM</text>
+    <rect x="260" y="444" width="150" height="82" rx="22" fill="#ECFEFF" stroke="#99F6E4"/>
+    <text x="282" y="475" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0E7490">Payment Done</text>
+    <text x="282" y="504" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Invoice paid</text>
+    <text x="260" y="564" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#2563EB">Home</text>
+    <text x="330" y="564" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#94A3B8">Orders</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="478" y="82" width="244" height="534" rx="46" fill="#111827"/>
+    <rect x="496" y="106" width="208" height="486" rx="34" fill="white"/>
+    <rect x="548" y="126" width="104" height="8" rx="4" fill="#CBD5E1"/>
+    <text x="526" y="178" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="900" fill="#0F172A">Orders</text>
+    <rect x="526" y="206" width="150" height="112" rx="24" fill="#F8FAFC" stroke="#CBD5E1"/>
+    <text x="550" y="240" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0F172A">Live Tracking</text>
+    <path d="M550 278C575 252 610 308 652 266" stroke="#06B6D4" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="550" cy="278" r="8" fill="#2563EB"/><circle cx="652" cy="266" r="8" fill="#7C3AED"/>
+    <rect x="526" y="340" width="150" height="62" rx="20" fill="#EEF2FF"/>
+    <text x="550" y="366" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#4338CA">Notifications</text>
+    <text x="550" y="390" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" fill="#64748B">3 updates waiting</text>
+    <rect x="526" y="424" width="150" height="62" rx="20" fill="#F0FDFA"/>
+    <text x="550" y="450" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#0F766E">Profile</text>
+    <text x="550" y="474" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" fill="#64748B">Member account</text>
+    <text x="526" y="552" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#94A3B8">Home</text>
+    <text x="598" y="552" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#2563EB">Orders</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="742" y="154" width="244" height="462" rx="42" fill="#0F172A"/>
+    <rect x="760" y="176" width="208" height="418" rx="32" fill="white"/>
+    <rect x="810" y="194" width="108" height="8" rx="4" fill="#CBD5E1"/>
+    <text x="790" y="246" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Profile</text>
+    <circle cx="864" cy="300" r="42" fill="#DBEAFE"/>
+    <text x="842" y="309" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#2563EB">GB</text>
+    <rect x="790" y="368" width="148" height="54" rx="20" fill="#F8FAFC" stroke="#CBD5E1"/>
+    <text x="814" y="402" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#0F172A">Saved Cards</text>
+    <rect x="790" y="442" width="148" height="54" rx="20" fill="#EFF6FF" stroke="#BFDBFE"/>
+    <text x="814" y="476" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#1D4ED8">Support Chat</text>
+    <text x="790" y="564" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#94A3B8">Orders</text>
+    <text x="874" y="564" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#2563EB">Profile</text>
+  </g>
+  <rect x="820" y="84" width="260" height="82" rx="26" fill="white" stroke="#BFDBFE" filter="url(#shadow)"/>
+  <text x="850" y="116" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0F172A">Push notification</text>
+  <text x="850" y="145" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#2563EB">Your order is arriving soon</text>
 </svg>

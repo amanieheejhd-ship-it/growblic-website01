@@ -1,33 +1,69 @@
 <svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="700" rx="48" fill="#F8FBFF"/>
-  <circle cx="160" cy="120" r="170" fill="#DBEAFE"/>
-  <circle cx="1040" cy="110" r="190" fill="#EDE9FE"/>
-  <circle cx="930" cy="620" r="210" fill="#CFFAFE"/>
-  <path d="M130 560C285 398 423 602 580 440C737 278 868 410 1068 238" stroke="#BFDBFE" stroke-width="3" stroke-dasharray="12 16"/>
-  <rect x="112" y="102" width="976" height="496" rx="38" fill="white" stroke="#DBEAFE" stroke-width="2"/>
-  <rect x="158" y="150" width="280" height="146" rx="28" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
-  <rect x="182" y="178" width="92" height="16" rx="8" fill="#2563EB"/>
-  <rect x="182" y="214" width="210" height="14" rx="7" fill="#CBD5E1"/>
-  <rect x="182" y="244" width="160" height="14" rx="7" fill="#E2E8F0"/>
-  <rect x="182" y="272" width="94" height="10" rx="5" fill="#38BDF8"/>
-  <rect x="460" y="276" width="280" height="146" rx="28" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/>
-  <rect x="484" y="304" width="76" height="16" rx="8" fill="#7C3AED"/>
-  <rect x="484" y="340" width="204" height="14" rx="7" fill="#CBD5E1"/>
-  <rect x="484" y="370" width="130" height="14" rx="7" fill="#E2E8F0"/>
-  <rect x="484" y="398" width="110" height="10" rx="5" fill="#8B5CF6"/>
-  <rect x="762" y="150" width="280" height="146" rx="28" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="2"/>
-  <rect x="786" y="178" width="104" height="16" rx="8" fill="#06B6D4"/>
-  <rect x="786" y="214" width="206" height="14" rx="7" fill="#CBD5E1"/>
-  <rect x="786" y="244" width="152" height="14" rx="7" fill="#E2E8F0"/>
-  <rect x="786" y="272" width="98" height="10" rx="5" fill="#22D3EE"/>
-  <rect x="762" y="430" width="280" height="116" rx="28" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
-  <rect x="786" y="460" width="210" height="14" rx="7" fill="#CBD5E1"/>
-  <rect x="786" y="492" width="156" height="14" rx="7" fill="#E2E8F0"/>
-  <path d="M438 223C500 223 446 349 460 349" stroke="#60A5FA" stroke-width="6" stroke-linecap="round"/>
-  <path d="M740 349C805 349 708 223 762 223" stroke="#A78BFA" stroke-width="6" stroke-linecap="round"/>
-  <path d="M740 385C808 385 704 488 762 488" stroke="#22D3EE" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="438" cy="223" r="10" fill="#2563EB"/>
-  <circle cx="460" cy="349" r="10" fill="#7C3AED"/>
-  <circle cx="762" cy="223" r="10" fill="#06B6D4"/>
-  <circle cx="762" cy="488" r="10" fill="#22D3EE"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FCFF"/>
+      <stop offset="0.55" stop-color="#EEF7FF"/>
+      <stop offset="1" stop-color="#F7F2FF"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="180" y1="92" x2="1010" y2="610" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="0.48" stop-color="#06B6D4"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <filter id="shadow" x="95" y="55" width="1010" height="610" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-color="#1E3A8A" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <circle cx="1040" cy="88" r="190" fill="#DBEAFE" opacity="0.62"/>
+  <circle cx="135" cy="622" r="190" fill="#CCFBF1" opacity="0.58"/>
+  <rect x="132" y="78" width="936" height="544" rx="38" fill="white" filter="url(#shadow)"/>
+  <rect x="132" y="78" width="936" height="76" rx="38" fill="#F8FAFC"/>
+  <rect x="132" y="136" width="936" height="1" fill="#E2E8F0"/>
+  <circle cx="178" cy="116" r="8" fill="#EF4444"/>
+  <circle cx="205" cy="116" r="8" fill="#F59E0B"/>
+  <circle cx="232" cy="116" r="8" fill="#22C55E"/>
+  <rect x="274" y="96" width="378" height="40" rx="20" fill="white" stroke="#DBEAFE"/>
+  <text x="298" y="122" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#0F172A">Custom Workflow System</text>
+  <rect x="816" y="96" width="196" height="40" rx="20" fill="url(#accent)"/>
+  <text x="844" y="122" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="white">Built for your process</text>
+  <rect x="164" y="178" width="210" height="410" rx="26" fill="#F8FBFF" stroke="#DBEAFE"/>
+  <text x="194" y="224" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Workflow</text>
+  <rect x="194" y="258" width="144" height="42" rx="15" fill="#2563EB"/>
+  <text x="220" y="285" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" fill="white">Leads</text>
+  <rect x="194" y="316" width="144" height="42" rx="15" fill="white" stroke="#CBD5E1"/>
+  <text x="220" y="343" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" fill="#334155">Orders</text>
+  <rect x="194" y="374" width="144" height="42" rx="15" fill="white" stroke="#CBD5E1"/>
+  <text x="220" y="401" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" fill="#334155">Billing</text>
+  <rect x="194" y="432" width="144" height="42" rx="15" fill="white" stroke="#CBD5E1"/>
+  <text x="220" y="459" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" fill="#334155">Reports</text>
+  <rect x="194" y="514" width="128" height="34" rx="17" fill="#ECFEFF"/>
+  <text x="216" y="536" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#0891B2">Live sync</text>
+  <rect x="414" y="190" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#BFDBFE" stroke-width="2"/>
+  <rect x="444" y="220" width="58" height="58" rx="18" fill="#DBEAFE"/>
+  <text x="523" y="244" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Client Request</text>
+  <text x="523" y="274" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">New enquiry captured</text>
+  <rect x="444" y="298" width="178" height="14" rx="7" fill="#93C5FD"/>
+  <rect x="728" y="190" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#C4B5FD" stroke-width="2"/>
+  <rect x="758" y="220" width="58" height="58" rx="18" fill="#EDE9FE"/>
+  <text x="837" y="244" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Project Planning</text>
+  <text x="837" y="274" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Scope, timeline, owner</text>
+  <rect x="758" y="298" width="178" height="14" rx="7" fill="#A78BFA"/>
+  <rect x="414" y="392" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#99F6E4" stroke-width="2"/>
+  <rect x="444" y="422" width="58" height="58" rx="18" fill="#CCFBF1"/>
+  <text x="523" y="446" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Team Tasks</text>
+  <text x="523" y="476" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Assigned and tracked</text>
+  <rect x="444" y="500" width="178" height="14" rx="7" fill="#2DD4BF"/>
+  <rect x="728" y="392" width="262" height="146" rx="28" fill="#F8FAFC" stroke="#BAE6FD" stroke-width="2"/>
+  <rect x="758" y="422" width="58" height="58" rx="18" fill="#E0F2FE"/>
+  <text x="837" y="446" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="900" fill="#0F172A">Delivery Status</text>
+  <text x="837" y="476" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#64748B">Approved for launch</text>
+  <rect x="758" y="500" width="178" height="14" rx="7" fill="#38BDF8"/>
+  <path d="M676 263H728" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
+  <path d="M704 247L728 263L704 279" stroke="#2563EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M859 336V392" stroke="#7C3AED" stroke-width="6" stroke-linecap="round"/>
+  <path d="M843 368L859 392L875 368" stroke="#7C3AED" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M728 465H676" stroke="#06B6D4" stroke-width="6" stroke-linecap="round"/>
+  <path d="M700 449L676 465L700 481" stroke="#06B6D4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="462" y="584" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#64748B">Automated approvals, team ownership, billing, and delivery reporting in one workflow.</text>
 </svg>

@@ -1,25 +1,46 @@
 <svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="700" rx="48" fill="#F8FBFF"/>
-  <circle cx="1040" cy="130" r="210" fill="#DBEAFE"/>
-  <circle cx="190" cy="610" r="210" fill="#EDE9FE"/>
-  <rect x="110" y="92" width="980" height="516" rx="42" fill="white" stroke="#DBEAFE" stroke-width="2"/>
-  <rect x="154" y="142" width="220" height="122" rx="28" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
-  <rect x="190" y="176" width="96" height="18" rx="9" fill="#2563EB"/>
-  <rect x="190" y="218" width="142" height="18" rx="9" fill="#CBD5E1"/>
-  <rect x="410" y="142" width="220" height="122" rx="28" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="2"/>
-  <rect x="446" y="176" width="110" height="18" rx="9" fill="#7C3AED"/>
-  <rect x="446" y="218" width="138" height="18" rx="9" fill="#CBD5E1"/>
-  <rect x="666" y="142" width="220" height="122" rx="28" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="2"/>
-  <rect x="702" y="176" width="94" height="18" rx="9" fill="#06B6D4"/>
-  <rect x="702" y="218" width="142" height="18" rx="9" fill="#CBD5E1"/>
-  <rect x="154" y="306" width="528" height="238" rx="30" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
-  <path d="M204 492C260 450 297 472 344 408C389 346 444 384 492 332C536 284 588 318 632 282" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
-  <path d="M204 520H632" stroke="#CBD5E1" stroke-width="4" stroke-linecap="round"/>
-  <path d="M204 340V520" stroke="#CBD5E1" stroke-width="4" stroke-linecap="round"/>
-  <rect x="724" y="306" width="320" height="238" rx="30" fill="#FFFFFF" stroke="#DBEAFE" stroke-width="2"/>
-  <rect x="766" y="458" width="34" height="50" rx="12" fill="#93C5FD"/>
-  <rect x="824" y="408" width="34" height="100" rx="12" fill="#38BDF8"/>
-  <rect x="882" y="360" width="34" height="148" rx="12" fill="#8B5CF6"/>
-  <rect x="940" y="388" width="34" height="120" rx="12" fill="#2563EB"/>
-  <rect x="766" y="342" width="168" height="18" rx="9" fill="#CBD5E1"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#F8FCFF"/><stop offset="1" stop-color="#F5F3FF"/></linearGradient>
+    <linearGradient id="line" x1="352" y1="408" x2="778" y2="278" gradientUnits="userSpaceOnUse"><stop stop-color="#2563EB"/><stop offset="0.5" stop-color="#06B6D4"/><stop offset="1" stop-color="#7C3AED"/></linearGradient>
+    <filter id="shadow" x="74" y="43" width="1052" height="620" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="24" stdDeviation="34" flood-color="#1E3A8A" flood-opacity="0.15"/></filter>
+  </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <rect x="104" y="76" width="992" height="548" rx="38" fill="white" filter="url(#shadow)"/>
+  <rect x="104" y="76" width="992" height="76" rx="38" fill="#F8FAFC"/>
+  <rect x="104" y="136" width="992" height="1" fill="#E2E8F0"/>
+  <circle cx="150" cy="115" r="8" fill="#EF4444"/><circle cx="178" cy="115" r="8" fill="#F59E0B"/><circle cx="206" cy="115" r="8" fill="#22C55E"/>
+  <text x="254" y="122" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Business Performance Dashboard</text>
+  <rect x="874" y="96" width="158" height="38" rx="19" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="900" y="121" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#2563EB">This month</text>
+  <rect x="144" y="184" width="212" height="108" rx="24" fill="#EFF6FF" stroke="#BFDBFE"/>
+  <text x="174" y="222" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#2563EB">Revenue</text>
+  <text x="174" y="262" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0F172A">$84.2K</text>
+  <rect x="380" y="184" width="212" height="108" rx="24" fill="#ECFEFF" stroke="#99F6E4"/>
+  <text x="410" y="222" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#0891B2">Leads</text>
+  <text x="410" y="262" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0F172A">1,248</text>
+  <rect x="616" y="184" width="212" height="108" rx="24" fill="#F5F3FF" stroke="#DDD6FE"/>
+  <text x="646" y="222" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#7C3AED">Orders</text>
+  <text x="646" y="262" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0F172A">326</text>
+  <rect x="852" y="184" width="204" height="108" rx="24" fill="#F0FDFA" stroke="#99F6E4"/>
+  <text x="882" y="222" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="900" fill="#0F766E">Growth</text>
+  <text x="882" y="262" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0F172A">+18%</text>
+  <rect x="144" y="326" width="642" height="246" rx="28" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="174" y="366" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#0F172A">Revenue and activity</text>
+  <rect x="190" y="492" width="42" height="48" rx="10" fill="#BFDBFE"/>
+  <rect x="254" y="452" width="42" height="88" rx="10" fill="#93C5FD"/>
+  <rect x="318" y="416" width="42" height="124" rx="10" fill="#60A5FA"/>
+  <rect x="382" y="470" width="42" height="70" rx="10" fill="#67E8F9"/>
+  <rect x="446" y="394" width="42" height="146" rx="10" fill="#22D3EE"/>
+  <rect x="510" y="438" width="42" height="102" rx="10" fill="#A78BFA"/>
+  <rect x="574" y="372" width="42" height="168" rx="10" fill="#8B5CF6"/>
+  <path d="M190 464C254 426 299 438 358 392C424 342 490 366 546 324C610 276 672 306 738 252" stroke="url(#line)" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="190" cy="464" r="9" fill="#2563EB"/><circle cx="358" cy="392" r="9" fill="#06B6D4"/><circle cx="546" cy="324" r="9" fill="#7C3AED"/><circle cx="738" cy="252" r="9" fill="#2563EB"/>
+  <rect x="820" y="326" width="236" height="246" rx="28" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="850" y="366" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#0F172A">Report table</text>
+  <rect x="850" y="394" width="176" height="42" rx="14" fill="white" stroke="#E2E8F0"/>
+  <text x="872" y="421" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#334155">Website Leads</text>
+  <rect x="850" y="452" width="176" height="42" rx="14" fill="white" stroke="#E2E8F0"/>
+  <text x="872" y="479" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#334155">App Orders</text>
+  <rect x="850" y="510" width="176" height="42" rx="14" fill="white" stroke="#E2E8F0"/>
+  <text x="872" y="537" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#334155">Support Tickets</text>
 </svg>

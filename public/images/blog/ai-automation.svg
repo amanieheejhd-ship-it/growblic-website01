@@ -1,34 +1,51 @@
 <svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="700" rx="48" fill="#F8FBFF"/>
-  <circle cx="170" cy="140" r="190" fill="#DBEAFE"/>
-  <circle cx="1030" cy="590" r="230" fill="#CFFAFE"/>
-  <circle cx="600" cy="350" r="310" fill="#F5F3FF"/>
-  <rect x="112" y="96" width="976" height="508" rx="42" fill="white" fill-opacity="0.86" stroke="#DBEAFE" stroke-width="2"/>
-  <path d="M296 212L600 350L894 212" stroke="#93C5FD" stroke-width="7" stroke-linecap="round"/>
-  <path d="M296 488L600 350L894 488" stroke="#A78BFA" stroke-width="7" stroke-linecap="round"/>
-  <path d="M600 350V168" stroke="#22D3EE" stroke-width="7" stroke-linecap="round"/>
-  <path d="M600 350V532" stroke="#60A5FA" stroke-width="7" stroke-linecap="round"/>
-  <circle cx="600" cy="350" r="88" fill="url(#ai)" filter="url(#shadow)"/>
-  <circle cx="296" cy="212" r="58" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="3"/>
-  <circle cx="894" cy="212" r="58" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="3"/>
-  <circle cx="296" cy="488" r="58" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="3"/>
-  <circle cx="894" cy="488" r="58" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="3"/>
-  <circle cx="600" cy="168" r="50" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="3"/>
-  <circle cx="600" cy="532" r="50" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="3"/>
-  <rect x="556" y="326" width="88" height="18" rx="9" fill="white"/>
-  <rect x="570" y="360" width="60" height="14" rx="7" fill="#DBEAFE"/>
-  <rect x="258" y="206" width="76" height="12" rx="6" fill="#2563EB"/>
-  <rect x="856" y="206" width="76" height="12" rx="6" fill="#7C3AED"/>
-  <rect x="258" y="482" width="76" height="12" rx="6" fill="#06B6D4"/>
-  <rect x="856" y="482" width="76" height="12" rx="6" fill="#2563EB"/>
   <defs>
-    <linearGradient id="ai" x1="512" y1="262" x2="688" y2="438" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2563EB"/>
-      <stop offset="0.5" stop-color="#8B5CF6"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-    <filter id="shadow" x="472" y="222" width="256" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#2563EB" flood-opacity="0.24"/>
-    </filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse"><stop stop-color="#F8FCFF"/><stop offset="0.5" stop-color="#EEF2FF"/><stop offset="1" stop-color="#ECFEFF"/></linearGradient>
+    <linearGradient id="accent" x1="220" y1="128" x2="970" y2="576" gradientUnits="userSpaceOnUse"><stop stop-color="#2563EB"/><stop offset="0.5" stop-color="#7C3AED"/><stop offset="1" stop-color="#06B6D4"/></linearGradient>
+    <filter id="shadow" x="80" y="42" width="1040" height="620" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="24" stdDeviation="34" flood-color="#312E81" flood-opacity="0.15"/></filter>
   </defs>
+  <rect width="1200" height="700" fill="url(#bg)"/>
+  <circle cx="1020" cy="112" r="170" fill="#DBEAFE" opacity="0.72"/>
+  <circle cx="160" cy="606" r="190" fill="#CCFBF1" opacity="0.55"/>
+  <rect x="116" y="82" width="968" height="540" rx="38" fill="white" filter="url(#shadow)"/>
+  <rect x="116" y="82" width="968" height="76" rx="38" fill="#F8FAFC"/>
+  <rect x="116" y="140" width="968" height="1" fill="#E2E8F0"/>
+  <text x="168" y="128" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="900" fill="#0F172A">AI Automation Pipeline</text>
+  <rect x="856" y="100" width="158" height="38" rx="19" fill="#ECFEFF" stroke="#99F6E4"/>
+  <text x="886" y="125" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#0891B2">Active flow</text>
+  <rect x="160" y="202" width="642" height="356" rx="32" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <path d="M250 302H384M496 302H632M632 302V418H496M384 418H250" stroke="#93C5FD" stroke-width="8" stroke-linecap="round"/>
+  <path d="M360 286L384 302L360 318M608 286L632 302L608 318M520 402L496 418L520 434M274 402L250 418L274 434" stroke="#2563EB" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="198" y="244" width="164" height="116" rx="28" fill="white" stroke="#BFDBFE" stroke-width="2"/>
+  <circle cx="236" cy="282" r="18" fill="#DBEAFE"/>
+  <text x="198" y="324" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Lead Capture</text>
+  <text x="198" y="348" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Forms and inbox</text>
+  <rect x="402" y="244" width="164" height="116" rx="28" fill="white" stroke="#DDD6FE" stroke-width="2"/>
+  <circle cx="440" cy="282" r="18" fill="#EDE9FE"/>
+  <text x="402" y="324" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">AI Reply</text>
+  <text x="402" y="348" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Smart response</text>
+  <rect x="606" y="244" width="164" height="116" rx="28" fill="white" stroke="#99F6E4" stroke-width="2"/>
+  <circle cx="644" cy="282" r="18" fill="#CCFBF1"/>
+  <text x="606" y="324" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">CRM Update</text>
+  <text x="606" y="348" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Status and owner</text>
+  <rect x="402" y="390" width="164" height="116" rx="28" fill="white" stroke="#BFDBFE" stroke-width="2"/>
+  <circle cx="440" cy="428" r="18" fill="#DBEAFE"/>
+  <text x="402" y="470" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Follow-up</text>
+  <text x="402" y="494" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Email and task</text>
+  <rect x="198" y="390" width="164" height="116" rx="28" fill="white" stroke="#BAE6FD" stroke-width="2"/>
+  <circle cx="236" cy="428" r="18" fill="#E0F2FE"/>
+  <text x="198" y="470" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Report</text>
+  <text x="198" y="494" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Daily summary</text>
+  <rect x="832" y="202" width="204" height="356" rx="32" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="862" y="244" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#0F172A">Automation stats</text>
+  <rect x="862" y="276" width="144" height="60" rx="20" fill="white" stroke="#DBEAFE"/>
+  <text x="884" y="302" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#2563EB">Saved Time</text>
+  <text x="884" y="326" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">18 hrs/wk</text>
+  <rect x="862" y="356" width="144" height="60" rx="20" fill="white" stroke="#DDD6FE"/>
+  <text x="884" y="382" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#7C3AED">Auto Tasks</text>
+  <text x="884" y="406" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">426</text>
+  <rect x="862" y="436" width="144" height="60" rx="20" fill="white" stroke="#99F6E4"/>
+  <text x="884" y="462" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#0891B2">Smart Alerts</text>
+  <text x="884" y="486" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">32 live</text>
+  <rect x="188" y="584" width="600" height="16" rx="8" fill="url(#accent)" opacity="0.85"/>
 </svg>

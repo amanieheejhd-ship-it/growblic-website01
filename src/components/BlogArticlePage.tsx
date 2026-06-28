@@ -52,11 +52,11 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
           </div>
 
           <div className="mt-10 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-2 shadow-2xl shadow-blue-950/10 sm:rounded-[2.25rem] sm:p-3">
-            <div className="relative min-h-[260px] overflow-hidden rounded-[1.55rem] bg-blue-50 sm:min-h-[430px] lg:min-h-[520px]">
+            <div className="relative min-h-[260px] overflow-hidden rounded-[1.55rem] bg-[#f8fbff] sm:min-h-[430px] lg:min-h-[520px]">
               <img
                 src={withBasePath(post.coverImage)}
                 alt={post.title}
-                className="h-full min-h-[260px] w-full object-cover sm:min-h-[430px] lg:min-h-[520px]"
+                className="h-full min-h-[260px] w-full object-contain sm:min-h-[430px] lg:min-h-[520px]"
               />
             </div>
           </div>

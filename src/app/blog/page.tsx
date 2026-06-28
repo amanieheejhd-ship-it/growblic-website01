@@ -129,11 +129,11 @@ export default function BlogPage() {
             className="group mt-8 block rounded-[2.1rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
           >
             <article className="grid overflow-hidden rounded-[2.1rem] border border-blue-100 bg-white shadow-2xl shadow-blue-950/10 transition duration-300 ease-out group-hover:-translate-y-1.5 group-hover:border-blue-200 group-hover:shadow-blue-100/80 lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="relative min-h-[280px] lg:min-h-[430px]">
+              <div className="relative min-h-[280px] bg-[#f8fbff] lg:min-h-[430px]">
                 <img
                   src={withBasePath(featuredPost.coverImage)}
                   alt={featuredPost.title}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
