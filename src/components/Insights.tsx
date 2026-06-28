@@ -8,6 +8,7 @@ const insights = [
     description:
       "Purpose-built systems match your workflows, reduce manual work, and keep your team moving without workaround-heavy tools.",
     readTime: "4 min read",
+    href: "/blog/custom-software",
     accent: "from-blue-500/18 via-cyan-400/14 to-violet-500/16",
   },
   {
@@ -16,6 +17,7 @@ const insights = [
     description:
       "Well-designed apps make ordering, booking, tracking, and support feel faster for customers who expect everything on mobile.",
     readTime: "5 min read",
+    href: "/blog/mobile-apps-customer-experience",
     accent: "from-cyan-400/18 via-blue-500/14 to-indigo-500/16",
   },
   {
@@ -24,6 +26,7 @@ const insights = [
     description:
       "The best dashboards bring revenue, users, operations, and alerts into one clean view for confident daily decisions.",
     readTime: "4 min read",
+    href: "/blog/business-dashboard-features",
     accent: "from-violet-500/18 via-blue-500/14 to-cyan-400/16",
   },
   {
@@ -32,6 +35,7 @@ const insights = [
     description:
       "Automation can handle repetitive updates, reports, routing, and customer replies so teams can focus on higher-value work.",
     readTime: "6 min read",
+    href: "/blog/ai-automation-saves-time",
     accent: "from-blue-500/16 via-violet-500/16 to-cyan-400/18",
   },
   {
@@ -40,6 +44,7 @@ const insights = [
     description:
       "A scalable website supports campaigns, content, products, integrations, and future features without constant rebuilds.",
     readTime: "3 min read",
+    href: "/blog/scalable-business-website",
     accent: "from-cyan-400/16 via-indigo-500/14 to-blue-500/18",
   },
   {
@@ -48,6 +53,7 @@ const insights = [
     description:
       "Admin panels give teams practical control over users, content, orders, reports, and internal workflows in one place.",
     readTime: "4 min read",
+    href: "/blog/admin-panels-operations",
     accent: "from-indigo-500/16 via-cyan-400/14 to-violet-500/18",
   },
 ];
@@ -78,8 +84,8 @@ export default function Insights() {
           {insights.map((insight) => (
             <Link
               key={insight.title}
-              href="#contact"
-              aria-label={`Discuss insight: ${insight.title}`}
+              href={insight.href}
+              aria-label={`Read insight: ${insight.title}`}
               className="group block h-full rounded-[1.75rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
             >
               <article className="relative flex h-full min-h-[300px] overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-white p-6 shadow-xl shadow-slate-900/6 transition duration-300 ease-out group-hover:-translate-y-1.5 group-hover:border-blue-200 group-hover:shadow-2xl group-hover:shadow-blue-100/70">
