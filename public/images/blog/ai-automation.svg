@@ -1,0 +1,34 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="48" fill="#F8FBFF"/>
+  <circle cx="170" cy="140" r="190" fill="#DBEAFE"/>
+  <circle cx="1030" cy="590" r="230" fill="#CFFAFE"/>
+  <circle cx="600" cy="350" r="310" fill="#F5F3FF"/>
+  <rect x="112" y="96" width="976" height="508" rx="42" fill="white" fill-opacity="0.86" stroke="#DBEAFE" stroke-width="2"/>
+  <path d="M296 212L600 350L894 212" stroke="#93C5FD" stroke-width="7" stroke-linecap="round"/>
+  <path d="M296 488L600 350L894 488" stroke="#A78BFA" stroke-width="7" stroke-linecap="round"/>
+  <path d="M600 350V168" stroke="#22D3EE" stroke-width="7" stroke-linecap="round"/>
+  <path d="M600 350V532" stroke="#60A5FA" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="600" cy="350" r="88" fill="url(#ai)" filter="url(#shadow)"/>
+  <circle cx="296" cy="212" r="58" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="3"/>
+  <circle cx="894" cy="212" r="58" fill="#F5F3FF" stroke="#DDD6FE" stroke-width="3"/>
+  <circle cx="296" cy="488" r="58" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="3"/>
+  <circle cx="894" cy="488" r="58" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="3"/>
+  <circle cx="600" cy="168" r="50" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="3"/>
+  <circle cx="600" cy="532" r="50" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="3"/>
+  <rect x="556" y="326" width="88" height="18" rx="9" fill="white"/>
+  <rect x="570" y="360" width="60" height="14" rx="7" fill="#DBEAFE"/>
+  <rect x="258" y="206" width="76" height="12" rx="6" fill="#2563EB"/>
+  <rect x="856" y="206" width="76" height="12" rx="6" fill="#7C3AED"/>
+  <rect x="258" y="482" width="76" height="12" rx="6" fill="#06B6D4"/>
+  <rect x="856" y="482" width="76" height="12" rx="6" fill="#2563EB"/>
+  <defs>
+    <linearGradient id="ai" x1="512" y1="262" x2="688" y2="438" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="0.5" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="shadow" x="472" y="222" width="256" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#2563EB" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+</svg>

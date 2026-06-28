@@ -12,6 +12,7 @@ export type BlogPost = {
   category: string;
   title: string;
   excerpt: string;
+  coverImage: string;
   readingTime: string;
   guideLabel: string;
   tags: string[];
@@ -34,6 +35,7 @@ export const blogPosts = [
     title: "Why custom software is better than one-size-fits-all tools",
     excerpt:
       "Custom software helps businesses build workflows that match their real operations instead of adjusting to generic tools.",
+    coverImage: "/images/blog/custom-software.svg",
     readingTime: "5 min read",
     guideLabel: "Growblic Guide",
     tags: ["Workflows", "Operations", "Business Tools"],
@@ -89,6 +91,7 @@ export const blogPosts = [
     title: "How mobile apps improve customer experience",
     excerpt:
       "Mobile apps make customer journeys faster, smoother, and more connected with your business.",
+    coverImage: "/images/blog/mobile-apps.svg",
     readingTime: "4 min read",
     guideLabel: "Growblic Guide",
     tags: ["iOS + Android", "Customer Journey", "Retention"],
@@ -144,6 +147,7 @@ export const blogPosts = [
     title: "What every business dashboard should include",
     excerpt:
       "A good dashboard gives teams clear visibility into sales, leads, operations, reports, and daily performance.",
+    coverImage: "/images/blog/business-dashboard.svg",
     readingTime: "5 min read",
     guideLabel: "Growblic Guide",
     tags: ["Reports", "Analytics", "Operations"],
@@ -199,6 +203,7 @@ export const blogPosts = [
     title: "How AI automation saves time for growing teams",
     excerpt:
       "AI automation reduces repeated tasks and helps teams focus on decisions, customers, and growth.",
+    coverImage: "/images/blog/ai-automation.svg",
     readingTime: "4 min read",
     guideLabel: "Growblic Guide",
     tags: ["Automation", "AI Flow", "Productivity"],
@@ -254,6 +259,7 @@ export const blogPosts = [
     title: "Why every business needs a scalable website",
     excerpt:
       "A scalable website supports brand trust, SEO, lead generation, and future business expansion.",
+    coverImage: "/images/blog/scalable-website.svg",
     readingTime: "4 min read",
     guideLabel: "Growblic Guide",
     tags: ["Websites", "SEO", "Growth"],
@@ -309,6 +315,7 @@ export const blogPosts = [
     title: "How admin panels make operations easier",
     excerpt:
       "Admin panels help businesses manage users, orders, reports, content, and operations from one place.",
+    coverImage: "/images/blog/admin-panels.svg",
     readingTime: "5 min read",
     guideLabel: "Growblic Guide",
     tags: ["Admin Panel", "Roles", "Operations"],
