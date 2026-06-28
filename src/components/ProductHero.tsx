@@ -1,7 +1,6 @@
 import type { Product } from "@/data/products";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getProductSlides } from "../data/imageSlides";
 import ProductCardSlider from "./ProductCardSlider";
 
 export default function ProductHero({ product }: { product: Product }) {

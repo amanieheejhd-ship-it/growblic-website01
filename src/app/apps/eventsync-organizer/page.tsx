@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import BackButton from "../../../components/BackButton";
 import { companyApps } from "../../../data/companyApps";
@@ -58,11 +59,14 @@ export default function EventSyncOrganizerPage() {
                 <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-violet-200/50 blur-3xl" />
 
                 <div className="relative">
-                  <span className="mx-auto grid h-36 w-36 place-items-center overflow-hidden rounded-[2.2rem] bg-white shadow-2xl shadow-blue-100">
-                    <img
+                  <span className="relative mx-auto grid h-36 w-36 place-items-center overflow-hidden rounded-[2.2rem] bg-white shadow-2xl shadow-blue-100">
+                    <Image
                       src={app.logo}
                       alt={app.name}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="144px"
+                      className="object-cover"
+                      unoptimized
                     />
                   </span>
 

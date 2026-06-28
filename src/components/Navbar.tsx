@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -37,11 +38,14 @@ export default function Navbar() {
           className="group flex items-center gap-3 rounded-full pr-3 transition hover:bg-white/70"
           onClick={() => setMobileOpen(false)}
         >
-          <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
-            <img
+          <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
+            <Image
               src="/growblic-website01/images/brand/growblic-logo.png"
               alt="Growblic"
-              className="h-full w-full rounded-full object-cover"
+              fill
+              sizes="44px"
+              priority
+              className="rounded-full object-cover"
             />
           </span>
           <span className="text-2xl font-black tracking-tight text-slate-950 transition group-hover:text-blue-700">

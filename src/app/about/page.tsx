@@ -9,6 +9,7 @@ import {
   Sparkles,
   TrendingUp,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import BackButton from "../../components/BackButton";
 import { createPageMetadata } from "../seo";
@@ -105,11 +106,13 @@ export default function AboutPage() {
                 <div className="absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-cyan-400/20 blur-3xl" />
 
                 <div className="relative">
-                  <span className="grid h-20 w-20 place-items-center overflow-hidden rounded-full shadow-xl">
-                    <img
+                  <span className="relative grid h-20 w-20 place-items-center overflow-hidden rounded-full shadow-xl">
+                    <Image
                       src="/growblic-website01/images/brand/growblic-logo.png"
                       alt="Growblic"
-                      className="h-full w-full rounded-full object-cover"
+                      fill
+                      sizes="80px"
+                      className="rounded-full object-cover"
                     />
                   </span>
 

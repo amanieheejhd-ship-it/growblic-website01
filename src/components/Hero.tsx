@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const orbitItems = [
@@ -124,10 +125,14 @@ export default function Hero() {
 
           <div className="hero-mobile-center-card">
             <div className="hero-mobile-card-inner">
-              <div className="hero-mobile-logo">
-                <img
+              <div className="hero-mobile-logo relative overflow-hidden">
+                <Image
                   src="/growblic-website01/images/brand/growblic-logo.png"
                   alt="Growblic"
+                  fill
+                  sizes="64px"
+                  priority
+                  className="object-cover"
                 />
               </div>
 
@@ -197,8 +202,15 @@ export default function Hero() {
               <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-violet-200/60 blur-2xl" />
 
               <div className="relative">
-                <div className="hero-engine-logo mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
-                  <img src="/growblic-website01/images/brand/growblic-logo.png" alt="Growblic" className="h-full w-full rounded-full object-cover" />
+                <div className="hero-engine-logo relative mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
+                  <Image
+                    src="/growblic-website01/images/brand/growblic-logo.png"
+                    alt="Growblic"
+                    fill
+                    sizes="80px"
+                    priority
+                    className="rounded-full object-cover p-2"
+                  />
                 </div>
 
                 <p className="hero-engine-eyebrow mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">

@@ -1,16 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { companyApps } from "../data/companyApps";
 
 export default function FeaturedProducts() {
   
   const sliderRef = useRef<HTMLDivElement | null>(null);
-
-  const holdDirectionRef = useRef<"left" | "right" | null>(null);
-  const holdTimerRef = useRef<number | null>(null);
-  const [isHoldingArrow, setIsHoldingArrow] = useState(false);
 
   const handleScroll = (direction: "left" | "right") => {
     const slider = sliderRef.current;
@@ -22,41 +19,6 @@ export default function FeaturedProducts() {
     });
   };
 
-  const stopArrowHold = () => {
-    holdDirectionRef.current = null;
-    setIsHoldingArrow(false);
-
-    if (holdTimerRef.current) {
-      window.clearInterval(holdTimerRef.current);
-      holdTimerRef.current = null;
-    }
-  };
-
-  const startArrowHold = (direction: "left" | "right") => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    stopArrowHold();
-    holdDirectionRef.current = direction;
-    setIsHoldingArrow(true);
-
-    // arrow par aate hi immediate fast movement
-    slider.scrollBy({
-      left: direction === "left" ? -220 : 220,
-      behavior: "auto",
-    });
-
-    // jab tak cursor arrow par hai tab tak fast
-    holdTimerRef.current = window.setInterval(() => {
-      const currentSlider = sliderRef.current;
-      if (!currentSlider || !holdDirectionRef.current) return;
-
-      currentSlider.scrollBy({
-        left: holdDirectionRef.current === "left" ? -135 : 135,
-        behavior: "auto",
-      });
-    }, 22);
-  };
   const loopApps = [...companyApps, ...companyApps];
 
   const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
@@ -67,11 +29,14 @@ export default function FeaturedProducts() {
     >
       <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-3 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
         <div className="relative flex items-start justify-between gap-5">
-          <span className="live-app-icon grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-[1.8rem] bg-white shadow-xl shadow-blue-100/70">
-            <img
+          <span className="live-app-icon relative grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-[1.8rem] bg-white shadow-xl shadow-blue-100/70">
+            <Image
               src={app.logo}
               alt={app.name}
-              className="h-full w-full object-cover"
+              fill
+              sizes="96px"
+              className="object-cover"
+              unoptimized
             />
           </span>
 
@@ -131,7 +96,7 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className={`live-apps-marquee relative overflow-hidden py-8 ${isHoldingArrow ? "is-holding-arrow" : ""}`}>
+        <div className="live-apps-marquee relative overflow-hidden py-8">
           <button
             type="button"
             className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"

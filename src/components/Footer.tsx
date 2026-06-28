@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const companyLinks = [
@@ -89,11 +90,13 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.15fr_2fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
-                <img
+              <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
+                <Image
                   src="/growblic-website01/images/brand/growblic-logo.png"
                   alt="Growblic"
-                  className="h-full w-full rounded-full object-cover"
+                  fill
+                  sizes="48px"
+                  className="rounded-full object-cover"
                 />
               </span>
               <span className="text-2xl font-black tracking-tight text-slate-950">

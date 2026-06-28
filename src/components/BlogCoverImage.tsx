@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { type SyntheticEvent } from "react";
 
 const withBasePath = (path: string) => `/growblic-website01${path}`;
@@ -23,10 +24,13 @@ export default function BlogCoverImage({ src, alt, className }: BlogCoverImagePr
   }
 
   return (
-    <img
+    <Image
       src={withBasePath(src)}
       onError={handleImageError}
       alt={alt}
+      fill
+      sizes="(max-width: 768px) 100vw, 720px"
+      unoptimized
       className={className}
     />
   );

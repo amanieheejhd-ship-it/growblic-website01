@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import BackButton from "../../../components/BackButton";
 import { companyApps } from "../../../data/companyApps";
@@ -59,10 +60,13 @@ export default function PairUpMeetPage() {
 
                 <div className="relative">
                   <span className="mx-auto grid h-36 w-36 place-items-center overflow-hidden rounded-[2.2rem] bg-white shadow-2xl shadow-pink-100">
-                    <img
+                    <Image
                       src={app.logo}
                       alt={app.name}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="144px"
+                      className="object-cover"
+                      unoptimized
                     />
                   </span>
 

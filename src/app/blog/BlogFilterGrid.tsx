@@ -11,6 +11,7 @@ import {
   Layers3,
   Sparkles,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { BlogPost } from "./blogData";
@@ -190,11 +191,14 @@ export default function BlogFilterGrid({
           >
             <article className="grid overflow-hidden rounded-[2.1rem] border border-blue-100 bg-white shadow-2xl shadow-blue-950/10 transition duration-300 ease-out group-hover:-translate-y-1.5 group-hover:border-blue-200 group-hover:shadow-blue-100/80 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[280px] bg-[#f8fbff] lg:min-h-[430px]">
-                <img
+                <Image
                   src={withBasePath(featuredPost.coverImage)}
                   onError={handleImageError}
                   alt={featuredPost.title}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  unoptimized
+                  className="object-cover"
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
@@ -273,11 +277,14 @@ export default function BlogFilterGrid({
                 >
                   <article className="flex h-full min-h-[500px] flex-col overflow-hidden rounded-[1.9rem] border border-blue-100 bg-white shadow-xl shadow-blue-950/5 transition duration-300 ease-out group-hover:-translate-y-1.5 group-hover:border-blue-200 group-hover:shadow-2xl group-hover:shadow-blue-100/70">
                     <div className="relative h-56 overflow-hidden bg-blue-50">
-                      <img
+                      <Image
                         src={withBasePath(post.coverImage)}
                         onError={handleImageError}
                         alt={post.title}
-                        className="h-full w-full object-cover"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        unoptimized
+                        className="object-cover"
                       />
                       <span className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-blue-700 shadow-lg shadow-blue-950/10 backdrop-blur">
                         {post.category}

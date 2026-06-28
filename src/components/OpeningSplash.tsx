@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const dots = Array.from({ length: 8 });
@@ -88,11 +89,14 @@ export default function OpeningSplash() {
               className="absolute -inset-10 rounded-full border border-cyan-500/25 md:-inset-20 md:border-2 md:shadow-[0_0_80px_rgba(6,182,212,0.18)]"
             />
 
-            <div className="relative mx-auto grid h-28 w-28 place-items-center rounded-[2.2rem] bg-white p-2 shadow-2xl shadow-cyan-400/25">
-              <img
+            <div className="relative mx-auto grid h-28 w-28 place-items-center overflow-hidden rounded-[2.2rem] bg-white p-2 shadow-2xl shadow-cyan-400/25">
+              <Image
                 src="/growblic-website01/images/brand/growblic-logo.png"
                 alt="Growblic"
-                className="h-full w-full rounded-[1.7rem] object-cover"
+                fill
+                sizes="112px"
+                priority
+                className="rounded-[1.7rem] object-cover p-2"
               />
             </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import BackButton from "../../components/BackButton";
 
@@ -63,11 +64,13 @@ export default function ClientLoginPage() {
 
                 <div className="relative">
                   <div className="flex items-center gap-4">
-                    <span className="grid h-16 w-16 place-items-center overflow-hidden rounded-full shadow-xl shadow-blue-100">
-                      <img
+                    <span className="relative grid h-16 w-16 place-items-center overflow-hidden rounded-full shadow-xl shadow-blue-100">
+                      <Image
                         src="/growblic-website01/images/brand/growblic-logo.png"
                         alt="Growblic"
-                        className="h-full w-full rounded-full object-cover"
+                        fill
+                        sizes="64px"
+                        className="rounded-full object-cover"
                       />
                     </span>
 
