@@ -1,11 +1,62 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { companyApps } from "../data/companyApps";
 
 export default function FeaturedProducts() {
-  const [isArrowHovered, setIsArrowHovered] = useState(false);
+  
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+
+  const holdDirectionRef = useRef<"left" | "right" | null>(null);
+  const holdTimerRef = useRef<number | null>(null);
+  const [isHoldingArrow, setIsHoldingArrow] = useState(false);
+
+  const handleScroll = (direction: "left" | "right") => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    slider.scrollBy({
+      left: direction === "left" ? -360 : 360,
+      behavior: "smooth",
+    });
+  };
+
+  const stopArrowHold = () => {
+    holdDirectionRef.current = null;
+    setIsHoldingArrow(false);
+
+    if (holdTimerRef.current) {
+      window.clearInterval(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
+  };
+
+  const startArrowHold = (direction: "left" | "right") => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    stopArrowHold();
+    holdDirectionRef.current = direction;
+    setIsHoldingArrow(true);
+
+    slider.scrollBy({
+      left: direction === "left" ? -260 : 260,
+      behavior: "smooth",
+    });
+
+    holdTimerRef.current = window.setInterval(() => {
+      const currentSlider = sliderRef.current;
+      if (!currentSlider || !holdDirectionRef.current) return;
+
+      currentSlider.scrollBy({
+        left: holdDirectionRef.current === "left" ? -90 : 90,
+        behavior: "auto",
+      });
+    }, 30);
+  };
+
+const [isArrowHovered, setIsArrowHovered] = useState(false);
   const loopApps = [...companyApps, ...companyApps];
 
   const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
@@ -80,29 +131,27 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="live-apps-marquee relative overflow-hidden py-8">
-          <button
+        <div className={`live-apps-marquee relative overflow-hidden py-8 ${isHoldingArrow ? "is-holding-arrow" : ""}`}>
+          <button onClick={() => handleScroll("left")} onMouseDown={() => startArrowHold("left")} onMouseUp={stopArrowHold} onMouseLeave={stopArrowHold} onTouchStart={() => startArrowHold("left")} onTouchEnd={stopArrowHold}
             type="button"
-            className="app-slider-arrow app-slider-arrow-left group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/85 text-xl font-semibold text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white active:scale-95"
+            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Speed up live apps marquee"
             onMouseEnter={() => setIsArrowHovered(true)}
-            onMouseLeave={() => setIsArrowHovered(false)}
             onFocus={() => setIsArrowHovered(true)}
             onBlur={() => setIsArrowHovered(false)}
           >
-            <span className="app-slider-arrow-icon">←</span>
+            ←
           </button>
 
-          <button
+          <button onClick={() => handleScroll("right")} onMouseDown={() => startArrowHold("right")} onMouseUp={stopArrowHold} onMouseLeave={stopArrowHold} onTouchStart={() => startArrowHold("right")} onTouchEnd={stopArrowHold}
             type="button"
-            className="app-slider-arrow app-slider-arrow-right group inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-white/85 text-xl font-semibold text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white active:scale-95"
+            className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-lg font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Speed up live apps marquee"
             onMouseEnter={() => setIsArrowHovered(true)}
-            onMouseLeave={() => setIsArrowHovered(false)}
             onFocus={() => setIsArrowHovered(true)}
             onBlur={() => setIsArrowHovered(false)}
           >
-            <span className="app-slider-arrow-icon">→</span>
+            →
           </button>
 
           <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
