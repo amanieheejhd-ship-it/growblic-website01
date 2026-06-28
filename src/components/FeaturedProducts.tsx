@@ -40,15 +40,22 @@ export default function FeaturedProducts() {
     holdDirectionRef.current = direction;
     setIsHoldingArrow(true);
 
+    // arrow par aate hi immediate fast movement
+    slider.scrollBy({
+      left: direction === "left" ? -220 : 220,
+      behavior: "auto",
+    });
+
+    // jab tak cursor arrow par hai tab tak fast
     holdTimerRef.current = window.setInterval(() => {
       const currentSlider = sliderRef.current;
       if (!currentSlider || !holdDirectionRef.current) return;
 
       currentSlider.scrollBy({
-        left: holdDirectionRef.current === "left" ? -85 : 85,
+        left: holdDirectionRef.current === "left" ? -135 : 135,
         behavior: "auto",
       });
-    }, 28);
+    }, 22);
   };
 
 const [isArrowHovered, setIsArrowHovered] = useState(false);
@@ -132,10 +139,13 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
             className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Scroll apps left"
             onClick={() => handleScroll("left")}
-            onPointerEnter={() => startArrowHold("left")}
-            onPointerLeave={stopArrowHold}
-            onPointerCancel={stopArrowHold}
+            onMouseEnter={() => startArrowHold("left")}
+            onMouseDown={() => startArrowHold("left")}
+            onMouseUp={stopArrowHold}
+            onMouseLeave={stopArrowHold}
+            onFocus={() => startArrowHold("left")}
             onBlur={stopArrowHold}
+            onTouchStart={() => startArrowHold("left")}
             onTouchEnd={stopArrowHold}
           >
             ←
@@ -146,10 +156,13 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
             className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Scroll apps right"
             onClick={() => handleScroll("right")}
-            onPointerEnter={() => startArrowHold("right")}
-            onPointerLeave={stopArrowHold}
-            onPointerCancel={stopArrowHold}
+            onMouseEnter={() => startArrowHold("right")}
+            onMouseDown={() => startArrowHold("right")}
+            onMouseUp={stopArrowHold}
+            onMouseLeave={stopArrowHold}
+            onFocus={() => startArrowHold("right")}
             onBlur={stopArrowHold}
+            onTouchStart={() => startArrowHold("right")}
             onTouchEnd={stopArrowHold}
           >
             →
