@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, type SyntheticEvent } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -32,6 +32,17 @@ const categoryOptions: CategoryOption[] = [
 ];
 
 const withBasePath = (path: string) => `/growblic-website01${path}`;
+const fallbackCoverImage = "/images/blog/custom-software.svg";
+
+function handleImageError(event: SyntheticEvent<HTMLImageElement>) {
+  const fallbackSrc = withBasePath(fallbackCoverImage);
+
+  if (event.currentTarget.src.endsWith(fallbackSrc)) {
+    return;
+  }
+
+  event.currentTarget.src = fallbackSrc;
+}
 
 function formatCategoryForSentence(label: string) {
   return label === "Website" ? "website" : label.toLowerCase();
@@ -181,8 +192,9 @@ export default function BlogFilterGrid({
               <div className="relative min-h-[280px] bg-[#f8fbff] lg:min-h-[430px]">
                 <img
                   src={withBasePath(featuredPost.coverImage)}
+                  onError={handleImageError}
                   alt={featuredPost.title}
-                  className="h-full w-full object-contain"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
@@ -263,8 +275,9 @@ export default function BlogFilterGrid({
                     <div className="relative h-56 overflow-hidden bg-blue-50">
                       <img
                         src={withBasePath(post.coverImage)}
+                        onError={handleImageError}
                         alt={post.title}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        className="h-full w-full object-cover"
                       />
                       <span className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-blue-700 shadow-lg shadow-blue-950/10 backdrop-blur">
                         {post.category}

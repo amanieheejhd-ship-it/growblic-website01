@@ -1,94 +1,97 @@
 <svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#07111F"/>
-      <stop offset="0.48" stop-color="#0F2440"/>
-      <stop offset="1" stop-color="#F8FCFF"/>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="0.55" stop-color="#EEF7FF"/>
+      <stop offset="1" stop-color="#F7F2FF"/>
     </linearGradient>
-    <linearGradient id="screen" x1="260" y1="120" x2="940" y2="570" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#ECFEFF"/>
+    <linearGradient id="screenBg" x1="210" y1="118" x2="990" y2="610" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#071426"/>
+      <stop offset="0.58" stop-color="#0F2440"/>
+      <stop offset="1" stop-color="#1E1B4B"/>
     </linearGradient>
-    <linearGradient id="accent" x1="270" y1="160" x2="850" y2="520" gradientUnits="userSpaceOnUse">
+    <linearGradient id="accent" x1="270" y1="150" x2="900" y2="560" gradientUnits="userSpaceOnUse">
       <stop stop-color="#2563EB"/>
-      <stop offset="0.48" stop-color="#06B6D4"/>
-      <stop offset="1" stop-color="#7C3AED"/>
+      <stop offset="0.52" stop-color="#06B6D4"/>
+      <stop offset="1" stop-color="#8B5CF6"/>
     </linearGradient>
-    <filter id="shadow" x="118" y="62" width="964" height="590" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="28" stdDeviation="36" flood-color="#020617" flood-opacity="0.34"/>
-    </filter>
-    <filter id="soft" x="0" y="0" width="1200" height="700" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="45"/>
-    </filter>
+    <linearGradient id="glass" x1="300" y1="220" x2="860" y2="530" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAFBFF"/>
+    </linearGradient>
   </defs>
 
-  <rect width="1200" height="700" fill="url(#bg)"/>
-  <circle cx="155" cy="128" r="160" fill="#2563EB" opacity="0.25" filter="url(#soft)"/>
-  <circle cx="986" cy="120" r="180" fill="#06B6D4" opacity="0.25" filter="url(#soft)"/>
-  <circle cx="1012" cy="572" r="210" fill="#7C3AED" opacity="0.14" filter="url(#soft)"/>
+  <rect width="1200" height="700" fill="url(#pageBg)"/>
+  <circle cx="178" cy="140" r="138" fill="#DBEAFE" opacity="0.9"/>
+  <circle cx="1018" cy="152" r="150" fill="#CFFAFE" opacity="0.85"/>
+  <circle cx="980" cy="586" r="178" fill="#EDE9FE" opacity="0.9"/>
 
-  <text x="78" y="88" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="white">Custom Software</text>
-  <text x="80" y="124" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#BAE6FD">Workflow systems for modern teams</text>
+  <rect x="78" y="54" width="312" height="74" rx="30" fill="#FFFFFF" stroke="#DCEBFF" stroke-width="2"/>
+  <text x="112" y="87" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Custom Software</text>
+  <text x="112" y="111" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#2563EB">Built around your real workflow</text>
 
-  <g filter="url(#shadow)">
-    <rect x="154" y="118" width="892" height="480" rx="38" fill="#0F172A"/>
-    <rect x="182" y="146" width="836" height="392" rx="24" fill="url(#screen)"/>
-    <rect x="182" y="146" width="836" height="58" rx="24" fill="#F8FAFC"/>
-    <rect x="182" y="190" width="836" height="1" fill="#DBEAFE"/>
-    <circle cx="222" cy="175" r="7" fill="#EF4444"/>
-    <circle cx="248" cy="175" r="7" fill="#F59E0B"/>
-    <circle cx="274" cy="175" r="7" fill="#22C55E"/>
-    <rect x="316" y="160" width="300" height="30" rx="15" fill="white" stroke="#DBEAFE"/>
-    <text x="338" y="181" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#0F172A">Custom Workflow System</text>
+  <rect x="156" y="102" width="888" height="526" rx="44" fill="#0B1220" opacity="0.18"/>
+  <rect x="146" y="88" width="908" height="526" rx="44" fill="url(#screenBg)"/>
+  <rect x="176" y="118" width="848" height="58" rx="24" fill="#111827"/>
+  <circle cx="217" cy="147" r="8" fill="#EF4444"/>
+  <circle cx="247" cy="147" r="8" fill="#F59E0B"/>
+  <circle cx="277" cy="147" r="8" fill="#22C55E"/>
+  <rect x="330" y="130" width="330" height="34" rx="17" fill="#172338"/>
+  <text x="354" y="153" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" fill="#DDF7FF">Custom Workflow System</text>
 
-    <rect x="212" y="226" width="168" height="280" rx="24" fill="#F8FAFC" stroke="#DBEAFE"/>
-    <text x="238" y="266" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" fill="#0F172A">Operations</text>
-    <rect x="238" y="292" width="112" height="34" rx="13" fill="#2563EB"/>
-    <text x="262" y="314" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="white">Leads</text>
-    <text x="262" y="362" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#475569">Orders</text>
-    <text x="262" y="410" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#475569">Billing</text>
-    <text x="262" y="458" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#475569">Reports</text>
+  <rect x="176" y="198" width="178" height="354" rx="28" fill="#101C31" stroke="#243B62" stroke-width="2"/>
+  <text x="206" y="238" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" fill="#FFFFFF">Operations</text>
+  <rect x="204" y="266" width="118" height="36" rx="14" fill="#2563EB"/>
+  <text x="232" y="290" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#FFFFFF">Leads</text>
+  <rect x="204" y="318" width="118" height="36" rx="14" fill="#172338"/>
+  <text x="228" y="342" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#B6C8E6">Orders</text>
+  <rect x="204" y="370" width="118" height="36" rx="14" fill="#172338"/>
+  <text x="228" y="394" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#B6C8E6">Billing</text>
+  <rect x="204" y="422" width="118" height="36" rx="14" fill="#172338"/>
+  <text x="225" y="446" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#B6C8E6">Reports</text>
 
-    <rect x="414" y="226" width="270" height="126" rx="26" fill="white" stroke="#BFDBFE" stroke-width="2"/>
-    <rect x="444" y="254" width="54" height="54" rx="18" fill="#DBEAFE"/>
-    <text x="522" y="274" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" fill="#0F172A">Client Request</text>
-    <text x="522" y="304" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#64748B">New enquiry to scoped work</text>
-    <rect x="522" y="322" width="118" height="10" rx="5" fill="#93C5FD"/>
+  <rect x="386" y="198" width="386" height="172" rx="30" fill="url(#glass)" stroke="#C7D2FE" stroke-width="2"/>
+  <text x="420" y="236" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="900" fill="#0F172A">Dashboard UI</text>
+  <text x="420" y="263" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#64748B">Live business modules connected in one place</text>
+  <rect x="420" y="292" width="86" height="46" rx="17" fill="#DBEAFE"/>
+  <text x="441" y="321" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#1D4ED8">CRM</text>
+  <rect x="524" y="292" width="96" height="46" rx="17" fill="#CFFAFE"/>
+  <text x="543" y="321" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#0E7490">Tasks</text>
+  <rect x="638" y="292" width="96" height="46" rx="17" fill="#EDE9FE"/>
+  <text x="655" y="321" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="900" fill="#6D28D9">Billing</text>
 
-    <rect x="716" y="226" width="260" height="126" rx="26" fill="white" stroke="#DDD6FE" stroke-width="2"/>
-    <rect x="746" y="254" width="54" height="54" rx="18" fill="#EDE9FE"/>
-    <text x="824" y="274" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" fill="#0F172A">Project Plan</text>
-    <text x="824" y="304" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#64748B">Scope, owner, timeline</text>
-    <rect x="824" y="322" width="104" height="10" rx="5" fill="#A78BFA"/>
+  <rect x="804" y="198" width="190" height="172" rx="30" fill="#0E1729" stroke="#334155" stroke-width="2"/>
+  <text x="834" y="236" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#FFFFFF">Code Panel</text>
+  <rect x="834" y="266" width="78" height="9" rx="4.5" fill="#38BDF8"/>
+  <rect x="834" y="292" width="118" height="9" rx="4.5" fill="#A78BFA"/>
+  <rect x="834" y="318" width="96" height="9" rx="4.5" fill="#22D3EE"/>
+  <rect x="834" y="344" width="132" height="9" rx="4.5" fill="#60A5FA"/>
 
-    <rect x="414" y="382" width="270" height="124" rx="26" fill="white" stroke="#99F6E4" stroke-width="2"/>
-    <rect x="444" y="410" width="54" height="54" rx="18" fill="#CCFBF1"/>
-    <text x="522" y="430" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" fill="#0F172A">Team Tasks</text>
-    <text x="522" y="460" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#64748B">Assigned, tracked, approved</text>
-    <rect x="522" y="478" width="132" height="10" rx="5" fill="#2DD4BF"/>
+  <rect x="386" y="404" width="162" height="116" rx="26" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="2"/>
+  <text x="416" y="442" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Lead Intake</text>
+  <text x="416" y="470" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">New request</text>
+  <rect x="416" y="490" width="92" height="10" rx="5" fill="#60A5FA"/>
 
-    <rect x="716" y="382" width="260" height="124" rx="26" fill="white" stroke="#BAE6FD" stroke-width="2"/>
-    <rect x="746" y="410" width="54" height="54" rx="18" fill="#E0F2FE"/>
-    <text x="824" y="430" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="900" fill="#0F172A">Delivery Status</text>
-    <text x="824" y="460" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800" fill="#64748B">Ready for launch</text>
-    <rect x="824" y="478" width="120" height="10" rx="5" fill="#38BDF8"/>
+  <rect x="580" y="404" width="162" height="116" rx="26" fill="#FFFFFF" stroke="#A5F3FC" stroke-width="2"/>
+  <text x="610" y="442" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Planning</text>
+  <text x="610" y="470" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Scope and owner</text>
+  <rect x="610" y="490" width="104" height="10" rx="5" fill="#22D3EE"/>
 
-    <path d="M684 289H716" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
-    <path d="M696 273L716 289L696 305" stroke="#2563EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M846 352V382" stroke="#7C3AED" stroke-width="6" stroke-linecap="round"/>
-    <path d="M830 364L846 382L862 364" stroke="#7C3AED" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M716 444H684" stroke="#06B6D4" stroke-width="6" stroke-linecap="round"/>
-    <path d="M704 428L684 444L704 460" stroke="#06B6D4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
+  <rect x="774" y="404" width="220" height="116" rx="26" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="2"/>
+  <text x="804" y="442" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" fill="#0F172A">Delivery Status</text>
+  <text x="804" y="470" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#64748B">Ready for launch</text>
+  <rect x="804" y="490" width="132" height="10" rx="5" fill="#8B5CF6"/>
 
-  <g filter="url(#shadow)">
-    <rect x="728" y="80" width="292" height="94" rx="28" fill="#FFFFFF" opacity="0.96"/>
-    <text x="758" y="118" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0F172A">Code + workflow cards</text>
-    <rect x="758" y="136" width="74" height="9" rx="4.5" fill="#2563EB"/>
-    <rect x="846" y="136" width="54" height="9" rx="4.5" fill="#06B6D4"/>
-    <rect x="914" y="136" width="60" height="9" rx="4.5" fill="#7C3AED"/>
-  </g>
+  <path d="M548 462H580" stroke="#38BDF8" stroke-width="6" stroke-linecap="round"/>
+  <path d="M564 448L580 462L564 476" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M742 462H774" stroke="#8B5CF6" stroke-width="6" stroke-linecap="round"/>
+  <path d="M758 448L774 462L758 476" stroke="#8B5CF6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <rect x="232" y="566" width="736" height="22" rx="11" fill="#020617" opacity="0.85"/>
-  <rect x="392" y="588" width="416" height="28" rx="14" fill="#0B1220" opacity="0.78"/>
+  <rect x="392" y="560" width="416" height="26" rx="13" fill="#020617" opacity="0.75"/>
+  <rect x="492" y="586" width="216" height="34" rx="17" fill="#111827" opacity="0.84"/>
+
+  <rect x="818" y="72" width="270" height="88" rx="30" fill="#FFFFFF" stroke="#DCEBFF" stroke-width="2"/>
+  <text x="850" y="109" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0F172A">Software workflow</text>
+  <text x="850" y="134" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#2563EB">Dashboard + code + process</text>
+  <rect x="1030" y="96" width="28" height="28" rx="14" fill="url(#accent)"/>
 </svg>
