@@ -79,6 +79,15 @@ export const blogPosts = [
         body: "Growblic can build internal tools, CRMs, dashboards, admin panels, portals, reporting systems, approval flows, and automation modules for daily business operations.",
       },
       {
+        heading: "How to plan it properly",
+        body: "Start by documenting the real workflow, the people involved, the data that moves through the business, and the decisions that slow the team down. A good plan separates must-have modules from later improvements so the first version can launch with focus and still leave room for growth.",
+        points: [
+          "List the daily tasks the software should simplify.",
+          "Define roles, permissions, reports, and approval steps early.",
+          "Plan the first release around business value, not feature volume.",
+        ],
+      },
+      {
         heading: "Final thoughts",
         body: "Custom software is not about adding complexity. It is about giving your business a cleaner system that fits the work you already do and supports the way you want to grow.",
       },
@@ -133,6 +142,15 @@ export const blogPosts = [
       {
         heading: "What Growblic can build",
         body: "Growblic can build customer apps, business apps, booking apps, service apps, delivery flows, reward systems, dashboards, and mobile-first product experiences.",
+      },
+      {
+        heading: "How to plan it properly",
+        body: "A mobile app should be planned around the customer journey first. Before development begins, define the repeated actions users need, the account flows they expect, and the moments where reminders, tracking, or support can make the experience easier.",
+        points: [
+          "Map the key customer actions from opening the app to completing a task.",
+          "Keep the first release focused on the journeys users repeat most.",
+          "Plan notifications, support, and account features with restraint.",
+        ],
       },
       {
         heading: "Final thoughts",
@@ -191,6 +209,15 @@ export const blogPosts = [
         body: "Growblic can build sales dashboards, admin dashboards, analytics panels, reporting systems, CRM views, finance dashboards, and custom role-based business views.",
       },
       {
+        heading: "How to plan it properly",
+        body: "A useful dashboard starts with decisions, not charts. Decide what the team needs to know each day, which metrics need context, and which actions should be available from the same screen so reporting becomes operational.",
+        points: [
+          "Prioritize metrics that support real decisions.",
+          "Group charts, tables, filters, and alerts by user role.",
+          "Make reports easy to scan before adding deeper analysis.",
+        ],
+      },
+      {
         heading: "Final thoughts",
         body: "A dashboard should reduce confusion. If it helps your team see what matters and act quickly, it becomes a real business tool instead of a decorative screen.",
       },
@@ -245,6 +272,15 @@ export const blogPosts = [
       {
         heading: "What Growblic can build",
         body: "Growblic can build AI workflow systems, automation dashboards, notification flows, data pipelines, support assistants, CRM automations, and reporting tools.",
+      },
+      {
+        heading: "How to plan it properly",
+        body: "AI automation works best when the workflow is already clear. Identify repeated tasks, define what data is needed, decide where human review is important, and start with automations that save time without making operations harder to understand.",
+        points: [
+          "Choose repeated, rules-based tasks for the first automation.",
+          "Keep approval and review points visible for the team.",
+          "Measure time saved and quality before expanding the system.",
+        ],
       },
       {
         heading: "Final thoughts",
@@ -303,6 +339,15 @@ export const blogPosts = [
         body: "Growblic can build company websites, service websites, landing pages, SEO-ready pages, product pages, dashboards, portals, and web experiences that grow with the business.",
       },
       {
+        heading: "How to plan it properly",
+        body: "A scalable website should be planned as a content and conversion system. Clarify the core pages, service structure, SEO opportunities, lead capture paths, and future sections before design so the site can expand without losing consistency.",
+        points: [
+          "Define the pages that support trust, SEO, and lead generation.",
+          "Create reusable sections for services, products, and proof points.",
+          "Plan future content and integrations before the layout becomes rigid.",
+        ],
+      },
+      {
         heading: "Final thoughts",
         body: "A scalable website is a long-term business asset. It should be easy to understand today and flexible enough for what your company adds tomorrow.",
       },
@@ -357,6 +402,15 @@ export const blogPosts = [
       {
         heading: "What Growblic can build",
         body: "Growblic can build admin panels, CRM panels, CMS tools, order management systems, user management systems, reporting dashboards, and role-based internal tools.",
+      },
+      {
+        heading: "How to plan it properly",
+        body: "Admin panels should be planned around real operational control. Define what teams need to manage, which actions require permission, what information needs filtering, and how reports or status changes should be reviewed.",
+        points: [
+          "List the records, users, content, and reports the team manages.",
+          "Define role-based permissions before building sensitive controls.",
+          "Design tables, filters, and forms around daily operational speed.",
+        ],
       },
       {
         heading: "Final thoughts",

@@ -1,7 +1,8 @@
 import { ArrowUpRight, CheckCircle2, Clock3 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { blogPosts, type BlogPost } from "@/app/blog/blogData";
+
+const withBasePath = (path: string) => `/growblic-website01${path}`;
 
 export default function BlogArticlePage({ post }: { post: BlogPost }) {
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
@@ -44,19 +45,18 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                   <Clock3 size={16} className="text-cyan-500" />
                   {post.readingTime}
                 </span>
+                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span>Software insights</span>
               </div>
             </div>
           </div>
 
           <div className="mt-10 overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-2 shadow-2xl shadow-blue-950/10 sm:rounded-[2.25rem] sm:p-3">
             <div className="relative min-h-[260px] overflow-hidden rounded-[1.55rem] bg-blue-50 sm:min-h-[430px] lg:min-h-[520px]">
-              <Image
-                src={post.coverImage}
+              <img
+                src={withBasePath(post.coverImage)}
                 alt={post.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 1120px"
-                className="object-cover"
-                priority
+                className="h-full min-h-[260px] w-full object-cover sm:min-h-[430px] lg:min-h-[520px]"
               />
             </div>
           </div>
@@ -95,6 +95,14 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                       </h2>
                       <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9">
                         {section.body}
+                      </p>
+                      <h3 className="mt-7 text-lg font-black leading-tight text-slate-950">
+                        What to pay attention to
+                      </h3>
+                      <p className="mt-3 text-base leading-8 text-slate-600">
+                        For growing businesses, this part of the product should
+                        connect strategy, user experience, and day-to-day
+                        operations instead of living as a separate design idea.
                       </p>
                     </div>
                   </div>
@@ -181,6 +189,22 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
               </Link>
             </div>
 
+            <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 shadow-xl shadow-blue-950/5">
+              <p className="text-xl font-black leading-tight text-slate-950">
+                Need this for your business?
+              </p>
+              <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
+                Growblic can help turn this idea into a planned, designed, and
+                launch-ready digital product.
+              </p>
+              <Link
+                href="/#contact"
+                className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-blue-700 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-slate-950"
+              >
+                Start a Project
+              </Link>
+            </div>
+
             <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-blue-950/5">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
                 Related blogs
@@ -193,12 +217,10 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                     className="group grid grid-cols-[72px_minmax(0,1fr)] gap-3 rounded-2xl border border-slate-100 bg-[#fbfdff] p-3 transition hover:border-blue-200 hover:bg-white"
                   >
                     <div className="relative h-20 overflow-hidden rounded-xl bg-blue-50">
-                      <Image
-                        src={item.coverImage}
+                      <img
+                        src={withBasePath(item.coverImage)}
                         alt={item.title}
-                        fill
-                        sizes="72px"
-                        className="object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                     <div>
@@ -235,12 +257,10 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 className="group overflow-hidden rounded-[1.8rem] border border-blue-100 bg-white shadow-xl shadow-blue-950/5 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70"
               >
                 <div className="relative h-44 bg-blue-50">
-                  <Image
-                    src={item.coverImage}
+                  <img
+                    src={withBasePath(item.coverImage)}
                     alt={item.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 360px"
-                    className="object-cover transition group-hover:scale-105"
+                    className="h-full w-full object-cover transition group-hover:scale-105"
                   />
                 </div>
                 <div className="p-5">

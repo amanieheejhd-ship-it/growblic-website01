@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight, Clock3 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "./blogData";
 
@@ -20,6 +19,8 @@ const categoryChips = [
   "Admin Panels",
 ];
 
+const withBasePath = (path: string) => `/growblic-website01${path}`;
+
 export default function BlogPage() {
   const featuredPost = blogPosts.find((post) => post.slug === "custom-software") ?? blogPosts[0];
   const collagePosts = blogPosts.slice(0, 3);
@@ -36,18 +37,18 @@ export default function BlogPage() {
               GROWBLIC BLOG
             </p>
             <h1 className="mt-6 max-w-4xl text-balance text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-              Software insights, product guides, and growth ideas
+              Ideas, guides, and stories for building better digital products
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl sm:leading-9">
-              Practical articles on websites, mobile apps, SaaS platforms,
-              dashboards, admin panels, and AI automation.
+              Practical software insights from Growblic on websites, mobile
+              apps, SaaS platforms, dashboards, admin panels, and AI automation.
             </p>
             <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
               <a
                 href="#recent-blogs"
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
-                Explore Articles <ArrowRight size={17} />
+                Read Latest Articles <ArrowRight size={17} />
               </a>
               <Link
                 href="/#contact"
@@ -64,13 +65,10 @@ export default function BlogPage() {
             <div className="relative rounded-[2.2rem] border border-blue-100 bg-white/82 p-3 shadow-2xl shadow-blue-950/10 backdrop-blur sm:p-4">
               <div className="grid gap-3 sm:grid-cols-[1.2fr_0.8fr]">
                 <div className="relative min-h-[290px] overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-xl shadow-blue-100/50 sm:min-h-[360px]">
-                  <Image
-                    src={featuredPost.coverImage}
+                  <img
+                    src={withBasePath(featuredPost.coverImage)}
                     alt={featuredPost.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 620px"
-                    className="object-cover"
-                    priority
+                    className="h-full w-full object-cover"
                   />
                   <div className="absolute bottom-4 left-4 right-4 rounded-[1.35rem] border border-white/70 bg-white/82 p-4 shadow-xl shadow-blue-950/10 backdrop-blur">
                     <p className="text-xs font-black uppercase tracking-[0.16em] text-blue-700">
@@ -87,12 +85,10 @@ export default function BlogPage() {
                       key={post.slug}
                       className="relative min-h-[110px] overflow-hidden rounded-[1.4rem] border border-blue-100 bg-white shadow-lg shadow-blue-100/40 sm:min-h-[116px]"
                     >
-                      <Image
-                        src={post.coverImage}
+                      <img
+                        src={withBasePath(post.coverImage)}
                         alt={post.title}
-                        fill
-                        sizes="220px"
-                        className="object-cover"
+                        className="h-full w-full object-cover"
                       />
                     </div>
                   ))}
@@ -105,7 +101,15 @@ export default function BlogPage() {
 
       <section className="bg-white px-5 py-10 sm:px-6">
         <div className="mx-auto max-w-7xl">
-          <div className="flex flex-wrap gap-3">
+          <div className="grid gap-3 border-y border-blue-100/70 py-5 sm:grid-cols-2 lg:grid-cols-4">
+            {["6 Practical Guides", "8 Service Areas", "Product Thinking", "Growblic Insights"].map((item) => (
+              <div key={item} className="rounded-2xl border border-blue-100 bg-[#fbfdff] px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/50">
+                {item}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
             {categoryChips.map((category, index) => (
               <span
                 key={category}
@@ -126,12 +130,10 @@ export default function BlogPage() {
           >
             <article className="grid overflow-hidden rounded-[2.1rem] border border-blue-100 bg-white shadow-2xl shadow-blue-950/10 transition duration-300 ease-out group-hover:-translate-y-1.5 group-hover:border-blue-200 group-hover:shadow-blue-100/80 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative min-h-[280px] lg:min-h-[430px]">
-                <Image
-                  src={featuredPost.coverImage}
+                <img
+                  src={withBasePath(featuredPost.coverImage)}
                   alt={featuredPost.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 680px"
-                  className="object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
@@ -173,12 +175,12 @@ export default function BlogPage() {
                 Recent Blogs
               </p>
               <h2 className="mt-3 text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
-                Latest product thinking from Growblic
+                Latest articles from Growblic
               </h2>
             </div>
             <p className="max-w-xl text-base font-semibold leading-7 text-slate-600">
-              Read practical guides for planning software, improving operations,
-              and building better digital products.
+              Guides for business owners, teams, and founders planning websites,
+              apps, dashboards, and automation systems.
             </p>
           </div>
 
@@ -190,13 +192,11 @@ export default function BlogPage() {
                 className="group block h-full rounded-[1.9rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
               >
                 <article className="flex h-full min-h-[500px] flex-col overflow-hidden rounded-[1.9rem] border border-blue-100 bg-white shadow-xl shadow-blue-950/5 transition duration-300 ease-out group-hover:-translate-y-1.5 group-hover:border-blue-200 group-hover:shadow-2xl group-hover:shadow-blue-100/70">
-                  <div className="relative min-h-[220px] overflow-hidden bg-blue-50">
-                    <Image
-                      src={post.coverImage}
+                  <div className="relative h-56 overflow-hidden bg-blue-50">
+                    <img
+                      src={withBasePath(post.coverImage)}
                       alt={post.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 420px"
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     />
                   </div>
 
@@ -216,12 +216,12 @@ export default function BlogPage() {
                       {post.excerpt}
                     </p>
                     <div className="mt-auto flex flex-wrap items-center gap-3 pt-7 text-sm font-black text-slate-500">
+                      <span>{post.guideLabel}</span>
+                      <span className="h-1 w-1 rounded-full bg-slate-300" />
                       <span className="inline-flex items-center gap-2">
                         <Clock3 size={16} className="text-cyan-500" />
                         {post.readingTime}
                       </span>
-                      <span className="h-1 w-1 rounded-full bg-slate-300" />
-                      <span>{post.guideLabel}</span>
                     </div>
                   </div>
                 </article>
@@ -235,11 +235,11 @@ export default function BlogPage() {
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.1rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 shadow-2xl shadow-blue-950/10 sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div>
             <p className="text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
-              Want to build software for your business?
+              Planning your next software project?
             </p>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-              Growblic can help you plan, design, build, and launch your next
-              website, app, dashboard, or automation system.
+              Growblic can help you turn ideas into websites, apps, dashboards,
+              SaaS products, and automation systems.
             </p>
           </div>
           <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:mt-0">
