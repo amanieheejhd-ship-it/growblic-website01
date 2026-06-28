@@ -1,4 +1,4 @@
-import { ArrowUpRight, CheckCircle2, Clock3 } from "lucide-react";
+import { ArrowUpRight, CalendarDays, CheckCircle2, Clock3, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { blogPosts, type BlogPost } from "@/app/blog/blogData";
 
@@ -39,11 +39,16 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 {post.excerpt}
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3 text-sm font-black text-slate-500">
-                <span>Growblic Guide</span>
+                <span>{post.guideLabel}</span>
+                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span className="inline-flex items-center gap-2">
+                  <CalendarDays size={16} className="text-blue-500" />
+                  {post.displayDate}
+                </span>
                 <span className="h-1 w-1 rounded-full bg-slate-300" />
                 <span className="inline-flex items-center gap-2">
                   <Clock3 size={16} className="text-cyan-500" />
-                  {post.readingTime}
+                  {post.readTime}
                 </span>
                 <span className="h-1 w-1 rounded-full bg-slate-300" />
                 <span>Software insights</span>
@@ -66,7 +71,16 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
       <section className="bg-white px-5 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
           <article className="min-w-0">
-            <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/60 to-cyan-50/70 p-6 shadow-xl shadow-blue-950/5 sm:p-8">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-blue-950/5 sm:p-8">
+              <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">
+                Article intro
+              </p>
+              <p className="mt-4 text-xl font-semibold leading-9 text-slate-700 sm:text-2xl sm:leading-10">
+                {post.intro}
+              </p>
+            </div>
+
+            <div className="mt-6 rounded-[2rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/60 to-cyan-50/70 p-6 shadow-xl shadow-blue-950/5 sm:p-8">
               <p className="text-sm font-black uppercase tracking-[0.18em] text-blue-700">
                 In this guide
               </p>
@@ -90,20 +104,24 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                       0{index + 1}
                     </span>
                     <div>
+                      {section.eyebrow && (
+                        <p className="mb-3 text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                          {section.eyebrow}
+                        </p>
+                      )}
                       <h2 className="text-2xl font-black leading-tight text-slate-950 sm:text-3xl">
                         {section.heading}
                       </h2>
-                      <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg sm:leading-9">
-                        {section.body}
-                      </p>
-                      <h3 className="mt-7 text-lg font-black leading-tight text-slate-950">
-                        What to pay attention to
-                      </h3>
-                      <p className="mt-3 text-base leading-8 text-slate-600">
-                        For growing businesses, this part of the product should
-                        connect strategy, user experience, and day-to-day
-                        operations instead of living as a separate design idea.
-                      </p>
+                      <div className="mt-4 grid gap-4">
+                        {section.body.map((paragraph) => (
+                          <p
+                            key={paragraph}
+                            className="text-base leading-8 text-slate-600 sm:text-lg sm:leading-9"
+                          >
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
@@ -121,15 +139,14 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                     </div>
                   )}
 
-                  {index === 1 && (
+                  {section.callout && (
                     <div className="mt-7 rounded-[1.4rem] border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-5">
-                      <p className="text-sm font-black uppercase tracking-[0.16em] text-blue-700">
+                      <p className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.16em] text-blue-700">
+                        <Sparkles size={16} />
                         Growblic note
                       </p>
                       <p className="mt-3 text-sm font-semibold leading-7 text-slate-600 sm:text-base">
-                        The strongest digital products are planned around the
-                        real workflow first, then shaped into clean screens,
-                        reliable systems, and practical launch steps.
+                        {section.callout}
                       </p>
                     </div>
                   )}
@@ -144,11 +161,29 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                 Article summary
               </p>
               <div className="mt-5 grid gap-3">
-                {post.summary.map((item) => (
+                {post.keyTakeaways.map((item) => (
                   <div key={item} className="flex gap-3 rounded-2xl border border-slate-100 bg-white p-3 text-sm font-bold leading-6 text-slate-600">
                     <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-cyan-500" />
                     <span>{item}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-blue-950/5">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                Related services
+              </p>
+              <div className="mt-5 grid gap-3">
+                {post.relatedServices.map((service) => (
+                  <Link
+                    key={service}
+                    href="/#contact"
+                    className="flex items-center justify-between gap-3 rounded-2xl border border-blue-100 bg-[#fbfdff] p-3 text-sm font-black text-slate-700 transition hover:border-blue-200 hover:bg-white hover:text-blue-700"
+                  >
+                    <span>{service}</span>
+                    <ArrowUpRight size={16} />
+                  </Link>
                 ))}
               </div>
             </div>
@@ -227,8 +262,11 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                       <p className="text-sm font-black leading-snug text-slate-950">
                         {item.title}
                       </p>
+                      <p className="mt-2 text-xs font-black text-slate-500">
+                        {item.displayDate} · {item.readTime}
+                      </p>
                       <p className="mt-2 inline-flex items-center gap-2 text-xs font-black text-blue-700">
-                        Read guide <ArrowUpRight size={14} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        Read article <ArrowUpRight size={14} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </p>
                     </div>
                   </Link>
@@ -270,6 +308,9 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
                   <h3 className="mt-3 text-lg font-black leading-snug text-slate-950">
                     {item.title}
                   </h3>
+                  <p className="mt-3 text-sm font-black text-slate-500">
+                    {item.displayDate} · {item.readTime}
+                  </p>
                 </div>
               </Link>
             ))}

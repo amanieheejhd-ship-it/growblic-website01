@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, ArrowUpRight, Clock3 } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CalendarDays, Clock3 } from "lucide-react";
 import Link from "next/link";
 import { blogPosts } from "./blogData";
 
@@ -142,8 +142,12 @@ export default function BlogPage() {
                     Featured Guide
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-4 py-2 text-sm font-black text-slate-500">
+                    <CalendarDays size={16} className="text-blue-500" />
+                    {featuredPost.displayDate}
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-4 py-2 text-sm font-black text-slate-500">
                     <Clock3 size={16} className="text-cyan-500" />
-                    {featuredPost.readingTime}
+                    {featuredPost.readTime}
                   </span>
                 </div>
                 <p className="mt-7 text-sm font-black uppercase tracking-[0.18em] text-blue-700">
@@ -153,9 +157,7 @@ export default function BlogPage() {
                   {featuredPost.title}
                 </h2>
                 <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-                  Custom software helps businesses build workflows that match
-                  real operations, improve productivity, and scale without
-                  limitations.
+                  {featuredPost.excerpt}
                 </p>
                 <p className="mt-7 inline-flex items-center gap-2 text-sm font-black text-blue-700">
                   Read featured guide
@@ -216,13 +218,20 @@ export default function BlogPage() {
                       {post.excerpt}
                     </p>
                     <div className="mt-auto flex flex-wrap items-center gap-3 pt-7 text-sm font-black text-slate-500">
-                      <span>{post.guideLabel}</span>
+                      <span className="inline-flex items-center gap-2">
+                        <CalendarDays size={16} className="text-blue-500" />
+                        {post.displayDate}
+                      </span>
                       <span className="h-1 w-1 rounded-full bg-slate-300" />
                       <span className="inline-flex items-center gap-2">
                         <Clock3 size={16} className="text-cyan-500" />
-                        {post.readingTime}
+                        {post.readTime}
                       </span>
                     </div>
+                    <p className="mt-5 inline-flex items-center gap-2 text-sm font-black text-blue-700">
+                      Read article
+                      <ArrowRight size={16} className="transition group-hover:translate-x-1" />
+                    </p>
                   </div>
                 </article>
               </Link>
