@@ -11,11 +11,8 @@ export const metadata: Metadata = {
     "Practical articles from Growblic on websites, mobile apps, SaaS platforms, dashboards, admin panels, and AI automation.",
 };
 
-const withBasePath = (path: string) => `/growblic-website01${path}`;
-
 export default function BlogPage() {
   const featuredPost = blogPosts.find((post) => post.slug === "custom-software") ?? blogPosts[0];
-  const collagePosts = blogPosts.slice(0, 3);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
@@ -54,36 +51,116 @@ export default function BlogPage() {
           <div className="relative">
             <div className="absolute -left-6 top-8 h-44 w-44 rounded-full bg-blue-200/45 blur-3xl" />
             <div className="absolute -right-6 bottom-8 h-52 w-52 rounded-full bg-violet-200/45 blur-3xl" />
-            <div className="relative rounded-[2.2rem] border border-blue-100 bg-white/82 p-3 shadow-2xl shadow-blue-950/10 backdrop-blur sm:p-4">
-              <div className="grid gap-3 sm:grid-cols-[1.2fr_0.8fr]">
-                <div className="relative min-h-[290px] overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white shadow-xl shadow-blue-100/50 sm:min-h-[360px]">
-                  <img
-                    src={withBasePath(featuredPost.coverImage)}
-                    alt={featuredPost.title}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute bottom-4 left-4 right-4 rounded-[1.35rem] border border-white/70 bg-white/82 p-4 shadow-xl shadow-blue-950/10 backdrop-blur">
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-blue-700">
-                      Featured newsroom guide
-                    </p>
-                    <p className="mt-2 text-lg font-black leading-tight text-slate-950">
-                      {featuredPost.title}
-                    </p>
+            <div className="relative overflow-hidden rounded-[2.2rem] border border-blue-100 bg-white/86 p-3 shadow-2xl shadow-blue-950/10 backdrop-blur sm:p-4">
+              <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full bg-cyan-200/45 blur-3xl" />
+              <div className="absolute -bottom-20 left-10 h-56 w-56 rounded-full bg-violet-200/40 blur-3xl" />
+
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-blue-100 bg-[#fbfdff] shadow-xl shadow-blue-100/50">
+                <div className="flex items-center justify-between border-b border-blue-100 bg-white/90 px-4 py-3 sm:px-5">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                   </div>
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                    Growblic Insights
+                  </p>
+                  <div className="h-7 w-7 rounded-full border border-blue-100 bg-blue-50" />
                 </div>
-                <div className="grid gap-3">
-                  {collagePosts.map((post) => (
-                    <div
-                      key={post.slug}
-                      className="relative min-h-[110px] overflow-hidden rounded-[1.4rem] border border-blue-100 bg-white shadow-lg shadow-blue-100/40 sm:min-h-[116px]"
-                    >
-                      <img
-                        src={withBasePath(post.coverImage)}
-                        alt={post.title}
-                        className="h-full w-full object-cover"
-                      />
+
+                <div className="grid gap-4 p-4 sm:p-5 lg:grid-cols-[1.05fr_0.95fr]">
+                  <div className="relative overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white p-5 shadow-lg shadow-blue-100/50">
+                    <div className="absolute right-5 top-5 h-20 w-20 rounded-full bg-cyan-100 blur-2xl" />
+                    <div className="relative">
+                      <span className="inline-flex rounded-full bg-blue-50 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] text-blue-700">
+                        Featured Guide
+                      </span>
+                      <h2 className="mt-5 max-w-sm text-2xl font-black leading-tight text-slate-950 sm:text-3xl">
+                        Custom software for modern teams
+                      </h2>
+                      <p className="mt-3 text-sm font-black text-slate-500">5 min read</p>
+                      <p className="mt-4 max-w-sm text-sm font-semibold leading-6 text-slate-600">
+                        Practical ideas for turning messy operations into clear
+                        workflow systems, dashboards, and launch-ready products.
+                      </p>
+
+                      <div className="mt-6 rounded-[1.25rem] border border-slate-100 bg-[#f8fbff] p-4">
+                        <div className="flex items-end gap-2">
+                          {[34, 58, 46, 74, 62, 88].map((height, index) => (
+                            <span
+                              key={`${height}-${index}`}
+                              className="w-full rounded-t-xl bg-gradient-to-t from-blue-600 via-cyan-400 to-violet-400"
+                              style={{ height }}
+                            />
+                          ))}
+                        </div>
+                        <div className="mt-4 flex items-center justify-between">
+                          <span className="h-2 w-24 rounded-full bg-blue-100" />
+                          <span className="h-2 w-16 rounded-full bg-cyan-100" />
+                          <span className="h-2 w-20 rounded-full bg-violet-100" />
+                        </div>
+                      </div>
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="grid gap-3">
+                    {[
+                      ["Mobile App UX", "Customer journeys"],
+                      ["AI Automation", "Smarter workflows"],
+                      ["Dashboard Systems", "Useful reporting"],
+                    ].map(([title, description], index) => (
+                      <div
+                        key={title}
+                        className="rounded-[1.35rem] border border-blue-100 bg-white p-4 shadow-sm shadow-blue-100/50"
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <p className="text-base font-black leading-tight text-slate-950">
+                              {title}
+                            </p>
+                            <p className="mt-1 text-sm font-semibold text-slate-500">
+                              {description}
+                            </p>
+                          </div>
+                          <span
+                            className={`grid h-9 w-9 shrink-0 place-items-center rounded-2xl text-xs font-black text-white ${
+                              index === 0
+                                ? "bg-blue-600"
+                                : index === 1
+                                  ? "bg-violet-600"
+                                  : "bg-cyan-600"
+                            }`}
+                          >
+                            0{index + 1}
+                          </span>
+                        </div>
+                        <div className="mt-4 grid grid-cols-3 gap-2">
+                          <span className="h-2 rounded-full bg-blue-100" />
+                          <span className="h-2 rounded-full bg-cyan-100" />
+                          <span className="h-2 rounded-full bg-violet-100" />
+                        </div>
+                      </div>
+                    ))}
+
+                    <div
+                      className="rounded-[1.35rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-4 shadow-sm shadow-blue-100/50"
+                    >
+                      <div className="grid grid-cols-3 gap-3 text-center">
+                        {[
+                          ["6", "Guides"],
+                          ["8", "Services"],
+                          ["100%", "Practical"],
+                        ].map(([value, label]) => (
+                          <div key={label} className="rounded-2xl bg-white/85 px-3 py-4">
+                            <p className="text-xl font-black text-slate-950">{value}</p>
+                            <p className="mt-1 text-[11px] font-black uppercase tracking-[0.12em] text-slate-500">
+                              {label}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
