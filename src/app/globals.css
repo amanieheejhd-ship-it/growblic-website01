@@ -921,3 +921,23 @@ button {
   }
 }
 /* apps-slider-side-controls-end */
+
+
+/* apps-slider-hover-speed-start */
+/* Arrow par cursor/press hote hi marquee fast, cursor hatte hi normal slow */
+.live-apps-marquee:has(> button:hover) [class*="animate"],
+.live-apps-marquee:has(> button:active) [class*="animate"],
+.live-apps-marquee:has(> button:focus-visible) [class*="animate"] {
+  animation-duration: 8s !important;
+}
+
+/* agar track custom class se chal raha ho to usko bhi cover karo */
+.live-apps-marquee:has(> button:hover) .marquee-track,
+.live-apps-marquee:has(> button:active) .marquee-track,
+.live-apps-marquee:has(> button:hover) .apps-track,
+.live-apps-marquee:has(> button:active) .apps-track,
+.live-apps-marquee:has(> button:hover) .live-apps-track,
+.live-apps-marquee:has(> button:active) .live-apps-track {
+  animation-duration: 8s !important;
+}
+/* apps-slider-hover-speed-end */

@@ -57,8 +57,6 @@ export default function FeaturedProducts() {
       });
     }, 22);
   };
-
-const [isArrowHovered, setIsArrowHovered] = useState(false);
   const loopApps = [...companyApps, ...companyApps];
 
   const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
@@ -139,14 +137,6 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
             className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Scroll apps left"
             onClick={() => handleScroll("left")}
-            onMouseEnter={() => startArrowHold("left")}
-            onMouseDown={() => startArrowHold("left")}
-            onMouseUp={stopArrowHold}
-            onMouseLeave={stopArrowHold}
-            onFocus={() => startArrowHold("left")}
-            onBlur={stopArrowHold}
-            onTouchStart={() => startArrowHold("left")}
-            onTouchEnd={stopArrowHold}
           >
             ←
           </button>
@@ -156,14 +146,6 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
             className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
             aria-label="Scroll apps right"
             onClick={() => handleScroll("right")}
-            onMouseEnter={() => startArrowHold("right")}
-            onMouseDown={() => startArrowHold("right")}
-            onMouseUp={stopArrowHold}
-            onMouseLeave={stopArrowHold}
-            onFocus={() => startArrowHold("right")}
-            onBlur={stopArrowHold}
-            onTouchStart={() => startArrowHold("right")}
-            onTouchEnd={stopArrowHold}
           >
             →
           </button>
@@ -172,7 +154,7 @@ const [isArrowHovered, setIsArrowHovered] = useState(false);
           <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
 
           <div
-            className={`live-apps-track${isArrowHovered ? " live-apps-track-fast" : ""}`}
+            className="live-apps-track"
           >
             {loopApps.map(renderAppCard)}
           </div>
