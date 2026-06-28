@@ -45,19 +45,19 @@ export default function CareersLayout({ children }: { children: ReactNode }) {
                 Culture <span className="inline-block transition group-open:rotate-180">⌄</span>
               </summary>
 
-              <div className="absolute right-0 top-8 z-50 w-64 rounded-3xl border border-blue-100 bg-white p-5 text-center shadow-2xl shadow-blue-100/70">
+              <div className="absolute right-0 top-7 z-50 w-52 rounded-2xl border border-blue-100 bg-white p-2 text-left shadow-xl shadow-blue-100/60">
                 <Link
                   href="/careers/insights"
-                  className="block rounded-2xl px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
+                  className="block rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
                 >
                   Insights
                 </Link>
 
                 <Link
                   href="/careers/humans"
-                  className="mt-2 block rounded-2xl px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
+                  className="mt-1 block rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
                 >
-                  Humans of Growblic
+                  Humans
                 </Link>
               </div>
             </details>
