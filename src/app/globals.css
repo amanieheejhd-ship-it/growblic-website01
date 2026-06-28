@@ -610,9 +610,8 @@ button {
 
   .hero-mobile-engine {
     position: relative;
-    width: 100%;
-    max-width: 360px;
-    height: 430px;
+    width: min(100%, 390px);
+    height: clamp(420px, 110vw, 520px);
     margin: 2rem auto 0;
     overflow: visible;
     isolation: isolate;
@@ -629,37 +628,37 @@ button {
 
   .hero-mobile-orbit {
     z-index: 1;
-    width: 310px;
-    height: 310px;
+    width: clamp(260px, 78vw, 340px);
+    height: clamp(260px, 78vw, 340px);
     border: 1px solid rgba(191, 219, 254, 0.9);
     border-radius: 9999px;
     background:
-      radial-gradient(circle, rgba(255, 255, 255, 0.76), rgba(239, 246, 255, 0.36)),
-      linear-gradient(90deg, rgba(191, 219, 254, 0.34), rgba(221, 214, 254, 0.28));
+      radial-gradient(circle, rgba(255, 255, 255, 0.66), rgba(239, 246, 255, 0.28)),
+      linear-gradient(90deg, rgba(191, 219, 254, 0.28), rgba(221, 214, 254, 0.22));
     box-shadow: 0 24px 54px rgba(37, 99, 235, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.62);
   }
 
   .hero-mobile-orbit-mid {
-    width: 248px;
-    height: 248px;
+    width: clamp(204px, 61vw, 268px);
+    height: clamp(204px, 61vw, 268px);
     background: transparent;
     box-shadow: none;
   }
 
   .hero-mobile-orbit-inner {
-    width: 176px;
-    height: 176px;
+    width: clamp(150px, 45vw, 196px);
+    height: clamp(150px, 45vw, 196px);
     background: transparent;
     box-shadow: none;
   }
 
   .hero-mobile-center-card {
-    z-index: 4;
-    width: 210px;
-    height: 250px;
-    padding: 0.8rem;
+    z-index: 30;
+    width: clamp(190px, 56vw, 245px);
+    height: clamp(230px, 64vw, 300px);
+    padding: clamp(0.7rem, 2.4vw, 0.95rem);
     border: 1px solid rgba(191, 219, 254, 0.88);
-    border-radius: 32px;
+    border-radius: clamp(28px, 7vw, 36px);
     background: rgba(255, 255, 255, 0.94);
     box-shadow: 0 20px 44px rgba(15, 23, 42, 0.14);
   }
@@ -669,16 +668,16 @@ button {
     height: 100%;
     overflow: hidden;
     border: 1px solid rgba(191, 219, 254, 0.76);
-    border-radius: 22px;
+    border-radius: clamp(20px, 5.5vw, 28px);
     background: linear-gradient(135deg, #ffffff, rgba(239, 246, 255, 0.92), rgba(245, 243, 255, 0.86));
-    padding: 1rem;
+    padding: clamp(0.85rem, 3vw, 1.15rem);
     text-align: center;
   }
 
   .hero-mobile-logo {
     display: grid;
-    width: 58px;
-    height: 58px;
+    width: clamp(52px, 15vw, 68px);
+    height: clamp(52px, 15vw, 68px);
     margin: 0 auto;
     place-items: center;
     overflow: hidden;
@@ -697,24 +696,24 @@ button {
   }
 
   .hero-mobile-eyebrow {
-    margin-top: 1.25rem;
+    margin-top: clamp(1rem, 4vw, 1.5rem);
     color: #1d4ed8;
-    font-size: 0.68rem;
+    font-size: clamp(0.58rem, 2vw, 0.72rem);
     font-weight: 900;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     line-height: 1.2;
     text-transform: uppercase;
   }
 
   .hero-mobile-title {
     display: grid;
-    gap: 0.05rem;
-    margin-top: 0.55rem;
+    gap: 0.08rem;
+    margin-top: clamp(0.45rem, 2vw, 0.65rem);
     color: #020617;
-    font-size: 2.05rem;
+    font-size: clamp(1.78rem, 9vw, 2.55rem);
     font-weight: 900;
     letter-spacing: 0;
-    line-height: 0.94;
+    line-height: 0.92;
   }
 
   .hero-mobile-title span {
@@ -722,9 +721,9 @@ button {
   }
 
   .hero-mobile-progress {
-    width: 6.5rem;
+    width: clamp(5.7rem, 29vw, 7.5rem);
     height: 0.45rem;
-    margin: 1.25rem auto 0;
+    margin: clamp(0.9rem, 3.8vw, 1.35rem) auto 0;
     overflow: hidden;
     border-radius: 9999px;
     background: #e2e8f0;
@@ -741,12 +740,11 @@ button {
 
   .hero-mobile-chip {
     position: absolute;
-    z-index: 5;
+    z-index: 20;
     display: flex;
-    width: 158px;
-    max-width: 158px;
-    min-width: 158px;
-    height: 80px;
+    width: clamp(130px, 38vw, 165px);
+    min-width: 0;
+    min-height: 72px;
     flex-direction: column;
     justify-content: center;
     gap: 0.3rem;
@@ -754,8 +752,9 @@ button {
     border: 1px solid rgba(191, 219, 254, 0.86);
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.94);
-    padding: 14px;
+    padding: clamp(0.72rem, 3.2vw, 0.95rem);
     box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(18px);
   }
 
   .hero-mobile-chip-top {
@@ -766,12 +765,14 @@ button {
 
   .hero-mobile-chip-left {
     left: 0;
-    top: 44%;
+    top: 58%;
+    transform: translateY(-50%);
   }
 
   .hero-mobile-chip-right {
     right: 0;
-    top: 44%;
+    top: 58%;
+    transform: translateY(-50%);
   }
 
   .hero-mobile-chip-bottom {
@@ -790,7 +791,7 @@ button {
 
   .hero-mobile-chip h4 {
     color: #020617;
-    font-size: 0.95rem;
+    font-size: clamp(0.78rem, 3.5vw, 0.95rem);
     font-weight: 900;
     line-height: 1.05;
     white-space: nowrap;
@@ -799,29 +800,36 @@ button {
   .hero-mobile-chip p {
     margin-top: 0.35rem;
     color: #64748b;
-    font-size: 0.78rem;
+    font-size: clamp(0.68rem, 3vw, 0.78rem);
     font-weight: 700;
     line-height: 1.2;
     white-space: nowrap;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
   .hero-mobile-engine {
-    max-width: 336px;
     height: 430px;
   }
 
   .hero-mobile-center-card {
-    width: 212px;
-    height: 252px;
+    width: 180px;
+    height: 230px;
   }
 
   .hero-mobile-chip {
-    width: 150px;
-    min-width: 150px;
-    max-width: 150px;
-    height: 76px;
+    width: 122px;
+    min-height: 72px;
+    padding: 0.7rem;
+  }
+
+  .hero-mobile-chip-left,
+  .hero-mobile-chip-right {
+    top: 60%;
+  }
+
+  .hero-mobile-title {
+    font-size: 1.68rem;
   }
 }
 
