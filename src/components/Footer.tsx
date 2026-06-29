@@ -53,11 +53,11 @@ function FooterColumn({
   links: { label: string; href: string; external?: boolean }[];
 }) {
   return (
-    <div>
-      <h3 className="text-sm font-black uppercase tracking-[0.18em] text-slate-950">
+    <div className="min-w-0">
+      <h3 className="text-xs font-black uppercase tracking-[0.14em] text-slate-950">
         {title}
       </h3>
-      <div className="mt-5 grid gap-3">
+      <div className="mt-3 grid gap-2.5">
         {links.map((item) =>
           item.external ? (
             <a
@@ -65,25 +65,31 @@ function FooterColumn({
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="text-sm font-bold leading-6 text-slate-500 transition hover:text-blue-700"
+              className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
-              {item.label}
+              <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
+                {item.label}
+              </span>
             </a>
           ) : item.href.startsWith("mailto:") ? (
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-bold leading-6 text-slate-500 transition hover:text-blue-700"
+              className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
-              {item.label}
+              <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
+                {item.label}
+              </span>
             </a>
           ) : (
             <Link
               key={item.label}
               href={item.href}
-              className="text-sm font-bold leading-6 text-slate-500 transition hover:text-blue-700"
+              className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
-              {item.label}
+              <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
+                {item.label}
+              </span>
             </Link>
           ),
         )}
@@ -94,43 +100,45 @@ function FooterColumn({
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-blue-100/80 bg-[#fbfdff] px-5 py-10 sm:px-6 sm:py-14">
+    <footer className="relative overflow-hidden border-t border-blue-100/80 bg-[#fbfdff] px-4 py-6 sm:px-6 sm:py-8">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(37,99,235,0.09),transparent_28%),radial-gradient(circle_at_88%_80%,rgba(6,182,212,0.09),transparent_28%)]" />
 
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.25rem] border border-blue-100/80 bg-white/86 p-6 shadow-2xl shadow-blue-100/55 backdrop-blur-xl sm:p-8 lg:p-10">
-        <div className="grid gap-10 xl:grid-cols-[0.9fr_2.1fr]">
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/82 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-6 lg:p-7">
+        <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+
+        <div className="grid gap-7 xl:grid-cols-[0.72fr_2.28fr] xl:items-start">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
+              <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
                 <Image
                   src="/growblic-website01/images/brand/growblic-logo.png"
                   alt="Growblic"
                   fill
-                  sizes="48px"
+                  sizes="40px"
                   className="rounded-full object-cover"
                 />
               </span>
-              <span className="text-2xl font-black tracking-tight text-slate-950">
+              <span className="text-xl font-black tracking-tight text-slate-950">
                 Growblic
               </span>
             </Link>
 
-            <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-blue-700">
+            <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-blue-700">
               Software Development Company
             </p>
-            <p className="mt-4 max-w-md text-base font-semibold leading-8 text-slate-600">
+            <p className="mt-3 max-w-sm text-sm font-semibold leading-6 text-slate-600">
               Building premium websites, apps, SaaS products, and automation systems.
             </p>
 
             <Link
               href="/start-project"
-              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+              className="mt-5 inline-flex min-h-10 items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
               Start Project →
             </Link>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5 xl:gap-x-8">
             <FooterColumn title="Company" links={companyLinks} />
             <FooterColumn title="Services" links={serviceLinks} />
             <FooterColumn title="Resources" links={resourceLinks} />
@@ -139,7 +147,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-blue-100/80 pt-6 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
           <p>Building premium websites, apps, SaaS products, and automation systems.</p>
         </div>
