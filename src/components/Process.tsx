@@ -1,172 +1,137 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
 const steps = [
   {
     number: "01",
     title: "Understand",
-    text: "Business goals, users, workflows, and product direction.",
-    image: "/growblic-website01/images/process/research-unique.jpg",
+    text: "We clarify goals, users, workflows, and the product direction before anything is built.",
     href: "/process/understand",
   },
   {
     number: "02",
     title: "Design",
-    text: "Premium UI, clean screens, dashboards, and mobile flows.",
-    image: "/growblic-website01/images/process/uiux-unique.jpg",
+    text: "We shape clean screens, user flows, dashboards, and interactions that feel simple.",
     href: "/process/design",
   },
   {
     number: "03",
     title: "Build",
-    text: "Frontend systems, APIs, SaaS modules, and automation.",
-    image: "/growblic-website01/images/process/code-unique.jpg",
+    text: "We develop reliable websites, apps, SaaS modules, APIs, and automation systems.",
     href: "/process/build",
   },
   {
     number: "04",
     title: "Launch",
-    text: "Testing, polish, deployment, and real-user readiness.",
-    image: "/growblic-website01/images/process/deploy-unique.jpg",
+    text: "We test, polish, deploy, and prepare the product for real customers and teams.",
     href: "/process/launch",
   },
   {
     number: "05",
     title: "Improve",
-    text: "Analytics, upgrades, support, optimization, and growth.",
-    image: "/growblic-website01/images/process/growth-unique.jpg",
+    text: "We keep improving performance, features, support, analytics, and growth opportunities.",
     href: "/process/improve",
   },
 ];
 
 export default function Process() {
-  const mobileStepsLoop = [...steps, ...steps];
-
   return (
-    <section id="process" className="how-build-section relative overflow-hidden bg-[#fbfdff] px-6 py-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_85%_90%,rgba(6,182,212,0.08),transparent_28%)]" />
+    <section id="process" className="how-build-section relative overflow-hidden bg-[#fbfdff] px-6 py-20 sm:py-24">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(239,246,255,0.84),rgba(255,255,255,0.96)_42%,rgba(239,246,255,0.68)),radial-gradient(circle_at_15%_12%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_86%_76%,rgba(14,165,233,0.12),transparent_32%)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="how-build-header mb-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="how-build-header mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">
               How we build
             </p>
 
-            <h2 className="mt-4 max-w-4xl text-5xl font-black leading-[0.98] tracking-tight text-slate-950 md:text-6xl">
+            <h2 className="mt-4 max-w-4xl text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
               A smooth path from idea to product.
             </h2>
           </div>
 
-          <p className="max-w-2xl text-lg leading-8 text-slate-600 lg:justify-self-end">
-            We keep every step clean, focused, and production-ready — from first
-            planning to launch and support.
+          <p className="max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg lg:justify-self-end">
+            We keep every step focused, premium, and production-ready, with a
+            clear path from first planning to launch and long-term improvement.
           </p>
         </div>
 
-        <div className="how-build-frame relative hidden overflow-hidden rounded-[2.7rem] border border-blue-100/70 bg-[#fbfdff]/90 p-3 shadow-2xl shadow-slate-200/75 backdrop-blur-xl md:block">
-          <div className="absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
-          <div className="absolute -left-24 top-8 h-64 w-64 rounded-full bg-blue-100/70 blur-3xl" />
-          <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-cyan-100/70 blur-3xl" />
+        <div className="relative">
+          <div className="absolute left-8 right-8 top-12 hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent lg:block" />
 
-          <div className="relative grid grid-cols-5 gap-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((step, index) => (
-              <Link
+              <motion.div
                 key={step.title}
-                href={step.href}
-                aria-label={`Open ${step.title} process guide`}
-                className="block cursor-pointer rounded-[2rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.42, delay: index * 0.05 }}
               >
-                <motion.article
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="group relative h-[360px] overflow-hidden rounded-[2rem] border border-blue-100/70 bg-slate-100 shadow-xl shadow-blue-100/50 transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
+                <Link
+                  href={step.href}
+                  aria-label={`Open ${step.title} process guide`}
+                  className="group relative flex min-h-[250px] h-full flex-col overflow-hidden rounded-[1.65rem] border border-blue-100/80 bg-white/88 p-5 shadow-xl shadow-blue-100/45 backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:bg-white hover:shadow-2xl hover:shadow-blue-100/80 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 sm:p-6"
                 >
-                  <Image
-                    src={step.image}
-                    alt={step.title}
-                    fill
-                    sizes="240px"
-                    className="will-change-transform object-cover transition-transform duration-700 group-hover:scale-105"
-                    priority={index === 0}
-                    unoptimized
-                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(239,246,255,0.92),rgba(255,255,255,0)_58%)] opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute -right-12 -top-14 h-32 w-32 rounded-full bg-blue-100/75 blur-2xl transition-transform duration-500 group-hover:scale-125" />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/86 via-slate-950/25 to-transparent" />
-
-                  <div className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-2xl border border-white/20 bg-[#fbfdff]/18 text-xs font-black text-white shadow-xl backdrop-blur-xl">
-                    {step.number}
-                  </div>
-
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="rounded-[1.35rem] border border-white/20 bg-[#fbfdff]/16 p-3.5 text-white shadow-2xl backdrop-blur-xl">
-                      <h3 className="text-2xl font-black tracking-tight">
-                        {step.title}
-                      </h3>
-
-                      <p className="mt-2 text-xs font-semibold leading-5 text-white/78">
-                        {step.text}
-                      </p>
-
-                      <div className="mt-4 h-1.5 w-12 rounded-full bg-[#fbfdff]/35 transition-all duration-500 ease-out group-hover:w-20 group-hover:bg-[#fbfdff]" />
-                    </div>
-                  </div>
-                </motion.article>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div className="process-mobile-marquee md:hidden">
-          <div className="process-mobile-track">
-            {mobileStepsLoop.map((step, index) => (
-              <Link
-                key={`process-mobile-${step.title}-${index}`}
-                href={step.href}
-                aria-label={`Open ${step.title} process guide`}
-                className="process-mobile-card block cursor-pointer focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
-              >
-                <motion.article
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.35, delay: (index % steps.length) * 0.04 }}
-                  className="h-full"
-                >
-                  <div className="process-mobile-image">
-                    <Image
-                      src={step.image}
-                      alt={step.title}
-                      fill
-                      sizes="260px"
-                      className="object-cover"
-                      priority={index === 0 || index === steps.length}
-                      unoptimized
-                    />
-                    <div className="process-mobile-badge">
+                  <div className="relative flex items-center justify-between gap-4">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-sm font-black text-blue-700 shadow-sm shadow-blue-100">
                       {step.number}
-                    </div>
+                    </span>
+                    <span className="grid h-9 w-9 place-items-center rounded-full border border-blue-100 bg-white text-blue-700 shadow-sm shadow-blue-100 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:bg-blue-600 group-hover:text-white">
+                      <ArrowRight size={16} strokeWidth={2.5} />
+                    </span>
                   </div>
 
-                  <div className="p-4">
-                    <h3 className="process-mobile-title">
+                  <div className="relative mt-10 flex flex-1 flex-col">
+                    <h3 className="text-2xl font-black tracking-tight text-slate-950">
                       {step.title}
                     </h3>
-
-                    <p className="process-mobile-description">
+                    <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
                       {step.text}
                     </p>
+                    <div className="mt-auto pt-7">
+                      <div className="h-1.5 w-12 rounded-full bg-blue-100 transition-all duration-300 group-hover:w-20 group-hover:bg-blue-600" />
+                    </div>
                   </div>
-                </motion.article>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.42, delay: 0.1 }}
+          className="mt-8 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/88 p-6 shadow-2xl shadow-blue-100/55 backdrop-blur sm:mt-10 sm:p-8"
+        >
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <h3 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+                Have an idea?
+              </h3>
+              <p className="mt-3 text-base font-semibold leading-7 text-slate-600 sm:text-lg">
+                Let Growblic turn it into a real product.
+              </p>
+            </div>
+
+            <Link
+              href="/start-project"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-blue-600 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
+            >
+              Start Project →
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
