@@ -20,12 +20,12 @@ const serviceLinks = [
   { label: "Price Calculator", href: "/price-calculator" },
 ];
 
-const productLinks = [
-  { label: "All Products", href: "/products" },
-  { label: "Our Mobile Apps", href: "/mobile-apps" },
-  { label: "Client Login", href: "/client-login" },
-  { label: "Start Project", href: "/start-project" },
-  { label: "Support", href: "/support" },
+const downloadLinks = [
+  { label: "Downloads", href: "/downloads" },
+  { label: "Live Products", href: "/downloads#live-products" },
+  { label: "Mobile Apps", href: "/downloads#mobile-apps" },
+  { label: "SaaS Products", href: "/downloads#saas-products" },
+  { label: "Other Categories", href: "/downloads#other-categories" },
 ];
 
 const resourceLinks = [
@@ -140,7 +140,7 @@ export default function Footer() {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <FooterColumn title="Company" links={companyLinks} />
             <FooterColumn title="Services" links={serviceLinks} />
-            <FooterColumn title="Products" links={productLinks} />
+            <FooterColumn title="Downloads" links={downloadLinks} />
             <FooterColumn title="Resources" links={resourceLinks} />
             <FooterColumn title="Trust & Legal" links={trustLegalLinks} />
             <FooterColumn title="Connect" links={connectLinks} />
