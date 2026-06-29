@@ -11,11 +11,13 @@ const companyLinks = [
 ];
 
 const serviceLinks = [
-  { label: "Website Development", href: "/services" },
+  { label: "Website Development", href: "/website-development" },
   { label: "Software Development", href: "/software" },
   { label: "Mobile Apps", href: "/mobile-apps" },
+  { label: "Our Mobile Apps", href: "/mobile-apps" },
   { label: "SaaS Products", href: "/saas" },
   { label: "AI Automation", href: "/ai-automation" },
+  { label: "SEO Services", href: "/seo-services" },
 ];
 
 const growblicLinks = [
@@ -26,7 +28,30 @@ const growblicLinks = [
   { label: "Why Growblic", href: "/why-growblic" },
 ];
 
+const developerLinks = [
+  { label: "Developer Docs", href: "/developer" },
+  { label: "API Reference", href: "/developer#api-reference" },
+  { label: "Code Components", href: "/developer#code-components" },
+  { label: "Integrations", href: "/developer#integrations" },
+];
+
+const brandLegalLinks = [
+  { label: "Brand Guidelines", href: "/brand" },
+  { label: "Logo Usage", href: "/brand#logo-usage" },
+  { label: "Colors", href: "/brand#colors" },
+  { label: "Partnerships", href: "/brand#partnerships" },
+  { label: "Legal", href: "/legal" },
+  { label: "Privacy Policy", href: "/legal#privacy-policy" },
+  { label: "Terms of Service", href: "/legal#terms-of-service" },
+  { label: "Security", href: "/security" },
+  { label: "Security & Abuse", href: "mailto:abuse@growblic.com" },
+  { label: "Report Abuse", href: "mailto:abuse@growblic.com" },
+];
+
 const connectLinks = [
+  { label: "Meetup", href: "/meetup" },
+  { label: "Events", href: "/meetup#events" },
+  { label: "Careers", href: "/careers" },
   { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
   { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true },
   {
@@ -121,10 +146,12 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             <FooterColumn title="Company" links={companyLinks} />
             <FooterColumn title="Services" links={serviceLinks} />
             <FooterColumn title="Growblic" links={growblicLinks} />
+            <FooterColumn title="Developer" links={developerLinks} />
+            <FooterColumn title="Brand / Legal" links={brandLegalLinks} />
             <FooterColumn title="Connect" links={connectLinks} />
           </div>
         </div>
