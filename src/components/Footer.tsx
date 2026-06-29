@@ -4,7 +4,6 @@ import Link from "next/link";
 const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Products", href: "/products" },
   { label: "Careers", href: "/careers" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/#contact" },
@@ -52,6 +51,22 @@ function FooterColumn({
   title: string;
   links: { label: string; href: string; external?: boolean }[];
 }) {
+  function FooterLinkLabel({ label }: { label: string }) {
+    if (label === "Careers") {
+      return (
+        <span className="rounded-full border border-blue-100 bg-blue-50/85 px-2.5 py-1 text-blue-700 shadow-sm shadow-blue-100/60 transition group-hover:border-blue-200 group-hover:bg-white">
+          {label}
+        </span>
+      );
+    }
+
+    return (
+      <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
+        {label}
+      </span>
+    );
+  }
+
   return (
     <div className="min-w-0">
       <h3 className="text-xs font-black uppercase tracking-[0.14em] text-slate-950">
@@ -67,9 +82,7 @@ function FooterColumn({
               rel="noreferrer"
               className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
-              <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
-                {item.label}
-              </span>
+              <FooterLinkLabel label={item.label} />
             </a>
           ) : item.href.startsWith("mailto:") ? (
             <a
@@ -77,9 +90,7 @@ function FooterColumn({
               href={item.href}
               className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
-              <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
-                {item.label}
-              </span>
+              <FooterLinkLabel label={item.label} />
             </a>
           ) : (
             <Link
@@ -87,9 +98,7 @@ function FooterColumn({
               href={item.href}
               className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
-              <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
-                {item.label}
-              </span>
+              <FooterLinkLabel label={item.label} />
             </Link>
           ),
         )}

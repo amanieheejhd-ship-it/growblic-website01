@@ -1,5 +1,16 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import {
+  Briefcase,
+  CalendarCheck,
+  Clock3,
+  Gem,
+  Globe2,
+  Laptop,
+  Plane,
+  TrendingUp,
+  Wrench,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Perks | Growblic Careers",
@@ -34,6 +45,54 @@ const perks = [
   },
 ];
 
+const benefits = [
+  {
+    title: "Full-time",
+    text: "Clear ownership paths for core roles as Growblic grows its delivery team.",
+    icon: Briefcase,
+  },
+  {
+    title: "Great gear",
+    text: "Modern work setup support may be available for approved roles and teams.",
+    icon: Laptop,
+  },
+  {
+    title: "Equity plan",
+    text: "Long-term contribution paths may include future upside where role structure allows.",
+    icon: Gem,
+  },
+  {
+    title: "Remote first",
+    text: "Workflows are designed around focused communication, async updates, and outcomes.",
+    icon: Globe2,
+  },
+  {
+    title: "Team retreat",
+    text: "Team gatherings may be planned as the company scales and schedules allow.",
+    icon: Plane,
+  },
+  {
+    title: "Modern tools",
+    text: "Use practical tools for design, code, automation, dashboards, and product delivery.",
+    icon: Wrench,
+  },
+  {
+    title: "Flex schedule",
+    text: "Flexible working rhythms are encouraged when project commitments stay clear.",
+    icon: Clock3,
+  },
+  {
+    title: "Unlimited PTO",
+    text: "Flexible time-off practices may vary by role, location, and engagement type.",
+    icon: CalendarCheck,
+  },
+  {
+    title: "Growth budget",
+    text: "Learning support may be available for courses, tools, and role-relevant growth.",
+    icon: TrendingUp,
+  },
+];
+
 export default function PerksPage() {
   return (
     <>
@@ -52,6 +111,71 @@ export default function PerksPage() {
             Growblic gives you the space to learn, build, improve, and work on real
             business projects with a serious product mindset.
           </p>
+        </div>
+      </section>
+
+      <section className="px-6 pb-10 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_28px_90px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-8 lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">
+                Benefits
+              </p>
+              <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
+                Benefits built for focused product work.
+              </h2>
+            </div>
+            <div>
+              <p className="text-base font-semibold leading-8 text-slate-600">
+                A modern, flexible work environment for people who like shipping polished
+                websites, apps, automation systems, and SaaS products.
+              </p>
+              <p className="mt-3 text-sm font-bold text-slate-500">
+                Perks may vary by role, location, and engagement type.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {benefits.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <article
+                  key={item.title}
+                  className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-gradient-to-br from-white via-blue-50/45 to-white p-5 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70"
+                >
+                  <div className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
+                  <div className="relative">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-white/75 text-blue-700 shadow-lg shadow-blue-100/70 backdrop-blur">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="mt-5 text-2xl font-black tracking-tight text-slate-950">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
+                      {item.text}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 border-t border-blue-100 pt-6 sm:flex-row">
+            <Link
+              href="/careers"
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-blue-100 bg-white px-6 py-3 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
+            >
+              Careers
+            </Link>
+            <Link
+              href="/careers/openings"
+              className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+            >
+              Open roles →
+            </Link>
+          </div>
         </div>
       </section>
 
