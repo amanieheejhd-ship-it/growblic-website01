@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import { Briefcase, GraduationCap } from "lucide-react";
 import Scroll3DSection from "../../../components/Scroll3DSection";
+import CareersOpeningsList from "./CareersOpeningsList";
 
 export const metadata: Metadata = {
   title: "Openings | Growblic Careers",
@@ -76,8 +76,6 @@ const openings = [
   },
 ];
 
-const filterPills = ["All roles", "Jobs", "Internships", "Remote", "Design", "Engineering", "Marketing"];
-
 export default function OpeningsPage() {
   return (
     <>
@@ -98,77 +96,7 @@ export default function OpeningsPage() {
             designers, and growth-focused people.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            {filterPills.map((item, index) => (
-              <span
-                key={item}
-                className={`rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.14em] shadow-lg shadow-blue-100/35 ${
-                  index === 0
-                    ? "border-blue-600 bg-blue-600 text-white"
-                    : "border-blue-100 bg-white/78 text-slate-600"
-                }`}
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            {openings.map((item, index) => {
-              const isInternship = item.type === "Internship";
-              const Icon = isInternship ? GraduationCap : Briefcase;
-
-              return (
-                <Scroll3DSection key={item.title} delay={index * 0.035}>
-                  <article className="group relative flex h-full min-h-80 flex-col overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-7 shadow-xl shadow-blue-100/55 ring-1 ring-blue-100/70 backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/80">
-                    <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
-                    <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
-                    <div className="relative flex items-start justify-between gap-4">
-                      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-white/80 bg-blue-50/80 text-blue-700 shadow-lg shadow-blue-100/70">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                      <div className="flex flex-wrap justify-end gap-2">
-                        <span className="rounded-full border border-blue-100 bg-blue-50/85 px-3 py-1.5 text-xs font-black text-blue-700">
-                          {item.area}
-                        </span>
-                        <span
-                          className={`rounded-full border px-3 py-1.5 text-xs font-black ${
-                            isInternship
-                              ? "border-blue-100 bg-blue-50/85 text-blue-700"
-                              : "border-slate-200 bg-white/85 text-slate-700"
-                          }`}
-                        >
-                          {item.type}
-                        </span>
-                      </div>
-                    </div>
-
-                    <h2 className="relative mt-5 text-2xl font-black tracking-tight text-slate-950">
-                      {item.title}
-                    </h2>
-                    <div className="relative mt-4 flex flex-wrap gap-2">
-                      <span className="rounded-full border border-blue-100 bg-white/75 px-3 py-1.5 text-xs font-black text-slate-600">
-                        {item.location}
-                      </span>
-                      <span className="rounded-full border border-blue-100 bg-white/75 px-3 py-1.5 text-xs font-black text-slate-600">
-                        {item.experience}
-                      </span>
-                    </div>
-                    <p className="relative mt-4 flex-1 leading-8 text-slate-600">
-                      {item.desc}
-                    </p>
-
-                    <Link
-                      href="/careers/apply"
-                      className="relative mt-6 inline-flex w-fit rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-                    >
-                      Apply now →
-                    </Link>
-                  </article>
-                </Scroll3DSection>
-              );
-            })}
-          </div>
+          <CareersOpeningsList openings={openings} />
 
           <div className="mt-14 flex flex-col gap-4 sm:flex-row">
             <Link
