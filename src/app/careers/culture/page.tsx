@@ -51,7 +51,7 @@ export default function CulturePage() {
               Back to Careers
             </Link>
             <Link
-              href="/contact"
+              href="/#contact"
               className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
               Contact Growblic →

@@ -12,7 +12,7 @@ export default function GmbRatingReviewsPage() {
       eyebrow="GMB Rating & Reviews"
       title="Google Business Profile growth support for local trust."
       description="Growblic helps local businesses improve their Google presence with review strategy, profile polish, trust-building assets, and local visibility support."
-      image="/growblic-website01/images/business/growth-1.jpg"
+      image="/growblic-website01/images/process/growth-unique.jpg"
       points={[
         "Profile optimization",
         "Review strategy",

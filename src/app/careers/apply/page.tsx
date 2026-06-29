@@ -1,35 +1,12 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import CareersApplyForm from "./CareersApplyForm";
 
 export const metadata: Metadata = {
   title: "Apply | Growblic Careers",
   description:
     "Apply for jobs and internships at Growblic across development, design, and digital growth roles.",
 };
-
-const roles = [
-  "Frontend Developer",
-  "Backend Developer",
-  "UI/UX Designer",
-  "Digital Marketing Executive",
-  "Frontend Developer Internship",
-  "Backend Developer Internship",
-  "UI/UX Design Internship",
-  "Digital Marketing Internship",
-];
-
-const experienceLevels = [
-  "Student / Fresher",
-  "0-1 years",
-  "1-3 years",
-  "3-5 years",
-  "5+ years",
-];
-
-const inputClass =
-  "mt-2 w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm shadow-blue-100/40 outline-none transition placeholder:text-slate-400 focus:border-blue-300 focus:ring-4 focus:ring-blue-100";
-
-const labelClass = "text-sm font-black text-slate-800";
 
 export default function CareersApplyPage() {
   return (
@@ -59,102 +36,7 @@ export default function CareersApplyPage() {
           </Link>
         </div>
 
-        <div className="rounded-[2.35rem] border border-blue-100 bg-white/92 p-6 shadow-2xl shadow-blue-100/70 backdrop-blur sm:p-8">
-          <form className="grid gap-5">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className={labelClass}>
-                Full name
-                <input
-                  className={inputClass}
-                  name="fullName"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Your full name"
-                />
-              </label>
-
-              <label className={labelClass}>
-                Email
-                <input
-                  className={inputClass}
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="you@example.com"
-                />
-              </label>
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className={labelClass}>
-                Phone
-                <input
-                  className={inputClass}
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  placeholder="+91 98765 43210"
-                />
-              </label>
-
-              <label className={labelClass}>
-                Role applying for
-                <select className={inputClass} name="role" defaultValue="">
-                  <option value="" disabled>
-                    Select a role
-                  </option>
-                  {roles.map((role) => (
-                    <option key={role} value={role}>
-                      {role}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className={labelClass}>
-                Experience level
-                <select className={inputClass} name="experience" defaultValue="">
-                  <option value="" disabled>
-                    Select experience
-                  </option>
-                  {experienceLevels.map((level) => (
-                    <option key={level} value={level}>
-                      {level}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className={labelClass}>
-                Portfolio / GitHub / Resume link
-                <input
-                  className={inputClass}
-                  name="workLink"
-                  type="url"
-                  placeholder="https://..."
-                />
-              </label>
-            </div>
-
-            <label className={labelClass}>
-              Message
-              <textarea
-                className={`${inputClass} min-h-36 resize-y leading-7`}
-                name="message"
-                placeholder="Tell us about your skills, work, availability, or why this role fits you."
-              />
-            </label>
-
-            <button
-              type="submit"
-              className="mt-2 inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-            >
-              Submit Application →
-            </button>
-          </form>
-        </div>
+        <CareersApplyForm />
       </div>
     </section>
   );

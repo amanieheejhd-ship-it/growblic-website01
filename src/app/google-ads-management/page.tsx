@@ -12,7 +12,7 @@ export default function GoogleAdsManagementPage() {
       eyebrow="Google Ads"
       title="Google Ads campaigns focused on qualified leads."
       description="Growblic helps businesses plan landing pages, ad structure, conversion flow, and campaign messaging so paid traffic has a clear path to enquiry."
-      image="/growblic-website01/images/business/analytics-2.jpg"
+      image="/growblic-website01/images/products/analytics-2.jpg"
       points={[
         "Campaign planning",
         "Landing page alignment",
