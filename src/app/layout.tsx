@@ -48,7 +48,7 @@ export const metadata: Metadata = {
         url: absoluteUrl(defaultSeo.image),
         width: 1200,
         height: 630,
-        alt: "Growblic software development company",
+        alt: "Growblic - Software, Websites, Apps and AI Automation",
       },
     ],
   },

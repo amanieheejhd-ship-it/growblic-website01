@@ -15,7 +15,7 @@ export const defaultSeo = {
     "business dashboards",
     "Growblic",
   ],
-  image: "/og-growblic.svg",
+  image: "/og-image.svg",
 };
 
 export function absoluteUrl(path = "/") {
@@ -66,7 +66,7 @@ export function createPageMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: "Growblic software development company",
+          alt: "Growblic - Software, Websites, Apps and AI Automation",
         },
       ],
     },
