@@ -9,12 +9,12 @@ export const metadata = createPageMetadata({
 });
 
 const meetupTopics = [
+  "Meetup",
+  "Community",
+  "Events",
   "Startups",
   "Software",
   "Automation",
-  "Digital Growth",
-  "Product Design",
-  "Business Systems",
 ];
 
 export default function MeetupPage() {

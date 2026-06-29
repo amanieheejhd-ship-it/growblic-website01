@@ -10,6 +10,11 @@ export const metadata = createPageMetadata({
 
 const brandSections = [
   {
+    id: "brand-guidelines",
+    title: "Brand Guidelines",
+    text: "Keep Growblic communication clean, premium, and consistent across websites, proposals, social graphics, and partner material.",
+  },
+  {
     id: "logo-usage",
     title: "Logo Usage",
     text: "Use the Growblic identity clearly, with enough spacing, proper contrast, and no distortion.",
@@ -48,7 +53,7 @@ export default function BrandPage() {
             </p>
           </div>
 
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {brandSections.map((section, index) => (
               <article
                 id={section.id}

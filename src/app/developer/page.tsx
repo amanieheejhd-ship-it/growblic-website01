@@ -11,6 +11,11 @@ export const metadata = createPageMetadata({
 
 const developerSections = [
   {
+    id: "developer-docs",
+    title: "Developer Docs",
+    text: "Technical planning notes for dashboards, portals, workflows, and software products built with Growblic.",
+  },
+  {
     id: "api-reference",
     title: "API Reference",
     text: "Plan API-ready dashboards, business systems, integrations, and automation workflows with Growblic.",
@@ -81,7 +86,7 @@ export default function DeveloperPage() {
             </div>
           </div>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
+          <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {developerSections.map((section, index) => (
               <article
                 id={section.id}

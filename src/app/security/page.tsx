@@ -10,15 +10,15 @@ export const metadata = createPageMetadata({
 
 const securityItems = [
   {
-    title: "Responsible Reporting",
+    title: "Security overview",
     text: "If you notice a security concern related to Growblic systems or communication, report it responsibly with clear details.",
   },
   {
-    title: "Abuse Reports",
+    title: "Security & Abuse",
     text: "Abuse reports should be sent directly to abuse@growblic.com for review.",
   },
   {
-    title: "Security Contact",
+    title: "Report Abuse",
     text: "Security reports can be emailed to hello@growblic.com or abuse@growblic.com.",
   },
 ];

@@ -10,17 +10,17 @@ export const metadata = createPageMetadata({
 
 const legalSections = [
   {
-    id: "privacy-policy",
+    id: "privacy",
     title: "Privacy Policy",
     text: "Growblic handles project inquiries and business communication with care. Official privacy documents can be requested by email.",
   },
   {
-    id: "terms-of-service",
+    id: "terms",
     title: "Terms of Service",
     text: "Project terms, timelines, scope, payment milestones, and deliverables are confirmed during official project discussion.",
   },
   {
-    id: "business-disclaimer",
+    id: "disclaimer",
     title: "Business Communication Disclaimer",
     text: "Website information is general business communication and does not replace a written agreement or official proposal.",
   },
