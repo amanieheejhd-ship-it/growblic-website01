@@ -14,6 +14,7 @@ type SpotlightImageRevealProps = {
 
 const DEFAULT_POSITION = { x: 50, y: 50 };
 const TOUCH_QUERY = "(hover: none), (pointer: coarse)";
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function subscribeToTouchPreference(callback: () => void) {
   const mediaQuery = window.matchMedia(TOUCH_QUERY);
@@ -24,6 +25,17 @@ function subscribeToTouchPreference(callback: () => void) {
 
 function getTouchPreference() {
   return window.matchMedia(TOUCH_QUERY).matches;
+}
+
+function subscribeToReducedMotion(callback: () => void) {
+  const mediaQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+  mediaQuery.addEventListener("change", callback);
+
+  return () => mediaQuery.removeEventListener("change", callback);
+}
+
+function getReducedMotionPreference() {
+  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
 }
 
 export default function SpotlightImageReveal({
@@ -37,8 +49,15 @@ export default function SpotlightImageReveal({
   const frameRef = useRef<number | null>(null);
   const targetRef = useRef(DEFAULT_POSITION);
   const currentRef = useRef(DEFAULT_POSITION);
+  const hasInteractedRef = useRef(false);
   const [spotlight, setSpotlight] = useState({ ...DEFAULT_POSITION, active: false });
+  const [hasInteracted, setHasInteracted] = useState(false);
   const isTouch = useSyncExternalStore(subscribeToTouchPreference, getTouchPreference, () => false);
+  const reduceMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotionPreference,
+    () => false,
+  );
 
   useEffect(() => {
     return () => {
@@ -64,6 +83,8 @@ export default function SpotlightImageReveal({
   };
 
   const startFrame = () => {
+    if (reduceMotion) return;
+
     if (frameRef.current === null) {
       frameRef.current = window.requestAnimationFrame(moveSpotlight);
     }
@@ -113,13 +134,27 @@ export default function SpotlightImageReveal({
         <div
           className="group relative min-h-[360px] overflow-hidden rounded-[2.6rem] border border-blue-100/80 bg-white p-3 shadow-2xl shadow-blue-100/70 sm:min-h-[520px]"
           onPointerMove={(event) => {
-            if (isTouch) return;
+            if (isTouch || reduceMotion) return;
 
             const bounds = event.currentTarget.getBoundingClientRect();
             targetRef.current = {
               x: ((event.clientX - bounds.left) / bounds.width) * 100,
               y: ((event.clientY - bounds.top) / bounds.height) * 100,
             };
+            if (!hasInteractedRef.current) {
+              hasInteractedRef.current = true;
+              setHasInteracted(true);
+            }
+            setSpotlight((current) => ({
+              ...current,
+              active: true,
+              x: frameRef.current === null ? targetRef.current.x : current.x,
+              y: frameRef.current === null ? targetRef.current.y : current.y,
+            }));
+            startFrame();
+          }}
+          onPointerEnter={() => {
+            if (isTouch || reduceMotion) return;
             setSpotlight((current) => ({ ...current, active: true }));
             startFrame();
           }}
@@ -146,24 +181,48 @@ export default function SpotlightImageReveal({
             aria-hidden="true"
             className="rounded-[2.25rem] object-cover p-3 transition-opacity duration-500"
             style={{
-              opacity: isTouch || spotlight.active ? 1 : 0,
+              opacity: isTouch ? 1 : spotlight.active ? 1 : 0,
               WebkitMaskImage: isTouch
-                ? "linear-gradient(135deg, transparent 0%, black 42%, black 100%)"
-                : `radial-gradient(circle 155px at ${spotlight.x}% ${spotlight.y}%, black 0%, black 42%, rgba(0,0,0,0.58) 58%, transparent 76%)`,
+                ? "linear-gradient(112deg, transparent 0%, transparent 43%, black 44%, black 100%)"
+                : `radial-gradient(circle 235px at ${spotlight.x}% ${spotlight.y}%, black 0%, black 46%, rgba(0,0,0,0.62) 66%, transparent 82%)`,
               maskImage: isTouch
-                ? "linear-gradient(135deg, transparent 0%, black 42%, black 100%)"
-                : `radial-gradient(circle 155px at ${spotlight.x}% ${spotlight.y}%, black 0%, black 42%, rgba(0,0,0,0.58) 58%, transparent 76%)`,
+                ? "linear-gradient(112deg, transparent 0%, transparent 43%, black 44%, black 100%)"
+                : `radial-gradient(circle 235px at ${spotlight.x}% ${spotlight.y}%, black 0%, black 46%, rgba(0,0,0,0.62) 66%, transparent 82%)`,
             }}
             unoptimized
           />
 
+          {!isTouch && !reduceMotion ? (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/60 opacity-0 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-100"
+              style={{
+                left: `${spotlight.x}%`,
+                top: `${spotlight.y}%`,
+                boxShadow:
+                  "0 0 0 1px rgba(255,255,255,0.85) inset, 0 0 46px rgba(37,99,235,0.32), 0 0 110px rgba(6,182,212,0.24)",
+                background:
+                  "radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(59,130,246,0.13) 44%, rgba(6,182,212,0.08) 60%, transparent 72%)",
+              }}
+            />
+          ) : null}
+
+          {!isTouch && !hasInteracted && !reduceMotion ? (
+            <div className="pointer-events-none absolute left-[54%] top-[42%] h-6 w-6 rounded-full bg-blue-600 shadow-[0_0_0_12px_rgba(37,99,235,0.13),0_0_34px_rgba(37,99,235,0.55)] animate-pulse" />
+          ) : null}
+
           <div className="pointer-events-none absolute inset-3 rounded-[2.25rem] ring-1 ring-inset ring-white/70" />
-          <div className="pointer-events-none absolute bottom-8 left-8 right-8 rounded-[1.7rem] border border-white/70 bg-white/78 p-5 shadow-2xl shadow-blue-950/10 backdrop-blur-xl">
+          <div className="pointer-events-none absolute left-7 top-7 rounded-full border border-blue-100 bg-white/86 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-700 shadow-xl shadow-blue-100/60 backdrop-blur-xl">
+            Move cursor over the product preview
+          </div>
+          <div className="pointer-events-none absolute bottom-8 left-8 right-8 rounded-[1.7rem] border border-white/70 bg-white/82 p-5 shadow-2xl shadow-blue-950/10 backdrop-blur-xl">
             <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">
-              Cursor reveal
+              {isTouch ? "Split reveal" : "Cursor reveal"}
             </p>
             <p className="mt-2 text-2xl font-black tracking-tight text-slate-950">
-              Move to reveal the premium intelligence layer.
+              {isTouch
+                ? "A static split shows the premium intelligence layer on mobile."
+                : "Move to reveal the premium intelligence layer."}
             </p>
           </div>
         </div>
