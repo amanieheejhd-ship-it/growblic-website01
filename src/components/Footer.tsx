@@ -25,7 +25,6 @@ const downloadLinks = [
   { label: "Live Products", href: "/downloads#live-products" },
   { label: "Mobile Apps", href: "/downloads#mobile-apps" },
   { label: "SaaS Products", href: "/downloads#saas-products" },
-  { label: "Other Categories", href: "/downloads#other-categories" },
 ];
 
 const resourceLinks = [

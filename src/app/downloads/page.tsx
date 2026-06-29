@@ -13,12 +13,9 @@ export const metadata = createPageMetadata({
 });
 
 const liveProducts = products.slice(0, 6);
-const mobileApps = companyApps.slice(0, 8);
+const mobileApps = companyApps;
 const saasProducts = products.filter((product) =>
   ["SaaS", "Sales", "Client Experience", "Business Intelligence"].includes(product.category),
-);
-const otherProducts = products.filter((product) =>
-  ["Automation", "Operations", "Hospitality", "Retail"].includes(product.category),
 );
 
 function isRealPlayStoreLink(link?: string) {
@@ -147,7 +144,7 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
             rel="noreferrer"
             className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
           >
-            Download
+            Download on Play Store
           </a>
         ) : (
           <Link
@@ -196,13 +193,17 @@ export default function DownloadsPage() {
                 Download directory
               </p>
               <div className="mt-5 grid grid-cols-2 gap-3 text-sm font-black text-slate-700">
-                {["Live Products", "Mobile Apps", "SaaS", "Business Tools"].map((item) => (
+                {[
+                  { label: "Live Products", href: "#live-products" },
+                  { label: "Mobile Apps", href: "#mobile-apps" },
+                  { label: "SaaS Products", href: "#saas-products" },
+                ].map((item) => (
                   <a
-                    key={item}
-                    href={`#${item === "SaaS" ? "saas-products" : item === "Business Tools" ? "other-categories" : item.toLowerCase().replace(" ", "-")}`}
+                    key={item.href}
+                    href={item.href}
                     className="rounded-2xl border border-blue-100 bg-blue-50/55 px-4 py-3 transition hover:bg-blue-600 hover:text-white"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 ))}
               </div>
@@ -248,18 +249,6 @@ export default function DownloadsPage() {
             </div>
           </section>
 
-          <section id="other-categories" className="mt-20 scroll-mt-24">
-            <SectionHeader
-              eyebrow="Other Categories"
-              title="Automation, analytics, retail, and business tools"
-              description="For tools without a public download, request access or view product details to plan a similar system for your business."
-            />
-            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {otherProducts.map((product) => (
-                <ProductDownloadCard key={product.slug} product={product} primaryLabel="Request Access" />
-              ))}
-            </div>
-          </section>
         </div>
       </section>
     </main>
