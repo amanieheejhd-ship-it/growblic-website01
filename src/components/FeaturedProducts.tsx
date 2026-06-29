@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { companyApps } from "../data/companyApps";
+import { TiltCard } from "./Scroll3DSection";
 
 export default function FeaturedProducts() {
   
@@ -22,12 +23,15 @@ export default function FeaturedProducts() {
   const loopApps = [...companyApps, ...companyApps];
 
   const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
-    <Link
-      href={`/apps/${app.slug}`}
+    <TiltCard
       key={`${app.slug}-${index}`}
       className="live-app-card group"
     >
-      <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-3 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
+      <Link
+        href={`/apps/${app.slug}`}
+        className="block h-full"
+      >
+        <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
         <div className="relative flex items-start justify-between gap-5">
           <span className="live-app-icon relative grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-[1.8rem] bg-white shadow-xl shadow-blue-100/70">
             <Image
@@ -69,7 +73,8 @@ export default function FeaturedProducts() {
           </span>
         </div>
       </div>
-    </Link>
+      </Link>
+    </TiltCard>
   );
 
   return (

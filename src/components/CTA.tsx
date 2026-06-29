@@ -1,5 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { TiltCard } from "./Scroll3DSection";
 
 const consultationCards = [
   "Free project discussion",
@@ -48,7 +49,7 @@ export default function CTA() {
 
             <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
               {consultationCards.map((card) => (
-                <div
+                <TiltCard
                   key={card}
                   className="flex min-h-24 items-start gap-4 rounded-[1.4rem] border border-blue-100/80 bg-white/90 p-5 text-sm font-black leading-6 text-slate-700 shadow-xl shadow-blue-100/50 backdrop-blur"
                 >
@@ -56,7 +57,7 @@ export default function CTA() {
                     <CheckCircle2 size={19} />
                   </span>
                   <span>{card}</span>
-                </div>
+                </TiltCard>
               ))}
             </div>
           </div>
