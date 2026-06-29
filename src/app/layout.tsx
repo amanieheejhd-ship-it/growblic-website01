@@ -22,6 +22,21 @@ export const metadata: Metadata = {
   },
   description: defaultSeo.description,
   keywords: defaultSeo.keywords,
+  authors: [{ name: "Growblic", url: siteUrl }],
+  creator: "Growblic",
+  publisher: "Growblic",
+  category: "software development",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     title: defaultSeo.title,
     description: defaultSeo.description,
