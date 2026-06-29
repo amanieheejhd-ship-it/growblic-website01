@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import SmoothScroll from "../components/SmoothScroll";
 import "./globals.css";
 import OpeningSplash from "../components/OpeningSplash";
+import ScrollSoundExperience from "../components/ScrollSoundExperience";
 import { absoluteUrl, createPageMetadata, defaultSeo, siteUrl } from "./seo";
 
 export const viewport: Viewport = {
@@ -74,6 +75,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#fbfdff] text-[#050505]">
         <OpeningSplash />
         <SmoothScroll />
+        <ScrollSoundExperience />
         {children}
       </body>
     </html>
