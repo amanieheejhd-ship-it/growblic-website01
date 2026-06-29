@@ -77,24 +77,6 @@ function matchesFilter(opening: Opening, filter: FilterKey) {
 export default function CareersOpeningsList({ openings }: { openings: Opening[] }) {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("All Roles");
 
-  const counts = useMemo(() => {
-    return filters.reduce<Record<FilterKey, number>>(
-      (acc, filter) => {
-        acc[filter] = openings.filter((opening) => matchesFilter(opening, filter)).length;
-        return acc;
-      },
-      {
-        "All Roles": 0,
-        Jobs: 0,
-        Internships: 0,
-        Remote: 0,
-        Design: 0,
-        Engineering: 0,
-        Marketing: 0,
-      },
-    );
-  }, [openings]);
-
   const filteredOpenings = useMemo(
     () => openings.filter((opening) => matchesFilter(opening, activeFilter)),
     [activeFilter, openings],
@@ -117,22 +99,13 @@ export default function CareersOpeningsList({ openings }: { openings: Opening[] 
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => setActiveFilter(filter)}
-                className={`group inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.14em] shadow-lg transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
+                className={`group inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-xs font-black uppercase tracking-[0.14em] shadow-lg transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
                   isActive
                     ? "border-blue-500 bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 text-white shadow-blue-500/30"
                     : "border-white/80 bg-white/72 text-slate-600 shadow-blue-100/45 backdrop-blur-xl hover:border-blue-200 hover:bg-white hover:text-blue-700"
                 }`}
               >
                 <span>{filter}</span>
-                <span
-                  className={`grid h-6 min-w-6 place-items-center rounded-full px-1.5 text-[0.68rem] ${
-                    isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-blue-50 text-blue-700 group-hover:bg-blue-100"
-                  }`}
-                >
-                  {counts[filter]}
-                </span>
               </button>
             );
           })}
