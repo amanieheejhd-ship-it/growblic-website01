@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -46,6 +47,22 @@ type CalculatorCategory = {
 type Estimate = {
   id: string;
   date: string;
+  submittedAt: string;
+};
+
+type CustomerDetails = {
+  fullName: string;
+  email: string;
+  phone: string;
+  company: string;
+  location: string;
+  notes: string;
+};
+
+type BreakdownItem = {
+  label: string;
+  value: string;
+  price: number;
 };
 
 const moneyFormatter = new Intl.NumberFormat("en-IN", {
@@ -453,6 +470,11 @@ function formatMoney(value: number) {
   return moneyFormatter.format(Math.round(value));
 }
 
+function createEstimateId(date: Date) {
+  const suffix = String(Math.floor(1000 + Math.random() * 9000));
+  return `GRW-${date.getFullYear()}-${suffix}`;
+}
+
 function getInitialSelections(category: CalculatorCategory) {
   const selectValues = Object.fromEntries(
     [...category.selectGroups, category.multiplierGroup].map((group) => [
@@ -474,7 +496,26 @@ export default function PriceCalculator() {
   const [selectValues, setSelectValues] = useState<Record<string, string>>(initialSelections.selectValues);
   const [numberValues, setNumberValues] = useState<Record<string, number>>(initialSelections.numberValues);
   const [featureValues, setFeatureValues] = useState<string[]>([]);
+  const [customerDetails, setCustomerDetails] = useState<CustomerDetails>({
+    fullName: "",
+    email: "",
+    phone: "",
+    company: "",
+    location: "",
+    notes: "",
+  });
+  const [validationMessage, setValidationMessage] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [submitMessage, setSubmitMessage] = useState("");
   const [estimate, setEstimate] = useState<Estimate | null>(null);
+
+  function updateCustomerDetails(field: keyof CustomerDetails, value: string) {
+    setCustomerDetails((current) => ({ ...current, [field]: value }));
+    setValidationMessage("");
+    setSubmitStatus("idle");
+    setSubmitMessage("");
+    setEstimate(null);
+  }
 
   function updateCategory(categoryId: string) {
     const nextCategory = categories.find((item) => item.id === categoryId) ?? categories[0];
@@ -485,17 +526,27 @@ export default function PriceCalculator() {
     setNumberValues(nextSelections.numberValues);
     setFeatureValues([]);
     setEstimate(null);
+    setSubmitStatus("idle");
+    setSubmitMessage("");
   }
 
   const result = useMemo(() => {
     let subtotal = selectedCategory.basePrice;
     const selectedOptions: string[] = [`Base estimate: ${formatMoney(selectedCategory.basePrice)}`];
+    const breakdownItems: BreakdownItem[] = [
+      { label: "Base price", value: selectedCategory.label, price: selectedCategory.basePrice },
+    ];
 
     selectedCategory.selectGroups.forEach((group) => {
       const option = group.options.find((item) => item.label === selectValues[group.key]) ?? group.options[0];
       if (!option) return;
       subtotal += option.price;
       selectedOptions.push(`${group.label}: ${option.label}`);
+      breakdownItems.push({
+        label: group.label,
+        value: option.label,
+        price: option.price,
+      });
     });
 
     selectedCategory.numberGroups.forEach((group) => {
@@ -504,12 +555,22 @@ export default function PriceCalculator() {
       const price = billableUnits * group.pricePerUnit;
       subtotal += price;
       selectedOptions.push(`${group.label}: ${value} ${group.unit}`);
+      breakdownItems.push({
+        label: group.label,
+        value: `${value} ${group.unit} (${billableUnits} additional)`,
+        price,
+      });
     });
 
     selectedCategory.features.forEach((feature) => {
       if (featureValues.includes(feature.label)) {
         subtotal += feature.price;
         selectedOptions.push(`${selectedCategory.featureLabel}: ${feature.label}`);
+        breakdownItems.push({
+          label: selectedCategory.featureLabel,
+          value: feature.label,
+          price: feature.price,
+        });
       }
     });
 
@@ -530,11 +591,14 @@ export default function PriceCalculator() {
       multiplierLabel: multiplierOption?.label ?? "Standard",
       total,
       selectedOptions,
+      breakdownItems,
     };
   }, [featureValues, numberValues, selectValues, selectedCategory]);
 
   function toggleFeature(feature: string) {
     setEstimate(null);
+    setSubmitStatus("idle");
+    setSubmitMessage("");
     setFeatureValues((current) =>
       current.includes(feature)
         ? current.filter((item) => item !== feature)
@@ -542,18 +606,109 @@ export default function PriceCalculator() {
     );
   }
 
+  function validateCustomerDetails() {
+    if (!customerDetails.fullName.trim()) {
+      return "Please enter your full name before generating the estimate.";
+    }
+
+    if (!customerDetails.email.trim()) {
+      return "Please enter your email before generating the estimate.";
+    }
+
+    if (!customerDetails.phone.trim()) {
+      return "Please enter your phone number before generating the estimate.";
+    }
+
+    return "";
+  }
+
   function generateEstimate() {
+    const message = validateCustomerDetails();
+
+    if (message) {
+      setValidationMessage(message);
+      setEstimate(null);
+      return;
+    }
+
     const date = new Date();
+    setValidationMessage("");
+    setSubmitStatus("idle");
+    setSubmitMessage("");
     setEstimate({
-      id: `GB-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, "0")}${String(
-        date.getDate(),
-      ).padStart(2, "0")}-${date.getTime().toString().slice(-5)}`,
+      id: createEstimateId(date),
       date: date.toLocaleDateString("en-IN", {
         day: "2-digit",
         month: "short",
         year: "numeric",
       }),
+      submittedAt: date.toISOString(),
     });
+  }
+
+  async function sendEstimateRequest() {
+    if (!estimate) {
+      return;
+    }
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setSubmitStatus("error");
+      setSubmitMessage("Estimate request is not configured yet. Please email hello@growblic.com.");
+      return;
+    }
+
+    setSubmitStatus("loading");
+    setSubmitMessage("");
+
+    const selectedOptionsText = result.selectedOptions.join("\n");
+    const breakdownText = result.breakdownItems
+      .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price)}`)
+      .join("\n");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Growblic estimate request ${estimate.id}`,
+          from_name: customerDetails.fullName,
+          email: customerDetails.email,
+          phone: customerDetails.phone,
+          company: customerDetails.company,
+          location: customerDetails.location,
+          message: customerDetails.notes,
+          source: "price-calculator",
+          page: "/price-calculator",
+          estimateId: estimate.id,
+          submittedAt: new Date().toISOString(),
+          serviceCategory: selectedCategory.label,
+          selectedOptions: selectedOptionsText,
+          pricingBreakdown: breakdownText,
+          basePrice: formatMoney(selectedCategory.basePrice),
+          subtotal: formatMoney(result.subtotal),
+          multiplier: `${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
+          estimatedTotal: formatMoney(result.total),
+        }),
+      });
+
+      const data = (await response.json()) as { success?: boolean; message?: string };
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message ?? "Unable to send estimate request.");
+      }
+
+      setSubmitStatus("success");
+      setSubmitMessage("Estimate request sent. Growblic will contact you soon.");
+    } catch {
+      setSubmitStatus("error");
+      setSubmitMessage("Could not send estimate request. Please try again or email hello@growblic.com.");
+    }
   }
 
   return (
@@ -701,9 +856,82 @@ export default function PriceCalculator() {
         </div>
       </section>
 
-      <aside className="sticky top-28 rounded-[2.4rem] border border-blue-100/80 bg-white/92 p-5 shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:p-7">
+      <aside className="sticky top-28 rounded-[2.4rem] border border-blue-100/80 bg-white/92 p-5 shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:p-7 print:static print:border-0 print:p-0 print:shadow-none">
         <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
-          Step 03 / Estimate
+          Step 03 / Your details
+        </p>
+
+        <div className="mt-5 grid gap-4 print:hidden">
+          <label className="grid gap-2 text-sm font-black text-slate-700">
+            Full name *
+            <input
+              type="text"
+              value={customerDetails.fullName}
+              onChange={(event) => updateCustomerDetails("fullName", event.target.value)}
+              className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              placeholder="Your name"
+            />
+          </label>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="grid gap-2 text-sm font-black text-slate-700">
+              Email *
+              <input
+                type="email"
+                value={customerDetails.email}
+                onChange={(event) => updateCustomerDetails("email", event.target.value)}
+                className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+                placeholder="you@example.com"
+              />
+            </label>
+            <label className="grid gap-2 text-sm font-black text-slate-700">
+              Phone *
+              <input
+                type="tel"
+                value={customerDetails.phone}
+                onChange={(event) => updateCustomerDetails("phone", event.target.value)}
+                className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+                placeholder="+91..."
+              />
+            </label>
+          </div>
+
+          <label className="grid gap-2 text-sm font-black text-slate-700">
+            Business / Company name
+            <input
+              type="text"
+              value={customerDetails.company}
+              onChange={(event) => updateCustomerDetails("company", event.target.value)}
+              className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              placeholder="Company name"
+            />
+          </label>
+
+          <label className="grid gap-2 text-sm font-black text-slate-700">
+            City / Country
+            <input
+              type="text"
+              value={customerDetails.location}
+              onChange={(event) => updateCustomerDetails("location", event.target.value)}
+              className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              placeholder="City, Country"
+            />
+          </label>
+
+          <label className="grid gap-2 text-sm font-black text-slate-700">
+            Project notes / requirements
+            <textarea
+              value={customerDetails.notes}
+              onChange={(event) => updateCustomerDetails("notes", event.target.value)}
+              rows={4}
+              className="resize-none rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              placeholder="Share goals, timelines, integrations, or anything important."
+            />
+          </label>
+        </div>
+
+        <p className="mt-8 text-xs font-black uppercase tracking-[0.24em] text-blue-700 print:hidden">
+          Step 04 / Estimate
         </p>
         <div className="mt-5 grid gap-3">
           <div className="flex items-center justify-between rounded-2xl bg-blue-50 px-4 py-3 text-sm font-black text-slate-700">
@@ -725,29 +953,47 @@ export default function PriceCalculator() {
           <p className="text-sm font-semibold leading-6 text-slate-500">
             Final pricing may vary after project discussion.
           </p>
+          {validationMessage ? (
+            <p className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-bold text-red-700">
+              {validationMessage}
+            </p>
+          ) : null}
           <button
             type="button"
             onClick={generateEstimate}
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-blue-600 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-blue-600 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950 print:hidden"
           >
             Generate Estimate
           </button>
         </div>
 
         {estimate && (
-          <div className="mt-6 overflow-hidden rounded-[1.8rem] border border-blue-100 bg-[#fbfdff]">
-            <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-5 text-white">
-              <p className="text-3xl font-black">Growblic</p>
-              <p className="mt-2 text-sm font-semibold text-white/85">
-                Website: www.growblic.com
-              </p>
-              <p className="text-sm font-semibold text-white/85">
-                Email: hello@growblic.com
-              </p>
+          <div className="mt-6 overflow-hidden rounded-[1.8rem] border border-blue-100 bg-[#fbfdff] print:fixed print:inset-0 print:z-[9999] print:m-0 print:h-auto print:overflow-visible print:rounded-none print:border-0 print:bg-white print:p-8">
+            <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-5 text-white print:rounded-2xl print:bg-none print:text-slate-950">
+              <div className="flex items-center gap-4">
+                <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white p-2 shadow-lg shadow-blue-950/10 print:border print:border-blue-100">
+                  <Image
+                    src="/growblic-website01/images/brand/growblic-logo.png"
+                    alt="Growblic"
+                    fill
+                    sizes="56px"
+                    className="object-contain p-1"
+                  />
+                </div>
+                <div>
+                  <p className="text-3xl font-black">Growblic</p>
+                  <p className="mt-1 text-sm font-semibold text-white/85 print:text-slate-600">
+                    Website: www.growblic.com
+                  </p>
+                  <p className="text-sm font-semibold text-white/85 print:text-slate-600">
+                    Email: hello@growblic.com
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="grid gap-5 p-5">
-              <div className="grid gap-3 text-sm font-bold text-slate-600 sm:grid-cols-2">
+              <div className="grid gap-3 text-sm font-bold text-slate-600 sm:grid-cols-2 print:grid-cols-2">
                 <p>
                   <span className="block text-xs uppercase tracking-[0.18em] text-slate-400">
                     Estimate ID
@@ -762,6 +1008,19 @@ export default function PriceCalculator() {
                 </p>
               </div>
 
+              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100 print:break-inside-avoid">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                  Customer details
+                </p>
+                <div className="mt-3 grid gap-2 text-sm font-bold text-slate-600">
+                  <p>{customerDetails.fullName}</p>
+                  <p>{customerDetails.email}</p>
+                  <p>{customerDetails.phone}</p>
+                  {customerDetails.company ? <p>{customerDetails.company}</p> : null}
+                  {customerDetails.location ? <p>{customerDetails.location}</p> : null}
+                </div>
+              </div>
+
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
                   Selected service
@@ -771,7 +1030,7 @@ export default function PriceCalculator() {
                 </p>
               </div>
 
-              <div>
+              <div className="print:break-inside-avoid">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
                   Selected options
                 </p>
@@ -787,7 +1046,39 @@ export default function PriceCalculator() {
                 </div>
               </div>
 
-              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100">
+              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100 print:break-inside-avoid">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                  Pricing breakdown
+                </p>
+                <div className="mt-4 grid gap-2">
+                  {result.breakdownItems.map((item) => (
+                    <div
+                      key={`${item.label}-${item.value}`}
+                      className="grid grid-cols-[1fr_auto] gap-4 rounded-2xl bg-blue-50/70 px-4 py-3 text-sm font-bold text-slate-700 print:border print:border-blue-100 print:bg-white"
+                    >
+                      <span>
+                        <span className="block text-slate-950">{item.label}</span>
+                        <span className="block text-xs text-slate-500">{item.value}</span>
+                      </span>
+                      <span>{formatMoney(item.price)}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 grid gap-2 border-t border-blue-100 pt-4 text-sm font-black text-slate-700">
+                  <div className="flex items-center justify-between">
+                    <span>Estimated subtotal</span>
+                    <span>{formatMoney(result.subtotal)}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>{selectedCategory.multiplierGroup.label} multiplier</span>
+                    <span>
+                      {result.multiplierLabel} / {result.multiplier.toFixed(2)}x
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100 print:break-inside-avoid">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
                   Estimated total
                 </p>
@@ -797,10 +1088,33 @@ export default function PriceCalculator() {
               </div>
 
               <p className="text-sm font-semibold leading-6 text-slate-500">
-                Notes: Final pricing may vary after project discussion. This estimate is for planning only and does not include taxes, hosting, third-party subscriptions, or ad spend unless discussed.
+                Notes: This is an estimated quote. Final pricing may vary after project discussion.
+                This estimate is for planning only and does not include taxes, hosting,
+                third-party subscriptions, or ad spend unless discussed.
               </p>
 
-              <div className="grid gap-3 sm:grid-cols-2 print:hidden">
+              {customerDetails.notes ? (
+                <div className="rounded-[1.5rem] bg-white p-5 text-sm font-semibold leading-6 text-slate-600 ring-1 ring-blue-100 print:break-inside-avoid">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                    Project notes / requirements
+                  </p>
+                  <p className="mt-3 whitespace-pre-line">{customerDetails.notes}</p>
+                </div>
+              ) : null}
+
+              {submitMessage ? (
+                <p
+                  className={`rounded-2xl border px-4 py-3 text-sm font-bold print:hidden ${
+                    submitStatus === "success"
+                      ? "border-emerald-100 bg-emerald-50 text-emerald-700"
+                      : "border-red-100 bg-red-50 text-red-700"
+                  }`}
+                >
+                  {submitMessage}
+                </p>
+              ) : null}
+
+              <div className="grid gap-3 sm:grid-cols-3 print:hidden">
                 <Link
                   href="/start-project"
                   className="inline-flex min-h-11 items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
@@ -813,6 +1127,14 @@ export default function PriceCalculator() {
                   className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:text-blue-700"
                 >
                   Print / Save as PDF
+                </button>
+                <button
+                  type="button"
+                  onClick={sendEstimateRequest}
+                  disabled={submitStatus === "loading"}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-100 bg-blue-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-slate-950 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {submitStatus === "loading" ? "Sending..." : "Send Estimate Request"}
                 </button>
               </div>
             </div>
