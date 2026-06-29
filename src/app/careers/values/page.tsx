@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import Scroll3DSection from "../../../components/Scroll3DSection";
+import Scroll3DSection, { TiltCard } from "../../../components/Scroll3DSection";
 
 export const metadata: Metadata = {
   title: "Values | Growblic Careers",
@@ -71,19 +71,29 @@ export default function ValuesPage() {
           <div className="grid gap-x-20 gap-y-20 lg:grid-cols-2">
             {values.map((item, index) => (
               <Scroll3DSection key={item.title} delay={index * 0.04}>
-                <article className="group relative h-full overflow-hidden rounded-[2rem] border border-blue-100/75 bg-gradient-to-br from-white via-blue-50/35 to-white p-6 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
-                  <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
-                  <span className="relative inline-flex rounded-full border border-blue-100 bg-blue-50/80 px-3 py-1 text-xs font-black text-blue-700">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="relative mt-4 text-4xl font-black tracking-tight text-slate-950">
-                    {item.title}
-                  </h2>
-                  <p className="relative mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
-                    {item.text}
-                  </p>
-                </article>
+                <TiltCard className="h-full">
+                  <article className="group relative flex h-full min-h-72 flex-col overflow-hidden rounded-[2rem] border border-white/80 bg-white/70 p-6 shadow-[0_24px_70px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl transition hover:border-blue-200 hover:shadow-[0_32px_90px_rgba(37,99,235,0.22)]">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-indigo-400/18 via-blue-300/12 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:34px_34px] opacity-45" />
+                    <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+                    <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
+                    <div className="relative flex items-start justify-between gap-4">
+                      <span className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-black text-indigo-700 shadow-sm shadow-blue-100/50">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span className="rounded-full border border-white/80 bg-white/65 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-500 shadow-sm backdrop-blur">
+                        Value
+                      </span>
+                    </div>
+                    <h2 className="relative mt-6 text-4xl font-black tracking-tight text-slate-950">
+                      {item.title}
+                    </h2>
+                    <p className="relative mt-6 max-w-xl flex-1 text-base font-semibold leading-8 text-slate-600">
+                      {item.text}
+                    </p>
+                    <div className="pointer-events-none absolute inset-x-8 bottom-0 h-1 rounded-t-full bg-gradient-to-r from-indigo-500 via-blue-500 to-sky-300 opacity-75 transition group-hover:opacity-100" />
+                  </article>
+                </TiltCard>
               </Scroll3DSection>
             ))}
           </div>
@@ -95,13 +105,15 @@ export default function ValuesPage() {
               </p>
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 {workWays.map((item, index) => (
-                  <div key={item} className="rounded-[1.5rem] border border-blue-100 bg-white/75 p-5 shadow-lg shadow-blue-100/45">
-                    <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">
+                  <div key={item} className="relative overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/70 p-5 shadow-lg shadow-blue-100/45 ring-1 ring-blue-100/60 backdrop-blur">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-br from-blue-500/14 via-cyan-300/10 to-transparent" />
+                    <span className="relative rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-blue-600">
                       Step {index + 1}
                     </span>
-                    <p className="mt-3 text-lg font-black leading-7 text-slate-950">
+                    <p className="relative mt-4 text-lg font-black leading-7 text-slate-950">
                       {item}
                     </p>
+                    <div className="pointer-events-none absolute inset-x-6 bottom-0 h-1 rounded-t-full bg-gradient-to-r from-blue-600 via-sky-400 to-cyan-300 opacity-70" />
                   </div>
                 ))}
               </div>
