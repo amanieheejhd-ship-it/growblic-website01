@@ -20,6 +20,7 @@ const serviceLinks = [
 
 const growblicLinks = [
   { label: "Start Project", href: "/start-project" },
+  { label: "Price Calculator", href: "/price-calculator" },
   { label: "Client Login", href: "/client-login" },
   { label: "Support", href: "/support" },
   { label: "Why Growblic", href: "/why-growblic" },

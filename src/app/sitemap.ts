@@ -27,6 +27,7 @@ const corePages = [
   { path: "/products", priority: 0.9 },
   { path: "/blog", priority: 0.85 },
   { path: "/start-project", priority: 0.95 },
+  { path: "/price-calculator", priority: 0.88 },
   { path: "/support", priority: 0.7 },
   { path: "/client-login", priority: 0.64 },
   { path: "/careers/culture", priority: 0.76 },

@@ -40,6 +40,7 @@ const navLinks = [
       { label: "Google Ads", href: "/google-ads-management" },
       { label: "Meta Ads", href: "/meta-ads-management" },
       { label: "GMB Rating & Reviews", href: "/gmb-rating-reviews" },
+      { label: "Price Calculator", href: "/price-calculator" },
     ],
   },
   {
