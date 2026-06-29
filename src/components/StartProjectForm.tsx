@@ -23,27 +23,76 @@ const budgetRanges = [
 const fieldClass =
   "w-full rounded-2xl border border-blue-100 bg-white px-5 py-4 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:shadow-lg focus:shadow-blue-100/60";
 
-export default function StartProjectForm() {
-  const [status, setStatus] = useState("");
+type FormStatus =
+  | { type: "idle"; message: "" }
+  | { type: "success" | "error"; message: string };
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+const web3FormsAccessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+export default function StartProjectForm() {
+  const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedAt, setSubmittedAt] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const form = new FormData(event.currentTarget);
-    const name = String(form.get("name") || "");
-    const email = String(form.get("email") || "");
-    const phone = String(form.get("phone") || "");
-    const projectType = String(form.get("projectType") || "");
-    const budgetRange = String(form.get("budgetRange") || "");
-    const message = String(form.get("message") || "");
+    if (!web3FormsAccessKey) {
+      setStatus({
+        type: "error",
+        message:
+          "Start Project form is not configured yet. Please email hello@growblic.com.",
+      });
+      return;
+    }
 
-    const subject = encodeURIComponent(`New project request from ${name || "Growblic website"}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nProject Type: ${projectType}\nBudget Range: ${budgetRange}\n\nProject Details:\n${message}`
-    );
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+    const timestamp = new Date().toISOString();
 
-    window.location.href = `mailto:hello@growblic.com?subject=${subject}&body=${body}`;
-    setStatus("Your email app is opening with the project details. Please press send to complete the request.");
+    setSubmittedAt(timestamp);
+    setIsSubmitting(true);
+    setStatus({ type: "idle", message: "" });
+
+    form.set("access_key", web3FormsAccessKey);
+    form.set("subject", "New Start Project request from Growblic Website");
+    form.set("from_name", "Growblic Website");
+    form.set("source", "Growblic Website");
+    form.set("page", "Start Project");
+    form.set("submittedAt", timestamp);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: form,
+      });
+      const result = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+      };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Unable to submit the form right now.");
+      }
+
+      formElement.reset();
+      setSubmittedAt("");
+      setStatus({
+        type: "success",
+        message:
+          "Thanks! Your project request has been sent. Growblic will review it and get back to you soon.",
+      });
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please email hello@growblic.com.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -51,6 +100,10 @@ export default function StartProjectForm() {
       onSubmit={handleSubmit}
       className="rounded-[3rem] border border-blue-100/70 bg-white/90 p-6 shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:p-8"
     >
+      <input type="hidden" name="source" value="Growblic Website" />
+      <input type="hidden" name="page" value="Start Project" />
+      <input type="hidden" name="submittedAt" value={submittedAt} />
+
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
           Project intake
@@ -118,15 +171,22 @@ export default function StartProjectForm() {
 
         <button
           type="submit"
-          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700 sm:col-span-2 sm:w-auto"
+          disabled={isSubmitting}
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:bg-slate-950 sm:col-span-2 sm:w-auto"
         >
-          Submit Project Request
+          {isSubmitting ? "Submitting..." : "Submit Project Request"}
           <ArrowRight size={17} />
         </button>
 
-        {status && (
-          <p className="rounded-2xl border border-blue-100 bg-blue-50/70 p-4 text-sm font-bold leading-6 text-blue-700 sm:col-span-2">
-            {status}
+        {status.message && (
+          <p
+            className={`rounded-2xl border p-4 text-sm font-bold leading-6 sm:col-span-2 ${
+              status.type === "success"
+                ? "border-emerald-100 bg-emerald-50 text-emerald-800"
+                : "border-blue-100 bg-blue-50/70 text-blue-700"
+            }`}
+          >
+            {status.message}
           </p>
         )}
       </div>
