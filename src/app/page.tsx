@@ -13,7 +13,6 @@ import Process from "../components/Process";
 import Scroll3DSection from "../components/Scroll3DSection";
 import Services from "../components/Services";
 import SmoothScroll from "../components/SmoothScroll";
-import SpotlightImageReveal from "../components/SpotlightImageReveal";
 import Stats from "../components/Stats";
 import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
@@ -36,15 +35,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <SpotlightImageReveal
-          baseImage="/growblic-website01/images/spotlight/base.svg"
-          revealImage="/growblic-website01/images/spotlight/reveal.svg"
-          alt="Growblic digital product interface preview"
-          eyebrow="Interactive product layer"
-          title="Reveal the intelligence behind every polished interface."
-          description="Move your cursor across the preview to see how Growblic layers strategy, AI automation, and premium product design over clean business foundations."
-        />
-        <Scroll3DSection>
+<Scroll3DSection>
           <Stats />
         </Scroll3DSection>
         <Scroll3DSection>
