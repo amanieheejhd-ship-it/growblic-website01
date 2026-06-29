@@ -107,59 +107,68 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
   const hasDownload = isRealPlayStoreLink(app.playStore);
 
   return (
-    <article className="flex h-full flex-col rounded-[2rem] border border-blue-100/80 bg-white p-6 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
-      <div className="flex items-start gap-4">
-        <span className="relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.5rem] bg-white shadow-xl shadow-blue-100/70">
-          <Image
-            src={app.logo}
-            alt={app.name}
-            fill
-            sizes="80px"
-            className="object-cover"
-            unoptimized
-          />
-        </span>
-        <div>
-          <span className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-black text-blue-700">
-            {app.category}
+    <article className="group relative isolate flex h-full min-h-[26rem] overflow-hidden rounded-[2rem] border border-white/75 bg-white/62 p-6 shadow-[0_24px_70px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl transition duration-300 before:absolute before:inset-0 before:-z-10 before:bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(239,246,255,0.72)_42%,rgba(219,234,254,0.58))] after:absolute after:-left-24 after:top-0 after:h-full after:w-20 after:-skew-x-12 after:bg-white/45 after:opacity-0 after:blur-sm after:transition-all after:duration-700 hover:-translate-y-1.5 hover:scale-[1.01] hover:border-blue-200/90 hover:shadow-[0_32px_90px_rgba(37,99,235,0.24)] hover:after:left-[118%] hover:after:opacity-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100">
+      <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-90" />
+      <div className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-blue-300/24 blur-3xl transition duration-500 group-hover:bg-cyan-300/30" />
+      <div className="pointer-events-none absolute -bottom-16 left-8 h-40 w-40 rounded-full bg-sky-100/70 blur-3xl" />
+
+      <div className="relative flex h-full flex-col">
+        <div className="flex items-start gap-4">
+          <span className="relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_18px_40px_rgba(37,99,235,0.18)] ring-1 ring-blue-100/80 backdrop-blur-xl">
+            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,0.95),transparent_34%),linear-gradient(135deg,rgba(219,234,254,0.42),transparent)]" />
+            <Image
+              src={app.logo}
+              alt={app.name}
+              fill
+              sizes="80px"
+              className="object-cover"
+              unoptimized
+            />
           </span>
-          <h3 className="mt-3 text-2xl font-black leading-tight text-slate-950">
-            {app.name}
-          </h3>
+          <div>
+            <span className="inline-flex rounded-full border border-white/80 bg-white/55 px-3 py-1.5 text-xs font-black text-blue-700 shadow-sm shadow-blue-100/60 backdrop-blur-xl">
+              {app.category}
+            </span>
+            <h3 className="mt-3 text-2xl font-black leading-tight text-slate-950">
+              {app.name}
+            </h3>
+          </div>
         </div>
-      </div>
 
-      <p className="mt-5 line-clamp-4 text-sm font-semibold leading-7 text-slate-600">
-        {app.short}
-      </p>
-      <p className="mt-4 text-xs font-black uppercase tracking-[0.16em] text-emerald-700">
-        {app.status}
-      </p>
+        <p className="mt-5 line-clamp-4 text-sm font-semibold leading-7 text-slate-600">
+          {app.short}
+        </p>
+        <p className="mt-4 inline-flex w-fit rounded-full border border-emerald-100 bg-emerald-50/70 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-emerald-700 shadow-sm backdrop-blur">
+          {app.status}
+        </p>
 
-      <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row">
-        {hasDownload ? (
-          <a
-            href={app.playStore}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
-          >
-            Download on Play Store
-          </a>
-        ) : (
+        <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row">
+          {hasDownload ? (
+            <a
+              href={app.playStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex min-h-11 flex-1 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-slate-950 via-blue-950 to-blue-700 px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-700/25"
+            >
+              <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+              Download
+            </a>
+          ) : (
+            <Link
+              href="/start-project"
+              className="relative inline-flex min-h-11 flex-1 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-slate-950 via-blue-950 to-blue-700 px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-900/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-700/25"
+            >
+              <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+              Request Access
+            </Link>
+          )}
           <Link
-            href="/start-project"
-            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
+            href={`/apps/${app.slug}`}
+            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full border border-white/80 bg-white/55 px-5 py-3 text-sm font-black text-slate-950 shadow-sm shadow-blue-100/60 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white/85 hover:text-blue-700"
           >
-            Request Access
+            View Details
           </Link>
-        )}
-        <Link
-          href={`/apps/${app.slug}`}
-          className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:text-blue-700"
-        >
-          View Details
-        </Link>
+        </div>
       </div>
     </article>
   );
