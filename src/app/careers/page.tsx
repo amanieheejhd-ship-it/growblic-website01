@@ -9,7 +9,7 @@ import {
   Target,
   Users,
 } from "lucide-react";
-import Scroll3DSection from "../../components/Scroll3DSection";
+import Scroll3DSection, { TiltCard } from "../../components/Scroll3DSection";
 
 export const metadata: Metadata = {
   title: "Careers | Growblic",
@@ -23,36 +23,66 @@ const careerOptions = [
     text: "Explore jobs and internships for developers, designers, and digital growth roles.",
     href: "/careers/openings",
     icon: Briefcase,
+    accent: "Roles / Jobs",
+    glow: "from-blue-500/24 via-sky-300/14 to-transparent",
+    iconSurface: "bg-blue-50 text-blue-700",
+    numberSurface: "border-blue-100 bg-blue-50 text-blue-700",
+    bar: "from-blue-600 via-sky-400 to-cyan-300",
   },
   {
     title: "Perks",
     text: "See the benefits, tools, and flexible work practices that support focused product work.",
     href: "/careers/perks",
     icon: Gem,
+    accent: "Benefits",
+    glow: "from-cyan-400/24 via-blue-300/14 to-transparent",
+    iconSurface: "bg-cyan-50 text-cyan-700",
+    numberSurface: "border-cyan-100 bg-cyan-50 text-cyan-700",
+    bar: "from-cyan-500 via-blue-400 to-sky-300",
   },
   {
     title: "Values",
     text: "Understand how Growblic thinks about speed, quality, ownership, and client success.",
     href: "/careers/values",
     icon: Sparkles,
+    accent: "Quality",
+    glow: "from-indigo-400/22 via-blue-300/14 to-transparent",
+    iconSurface: "bg-indigo-50 text-indigo-700",
+    numberSurface: "border-indigo-100 bg-indigo-50 text-indigo-700",
+    bar: "from-indigo-500 via-blue-500 to-sky-300",
   },
   {
     title: "Culture",
     text: "Learn how our team works, communicates, learns, and ships premium digital products.",
     href: "/careers/culture",
     icon: HeartHandshake,
+    accent: "Team",
+    glow: "from-sky-400/24 via-blue-200/16 to-transparent",
+    iconSurface: "bg-sky-50 text-sky-700",
+    numberSurface: "border-sky-100 bg-sky-50 text-sky-700",
+    bar: "from-sky-500 via-blue-400 to-cyan-300",
   },
   {
     title: "Insights",
     text: "Read how we approach design, software delivery, automation, and product quality.",
     href: "/careers/insights",
     icon: Lightbulb,
+    accent: "Knowledge",
+    glow: "from-blue-400/22 via-cyan-200/16 to-transparent",
+    iconSurface: "bg-blue-50 text-blue-700",
+    numberSurface: "border-blue-100 bg-blue-50 text-blue-700",
+    bar: "from-blue-500 via-cyan-400 to-blue-200",
   },
   {
     title: "Humans",
     text: "Meet the people, stories, and mindset behind the Growblic careers experience.",
     href: "/careers/humans",
     icon: Users,
+    accent: "Stories",
+    glow: "from-cyan-500/22 via-sky-200/16 to-transparent",
+    iconSurface: "bg-cyan-50 text-cyan-700",
+    numberSurface: "border-cyan-100 bg-cyan-50 text-cyan-700",
+    bar: "from-cyan-500 via-sky-400 to-blue-300",
   },
 ];
 
@@ -205,30 +235,47 @@ export default function CareersPage() {
 
               return (
                 <Scroll3DSection key={item.title} delay={index * 0.04}>
-                  <Link
-                    href={item.href}
-                    className="group relative flex h-full min-h-72 flex-col overflow-hidden rounded-[2rem] border border-white/80 bg-white/78 p-6 shadow-xl shadow-blue-100/55 ring-1 ring-blue-100/70 backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/75"
-                  >
-                    <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
-                    <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
-                    <div className="relative flex items-center justify-between">
-                      <div className="grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-blue-50/80 text-blue-700 shadow-lg shadow-blue-100/70">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
+                  <TiltCard className="h-full">
+                    <Link
+                      href={item.href}
+                      className="group relative flex h-full min-h-72 flex-col overflow-hidden rounded-[2rem] border border-white/80 bg-white/68 p-6 shadow-[0_24px_70px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl transition hover:border-blue-200 hover:shadow-[0_32px_90px_rgba(37,99,235,0.22)]"
+                    >
+                      <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br ${item.glow}`} />
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:34px_34px] opacity-50" />
+                      <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+                      <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
+
+                      <div className="relative flex items-start justify-between gap-5">
+                        <div className={`grid h-16 w-16 place-items-center rounded-[1.45rem] border border-white/85 ${item.iconSurface} shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_18px_42px_rgba(37,99,235,0.18)] ring-1 ring-blue-100/70 transition group-hover:-translate-y-0.5`}>
+                          <Icon className="h-7 w-7" aria-hidden="true" />
+                        </div>
+                        <div className="grid justify-items-end gap-2">
+                          <span className={`rounded-full border px-3 py-1.5 text-xs font-black ${item.numberSurface} shadow-sm shadow-blue-100/50`}>
+                            {number}
+                          </span>
+                          <span className="rounded-full border border-white/80 bg-white/65 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-500 shadow-sm backdrop-blur">
+                            {item.accent}
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">
-                        {number}
+
+                      <h3 className="relative mt-7 text-3xl font-black tracking-tight text-slate-950">
+                        {item.title}
+                      </h3>
+                      <p className="relative mt-4 flex-1 text-sm font-semibold leading-7 text-slate-600">
+                        {item.text}
+                      </p>
+                      <span className="relative mt-7 inline-flex w-fit items-center overflow-hidden rounded-full bg-gradient-to-r from-slate-950 via-blue-950 to-blue-700 px-5 py-3 text-sm font-black text-white shadow-xl shadow-blue-900/20 transition group-hover:-translate-y-0.5 group-hover:shadow-blue-700/25">
+                        <span className="absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+                        Explore
+                        <span className="ml-2 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
+                          →
+                        </span>
                       </span>
-                    </div>
-                    <h3 className="relative mt-6 text-2xl font-black tracking-tight text-slate-950">
-                      {item.title}
-                    </h3>
-                    <p className="relative mt-4 flex-1 text-sm font-semibold leading-7 text-slate-600">
-                      {item.text}
-                    </p>
-                    <span className="relative mt-6 inline-flex w-fit items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition group-hover:bg-blue-700">
-                      Explore <span className="ml-2">→</span>
-                    </span>
-                  </Link>
+
+                      <div className={`pointer-events-none absolute inset-x-8 bottom-0 h-1 rounded-t-full bg-gradient-to-r ${item.bar} opacity-70 blur-[0.2px] transition group-hover:opacity-100`} />
+                    </Link>
+                  </TiltCard>
                 </Scroll3DSection>
               );
             })}
