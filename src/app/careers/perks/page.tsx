@@ -11,6 +11,7 @@ import {
   TrendingUp,
   Wrench,
 } from "lucide-react";
+import Scroll3DSection from "../../../components/Scroll3DSection";
 
 export const metadata: Metadata = {
   title: "Perks | Growblic Careers",
@@ -137,27 +138,26 @@ export default function PerksPage() {
           </div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((item) => {
+            {benefits.map((item, index) => {
               const Icon = item.icon;
 
               return (
-                <article
-                  key={item.title}
-                  className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-gradient-to-br from-white via-blue-50/45 to-white p-5 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70"
-                >
-                  <div className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
-                  <div className="relative">
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-white/75 text-blue-700 shadow-lg shadow-blue-100/70 backdrop-blur">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <h3 className="mt-5 text-2xl font-black tracking-tight text-slate-950">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
-                      {item.text}
-                    </p>
-                  </div>
-                </article>
+                <Scroll3DSection key={item.title} delay={index * 0.035}>
+                  <article className="group relative h-full overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-gradient-to-br from-white via-blue-50/45 to-white p-5 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
+                    <div className="pointer-events-none absolute -right-12 -top-12 h-28 w-28 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
+                    <div className="relative">
+                      <span className="grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-white/75 text-blue-700 shadow-lg shadow-blue-100/70 backdrop-blur">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <h3 className="mt-5 text-2xl font-black tracking-tight text-slate-950">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
+                        {item.text}
+                      </p>
+                    </div>
+                  </article>
+                </Scroll3DSection>
               );
             })}
           </div>
@@ -182,15 +182,17 @@ export default function PerksPage() {
       <section className="px-6 pb-24 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-blue-100 bg-white p-8 shadow-2xl shadow-blue-100/70 sm:p-12">
           <div className="grid gap-x-20 gap-y-20 lg:grid-cols-2">
-            {perks.map((item) => (
-              <article key={item.title}>
-                <h2 className="text-4xl font-black tracking-tight text-slate-950">
-                  {item.title}
-                </h2>
-                <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
-                  {item.text}
-                </p>
-              </article>
+            {perks.map((item, index) => (
+              <Scroll3DSection key={item.title} delay={index * 0.04}>
+                <article className="h-full rounded-[2rem] border border-blue-100/70 bg-gradient-to-br from-white via-blue-50/30 to-white p-6 shadow-lg shadow-blue-100/40">
+                  <h2 className="text-4xl font-black tracking-tight text-slate-950">
+                    {item.title}
+                  </h2>
+                  <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
+                    {item.text}
+                  </p>
+                </article>
+              </Scroll3DSection>
             ))}
           </div>
 

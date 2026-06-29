@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import Scroll3DSection from "../../../components/Scroll3DSection";
 
 export const metadata: Metadata = {
   title: "Insights | Growblic Careers",
@@ -33,16 +34,18 @@ export default function InsightsPage() {
         </p>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          {insights.map((item) => (
-            <article
-              key={item}
-              className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55"
-            >
-              <h2 className="text-2xl font-black text-slate-950">{item}</h2>
-              <p className="mt-4 leading-8 text-slate-600">
-                More detailed Growblic insights can be added here later.
-              </p>
-            </article>
+          {insights.map((item, index) => (
+            <Scroll3DSection key={item} delay={index * 0.05}>
+              <article className="group relative h-full overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-7 shadow-xl shadow-blue-100/55 ring-1 ring-blue-100/70 backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/80">
+                <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
+                <h2 className="relative text-2xl font-black text-slate-950">
+                  {item}
+                </h2>
+                <p className="relative mt-4 leading-8 text-slate-600">
+                  More detailed Growblic insights can be added here later.
+                </p>
+              </article>
+            </Scroll3DSection>
           ))}
         </div>
 

@@ -1,10 +1,35 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { Lightbulb, Sparkles, TrendingUp, Users } from "lucide-react";
+import Scroll3DSection from "../../../components/Scroll3DSection";
 
 export const metadata: Metadata = {
   title: "Culture | Growblic Careers",
   description: "A focused product culture built around execution, learning, trust, and premium work.",
 };
+
+const cultureCards = [
+  {
+    title: "Insights",
+    text: "How we think about products, design, and software delivery.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Humans of Growblic",
+    text: "The people, mindset, and work style behind Growblic.",
+    icon: Users,
+  },
+  {
+    title: "Learning mindset",
+    text: "We improve every project, every screen, every system.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Premium execution",
+    text: "We care about details because details build trust.",
+    icon: Sparkles,
+  },
+];
 
 export default function CulturePage() {
   return (
@@ -25,22 +50,26 @@ export default function CulturePage() {
           </p>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Insights</h3>
-              <p className="mt-4 leading-8 text-slate-600">How we think about products, design, and software delivery.</p>
-            </article>
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Humans of Growblic</h3>
-              <p className="mt-4 leading-8 text-slate-600">The people, mindset, and work style behind Growblic.</p>
-            </article>
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Learning mindset</h3>
-              <p className="mt-4 leading-8 text-slate-600">We improve every project, every screen, every system.</p>
-            </article>
-            <article className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/55 transition hover:-translate-y-1 hover:shadow-2xl">
-              <h3 className="text-2xl font-black text-slate-950">Premium execution</h3>
-              <p className="mt-4 leading-8 text-slate-600">We care about details because details build trust.</p>
-            </article>
+            {cultureCards.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <Scroll3DSection key={item.title} delay={index * 0.05}>
+                  <article className="group relative h-full overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-7 shadow-xl shadow-blue-100/55 ring-1 ring-blue-100/70 backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/80">
+                    <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-200/45 blur-3xl transition group-hover:bg-cyan-200/55" />
+                    <span className="relative grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-blue-50/80 text-blue-700 shadow-lg shadow-blue-100/70">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="relative mt-5 text-2xl font-black text-slate-950">
+                      {item.title}
+                    </h3>
+                    <p className="relative mt-4 leading-8 text-slate-600">
+                      {item.text}
+                    </p>
+                  </article>
+                </Scroll3DSection>
+              );
+            })}
           </div>
 
           <div className="mt-14 flex flex-col gap-4 sm:flex-row">

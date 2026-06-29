@@ -52,14 +52,6 @@ function FooterColumn({
   links: { label: string; href: string; external?: boolean }[];
 }) {
   function FooterLinkLabel({ label }: { label: string }) {
-    if (label === "Careers") {
-      return (
-        <span className="rounded-full border border-blue-100 bg-blue-50/85 px-2.5 py-1 text-blue-700 shadow-sm shadow-blue-100/60 transition group-hover:border-blue-200 group-hover:bg-white">
-          {label}
-        </span>
-      );
-    }
-
     return (
       <span className="bg-gradient-to-r from-blue-600 to-blue-600 bg-[length:0%_1px] bg-left-bottom bg-no-repeat transition-all group-hover:bg-[length:100%_1px]">
         {label}

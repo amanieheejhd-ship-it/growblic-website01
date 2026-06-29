@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import Scroll3DSection from "../../../components/Scroll3DSection";
 
 export const metadata: Metadata = {
   title: "Values | Growblic Careers",
@@ -62,15 +63,18 @@ export default function ValuesPage() {
       <section className="px-6 pb-24 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-blue-100 bg-white p-8 shadow-2xl shadow-blue-100/70 sm:p-12">
           <div className="grid gap-x-20 gap-y-20 lg:grid-cols-2">
-            {values.map((item) => (
-              <article key={item.title}>
-                <h2 className="text-4xl font-black tracking-tight text-slate-950">
-                  {item.title}
-                </h2>
-                <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
-                  {item.text}
-                </p>
-              </article>
+            {values.map((item, index) => (
+              <Scroll3DSection key={item.title} delay={index * 0.04}>
+                <article className="group relative h-full overflow-hidden rounded-[2rem] border border-blue-100/75 bg-gradient-to-br from-white via-blue-50/35 to-white p-6 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
+                  <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
+                  <h2 className="relative text-4xl font-black tracking-tight text-slate-950">
+                    {item.title}
+                  </h2>
+                  <p className="relative mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
+                    {item.text}
+                  </p>
+                </article>
+              </Scroll3DSection>
             ))}
           </div>
 
