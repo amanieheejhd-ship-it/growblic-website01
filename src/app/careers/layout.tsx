@@ -8,59 +8,46 @@ const logoUrl =
 export default function CareersLayout({ children }: { children: ReactNode }) {
   return (
     <main className="min-h-screen bg-[#f6f8ff] text-slate-950">
-      <header className="border-b border-blue-100/80 bg-white/90 px-5 py-5 backdrop-blur sm:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
+      <header className="sticky top-0 z-40 border-b border-blue-100/80 bg-white/82 px-4 py-3 shadow-sm shadow-blue-100/35 backdrop-blur-2xl sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <Link href="/careers" className="flex items-center gap-4">
             <Image
               src={logoUrl}
               alt="Growblic logo"
               width={44}
               height={44}
-              className="h-11 w-11 rounded-2xl object-cover"
+              className="h-10 w-10 rounded-2xl object-cover shadow-lg shadow-blue-100/70"
               unoptimized
             />
-            <span className="text-xl font-black uppercase tracking-[0.18em] text-slate-950">
+            <span className="text-lg font-black uppercase tracking-[0.14em] text-slate-950">
               Growblic Careers
             </span>
           </Link>
 
-          <nav className="flex flex-wrap items-center gap-4 text-xs font-black uppercase tracking-[0.18em] text-slate-700 sm:gap-6">
-            <Link href="/careers/openings" className="transition hover:text-blue-700">
+          <nav className="flex max-w-full items-center gap-2 overflow-x-auto rounded-full border border-blue-100/80 bg-white/78 p-1.5 text-xs font-black uppercase tracking-[0.14em] text-slate-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
+            <Link href="/careers/openings" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
               Openings
             </Link>
-            <span className="text-slate-300">|</span>
 
-            <Link href="/careers/perks" className="transition hover:text-blue-700">
+            <Link href="/careers/perks" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
               Perks
             </Link>
-            <span className="text-slate-300">|</span>
 
-            <Link href="/careers/values" className="transition hover:text-blue-700">
+            <Link href="/careers/values" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
               Values
             </Link>
-            <span className="text-slate-300">|</span>
 
-            <details className="group relative">
-              <summary className="list-none cursor-pointer transition hover:text-blue-700">
-                Culture <span className="inline-block transition group-open:rotate-180">⌄</span>
-              </summary>
+            <Link href="/careers/culture" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
+              Culture
+            </Link>
 
-              <div className="absolute right-0 top-7 z-50 w-52 rounded-2xl border border-blue-100 bg-white p-2 text-left shadow-xl shadow-blue-100/60">
-                <Link
-                  href="/careers/insights"
-                  className="block rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
-                >
-                  Insights
-                </Link>
+            <Link href="/careers/insights" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
+              Insights
+            </Link>
 
-                <Link
-                  href="/careers/humans"
-                  className="mt-1 block rounded-xl px-4 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-slate-800 transition hover:bg-blue-50 hover:text-blue-700"
-                >
-                  Humans
-                </Link>
-              </div>
-            </details>
+            <Link href="/careers/humans" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
+              Humans
+            </Link>
           </nav>
         </div>
       </header>

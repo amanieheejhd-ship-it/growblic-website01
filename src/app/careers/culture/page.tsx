@@ -49,6 +49,26 @@ export default function CulturePage() {
             A focused product culture built around execution, learning, trust, and premium work.
           </p>
 
+          <Scroll3DSection className="mt-14">
+            <article className="relative overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-7 shadow-[0_28px_90px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-10">
+              <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-200/45 blur-3xl" />
+              <div className="relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
+                    Culture note
+                  </p>
+                  <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950">
+                    Serious work, calm systems, clear ownership.
+                  </h2>
+                </div>
+                <p className="font-semibold leading-8 text-slate-600">
+                  Growblic culture is shaped around practical delivery: clear tasks,
+                  useful feedback, clean UI, stable systems, and steady improvement.
+                </p>
+              </div>
+            </article>
+          </Scroll3DSection>
+
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             {cultureCards.map((item, index) => {
               const Icon = item.icon;
@@ -71,6 +91,14 @@ export default function CulturePage() {
               );
             })}
           </div>
+
+          <Scroll3DSection className="mt-12">
+            <div className="rounded-[2rem] border border-blue-100 bg-white/80 p-7 text-center shadow-xl shadow-blue-100/55">
+              <p className="text-2xl font-black leading-9 text-slate-950">
+                “Team stories and culture notes will be published as Growblic grows.”
+              </p>
+            </div>
+          </Scroll3DSection>
 
           <div className="mt-14 flex flex-col gap-4 sm:flex-row">
             <Link

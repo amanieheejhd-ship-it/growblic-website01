@@ -131,7 +131,7 @@ export default function PerksPage() {
                 A modern, flexible work environment for people who like shipping polished
                 websites, apps, automation systems, and SaaS products.
               </p>
-              <p className="mt-3 text-sm font-bold text-slate-500">
+              <p className="mt-4 inline-flex rounded-full border border-blue-100 bg-blue-50/80 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-blue-700 shadow-lg shadow-blue-100/45">
                 Perks may vary by role, location, and engagement type.
               </p>
             </div>
@@ -211,6 +211,40 @@ export default function PerksPage() {
             </Link>
           </div>
         </div>
+      </section>
+
+      <section className="px-6 pb-24 sm:px-8 lg:px-10">
+        <Scroll3DSection>
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-white/80 bg-gradient-to-br from-white via-blue-50/70 to-white p-7 shadow-[0_28px_90px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-10">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
+                  Ready to build
+                </p>
+                <h2 className="mt-3 max-w-3xl text-4xl font-black tracking-tight text-slate-950">
+                  Bring your craft to real Growblic projects.
+                </h2>
+                <p className="mt-4 max-w-2xl font-semibold leading-8 text-slate-600">
+                  Browse open roles or send your profile so we can understand where you might fit.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/careers/openings"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                >
+                  Open roles →
+                </Link>
+                <Link
+                  href="/careers/apply"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-blue-100 bg-white px-6 py-3 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
+                >
+                  Apply now
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Scroll3DSection>
       </section>
     </>
   );

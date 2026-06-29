@@ -45,6 +45,22 @@ export default function HumansPage() {
           and culture content here later.
         </p>
 
+        <Scroll3DSection className="mt-14">
+          <article className="relative overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/82 p-7 shadow-[0_28px_90px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-10">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-200/45 blur-3xl" />
+            <p className="relative text-sm font-black uppercase tracking-[0.24em] text-blue-600">
+              People behind the work
+            </p>
+            <h2 className="relative mt-4 max-w-4xl text-4xl font-black tracking-tight text-slate-950">
+              A future home for builders, stories, and practical lessons.
+            </h2>
+            <p className="relative mt-5 max-w-3xl font-semibold leading-8 text-slate-600">
+              Team stories and culture notes will be published as Growblic grows.
+              This page is structured for interviews, craft notes, and honest reflections.
+            </p>
+          </article>
+        </Scroll3DSection>
+
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {storyCards.map((item, index) => {
             const Icon = item.icon;
@@ -67,6 +83,14 @@ export default function HumansPage() {
             );
           })}
         </div>
+
+        <Scroll3DSection className="mt-12">
+          <div className="rounded-[2rem] border border-blue-100 bg-blue-50/70 p-7 shadow-xl shadow-blue-100/45">
+            <p className="text-xl font-black text-slate-950">
+              No fake employee claims here: this area is ready for real Growblic stories when they are available.
+            </p>
+          </div>
+        </Scroll3DSection>
 
         <Link
           href="/careers"

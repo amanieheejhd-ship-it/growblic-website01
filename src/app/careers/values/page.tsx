@@ -39,6 +39,12 @@ const values = [
   },
 ];
 
+const workWays = [
+  "Start with the business outcome",
+  "Design the simplest useful system",
+  "Ship, learn, and improve the next version",
+];
+
 export default function ValuesPage() {
   return (
     <>
@@ -66,8 +72,12 @@ export default function ValuesPage() {
             {values.map((item, index) => (
               <Scroll3DSection key={item.title} delay={index * 0.04}>
                 <article className="group relative h-full overflow-hidden rounded-[2rem] border border-blue-100/75 bg-gradient-to-br from-white via-blue-50/35 to-white p-6 shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
+                  <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
                   <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
-                  <h2 className="relative text-4xl font-black tracking-tight text-slate-950">
+                  <span className="relative inline-flex rounded-full border border-blue-100 bg-blue-50/80 px-3 py-1 text-xs font-black text-blue-700">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h2 className="relative mt-4 text-4xl font-black tracking-tight text-slate-950">
                     {item.title}
                   </h2>
                   <p className="relative mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
@@ -77,6 +87,26 @@ export default function ValuesPage() {
               </Scroll3DSection>
             ))}
           </div>
+
+          <Scroll3DSection className="mt-16">
+            <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-gradient-to-br from-blue-50/90 via-white to-white p-6 shadow-xl shadow-blue-100/55 ring-1 ring-blue-100/70 sm:p-8">
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
+                How we work
+              </p>
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
+                {workWays.map((item, index) => (
+                  <div key={item} className="rounded-[1.5rem] border border-blue-100 bg-white/75 p-5 shadow-lg shadow-blue-100/45">
+                    <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">
+                      Step {index + 1}
+                    </span>
+                    <p className="mt-3 text-lg font-black leading-7 text-slate-950">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Scroll3DSection>
 
           <div className="mt-16 flex flex-col gap-4 border-t border-blue-100 pt-8 sm:flex-row">
             <Link
