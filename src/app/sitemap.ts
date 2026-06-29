@@ -14,6 +14,7 @@ const corePages = [
   { path: "/careers/values", priority: 0.76 },
   { path: "/careers/perks", priority: 0.76 },
   { path: "/careers/openings", priority: 0.78 },
+  { path: "/careers/apply", priority: 0.76 },
   { path: "/careers", priority: 0.82 },
   { path: "/services",
 priority: 0.95 },

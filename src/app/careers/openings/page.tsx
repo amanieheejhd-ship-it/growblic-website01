@@ -94,7 +94,7 @@ export default function OpeningsPage() {
                 <p className="mt-4 leading-8 text-slate-600">{item.desc}</p>
 
                 <Link
-                  href="/contact"
+                  href="/careers/apply"
                   className="mt-6 inline-flex rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
                 >
                   Apply now →
