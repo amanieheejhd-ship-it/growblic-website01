@@ -24,7 +24,6 @@ const resourceLinks = [
   { label: "Brand", href: "/brand" },
   { label: "Downloads", href: "/downloads" },
   { label: "Meetup", href: "/meetup" },
-  { label: "Why Growblic", href: "/why-growblic" },
   { label: "Process", href: "/process" },
 ];
 
