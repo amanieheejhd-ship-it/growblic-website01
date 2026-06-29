@@ -39,8 +39,6 @@ const resourceLinks = [
 const trustLegalLinks = [
   { label: "Security", href: "/security" },
   { label: "Legal", href: "/legal" },
-  { label: "Privacy Policy", href: "/legal#privacy" },
-  { label: "Terms", href: "/legal#terms" },
   { label: "Report Abuse", href: "mailto:abuse@growblic.com" },
 ];
 
