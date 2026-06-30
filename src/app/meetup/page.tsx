@@ -276,7 +276,7 @@ export default function MeetupPage() {
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:34px_34px]" />
 
           <div className="relative z-10">
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="scroll-reveal-up flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
                   Calendar
@@ -295,7 +295,7 @@ export default function MeetupPage() {
               {upcomingMeetups.map((event, index) => (
                 <article
                   key={event.title}
-                  className="group relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/92 p-5 shadow-[0_22px_75px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_34px_105px_rgba(37,99,235,0.16)]"
+                  className="scroll-reveal-up group relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/92 p-5 shadow-[0_22px_75px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_34px_105px_rgba(37,99,235,0.16)]"
                 >
                   <div className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-600 via-cyan-400 to-blue-200 opacity-0 transition group-hover:opacity-100" />
 
@@ -354,7 +354,7 @@ export default function MeetupPage() {
               ].map((item, index) => (
                 <article
                   key={item.title}
-                  className="group rounded-[2rem] border border-blue-100 bg-white/92 p-7 shadow-[0_22px_75px_rgba(37,99,235,0.09)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_30px_95px_rgba(37,99,235,0.14)]"
+                  className="scroll-reveal-up group rounded-[2rem] border border-blue-100 bg-white/92 p-7 shadow-[0_22px_75px_rgba(37,99,235,0.09)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_30px_95px_rgba(37,99,235,0.14)]"
                 >
                   <div className="mb-8 flex items-center justify-between">
                     <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black tracking-[0.24em] text-blue-700 ring-1 ring-blue-100">
