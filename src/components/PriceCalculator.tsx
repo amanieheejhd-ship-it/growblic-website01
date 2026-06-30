@@ -65,9 +65,23 @@ type BreakdownItem = {
   price: number;
 };
 
-const moneyFormatter = new Intl.NumberFormat("en-IN", {
+type Currency = "INR" | "USD";
+
+const INR_TO_USD = 83;
+const currencyOptions: Array<{ label: string; symbol: string; value: Currency }> = [
+  { label: "INR", symbol: "₹", value: "INR" },
+  { label: "USD", symbol: "$", value: "USD" },
+];
+
+const inrFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
+  maximumFractionDigits: 0,
+});
+
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
   maximumFractionDigits: 0,
 });
 
@@ -472,8 +486,12 @@ const categories: CalculatorCategory[] = [
   },
 ];
 
-function formatMoney(value: number) {
-  return moneyFormatter.format(Math.round(value));
+function formatMoney(valueInInr: number, currency: Currency) {
+  if (currency === "USD") {
+    return usdFormatter.format(Math.round(valueInInr / INR_TO_USD));
+  }
+
+  return inrFormatter.format(Math.round(valueInInr));
 }
 
 function createEstimateId(date: Date) {
@@ -499,6 +517,7 @@ export default function PriceCalculator() {
   const [selectedCategoryId, setSelectedCategoryId] = useState(categories[0].id);
   const selectedCategory = categories.find((item) => item.id === selectedCategoryId) ?? categories[0];
   const initialSelections = getInitialSelections(selectedCategory);
+  const [currency, setCurrency] = useState<Currency>("INR");
   const [selectValues, setSelectValues] = useState<Record<string, string>>(initialSelections.selectValues);
   const [numberValues, setNumberValues] = useState<Record<string, number>>(initialSelections.numberValues);
   const [featureValues, setFeatureValues] = useState<string[]>([]);
@@ -538,7 +557,7 @@ export default function PriceCalculator() {
 
   const result = useMemo(() => {
     let subtotal = selectedCategory.basePrice;
-    const selectedOptions: string[] = [`Base estimate: ${formatMoney(selectedCategory.basePrice)}`];
+    const selectedOptions: string[] = [`Base estimate: ${formatMoney(selectedCategory.basePrice, currency)}`];
     const breakdownItems: BreakdownItem[] = [
       { label: "Base price", value: selectedCategory.label, price: selectedCategory.basePrice },
     ];
@@ -599,7 +618,7 @@ export default function PriceCalculator() {
       selectedOptions,
       breakdownItems,
     };
-  }, [featureValues, numberValues, selectValues, selectedCategory]);
+  }, [currency, featureValues, numberValues, selectValues, selectedCategory]);
 
   function toggleFeature(feature: string) {
     setEstimate(null);
@@ -670,7 +689,7 @@ export default function PriceCalculator() {
 
     const selectedOptionsText = result.selectedOptions.join("\n");
     const breakdownText = result.breakdownItems
-      .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price)}`)
+      .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price, currency)}`)
       .join("\n");
 
     try {
@@ -693,13 +712,16 @@ export default function PriceCalculator() {
           page: "/price-calculator",
           estimateId: estimate.id,
           submittedAt: new Date().toISOString(),
+          selectedCurrency: currency,
+          conversionRate: `1 USD = Rs ${INR_TO_USD}`,
           serviceCategory: selectedCategory.label,
           selectedOptions: selectedOptionsText,
           pricingBreakdown: breakdownText,
-          basePrice: formatMoney(selectedCategory.basePrice),
-          subtotal: formatMoney(result.subtotal),
+          basePrice: formatMoney(selectedCategory.basePrice, currency),
+          subtotal: formatMoney(result.subtotal, currency),
           multiplier: `${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
-          estimatedTotal: formatMoney(result.total),
+          estimatedTotal: formatMoney(result.total, currency),
+          estimatedTotalInInr: formatMoney(result.total, "INR"),
         }),
       });
 
@@ -723,9 +745,37 @@ export default function PriceCalculator() {
       <div className="grid gap-6 lg:grid-cols-[0.95fr_0.72fr] lg:items-start">
         <section className={`${primaryPanelClass} p-4 sm:p-6`}>
         <div className="grid gap-3">
-          <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
-            Step 01 / Select service
-          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
+              Step 01 / Select service
+            </p>
+            <div className="flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/78 p-1 shadow-lg shadow-blue-100/40 backdrop-blur-xl">
+              <span className="pl-3 text-[0.65rem] font-black uppercase tracking-[0.18em] text-slate-500">
+                Currency
+              </span>
+              <div className="flex rounded-full bg-blue-50/70 p-1">
+                {currencyOptions.map((option) => {
+                  const isActive = currency === option.value;
+
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setCurrency(option.value)}
+                      className={`min-h-9 rounded-full px-3 text-xs font-black transition ${
+                        isActive
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
+                          : "text-slate-600 hover:bg-white hover:text-blue-700"
+                      }`}
+                      aria-pressed={isActive}
+                    >
+                      {option.label} {option.symbol}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
           <div className="grid gap-3 md:grid-cols-3">
             {categories.map((category) => (
               <button
@@ -758,7 +808,7 @@ export default function PriceCalculator() {
               </h2>
             </div>
             <p className="w-fit rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black text-slate-600 shadow-sm shadow-blue-100/50">
-              Starts at {formatMoney(selectedCategory.basePrice)}
+              Starts at {formatMoney(selectedCategory.basePrice, currency)}
             </p>
           </div>
 
@@ -810,7 +860,7 @@ export default function PriceCalculator() {
                   className="h-2 cursor-pointer accent-blue-600"
                 />
                 <span className="text-xs font-bold text-slate-500">
-                  Includes {group.included} {group.unit}; additional {formatMoney(group.pricePerUnit)} each
+                  Includes {group.included} {group.unit}; additional {formatMoney(group.pricePerUnit, currency)} each
                 </span>
               </label>
             ))}
@@ -858,7 +908,7 @@ export default function PriceCalculator() {
                 >
                   <span className="block">{feature.label}</span>
                   <span className="mt-1 block text-xs font-bold text-slate-500">
-                    + {formatMoney(feature.price)}
+                    + {formatMoney(feature.price, currency)}
                   </span>
                 </button>
               ))}
@@ -947,7 +997,7 @@ export default function PriceCalculator() {
         <div className="mt-5 grid gap-3">
           <div className="flex items-center justify-between rounded-2xl border border-blue-100 bg-blue-50/80 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40">
             <span>Subtotal</span>
-            <span>{formatMoney(result.subtotal)}</span>
+            <span>{formatMoney(result.subtotal, currency)}</span>
           </div>
           <div className="flex items-center justify-between rounded-2xl border border-blue-100 bg-white/90 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/35">
             <span>{selectedCategory.multiplierGroup.label} multiplier</span>
@@ -960,7 +1010,7 @@ export default function PriceCalculator() {
                 Estimated total
               </p>
               <p className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-                {formatMoney(result.total)}
+                {formatMoney(result.total, currency)}
               </p>
             </div>
           </div>
@@ -1075,14 +1125,14 @@ export default function PriceCalculator() {
                         <span className="block text-slate-950">{item.label}</span>
                         <span className="block text-xs text-slate-500">{item.value}</span>
                       </span>
-                      <span>{formatMoney(item.price)}</span>
+                      <span>{formatMoney(item.price, currency)}</span>
                     </div>
                   ))}
                 </div>
                 <div className="mt-4 grid gap-2 border-t border-blue-100 pt-4 text-sm font-black text-slate-700">
                   <div className="flex items-center justify-between">
                     <span>Estimated subtotal</span>
-                    <span>{formatMoney(result.subtotal)}</span>
+                    <span>{formatMoney(result.subtotal, currency)}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>{selectedCategory.multiplierGroup.label} multiplier</span>
@@ -1098,7 +1148,7 @@ export default function PriceCalculator() {
                   Estimated total
                 </p>
                 <p className="mt-2 text-3xl font-black text-slate-950">
-                  {formatMoney(result.total)}
+                  {formatMoney(result.total, currency)}
                 </p>
               </div>
 
