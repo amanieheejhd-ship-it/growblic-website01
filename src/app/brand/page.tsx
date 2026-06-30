@@ -53,13 +53,43 @@ const colors = [
   { hex: "#475569", name: "Slate Text", className: "bg-slate-600 text-white" },
 ];
 
-const donts = [
-  "Never stretch or distort the logo",
-  "Never rotate or skew the logo",
-  "Never recolor the logo without approval",
-  "Never place logo on low contrast backgrounds",
-  "Never outline the mark",
-  "Never combine Growblic with another brand without spacing",
+const misuseItems = [
+  {
+    title: "Never stretch or distort the logo",
+    variant: "stretch",
+  },
+  {
+    title: "Never rotate or skew the logo",
+    variant: "rotate",
+  },
+  {
+    title: "Never recolor the logo without approval",
+    variant: "recolor",
+  },
+  {
+    title: "Never place logo on low contrast backgrounds",
+    variant: "contrast",
+  },
+  {
+    title: "Never outline the mark",
+    variant: "outline",
+  },
+  {
+    title: "Never combine Growblic with another brand without spacing",
+    variant: "spacing",
+  },
+  {
+    title: "Never use unofficial typefaces",
+    variant: "typeface",
+  },
+  {
+    title: "Never modify the icon shape",
+    variant: "shape",
+  },
+  {
+    title: "Never crop or partially hide the logo",
+    variant: "crop",
+  },
 ];
 
 const usageCards = [
@@ -107,6 +137,71 @@ function LogoPreview({ type }: { type: string }) {
         <img src={logoUrl} alt="Growblic lockup" className="h-12 w-12 rounded-xl object-cover" />
         <span className="text-3xl font-black tracking-[-0.05em] text-slate-950">Growblic</span>
       </div>
+    </div>
+  );
+}
+
+
+
+function MisusePreview({ variant }: { variant: string }) {
+  const baseLogo = (
+    <div className="flex items-center gap-3 rounded-2xl bg-white px-5 py-3 text-xl font-black tracking-[-0.04em] text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.10)] ring-1 ring-blue-100">
+      <img src={logoUrl} alt="Growblic" className="h-9 w-9 rounded-lg object-cover" />
+      <span>Growblic</span>
+    </div>
+  );
+
+  const markOnly = (
+    <div className="grid h-20 w-20 place-items-center rounded-2xl bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] ring-1 ring-blue-100">
+      <img src={logoUrl} alt="Growblic mark" className="h-12 w-12 rounded-xl object-cover" />
+    </div>
+  );
+
+  const previewContent =
+    variant === "outline" ? (
+      <div className="grid h-24 w-24 place-items-center rounded-2xl border-4 border-blue-600 bg-white">
+        <img src={logoUrl} alt="Outlined Growblic mark" className="h-12 w-12 rounded-xl object-cover" />
+      </div>
+    ) : variant === "recolor" ? (
+      <div className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-br from-cyan-300 via-blue-500 to-indigo-600 shadow-[0_18px_45px_rgba(37,99,235,0.18)]">
+        <img src={logoUrl} alt="Recolored Growblic mark" className="h-12 w-12 rounded-xl object-cover mix-blend-screen" />
+      </div>
+    ) : variant === "contrast" ? (
+      <div className="flex h-full w-full items-center justify-center rounded-[1.2rem] bg-sky-200">
+        <div className="opacity-55">{baseLogo}</div>
+      </div>
+    ) : variant === "typeface" ? (
+      <div className="flex items-center gap-3 rounded-2xl bg-white px-5 py-3 text-2xl font-serif tracking-wide text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.10)] ring-1 ring-blue-100">
+        <img src={logoUrl} alt="Growblic wrong typeface" className="h-9 w-9 rounded-lg object-cover" />
+        <span>Growblic</span>
+      </div>
+    ) : variant === "spacing" ? (
+      <div className="flex items-center gap-1 rounded-2xl bg-white px-4 py-3 text-xl font-black text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.10)] ring-1 ring-blue-100">
+        <img src={logoUrl} alt="Growblic spacing misuse" className="h-9 w-9 rounded-lg object-cover" />
+        <span>Growblic</span>
+        <span className="text-slate-400">Partner</span>
+      </div>
+    ) : variant === "shape" ? (
+      <div className="grid h-20 w-28 place-items-center rounded-full bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] ring-1 ring-blue-100">
+        <img src={logoUrl} alt="Modified Growblic shape" className="h-12 w-16 rounded-full object-cover" />
+      </div>
+    ) : variant === "crop" ? (
+      <div className="grid h-20 w-20 place-items-center overflow-hidden rounded-2xl bg-white shadow-[0_18px_45px_rgba(15,23,42,0.10)] ring-1 ring-blue-100">
+        <img src={logoUrl} alt="Cropped Growblic logo" className="h-20 w-20 translate-x-5 translate-y-4 rounded-xl object-cover" />
+      </div>
+    ) : variant === "rotate" ? (
+      <div className="-rotate-12 skew-x-6">{baseLogo}</div>
+    ) : variant === "stretch" ? (
+      <div className="scale-x-125">{baseLogo}</div>
+    ) : (
+      markOnly
+    );
+
+  return (
+    <div className="relative flex h-44 items-center justify-center overflow-hidden rounded-[1.35rem] border border-blue-100 bg-gradient-to-br from-slate-50 via-white to-sky-50">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:26px_26px]" />
+      <div className="relative">{previewContent}</div>
+      <span className="pointer-events-none absolute left-1/2 top-1/2 h-1.5 w-[74%] -translate-x-1/2 -translate-y-1/2 -rotate-[28deg] rounded-full bg-red-500 shadow-[0_0_22px_rgba(239,68,68,0.35)]" />
     </div>
   );
 }
@@ -302,20 +397,20 @@ export default function BrandPage() {
           </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {donts.map((item) => (
+            {misuseItems.map((item) => (
               <article
-                key={item}
-                className="rounded-[1.5rem] border border-red-100 bg-white/80 p-5 shadow-[0_18px_55px_rgba(239,68,68,0.07)]"
+                key={item.title}
+                className="group overflow-hidden rounded-[1.8rem] border border-red-100 bg-white/86 p-5 shadow-[0_22px_70px_rgba(239,68,68,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:bg-white hover:shadow-[0_32px_90px_rgba(239,68,68,0.12)]"
               >
-                <div className="flex h-32 items-center justify-center rounded-[1.2rem] border border-blue-100 bg-blue-50/55">
-                  <div className="relative rounded-2xl bg-white px-6 py-4 text-lg font-black text-slate-950 shadow-md">
-                    Growblic
-                    <span className="absolute left-1/2 top-1/2 h-1 w-36 -translate-x-1/2 -translate-y-1/2 -rotate-[28deg] rounded-full bg-red-500" />
-                  </div>
-                </div>
+                <MisusePreview variant={item.variant} />
+
                 <div className="mt-5 flex items-start gap-3">
-                  <Ban className="mt-1 h-5 w-5 shrink-0 text-red-500" />
-                  <p className="text-sm font-black leading-7 text-slate-700">{item}</p>
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-red-500 text-white shadow-[0_10px_28px_rgba(239,68,68,0.25)]">
+                    <Ban className="h-3.5 w-3.5" />
+                  </span>
+                  <p className="text-sm font-black leading-7 text-slate-750">
+                    {item.title}
+                  </p>
                 </div>
               </article>
             ))}
