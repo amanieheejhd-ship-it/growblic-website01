@@ -1,141 +1,155 @@
 import Link from "next/link";
-import { Metadata } from "next";
-import Scroll3DSection, { TiltCard } from "../../../components/Scroll3DSection";
-
-export const metadata: Metadata = {
-  title: "Values | Growblic Careers",
-  description:
-    "Growblic values guide how we design, build, communicate, and deliver premium digital products.",
-};
+import {
+  ArrowRight,
+  CheckCircle2,
+  Gauge,
+  Handshake,
+  Layers3,
+  Rocket,
+  ShieldCheck,
+  Sparkles,
+  Trophy,
+} from "lucide-react";
 
 const values = [
   {
-    title: "build to win",
-    text: "we design, develop, and deliver with a clear goal — create work that helps real businesses grow.",
+    title: "Build to win",
+    text: "We design, develop, and deliver with a clear goal — create work that helps real businesses grow.",
+    icon: Trophy,
+    accent: "from-blue-600 via-cyan-500 to-sky-400",
   },
   {
-    title: "fast & right",
-    text: "speed matters, but quality matters too. we move quickly while keeping the product clean, useful, and scalable.",
+    title: "Fast & right",
+    text: "Speed matters, but quality matters too. We move quickly while keeping the product clean, useful, and scalable.",
+    icon: Gauge,
+    accent: "from-cyan-500 via-blue-500 to-indigo-500",
   },
   {
-    title: "trustworthy",
-    text: "we build trust through consistency, honest communication, clean execution, and ownership of outcomes.",
+    title: "Trustworthy",
+    text: "We build trust through consistency, honest communication, clean execution, and ownership of outcomes.",
+    icon: ShieldCheck,
+    accent: "from-indigo-500 via-blue-500 to-cyan-400",
   },
   {
-    title: "compounding",
-    text: "every project improves our systems, design taste, development process, and long-term product thinking.",
+    title: "Compounding",
+    text: "Every project improves our systems, design taste, development process, and long-term product thinking.",
+    icon: Layers3,
+    accent: "from-blue-500 via-sky-400 to-cyan-300",
   },
   {
-    title: "high agency",
-    text: "we do not wait for perfect conditions. we find solutions, take ownership, and finish what matters.",
+    title: "High agency",
+    text: "We do not wait for perfect conditions. We find solutions, take ownership, and finish what matters.",
+    icon: Rocket,
+    accent: "from-sky-500 via-blue-500 to-indigo-500",
   },
   {
-    title: "client success",
-    text: "every decision should make the client experience better — clearer, faster, smoother, and more valuable.",
+    title: "Client success",
+    text: "Every decision should make the client experience better — clearer, faster, smoother, and more valuable.",
+    icon: Handshake,
+    accent: "from-cyan-400 via-blue-500 to-slate-900",
   },
   {
-    title: "frugal",
-    text: "we use time, tools, and resources carefully. simple solutions often create the strongest business impact.",
+    title: "Frugal",
+    text: "We use time, tools, and resources carefully. Simple solutions often create the strongest business impact.",
+    icon: CheckCircle2,
+    accent: "from-blue-600 via-cyan-500 to-emerald-300",
   },
 ];
 
-const workWays = [
-  "Start with the business outcome",
-  "Design the simplest useful system",
-  "Ship, learn, and improve the next version",
-];
-
-export default function ValuesPage() {
+export default function CareersValuesPage() {
   return (
-    <>
-      <section className="relative overflow-hidden px-6 py-24 sm:px-8 lg:px-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(37,99,235,0.12),transparent_30%),radial-gradient(circle_at_86%_82%,rgba(6,182,212,0.10),transparent_30%)]" />
-        <div className="relative mx-auto max-w-7xl">
-          <p className="inline-flex rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-black uppercase tracking-[0.30em] text-blue-700 shadow-lg shadow-blue-100/60">
-            Growblic Careers / Values
-          </p>
+    <main className="relative overflow-hidden bg-white px-6 py-20 sm:px-8 lg:px-10">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_88%_28%,rgba(6,182,212,0.13),transparent_30%),linear-gradient(180deg,rgba(255,255,255,1),rgba(239,246,255,0.58),rgba(255,255,255,1))]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:42px_42px]" />
 
-          <h1 className="mt-7 max-w-5xl text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-            Our values define our journey.
+      <section className="relative mx-auto max-w-7xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-5 py-2 text-xs font-black uppercase tracking-[0.30em] text-blue-700 shadow-xl shadow-blue-100/60 backdrop-blur">
+            <Sparkles className="h-4 w-4" />
+            Growblic values
+          </div>
+
+          <h1 className="mt-7 text-5xl font-black tracking-[-0.06em] text-slate-950 sm:text-6xl lg:text-7xl">
+            Principles behind how we build.
           </h1>
 
-          <p className="mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
-            Our values guide how we build software, handle clients, improve systems,
-            and create premium digital products.
+          <p className="mx-auto mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
+            These values guide how we design products, ship software, support clients,
+            and grow as a premium digital team.
           </p>
         </div>
-      </section>
 
-      <section className="px-6 pb-24 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-blue-100 bg-white p-8 shadow-2xl shadow-blue-100/70 sm:p-12">
-          <div className="grid gap-x-20 gap-y-20 lg:grid-cols-2">
-            {values.map((item, index) => (
-              <Scroll3DSection key={item.title} delay={index * 0.04}>
-                <TiltCard className="h-full">
-                  <article className="group relative flex h-full min-h-72 flex-col overflow-hidden rounded-[2rem] border border-white/80 bg-white/70 p-6 shadow-[0_24px_70px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl transition hover:border-blue-200 hover:shadow-[0_32px_90px_rgba(37,99,235,0.22)]">
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-indigo-400/18 via-blue-300/12 to-transparent" />
-                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:34px_34px] opacity-45" />
-                    <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
-                    <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
-                    <div className="relative flex items-start justify-between gap-4">
-                      <span className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-black text-indigo-700 shadow-sm shadow-blue-100/50">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span className="rounded-full border border-white/80 bg-white/65 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-500 shadow-sm backdrop-blur">
-                        Value
-                      </span>
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          {values.map((value, index) => {
+            const Icon = value.icon;
+
+            return (
+              <article
+                key={value.title}
+                className="group relative min-h-[330px] overflow-hidden rounded-[2.25rem] border border-blue-100 bg-white/78 p-7 shadow-[0_30px_90px_rgba(37,99,235,0.11)] backdrop-blur-2xl transition-all duration-500 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_42px_110px_rgba(37,99,235,0.18)]"
+              >
+                <div className={`pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-r ${value.accent} opacity-12 transition-opacity duration-500 group-hover:opacity-20`} />
+                <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-blue-200/40 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute -bottom-20 left-8 h-52 w-52 rounded-full bg-cyan-100/70 blur-3xl" />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.055)_1px,transparent_1px)] bg-[size:34px_34px] opacity-70" />
+
+                <div className="relative flex items-start justify-between gap-5">
+                  <div className="flex items-center gap-4">
+                    <div className="grid h-16 w-16 place-items-center rounded-2xl border border-blue-100 bg-white/90 text-blue-700 shadow-[0_18px_45px_rgba(37,99,235,0.15)] transition-transform duration-500 group-hover:scale-105">
+                      <Icon className="h-7 w-7" />
                     </div>
-                    <h2 className="relative mt-6 text-4xl font-black tracking-tight text-slate-950">
-                      {item.title}
-                    </h2>
-                    <p className="relative mt-6 max-w-xl flex-1 text-base font-semibold leading-8 text-slate-600">
-                      {item.text}
-                    </p>
-                    <div className="pointer-events-none absolute inset-x-8 bottom-0 h-1 rounded-t-full bg-gradient-to-r from-indigo-500 via-blue-500 to-sky-300 opacity-75 transition group-hover:opacity-100" />
-                  </article>
-                </TiltCard>
-              </Scroll3DSection>
-            ))}
-          </div>
 
-          <Scroll3DSection className="mt-16">
-            <div className="overflow-hidden rounded-[2rem] border border-white/80 bg-gradient-to-br from-blue-50/90 via-white to-white p-6 shadow-xl shadow-blue-100/55 ring-1 ring-blue-100/70 sm:p-8">
-              <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-                How we work
-              </p>
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {workWays.map((item, index) => (
-                  <div key={item} className="relative overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/70 p-5 shadow-lg shadow-blue-100/45 ring-1 ring-blue-100/60 backdrop-blur">
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-br from-blue-500/14 via-cyan-300/10 to-transparent" />
-                    <span className="relative rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-blue-600">
-                      Step {index + 1}
-                    </span>
-                    <p className="relative mt-4 text-lg font-black leading-7 text-slate-950">
-                      {item}
-                    </p>
-                    <div className="pointer-events-none absolute inset-x-6 bottom-0 h-1 rounded-t-full bg-gradient-to-r from-blue-600 via-sky-400 to-cyan-300 opacity-70" />
+                    <div className="rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-xs font-black tracking-[0.20em] text-blue-700 shadow-sm">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </Scroll3DSection>
 
-          <div className="mt-16 flex flex-col gap-4 border-t border-blue-100 pt-8 sm:flex-row">
-            <Link
-              href="/careers"
-              className="inline-flex items-center justify-center rounded-full border border-blue-100 bg-white px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
-            >
-              Back to Careers
-            </Link>
+                  <span className="rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-[11px] font-black uppercase tracking-[0.26em] text-slate-500 shadow-sm">
+                    Value
+                  </span>
+                </div>
+
+                <div className="relative mt-12">
+                  <h2 className="text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+                    {value.title}
+                  </h2>
+
+                  <p className="mt-7 max-w-xl text-base font-semibold leading-8 text-slate-600">
+                    {value.text}
+                  </p>
+                </div>
+
+                <div className="relative mt-12 flex items-center justify-between border-t border-blue-100/70 pt-5">
+                  <span className="text-xs font-black uppercase tracking-[0.24em] text-slate-400">
+                    Growblic standard
+                  </span>
+                  <span className={`h-1.5 w-28 rounded-full bg-gradient-to-r ${value.accent} shadow-[0_0_30px_rgba(37,99,235,0.35)]`} />
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-12 overflow-hidden rounded-[2rem] border border-blue-100 bg-slate-950 p-8 text-white shadow-[0_35px_100px_rgba(15,23,42,0.20)] sm:p-10">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.30em] text-cyan-300">
+                Ready to work with ownership?
+              </p>
+              <h2 className="mt-4 text-3xl font-black tracking-[-0.04em] sm:text-4xl">
+                Join a team that ships real products.
+              </h2>
+            </div>
+
             <Link
               href="/careers/openings"
-              className="inline-flex items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+              className="inline-flex w-fit items-center justify-center gap-3 rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 shadow-xl shadow-white/10 transition hover:-translate-y-0.5 hover:bg-blue-600 hover:text-white"
             >
-              See Openings →
+              View openings <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }
