@@ -1,204 +1,334 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  CheckCircle2,
+  Clock3,
+  Mail,
+  MessageSquare,
+  Phone,
+  Rocket,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 
-const projectTypes = [
-  "Website Development",
-  "Mobile App Development",
-  "SaaS Platform",
-  "AI Automation",
-  "SEO / Digital Marketing",
-  "Other",
+type FormStatus = "idle" | "loading" | "success" | "error";
+
+const trustCards = [
+  {
+    icon: Sparkles,
+    title: "Free project consultation",
+    text: "Share your idea and get a clear first direction.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Clear scope & timeline",
+    text: "We help define features, phases, and delivery steps.",
+  },
+  {
+    icon: Rocket,
+    title: "Website, app, SaaS & automation",
+    text: "One team for complete digital product execution.",
+  },
+  {
+    icon: Clock3,
+    title: "Response within 24 hours",
+    text: "Quick reply for serious project enquiries.",
+  },
 ];
 
-const budgetRanges = [
-  "Under Rs 25,000",
-  "Rs 25,000 - Rs 50,000",
-  "Rs 50,000 - Rs 1,00,000",
-  "Rs 1,00,000+",
+const steps = [
+  "Share your requirement",
+  "Get a clear plan",
+  "Start building",
 ];
-
-const fieldClass =
-  "w-full rounded-2xl border border-blue-100 bg-white px-5 py-4 text-sm font-semibold text-slate-800 outline-none transition focus:border-blue-300 focus:shadow-lg focus:shadow-blue-100/60";
-
-type FormStatus =
-  | { type: "idle"; message: "" }
-  | { type: "success" | "error"; message: string };
-
-const web3FormsAccessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
 export default function ContactSection() {
-  const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submittedAt, setSubmittedAt] = useState("");
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [message, setMessage] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!web3FormsAccessKey) {
-      setStatus({
-        type: "error",
-        message:
-          "Contact form is not configured yet. Please email hello@growblic.com.",
-      });
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setStatus("error");
+      setMessage("Contact form is not configured yet. Please email hello@growblic.com.");
       return;
     }
 
-    const formElement = event.currentTarget;
-    const form = new FormData(formElement);
-    const timestamp = new Date().toISOString();
-
-    setSubmittedAt(timestamp);
-    setIsSubmitting(true);
-    setStatus({ type: "idle", message: "" });
-
-    form.set("access_key", web3FormsAccessKey);
-    form.set("subject", "New homepage contact request from Growblic Website");
-    form.set("from_name", "Growblic Website");
-    form.set("source", "Growblic Website");
-    form.set("page", "Homepage Contact");
-    form.set("submittedAt", timestamp);
+    formData.append("access_key", accessKey);
+    formData.append("subject", "New Growblic project enquiry");
+    formData.append("from_name", "Growblic Website");
 
     try {
+      setStatus("loading");
+      setMessage("");
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: form,
+        body: formData,
       });
-      const result = (await response.json()) as {
-        success?: boolean;
-        message?: string;
-      };
 
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Unable to submit the form right now.");
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("success");
+        setMessage("Thanks! Your request has been sent. Growblic will get back to you soon.");
+        form.reset();
+      } else {
+        throw new Error(result.message || "Something went wrong.");
       }
-
-      formElement.reset();
-      setSubmittedAt("");
-      setStatus({
-        type: "success",
-        message:
-          "Thanks! Your project request has been sent. Growblic will get back to you soon.",
-      });
-    } catch (error) {
-      setStatus({
-        type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "Something went wrong. Please email hello@growblic.com.",
-      });
-    } finally {
-      setIsSubmitting(false);
+    } catch {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again or email hello@growblic.com.");
     }
   }
 
   return (
-    <section id="contact" className="growblic-contact-section bg-[#fbfdff] px-6 py-24">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-        <div className="growblic-card-reveal">
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">
-            Contact
-          </p>
-          <h2 className="mt-4 text-balance text-4xl font-semibold leading-tight tracking-tight text-[#050505] sm:text-6xl">
-            Start your project with Growblic
-          </h2>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-            Tell us what you want to build. We&apos;ll help you plan the right
-            website, app, SaaS, or automation system.
-          </p>
+    <section
+      id="contact"
+      className="growblic-scroll-reveal relative overflow-hidden border-y border-blue-100/80 bg-[radial-gradient(circle_at_20%_10%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_90%_20%,rgba(6,182,212,0.12),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] px-6 py-24 sm:py-28"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.05)_1px,transparent_1px)] bg-[size:44px_44px]" />
+      <div className="pointer-events-none absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-cyan-200/30 blur-3xl" />
 
-          <div className="growblic-card-reveal mt-8 rounded-[1.75rem] border border-blue-100/80 bg-white p-6 shadow-xl shadow-slate-900/6">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-600">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-10 lg:grid-cols-[0.88fr_1.12fr]">
+        <div className="space-y-8">
+          <div>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.35em] text-blue-600 shadow-sm">
+              <MessageSquare className="h-4 w-4" />
+              Contact
+            </div>
+
+            <h2 className="max-w-2xl text-5xl font-black tracking-[-0.06em] text-slate-950 sm:text-6xl">
+              Start your project with Growblic
+            </h2>
+
+            <p className="mt-6 max-w-xl text-lg font-medium leading-8 text-slate-600">
+              Tell us what you want to build. We&apos;ll help you plan the right
+              website, app, SaaS, or automation system with a clear next step.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {trustCards.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="growblic-card-reveal rounded-[1.6rem] border border-blue-100 bg-white/85 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_26px_80px_rgba(37,99,235,0.14)]"
+                >
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-600">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-sm font-black text-slate-900">{item.title}</h3>
+                  <p className="mt-2 text-sm font-medium leading-6 text-slate-600">
+                    {item.text}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="rounded-[2rem] border border-blue-100 bg-white/90 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-600">
+                <CheckCircle2 className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-600">
+                  Simple process
+                </p>
+                <h3 className="text-xl font-black text-slate-950">From idea to execution</h3>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {steps.map((step, index) => (
+                <div
+                  key={step}
+                  className="flex items-center gap-4 rounded-2xl border border-blue-100 bg-slate-50/70 px-4 py-3"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-950 text-sm font-black text-white">
+                    {index + 1}
+                  </div>
+                  <p className="font-bold text-slate-700">{step}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-blue-100 bg-white/90 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl">
+            <p className="mb-4 text-xs font-black uppercase tracking-[0.35em] text-blue-600">
               Direct contact
             </p>
             <a
               href="mailto:hello@growblic.com"
-              className="mt-3 block text-lg font-semibold text-slate-950 transition hover:text-blue-600"
+              className="group flex items-center gap-4 rounded-2xl border border-blue-100 bg-blue-50/60 p-4 transition hover:border-blue-200 hover:bg-blue-50"
             >
-              hello@growblic.com
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm">
+                <Mail className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-lg font-black text-slate-950 group-hover:text-blue-700">
+                  hello@growblic.com
+                </p>
+                <p className="text-sm font-medium text-slate-600">
+                  For projects, partnerships, and support enquiries.
+                </p>
+              </div>
             </a>
           </div>
         </div>
 
-        <form
-          className="growblic-card-reveal growblic-contact-form rounded-[2rem] border border-blue-100/80 bg-white p-6 shadow-2xl shadow-slate-900/8 sm:p-8"
-          onSubmit={handleSubmit}
-        >
-          <input type="hidden" name="source" value="Growblic Website" />
-          <input type="hidden" name="page" value="Homepage Contact" />
-          <input type="hidden" name="submittedAt" value={submittedAt} />
+        <div className="relative">
+          <div className="pointer-events-none absolute -inset-5 rounded-[3rem] bg-gradient-to-br from-blue-200/40 via-cyan-200/30 to-transparent blur-2xl" />
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label className="grid gap-2 text-sm font-black text-slate-700">
-              Name
-              <input className={fieldClass} name="name" required />
-            </label>
-
-            <label className="grid gap-2 text-sm font-black text-slate-700">
-              Phone
-              <input className={fieldClass} name="phone" type="tel" required />
-            </label>
-
-            <label className="grid gap-2 text-sm font-black text-slate-700 sm:col-span-2">
-              Email
-              <input className={fieldClass} name="email" type="email" required />
-            </label>
-
-            <label className="grid gap-2 text-sm font-black text-slate-700">
-              Project Type
-              <select className={fieldClass} name="projectType" required>
-                <option value="">Select project type</option>
-                {projectTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="grid gap-2 text-sm font-black text-slate-700">
-              Budget Range
-              <select className={fieldClass} name="budgetRange" required>
-                <option value="">Select budget range</option>
-                {budgetRanges.map((range) => (
-                  <option key={range} value={range}>
-                    {range}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="grid gap-2 text-sm font-black text-slate-700 sm:col-span-2">
-              Message
-              <textarea
-                className={`${fieldClass} min-h-36 resize-y`}
-                name="message"
-                required
-              />
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:bg-slate-950 sm:w-auto"
+          <form
+            onSubmit={handleSubmit}
+            className="relative overflow-hidden rounded-[2.3rem] border border-blue-100 bg-white/90 p-6 shadow-[0_34px_110px_rgba(15,23,42,0.14)] backdrop-blur-2xl sm:p-8"
           >
-            {isSubmitting ? "Submitting..." : "Request Free Consultation"}
-          </button>
+            <div className="pointer-events-none absolute right-0 top-0 h-44 w-44 rounded-full bg-blue-100/70 blur-3xl" />
 
-          {status.message && (
-            <p
-              className={`mt-5 rounded-2xl border px-5 py-4 text-sm font-semibold leading-6 ${
-                status.type === "success"
-                  ? "border-emerald-100 bg-emerald-50 text-emerald-800"
-                  : "border-blue-100 bg-blue-50/70 text-blue-700"
-              }`}
-            >
-              {status.message}
+            <div className="relative mb-8 flex flex-col gap-4 border-b border-blue-100 pb-6 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-black uppercase tracking-[0.22em] text-blue-600">
+                  <ShieldCheck className="h-4 w-4" />
+                  Secure enquiry
+                </div>
+                <h3 className="text-3xl font-black tracking-[-0.04em] text-slate-950">
+                  Project request
+                </h3>
+                <p className="mt-2 max-w-xl text-sm font-semibold leading-6 text-slate-600">
+                  Tell us a few details and our team will reply with a clear next step.
+                </p>
+              </div>
+
+              <div className="rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-700">
+                Free consultation
+              </div>
+            </div>
+
+            <div className="relative grid gap-5 sm:grid-cols-2">
+              <label className="space-y-2">
+                <span className="text-sm font-black text-slate-700">Name</span>
+                <input
+                  required
+                  name="name"
+                  className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                />
+              </label>
+
+              <label className="space-y-2">
+                <span className="text-sm font-black text-slate-700">Phone</span>
+                <input
+                  required
+                  name="phone"
+                  type="tel"
+                  className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                />
+              </label>
+
+              <label className="space-y-2 sm:col-span-2">
+                <span className="text-sm font-black text-slate-700">Email</span>
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                />
+              </label>
+
+              <label className="space-y-2">
+                <span className="text-sm font-black text-slate-700">Project Type</span>
+                <select
+                  required
+                  name="projectType"
+                  defaultValue=""
+                  className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                >
+                  <option value="" disabled>
+                    Select project type
+                  </option>
+                  <option>Website Development</option>
+                  <option>Software Development</option>
+                  <option>Mobile App</option>
+                  <option>SaaS Product</option>
+                  <option>AI Automation</option>
+                  <option>Marketing / SEO</option>
+                </select>
+              </label>
+
+              <label className="space-y-2">
+                <span className="text-sm font-black text-slate-700">Budget Range</span>
+                <select
+                  required
+                  name="budgetRange"
+                  defaultValue=""
+                  className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                >
+                  <option value="" disabled>
+                    Select budget range
+                  </option>
+                  <option>Under ₹25,000</option>
+                  <option>₹25,000 - ₹75,000</option>
+                  <option>₹75,000 - ₹2,00,000</option>
+                  <option>₹2,00,000+</option>
+                  <option>Need guidance</option>
+                </select>
+              </label>
+
+              <label className="space-y-2 sm:col-span-2">
+                <span className="text-sm font-black text-slate-700">Message</span>
+                <textarea
+                  required
+                  name="message"
+                  rows={5}
+                  className="w-full resize-y rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                  placeholder="Tell us what you want to build..."
+                />
+              </label>
+            </div>
+
+            {message ? (
+              <div
+                className={`mt-5 rounded-2xl border px-4 py-3 text-sm font-bold ${
+                  status === "success"
+                    ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                    : "border-red-200 bg-red-50 text-red-700"
+                }`}
+              >
+                {message}
+              </div>
+            ) : null}
+
+            <div className="relative mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="group inline-flex h-14 items-center justify-center gap-3 rounded-full bg-slate-950 px-8 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.28)] transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {status === "loading" ? "Sending..." : "Request Free Consultation"}
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </button>
+
+              <div className="flex items-center gap-2 text-sm font-bold text-slate-500">
+                <Phone className="h-4 w-4 text-blue-600" />
+                Planning call • Scope review • Proposal
+              </div>
+            </div>
+
+            <p className="relative mt-5 text-sm font-semibold leading-6 text-slate-500">
+              No spam. Your details are used only to respond to this enquiry.
             </p>
-          )}
-        </form>
+          </form>
+        </div>
       </div>
     </section>
   );
