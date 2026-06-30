@@ -1,18 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
 import {
   ArrowRight,
   BadgeCheck,
   Ban,
-  Brush,
-  CheckCircle2,
   Copy,
   Download,
   FileText,
   Layers3,
   Palette,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 
 const logoUrl =
