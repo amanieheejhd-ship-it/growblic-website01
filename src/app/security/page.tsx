@@ -1,3 +1,20 @@
+import {
+  Activity,
+  ArrowRight,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
+  ClipboardCheck,
+  Eye,
+  FileCheck2,
+  Flag,
+  LockKeyhole,
+  Mail,
+  Network,
+  ServerCog,
+  ShieldCheck,
+  UserCheck,
+} from "lucide-react";
 import BackButton from "../../components/BackButton";
 import { createPageMetadata } from "../seo";
 
@@ -9,16 +26,16 @@ export const metadata = createPageMetadata({
 });
 
 const sidebarLinks = [
-  { label: "Overview", href: "#overview" },
-  { label: "Compliance", href: "#compliance" },
-  { label: "Data Security", href: "#data-security" },
-  { label: "Product Security", href: "#product-security" },
-  { label: "Infrastructure & Network", href: "#infrastructure-network" },
-  { label: "Organizational Security", href: "#organizational-security" },
-  { label: "Operational Security", href: "#operational-security" },
-  { label: "Enterprise Security", href: "#enterprise-security" },
-  { label: "Vulnerability Disclosure", href: "#vulnerability-disclosure" },
-  { label: "Report Abuse", href: "#report-abuse" },
+  { label: "Overview", href: "#overview", icon: Eye },
+  { label: "Compliance", href: "#compliance", icon: FileCheck2 },
+  { label: "Data Security", href: "#data-security", icon: LockKeyhole },
+  { label: "Product Security", href: "#product-security", icon: ShieldCheck },
+  { label: "Infrastructure & Network", href: "#infrastructure-network", icon: Network },
+  { label: "Organizational Security", href: "#organizational-security", icon: UserCheck },
+  { label: "Operational Security", href: "#operational-security", icon: Activity },
+  { label: "Enterprise Security", href: "#enterprise-security", icon: Building2 },
+  { label: "Vulnerability Disclosure", href: "#vulnerability-disclosure", icon: ClipboardCheck },
+  { label: "Report Abuse", href: "#report-abuse", icon: Flag },
 ];
 
 const complianceCards = [
@@ -40,11 +57,21 @@ const complianceCards = [
   },
 ];
 
+const heroStatuses = [
+  "Access control",
+  "TLS ready",
+  "Review workflow",
+  "Responsible reporting",
+];
+
+const overviewHighlights = ["Practical controls", "Project-aware security", "Enterprise reviews"];
+
 const securitySections = [
   {
     id: "overview",
     title: "Overview",
     eyebrow: "Practical security controls",
+    icon: Eye,
     items: [
       "Growblic builds websites, apps, SaaS products, dashboards, and automation systems with practical security, privacy, and reliability in mind.",
       "Security decisions are planned around project scope, hosting model, user roles, data sensitivity, third-party integrations, and client requirements.",
@@ -55,6 +82,7 @@ const securitySections = [
     id: "data-security",
     title: "Data Security",
     eyebrow: "Classification and protection",
+    icon: LockKeyhole,
     items: [
       "Data classification: Confidential, Internal, and Public information should be handled according to sensitivity and project context.",
       "Encryption in transit: HTTPS/TLS should be used for production websites and applications where configured.",
@@ -67,6 +95,7 @@ const securitySections = [
     id: "product-security",
     title: "Product Security",
     eyebrow: "Secure delivery practices",
+    icon: ShieldCheck,
     items: [
       "Secure development: Product flows should be designed with authentication, authorization, validation, and least-privilege access in mind.",
       "Code review: Important changes can be reviewed before delivery, especially for sensitive workflows, admin panels, payments, and integrations.",
@@ -80,6 +109,7 @@ const securitySections = [
     id: "infrastructure-network",
     title: "Infrastructure & Network Security",
     eyebrow: "Deployment readiness",
+    icon: ServerCog,
     items: [
       "Transport security should be enabled for production traffic through HTTPS/TLS where configured.",
       "Public attack surface should be kept minimal by exposing only the required routes, services, APIs, and admin tools.",
@@ -92,6 +122,7 @@ const securitySections = [
     id: "organizational-security",
     title: "Organizational Security",
     eyebrow: "People and process",
+    icon: UserCheck,
     items: [
       "Security awareness is encouraged across planning, design, development, deployment, and support.",
       "Least privilege access should be used for accounts, repositories, hosting providers, and client systems.",
@@ -103,6 +134,7 @@ const securitySections = [
     id: "operational-security",
     title: "Operational Security",
     eyebrow: "Reliable operations",
+    icon: Activity,
     items: [
       "Operational workflows should include clear ownership, deployment discipline, backup planning, and change visibility where appropriate.",
       "Production changes should be planned carefully, especially for business-critical websites, apps, dashboards, and automation systems.",
@@ -114,6 +146,7 @@ const securitySections = [
     id: "enterprise-security",
     title: "Enterprise Security",
     eyebrow: "Available upon request",
+    icon: Building2,
     items: [
       "Growblic can support enterprise readiness conversations for clients that need security reviews before starting work.",
       "Formal compliance documentation, security questionnaires, data processing terms, vendor reviews, or project-specific controls can be requested.",
@@ -124,6 +157,7 @@ const securitySections = [
     id: "vulnerability-disclosure",
     title: "Vulnerability Disclosure",
     eyebrow: "Responsible reporting",
+    icon: ClipboardCheck,
     items: [
       "Please report security concerns responsibly and avoid malicious testing, destructive scanning, social engineering, data extraction, or unauthorized access attempts.",
       "Useful reports include affected URLs, clear steps to reproduce, screenshots or logs when safe to share, expected impact, and contact details.",
@@ -132,93 +166,176 @@ const securitySections = [
   },
 ];
 
+const cardClass =
+  "security-reveal group scroll-mt-24 rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
+
 export default function SecurityPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
-      <section className="relative px-6 py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_0%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_84%_80%,rgba(6,182,212,0.10),transparent_30%)]" />
+      <section className="relative px-6 py-16 sm:py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_88%_22%,rgba(6,182,212,0.11),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.86),rgba(239,246,255,0.58),rgba(255,255,255,0.96))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45 [mask-image:radial-gradient(circle_at_50%_12%,black,transparent_72%)]" />
 
         <div className="relative mx-auto max-w-7xl">
           <BackButton />
 
-          <div className="mt-10 max-w-5xl">
-            <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">
-              Version 1.0 - Effective 2026
-            </p>
-            <h1 className="mt-5 text-6xl font-black leading-[0.94] tracking-tight text-slate-950 md:text-8xl">
-              Security
-            </h1>
-            <p className="mt-7 max-w-3xl text-xl leading-9 text-slate-600">
-              Growblic builds websites, apps, SaaS products, and automation systems
-              with practical security, privacy, and reliability in mind.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a
-                href="mailto:abuse@growblic.com?subject=Growblic Abuse Report"
-                className="rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-              >
-                Report Abuse
-              </a>
-              <a
-                href="mailto:hello@growblic.com?subject=Growblic Security Inquiry"
-                className="rounded-full border border-blue-100 bg-white px-7 py-4 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
-              >
-                Contact Growblic
-              </a>
+          <div className="mt-10 grid gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
+            <div className="security-reveal">
+              <p className="inline-flex rounded-full border border-blue-100 bg-white/86 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-blue-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
+                Version 1.0 - Effective 2026
+              </p>
+              <h1 className="mt-6 text-5xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+                Security
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg font-semibold leading-9 text-slate-600">
+                Growblic builds websites, apps, SaaS products, and automation systems
+                with practical security, privacy, and reliability in mind.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="mailto:abuse@growblic.com?subject=Growblic Abuse Report"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                >
+                  Report Abuse
+                </a>
+                <a
+                  href="mailto:hello@growblic.com?subject=Growblic Security Inquiry"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-blue-100 bg-white/90 px-7 py-3.5 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/60 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                >
+                  Contact Growblic
+                </a>
+              </div>
+            </div>
+
+            <div className="security-reveal rounded-[2rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.14)] ring-1 ring-white/70 backdrop-blur-2xl [animation-delay:120ms]">
+              <div className="relative overflow-hidden rounded-[1.65rem] border border-blue-100 bg-[#fbfdff] p-6">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_90%_20%,rgba(6,182,212,0.13),transparent_30%)]" />
+                <div className="relative">
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">
+                        Security command center
+                      </p>
+                      <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950">
+                        Practical controls, clear reporting, careful delivery.
+                      </h2>
+                    </div>
+                    <span className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-white text-blue-700 shadow-lg shadow-blue-100/60">
+                      <ShieldCheck className="h-7 w-7" aria-hidden="true" />
+                    </span>
+                  </div>
+
+                  <div className="mt-7 grid gap-3">
+                    {heroStatuses.map((status) => (
+                      <div
+                        key={status}
+                        className="flex items-center justify-between rounded-2xl border border-blue-100 bg-white/86 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40"
+                      >
+                        <span className="flex items-center gap-3">
+                          <CheckCircle2 className="h-4 w-4 text-blue-600" aria-hidden="true" />
+                          {status}
+                        </span>
+                        <span className="rounded-full bg-blue-50 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-blue-700">
+                          Ready
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
-            <aside className="lg:sticky lg:top-28">
-              <div className="rounded-[2rem] border border-blue-100/80 bg-white/90 p-4 shadow-xl shadow-blue-100/55 backdrop-blur-xl">
-                <p className="px-3 text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+            <aside className="security-reveal lg:sticky lg:top-28">
+              <div className="rounded-[2rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
+                <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections
                 </p>
                 <nav className="mt-4 flex gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0">
-                  {sidebarLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="whitespace-nowrap rounded-full border border-blue-100 bg-blue-50/60 px-4 py-2 text-xs font-black text-slate-700 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:bg-white lg:px-4 lg:py-3"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
+                  {sidebarLinks.map((link) => {
+                    const Icon = link.icon;
+
+                    return (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="group flex shrink-0 items-center justify-between gap-3 whitespace-nowrap rounded-full border border-blue-100 bg-white/84 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/35 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3"
+                      >
+                        <span className="flex items-center gap-2">
+                          <Icon className="h-4 w-4 text-blue-600 transition group-hover:text-white" aria-hidden="true" />
+                          {link.label}
+                        </span>
+                        <ChevronRight className="hidden h-4 w-4 opacity-55 transition group-hover:translate-x-0.5 lg:block" aria-hidden="true" />
+                      </a>
+                    );
+                  })}
                 </nav>
               </div>
             </aside>
 
             <div className="grid gap-5">
-              {securitySections.slice(0, 1).map((section) => (
-                <article
-                  id={section.id}
-                  key={section.id}
-                  className="scroll-mt-24 rounded-[2rem] border border-blue-100/70 bg-white p-7 shadow-xl shadow-blue-100/50 sm:p-8"
-                >
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
-                    {section.eyebrow}
-                  </p>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                    {section.title}
-                  </h2>
-                  <div className="mt-6 grid gap-4 text-base font-semibold leading-8 text-slate-600">
-                    {section.items.map((item) => (
-                      <p key={item}>{item}</p>
-                    ))}
-                  </div>
-                </article>
-              ))}
+              {securitySections.slice(0, 1).map((section, index) => {
+                const Icon = section.icon;
+
+                return (
+                  <article
+                    id={section.id}
+                    key={section.id}
+                    className={cardClass}
+                    style={{ animationDelay: `${index * 80}ms` }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm shadow-blue-100/60">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+                          {section.eyebrow}
+                        </p>
+                        <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+                          {section.title}
+                        </h2>
+                      </div>
+                    </div>
+                    <div className="mt-6 grid gap-4 text-base font-semibold leading-8 text-slate-600">
+                      {section.items.map((item) => (
+                        <p key={item}>{item}</p>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {overviewHighlights.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-full border border-blue-100 bg-blue-50/70 px-3 py-2 text-xs font-black text-blue-700"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-7 h-1 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-100 opacity-75" />
+                  </article>
+                );
+              })}
 
               <article
                 id="compliance"
-                className="scroll-mt-24 rounded-[2rem] border border-blue-100/70 bg-white p-7 shadow-xl shadow-blue-100/50 sm:p-8"
+                className={cardClass}
+                style={{ animationDelay: "80ms" }}
               >
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
-                  Security-aligned practices
-                </p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                  Compliance
-                </h2>
+                <div className="flex items-start gap-4">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm shadow-blue-100/60">
+                    <FileCheck2 className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+                      Security-aligned practices
+                    </p>
+                    <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+                      Compliance
+                    </h2>
+                  </div>
+                </div>
                 <p className="mt-4 text-base font-semibold leading-8 text-slate-600">
                   Growblic does not claim certification unless formal documentation is
                   explicitly provided. The following areas describe readiness and practical
@@ -228,50 +345,77 @@ export default function SecurityPage() {
                   {complianceCards.map((card) => (
                     <div
                       key={card.title}
-                      className="rounded-[1.5rem] border border-blue-100 bg-blue-50/45 p-5"
+                      className="rounded-[1.5rem] border border-blue-100 bg-blue-50/55 p-5 shadow-sm shadow-blue-100/40"
                     >
-                      <h3 className="text-lg font-black text-slate-950">{card.title}</h3>
+                      <div className="flex items-center justify-between gap-3">
+                        <h3 className="text-lg font-black text-slate-950">{card.title}</h3>
+                        <span className="shrink-0 rounded-full bg-white px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.14em] text-blue-700 ring-1 ring-blue-100">
+                          Readiness
+                        </span>
+                      </div>
                       <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
                         {card.text}
                       </p>
                     </div>
                   ))}
                 </div>
+                <div className="mt-7 h-1 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-100 opacity-75" />
               </article>
 
-              {securitySections.slice(1).map((section) => (
-                <article
-                  id={section.id}
-                  key={section.id}
-                  className="scroll-mt-24 rounded-[2rem] border border-blue-100/70 bg-white p-7 shadow-xl shadow-blue-100/50 sm:p-8"
-                >
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
-                    {section.eyebrow}
-                  </p>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
-                    {section.title}
-                  </h2>
-                  <ul className="mt-6 grid gap-3 text-base font-semibold leading-8 text-slate-600">
-                    {section.items.map((item) => (
-                      <li key={item} className="rounded-2xl border border-blue-100 bg-blue-50/35 px-4 py-3">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
+              {securitySections.slice(1).map((section, index) => {
+                const Icon = section.icon;
+
+                return (
+                  <article
+                    id={section.id}
+                    key={section.id}
+                    className={cardClass}
+                    style={{ animationDelay: `${(index + 2) * 80}ms` }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm shadow-blue-100/60">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+                          {section.eyebrow}
+                        </p>
+                        <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+                          {section.title}
+                        </h2>
+                      </div>
+                    </div>
+                    <ul className="mt-6 grid gap-3 text-base font-semibold leading-8 text-slate-600">
+                      {section.items.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-3 rounded-2xl border border-blue-100 bg-blue-50/40 px-4 py-3 shadow-sm shadow-blue-100/30"
+                        >
+                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-blue-600" aria-hidden="true" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-7 h-1 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-100 opacity-75" />
+                  </article>
+                );
+              })}
 
               <article
                 id="report-abuse"
-                className="scroll-mt-24 overflow-hidden rounded-[2rem] border border-blue-100/70 bg-white shadow-xl shadow-blue-100/50"
+                className="security-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/86 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl"
+                style={{ animationDelay: "800ms" }}
               >
                 <div className="relative p-7 sm:p-8">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.12),transparent_28%),linear-gradient(135deg,rgba(239,246,255,0.82),rgba(255,255,255,0.95))]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.13),transparent_28%),radial-gradient(circle_at_92%_32%,rgba(6,182,212,0.11),transparent_26%),linear-gradient(135deg,rgba(239,246,255,0.82),rgba(255,255,255,0.95))]" />
                   <div className="relative">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl border border-blue-100 bg-white text-blue-700 shadow-sm shadow-blue-100/60">
+                      <Mail className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <p className="mt-5 text-xs font-black uppercase tracking-[0.2em] text-blue-700">
                       Report Abuse
                     </p>
-                    <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                    <h2 className="mt-3 max-w-4xl text-3xl font-black tracking-tight text-slate-950">
                       Send abuse or security concerns to abuse@growblic.com.
                     </h2>
                     <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-slate-600">
@@ -281,9 +425,10 @@ export default function SecurityPage() {
                     </p>
                     <a
                       href="mailto:abuse@growblic.com?subject=Growblic Abuse Report"
-                      className="mt-7 inline-flex rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                      className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
                     >
                       Email abuse@growblic.com
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </a>
                   </div>
                 </div>

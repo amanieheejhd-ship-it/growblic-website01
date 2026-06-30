@@ -852,7 +852,8 @@ button {
   }
 }
 
-.scroll-reveal-up {
+.scroll-reveal-up,
+.security-reveal {
   opacity: 0;
   transform: translateY(46px) scale(0.985);
   animation: growblicRevealUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -862,7 +863,8 @@ button {
 }
 
 @supports not (animation-timeline: view()) {
-  .scroll-reveal-up {
+  .scroll-reveal-up,
+  .security-reveal {
     opacity: 1;
     transform: none;
     filter: none;
@@ -871,7 +873,8 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-reveal-up {
+  .scroll-reveal-up,
+  .security-reveal {
     opacity: 1;
     transform: none;
     filter: none;
