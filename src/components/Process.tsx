@@ -1,131 +1,196 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  CheckCircle2,
+  ClipboardList,
+  Code2,
+  Layers3,
+  Rocket,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 
 const steps = [
   {
     number: "01",
     title: "Understand",
-    text: "We clarify goals, users, workflows, and the product direction before anything is built.",
-    href: "/process/understand",
+    subtitle: "Requirement clarity",
+    text: "We first understand your business goal, audience, workflow, features, references, budget, and launch expectations.",
+    points: ["Business goal", "User journey", "Feature scope"],
+    icon: ClipboardList,
   },
   {
     number: "02",
     title: "Design",
-    text: "We shape clean screens, user flows, dashboards, and interactions that feel simple.",
-    href: "/process/design",
+    subtitle: "Premium product direction",
+    text: "We create clean layouts, visual direction, product flow, content structure, and a user experience that feels polished.",
+    points: ["UI direction", "Page flow", "Visual system"],
+    icon: Layers3,
   },
   {
     number: "03",
     title: "Build",
-    text: "We develop reliable websites, apps, SaaS modules, APIs, and automation systems.",
-    href: "/process/build",
+    subtitle: "Development execution",
+    text: "We develop the website, mobile app, SaaS product, dashboard, automation workflow, or business software with scalable structure.",
+    points: ["Frontend", "Backend", "Integrations"],
+    icon: Code2,
   },
   {
     number: "04",
     title: "Launch",
-    text: "We test, polish, deploy, and prepare the product for real customers and teams.",
-    href: "/process/launch",
+    subtitle: "Ready for real users",
+    text: "We prepare the product for launch with responsive checks, performance review, forms, tracking, deployment, and final testing.",
+    points: ["Testing", "Deployment", "Performance"],
+    icon: Rocket,
   },
   {
     number: "05",
     title: "Improve",
-    text: "We keep improving performance, features, support, analytics, and growth opportunities.",
-    href: "/process/improve",
+    subtitle: "Long-term growth",
+    text: "After launch, we support improvements, fixes, new features, SEO updates, analytics, conversion changes, and product growth.",
+    points: ["Updates", "Optimization", "Support"],
+    icon: Sparkles,
   },
 ];
 
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 44, scale: 0.97, filter: "blur(10px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
 export default function Process() {
   return (
-    <section id="process" className="how-build-section relative overflow-hidden bg-[#fbfdff] px-6 py-16 sm:py-20">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(239,246,255,0.72),rgba(255,255,255,0.96)_44%,rgba(239,246,255,0.58))]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
+    <section className="relative overflow-hidden bg-white px-6 py-24 sm:px-8 lg:px-10">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_10%,rgba(37,99,235,0.14),transparent_30%),radial-gradient(circle_at_92%_58%,rgba(6,182,212,0.13),transparent_34%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.72),#ffffff)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:42px_42px]" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="how-build-header mb-9 grid gap-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">
-              How we build
-            </p>
-
-            <h2 className="mt-4 max-w-4xl text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl">
-              A smooth path from idea to product.
-            </h2>
-          </div>
-
-          <p className="max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg lg:justify-self-end">
-            We keep every step clean, focused, and production-ready, from first
-            planning to launch and support.
+        <motion.div
+          initial={{ opacity: 0, y: 46, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
+          className="max-w-5xl"
+        >
+          <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)]">
+            Process
           </p>
-        </div>
 
-        <div className="rounded-[2rem] border border-blue-100/80 bg-white/70 p-3 shadow-2xl shadow-blue-100/45 backdrop-blur">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {steps.map((step, index) => {
-              const isLastCard = index === steps.length - 1;
+          <h2 className="mt-6 max-w-5xl text-[clamp(3.2rem,7vw,6.8rem)] font-extrabold leading-[0.96] tracking-[-0.075em] text-slate-950">
+            From idea to launched product.
+          </h2>
 
-              return (
-                <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.36, delay: index * 0.04 }}
-                  className={isLastCard ? "h-full sm:col-span-2 lg:col-span-1" : "h-full"}
-                >
-                  <Link
-                    href={step.href}
-                    aria-label={`Open ${step.title} process guide`}
-                    className="group relative flex h-full min-h-[230px] flex-col overflow-hidden rounded-[1.45rem] border border-blue-100/80 bg-white p-5 shadow-lg shadow-blue-100/35 transition-all duration-300 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/70 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 sm:p-6"
-                  >
-                    <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(239,246,255,0.82),rgba(255,255,255,0)_62%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
-
-                    <div className="relative flex items-center justify-between gap-4">
-                      <span className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-3.5 py-2 text-xs font-black tracking-[0.16em] text-blue-700 shadow-sm shadow-blue-100/70">
-                        {step.number}
-                      </span>
-                      <span className="grid h-9 w-9 place-items-center rounded-full border border-blue-100 bg-white text-blue-600 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-blue-600 group-hover:text-white">
-                        <ArrowRight size={15} strokeWidth={2.5} />
-                      </span>
-                    </div>
-
-                    <div className="relative mt-8 flex flex-1 flex-col">
-                      <h3 className="text-xl font-black tracking-tight text-slate-950">
-                        {step.title}
-                      </h3>
-                      <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
-                        {step.text}
-                      </p>
-                      <div className="mt-auto pt-6">
-                        <div className="h-1 w-10 rounded-full bg-blue-100 transition-all duration-300 group-hover:w-16 group-hover:bg-blue-600" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
+          <p className="mt-7 max-w-3xl text-lg font-semibold leading-9 text-slate-600">
+            Growblic follows a clear step-by-step process so your website, mobile app, SaaS product, dashboard, or automation system is planned, designed, built, launched, and improved properly.
+          </p>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={container}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.36, delay: 0.08 }}
-          className="mt-5 rounded-[1.35rem] border border-blue-100/80 bg-white/80 px-5 py-4 shadow-lg shadow-blue-100/35 backdrop-blur sm:mt-6"
+          className="relative mt-14 grid gap-6 lg:grid-cols-5"
         >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <h3 className="text-lg font-black tracking-tight text-slate-950">
-              Have an idea?
-            </h3>
+          <div className="pointer-events-none absolute left-0 right-0 top-[4.25rem] hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent lg:block" />
+
+          {steps.map((step) => {
+            const Icon = step.icon;
+
+            return (
+              <motion.article
+                key={step.number}
+                variants={item}
+                className="group relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/86 p-6 shadow-[0_26px_85px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_38px_120px_rgba(37,99,235,0.16)]"
+              >
+                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-blue-100/70 blur-2xl transition group-hover:bg-cyan-100" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-blue-50 via-white to-cyan-50" />
+
+                <div className="relative flex items-center justify-between">
+                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black tracking-[0.24em] text-blue-700 shadow-sm ring-1 ring-blue-100">
+                    {step.number}
+                  </span>
+
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-blue-700 shadow-[0_14px_40px_rgba(37,99,235,0.14)] ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                </div>
+
+                <p className="relative mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">
+                  {step.subtitle}
+                </p>
+
+                <h3 className="relative mt-3 text-2xl font-black tracking-[-0.05em] text-slate-950">
+                  {step.title}
+                </h3>
+
+                <p className="relative mt-4 text-sm font-semibold leading-7 text-slate-600">
+                  {step.text}
+                </p>
+
+                <div className="relative mt-6 grid gap-2">
+                  {step.points.map((point) => (
+                    <div
+                      key={point}
+                      className="flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50/60 px-3 py-2 text-xs font-black text-slate-700"
+                    >
+                      <CheckCircle2 className="h-4 w-4 text-blue-600" />
+                      {point}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="absolute bottom-0 left-6 right-6 h-1 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-200 opacity-0 transition group-hover:opacity-100" />
+              </motion.article>
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 44, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mt-10 overflow-hidden rounded-[2.2rem] border border-blue-100 bg-white/88 p-7 shadow-[0_30px_100px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-8"
+        >
+          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-blue-700">
+                Growblic Process
+              </p>
+              <h3 className="mt-3 max-w-3xl text-3xl font-black tracking-[-0.055em] text-slate-950 sm:text-4xl">
+                A smooth path from first idea to real launch.
+              </h3>
+              <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">
+                Every stage is structured to keep design clean, development focused, timelines realistic, and final delivery ready for real business use.
+              </p>
+            </div>
 
             <Link
-              href="/start-project"
-              className="inline-flex min-h-11 items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-black text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
+              href="/process"
+              className="inline-flex w-fit items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
-              Start Project →
+              View full process <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </motion.div>
