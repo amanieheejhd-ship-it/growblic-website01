@@ -58,10 +58,26 @@ const complianceCards = [
 ];
 
 const heroStatuses = [
-  "Access control",
-  "TLS ready",
-  "Review workflow",
-  "Responsible reporting",
+  {
+    label: "Access control",
+    href: "#product-security",
+    detail: "Product controls",
+  },
+  {
+    label: "TLS ready",
+    href: "#infrastructure-network",
+    detail: "Infrastructure",
+  },
+  {
+    label: "Review workflow",
+    href: "#operational-security",
+    detail: "Operations",
+  },
+  {
+    label: "Responsible reporting",
+    href: "#vulnerability-disclosure",
+    detail: "Disclosure",
+  },
 ];
 
 const overviewHighlights = ["Practical controls", "Project-aware security", "Enterprise reviews"];
@@ -227,18 +243,27 @@ export default function SecurityPage() {
 
                   <div className="mt-7 grid gap-3">
                     {heroStatuses.map((status) => (
-                      <div
-                        key={status}
-                        className="flex items-center justify-between rounded-2xl border border-blue-100 bg-white/86 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40"
+                      <a
+                        key={status.label}
+                        href={status.href}
+                        className="group flex items-center justify-between gap-4 rounded-2xl border border-blue-100 bg-white/86 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 hover:shadow-lg hover:shadow-blue-100/70 focus:outline-none focus:ring-4 focus:ring-blue-100"
                       >
-                        <span className="flex items-center gap-3">
+                        <span className="flex min-w-0 items-center gap-3">
                           <CheckCircle2 className="h-4 w-4 text-blue-600" aria-hidden="true" />
-                          {status}
+                          <span className="min-w-0">
+                            <span className="block truncate">{status.label}</span>
+                            <span className="mt-0.5 block text-[0.68rem] font-black uppercase tracking-[0.14em] text-slate-400 transition group-hover:text-blue-500">
+                              {status.detail}
+                            </span>
+                          </span>
                         </span>
-                        <span className="rounded-full bg-blue-50 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-blue-700">
-                          Ready
+                        <span className="flex shrink-0 items-center gap-2">
+                          <span className="rounded-full bg-blue-50 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-blue-700 ring-1 ring-blue-100">
+                            Ready
+                          </span>
+                          <ArrowRight className="h-4 w-4 text-blue-500 transition group-hover:translate-x-0.5" aria-hidden="true" />
                         </span>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -396,6 +421,28 @@ export default function SecurityPage() {
                         </li>
                       ))}
                     </ul>
+                    {section.id === "vulnerability-disclosure" ? (
+                      <div className="mt-6 rounded-[1.5rem] border border-blue-100 bg-white/88 p-5 shadow-sm shadow-blue-100/50">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                          <div>
+                            <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
+                              Responsible disclosure inbox
+                            </p>
+                            <p className="mt-2 text-sm font-bold leading-7 text-slate-600">
+                              Share affected URLs, steps to reproduce, impact, and safe
+                              screenshots or logs when available.
+                            </p>
+                          </div>
+                          <a
+                            href="mailto:abuse@growblic.com?subject=Growblic Security Report"
+                            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                          >
+                            Email abuse@growblic.com
+                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                          </a>
+                        </div>
+                      </div>
+                    ) : null}
                     <div className="mt-7 h-1 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-100 opacity-75" />
                   </article>
                 );
@@ -427,7 +474,7 @@ export default function SecurityPage() {
                       href="mailto:abuse@growblic.com?subject=Growblic Abuse Report"
                       className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
                     >
-                      Email abuse@growblic.com
+                      Report abuse
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </a>
                   </div>
