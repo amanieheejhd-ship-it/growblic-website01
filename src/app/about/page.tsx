@@ -116,7 +116,7 @@ export default function AboutPage() {
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:34px_34px]" />
 
                 <div className="relative grid h-16 w-16 place-items-center rounded-2xl bg-black shadow-xl ring-1 ring-white/12">
-                  <img src="/growblic-website01/logo.png" alt="Growblic" className="h-11 w-11 rounded-xl object-contain" />
+                  <img src="https://play-lh.googleusercontent.com/g0grr8jGzVcS1_uUzh05Ht2a7w7PcavodUBDgK7XOel8DwYKNSVtNZaF6HmqUFPK37xlr4WafEddfvWeyeDSKA=w240-h480-rw" alt="Growblic" className="h-11 w-11 rounded-xl object-contain" />
                 </div>
 
                 <p className="relative mt-10 text-xs font-black uppercase tracking-[0.34em] text-cyan-200">
