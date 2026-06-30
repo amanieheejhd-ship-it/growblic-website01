@@ -267,78 +267,114 @@ export default function MeetupPage() {
           </div>
         </section>
 
-        <section id="calendar" className="mt-20 scroll-mt-24">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
-            Calendar
-          </p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
-            Upcoming meetups.
-          </h2>
+        <section
+          id="calendar"
+          className="relative mt-20 scroll-mt-24 overflow-hidden rounded-[2.6rem] border border-blue-100 bg-white/86 p-6 shadow-[0_34px_110px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-8 lg:p-10"
+        >
+          <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-200/35 blur-3xl" />
+          <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-200/35 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:34px_34px]" />
 
-          <div className="mt-8 space-y-5">
-            {upcomingMeetups.map((event) => (
-              <article
-                key={event.title}
-                className="flex flex-col gap-5 rounded-[1.8rem] border border-blue-100 bg-white/86 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.09)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white lg:flex-row lg:items-center lg:justify-between"
-              >
-                <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                  <div className="rounded-2xl bg-blue-50 px-6 py-5">
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-700">
-                      Coming soon
-                    </p>
-                    <p className="mt-2 flex items-center gap-2 text-sm font-black text-slate-600">
-                      <MapPin className="h-4 w-4" /> {event.type}
-                    </p>
-                  </div>
+          <div className="relative z-10">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
+                  Calendar
+                </p>
+                <h2 className="mt-4 text-[clamp(2.6rem,4.8vw,5rem)] font-extrabold leading-none tracking-[-0.07em] text-slate-950">
+                  Upcoming meetups.
+                </h2>
+              </div>
 
-                  <div>
-                    <h3 className="text-2xl font-black tracking-[-0.04em] text-slate-950">
-                      {event.title}
-                    </h3>
-                    <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-slate-600">
-                      {event.text}
-                    </p>
-                  </div>
-                </div>
+              <div className="w-fit rounded-full border border-blue-100 bg-white/90 px-5 py-3 text-sm font-black text-slate-700 shadow-[0_14px_35px_rgba(37,99,235,0.08)]">
+                3 upcoming sessions
+              </div>
+            </div>
 
-                <a
-                  href="#become-host"
-                  className="inline-flex shrink-0 items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+            <div className="mt-9 grid gap-5">
+              {upcomingMeetups.map((event, index) => (
+                <article
+                  key={event.title}
+                  className="group relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/92 p-5 shadow-[0_22px_75px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_34px_105px_rgba(37,99,235,0.16)]"
                 >
-                  Register interest
-                </a>
-              </article>
-            ))}
-          </div>
-        </section>
+                  <div className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-600 via-cyan-400 to-blue-200 opacity-0 transition group-hover:opacity-100" />
 
-        <section className="mt-20 grid gap-5 lg:grid-cols-3">
-          {[
-            {
-              title: "What you can host",
-              text: "Talks, panels, workshops, product demos, founder circles, automation sessions, and digital growth clinics.",
-            },
-            {
-              title: "Who should attend",
-              text: "Founders, creators, developers, marketers, students, agencies, business owners, and product builders.",
-            },
-            {
-              title: "Community guidelines",
-              text: "Keep sessions respectful, practical, inclusive, and useful. No spam, abuse, fraud, or disruptive promotion.",
-            },
-          ].map((item) => (
-            <article
-              key={item.title}
-              className="rounded-[1.8rem] border border-blue-100 bg-white/84 p-7 shadow-[0_22px_70px_rgba(37,99,235,0.09)] backdrop-blur-xl"
-            >
-              <h3 className="text-2xl font-black tracking-[-0.04em] text-slate-950">
-                {item.title}
-              </h3>
-              <p className="mt-5 text-sm font-semibold leading-7 text-slate-600">
-                {item.text}
-              </p>
-            </article>
-          ))}
+                  <div className="grid gap-5 lg:grid-cols-[0.25fr_1fr_auto] lg:items-center">
+                    <div className="rounded-[1.4rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-5 shadow-sm">
+                      <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-700">
+                        Coming soon
+                      </p>
+                      <p className="mt-3 flex items-center gap-2 text-sm font-black text-slate-600">
+                        <MapPin className="h-4 w-4 text-blue-600" />
+                        {event.type}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-3">
+                        <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-xs font-black tracking-[0.18em] text-blue-700 ring-1 ring-blue-100">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <h3 className="text-2xl font-black tracking-[-0.045em] text-slate-950">
+                          {event.title}
+                        </h3>
+                      </div>
+
+                      <p className="mt-4 max-w-4xl text-sm font-semibold leading-7 text-slate-600">
+                        {event.text}
+                      </p>
+                    </div>
+
+                    <a
+                      href="#become-host"
+                      className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
+                    >
+                      Register interest
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-3">
+              {[
+                {
+                  title: "What you can host",
+                  text: "Talks, panels, workshops, product demos, founder circles, automation sessions, and digital growth clinics.",
+                },
+                {
+                  title: "Who should attend",
+                  text: "Founders, creators, developers, marketers, students, agencies, business owners, and product builders.",
+                },
+                {
+                  title: "Community guidelines",
+                  text: "Keep sessions respectful, practical, inclusive, and useful. No spam, abuse, fraud, or disruptive promotion.",
+                },
+              ].map((item, index) => (
+                <article
+                  key={item.title}
+                  className="group rounded-[2rem] border border-blue-100 bg-white/92 p-7 shadow-[0_22px_75px_rgba(37,99,235,0.09)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_30px_95px_rgba(37,99,235,0.14)]"
+                >
+                  <div className="mb-8 flex items-center justify-between">
+                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black tracking-[0.24em] text-blue-700 ring-1 ring-blue-100">
+                      0{index + 1}
+                    </span>
+                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white text-blue-700 shadow-[0_12px_35px_rgba(37,99,235,0.12)] ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
+                      <CalendarDays className="h-5 w-5" />
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl font-black tracking-[-0.045em] text-slate-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-5 text-sm font-semibold leading-7 text-slate-600">
+                    {item.text}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section
