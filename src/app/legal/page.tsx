@@ -175,7 +175,7 @@ const policySections = [
 ];
 
 const cardClass =
-  "legal-reveal group scroll-mt-24 rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
+  "group scroll-mt-24 rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
 
 export default function LegalPage() {
   return (
@@ -188,7 +188,7 @@ export default function LegalPage() {
           <BackButton />
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
-            <div className="legal-reveal">
+            <div className="">
               <p className="inline-flex rounded-full border border-blue-100 bg-white/86 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-blue-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
                 Growblic Legal Hub
               </p>
@@ -201,7 +201,7 @@ export default function LegalPage() {
               </p>
             </div>
 
-            <div className="legal-reveal rounded-[2rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.14)] ring-1 ring-white/70 backdrop-blur-2xl [animation-delay:120ms]">
+            <div className="rounded-[2rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.14)] ring-1 ring-white/70 backdrop-blur-2xl [animation-delay:120ms]">
               <div className="relative overflow-hidden rounded-[1.65rem] border border-blue-100 bg-[#fbfdff] p-6">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_90%_20%,rgba(6,182,212,0.13),transparent_30%)]" />
                 <div className="relative">
@@ -233,7 +233,7 @@ export default function LegalPage() {
                             <Icon className="h-4 w-4 text-blue-600" aria-hidden="true" />
                             <span className="min-w-0">
                               <span className="block truncate">{row.label}</span>
-                              <span className="mt-0.5 block text-[0.68rem] font-black uppercase tracking-[0.14em] text-slate-400 transition group-hover:text-blue-500">
+                              <span className="mt-0.5 block text-[0.68rem] font-black uppercase tracking-[0.14em] text-slate-600 transition group-hover:text-blue-500">
                                 {row.detail}
                               </span>
                             </span>
@@ -254,7 +254,7 @@ export default function LegalPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
-            <aside className="legal-reveal lg:sticky lg:top-28">
+            <aside className="lg:sticky lg:top-28">
               <div className="rounded-[2rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Policy sections
@@ -282,7 +282,7 @@ export default function LegalPage() {
             </aside>
 
             <div className="grid gap-5">
-              <article className="legal-reveal rounded-[2rem] border border-blue-100/80 bg-blue-50/62 p-6 shadow-[0_20px_70px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl sm:p-7">
+              <article className="rounded-[2rem] border border-blue-100/80 bg-blue-50/62 p-6 shadow-[0_20px_70px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl sm:p-7">
                 <div className="flex items-start gap-4">
                   <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-white text-blue-700 shadow-sm shadow-blue-100/60">
                     <Gavel className="h-5 w-5" aria-hidden="true" />
@@ -352,7 +352,7 @@ export default function LegalPage() {
 
               <article
                 id="report-abuse"
-                className="legal-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/86 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl"
+                className="scroll-mt-24 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/86 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl"
                 style={{ animationDelay: "780ms" }}
               >
                 <div className="relative p-7 sm:p-8">

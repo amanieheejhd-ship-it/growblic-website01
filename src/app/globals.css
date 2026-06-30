@@ -908,3 +908,15 @@ button {
     animation: none;
   }
 }
+
+/* Legal page visibility safety: no stuck fade/blur on bottom sections */
+.legal-reveal,
+.legal-reveal * {
+  filter: none !important;
+}
+
+.legal-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
