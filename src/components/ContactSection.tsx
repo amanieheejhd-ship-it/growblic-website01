@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type FormEvent } from "react";
 
 const projectTypes = [
@@ -27,51 +26,6 @@ type FormStatus =
   | { type: "success" | "error"; message: string };
 
 const web3FormsAccessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-const previewCards = [
-  {
-    title: "CRM Workspace",
-    detail: "Pipeline dashboard",
-    src: "/images/products/crm-1.jpg",
-    className:
-      "left-4 top-12 hidden w-44 animate-[growblicContactDriftA_16s_ease-in-out_infinite] sm:left-8 sm:block lg:left-10 lg:top-16",
-  },
-  {
-    title: "Analytics Suite",
-    detail: "Business insights",
-    src: "/images/products/analytics-1.jpg",
-    className:
-      "right-4 top-16 w-48 animate-[growblicContactDriftB_18s_ease-in-out_infinite] sm:right-10 lg:right-16 lg:top-12",
-  },
-  {
-    title: "Mobile Product",
-    detail: "App experience",
-    src: "/images/business/mobile-1.jpg",
-    className:
-      "bottom-12 left-6 w-40 animate-[growblicContactDriftC_17s_ease-in-out_infinite] sm:left-16 lg:bottom-20 lg:left-20",
-  },
-  {
-    title: "SaaS Platform",
-    detail: "Product modules",
-    src: "/images/business/saas-1.jpg",
-    className:
-      "bottom-16 right-6 hidden w-44 animate-[growblicContactDriftA_19s_ease-in-out_infinite] sm:right-16 sm:block lg:bottom-24 lg:right-20",
-  },
-  {
-    title: "Automation Flow",
-    detail: "AI workflow",
-    src: "/images/business/ai-1.jpg",
-    className:
-      "left-[34%] top-6 hidden w-36 animate-[growblicContactDriftC_20s_ease-in-out_infinite] lg:block",
-  },
-  {
-    title: "Web System",
-    detail: "Conversion pages",
-    src: "/images/business/web-1.jpg",
-    className:
-      "bottom-7 left-[42%] hidden w-40 animate-[growblicContactDriftB_21s_ease-in-out_infinite] xl:block",
-  },
-];
 
 export default function ContactSection() {
   const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
@@ -140,46 +94,8 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="growblic-contact-section bg-[#fbfdff] px-6 py-24 relative overflow-hidden">
-      <div className="growblic-contact-motion-layer pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(37,99,235,0.13),transparent_28%),radial-gradient(circle_at_86%_20%,rgba(6,182,212,0.12),transparent_26%),radial-gradient(circle_at_50%_92%,rgba(59,130,246,0.10),transparent_34%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-35 [mask-image:radial-gradient(circle_at_50%_45%,black,transparent_78%)]" />
-        <div className="absolute left-10 top-1/2 h-44 w-44 rounded-full bg-blue-200/25 blur-3xl animate-[growblicContactFloat_10s_ease-in-out_infinite]" />
-        <div className="absolute right-14 top-24 h-52 w-52 rounded-full bg-cyan-200/25 blur-3xl animate-[growblicContactFloat_12s_ease-in-out_infinite]" />
-
-        <div className="absolute inset-0 opacity-55 sm:opacity-70 lg:opacity-85">
-          {previewCards.map((card) => (
-            <div
-              key={card.title}
-              className={`absolute overflow-hidden rounded-[1.35rem] border border-white/80 bg-white/72 p-2 shadow-[0_24px_70px_rgba(37,99,235,0.18)] ring-1 ring-blue-100/60 backdrop-blur-2xl ${card.className}`}
-            >
-              <div className="overflow-hidden rounded-[1rem] border border-blue-50/80 bg-blue-50/45">
-                <Image
-                  src={card.src}
-                  alt=""
-                  width={320}
-                  height={214}
-                  className="h-24 w-full object-cover"
-                  sizes="(max-width: 768px) 160px, 220px"
-                />
-              </div>
-              <div className="flex items-center justify-between gap-3 px-1 pt-2">
-                <div>
-                  <p className="text-[0.62rem] font-black uppercase tracking-[0.16em] text-slate-950">
-                    {card.title}
-                  </p>
-                  <p className="mt-0.5 text-[0.6rem] font-bold text-blue-600">
-                    {card.detail}
-                  </p>
-                </div>
-                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.65)]" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+    <section id="contact" className="growblic-contact-section bg-[#fbfdff] px-6 py-24">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">
             Contact
