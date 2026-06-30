@@ -872,7 +872,8 @@ button {
   }
 }
 
-.security-reveal {
+.security-reveal,
+.legal-reveal {
   opacity: 0;
   transform: translateY(34px);
   animation: securityRevealUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -889,7 +890,8 @@ button {
     animation: growblicRevealUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .security-reveal {
+  .security-reveal,
+  .legal-reveal {
     opacity: 1;
     transform: none;
     animation: securityRevealUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -898,7 +900,8 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal-up,
-  .security-reveal {
+  .security-reveal,
+  .legal-reveal {
     opacity: 1;
     transform: none;
     filter: none;
