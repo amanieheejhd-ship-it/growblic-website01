@@ -132,7 +132,7 @@ export default function CareersOpeningsList({ openings }: { openings: Opening[] 
                     <div className="pointer-events-none absolute -bottom-20 left-8 h-40 w-40 rounded-full bg-cyan-200/25 blur-3xl transition duration-300 group-hover:bg-blue-200/40 group-focus-within:bg-blue-200/40 motion-reduce:transition-none" />
                     <div className="pointer-events-none absolute inset-px rounded-[1.95rem] border border-white/70" />
 
-                    <div className="relative flex h-full flex-col p-7 pb-7 transition duration-300 group-hover:-translate-y-1 group-focus-within:-translate-y-1 sm:pb-24 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-within:translate-y-0">
+                    <div className="group relative flex h-full flex-col p-7 pb-7 transition duration-300 group-hover:-translate-y-1 group-focus-within:-translate-y-1 sm:pb-24 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-within:translate-y-0">
                       <div className="flex items-start justify-between gap-4">
                         <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-white/90 bg-white/78 text-blue-700 shadow-[0_18px_45px_rgba(37,99,235,0.18)] ring-1 ring-blue-100/80 backdrop-blur-xl transition group-hover:-translate-y-0.5 group-hover:bg-blue-50 group-focus-within:-translate-y-0.5 group-focus-within:bg-blue-50 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-within:translate-y-0">
                           <Icon className="h-5 w-5" aria-hidden="true" />
@@ -170,9 +170,7 @@ export default function CareersOpeningsList({ openings }: { openings: Opening[] 
 
                       <Link
                         href="/careers/apply"
-                        className="relative mt-7 inline-flex min-h-12 w-fit items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition duration-300 hover:-translate-y-0.5 hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600 sm:pointer-events-none sm:absolute sm:inset-x-7 sm:bottom-7 sm:w-auto sm:translate-y-5 sm:opacity-0 sm:group-hover:pointer-events-auto sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:group-focus-within:pointer-events-auto sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:sm:translate-y-0"
-                      >
-                        Apply now →
+                        className="inline-flex items-center justify-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-black text-slate-950 shadow-[0_18px_45px_rgba(15,23,42,0.14)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600 hover:text-white active:bg-blue-700 active:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 md:pointer-events-none md:translate-y-5 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100">Apply now →
                       </Link>
                     </div>
 
