@@ -5,12 +5,10 @@ import {
   BadgeCheck,
   CalendarDays,
   CheckCircle2,
-  Globe2,
   Handshake,
   MapPin,
   Megaphone,
   Mic2,
-  Sparkles,
   Users,
   Workflow,
 } from "lucide-react";
