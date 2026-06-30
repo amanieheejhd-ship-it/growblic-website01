@@ -18,14 +18,24 @@ const cultureLinks = [
 
 const cultureHrefs = cultureLinks.map((item) => item.href);
 
+function normalizePath(pathname: string) {
+  return pathname.length > 1 && pathname.endsWith("/")
+    ? pathname.slice(0, -1)
+    : pathname;
+}
+
 function isActive(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(`${href}/`);
+  const normalizedPathname = normalizePath(pathname);
+
+  return normalizedPathname === href || normalizedPathname.startsWith(`${href}/`);
 }
 
 export default function CareersSubnav() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const normalizedPathname = normalizePath(pathname);
+  const isCareersHome = normalizedPathname === "/careers";
   const isCultureActive = cultureHrefs.some((href) => isActive(pathname, href));
 
   useEffect(() => {
@@ -53,10 +63,20 @@ export default function CareersSubnav() {
   return (
     <div
       ref={wrapperRef}
-      className="relative max-w-full"
+      className="relative flex w-full max-w-full items-center gap-2 md:w-auto"
       onMouseLeave={() => setIsOpen(false)}
     >
-      <nav className="flex max-w-full items-center gap-2 overflow-x-auto rounded-full border border-blue-100/80 bg-white/78 p-1.5 text-xs font-black uppercase tracking-[0.14em] text-slate-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
+      {!isCareersHome ? (
+        <Link
+          href="/careers"
+          replace
+          className="shrink-0 rounded-full border border-blue-100/80 bg-white/78 px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.14em] text-blue-700 shadow-lg shadow-blue-100/35 backdrop-blur-xl transition hover:bg-blue-50 hover:text-blue-800 sm:px-4"
+        >
+          Careers Home
+        </Link>
+      ) : null}
+
+      <nav className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto rounded-full border border-blue-100/80 bg-white/78 p-1.5 text-xs font-black uppercase tracking-[0.14em] text-slate-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl md:flex-none">
         {mainLinks.map((item) => {
           const active = isActive(pathname, item.href);
 
@@ -64,6 +84,7 @@ export default function CareersSubnav() {
             <Link
               key={item.href}
               href={item.href}
+              replace
               className={`shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700 ${
                 active ? "bg-blue-600 text-white shadow-md shadow-blue-200/70 hover:bg-blue-600 hover:text-white" : ""
               }`}
@@ -107,6 +128,7 @@ export default function CareersSubnav() {
               <Link
                 key={item.href}
                 href={item.href}
+                replace
                 className={`block rounded-xl px-4 py-3 transition hover:bg-blue-50 hover:text-blue-700 ${
                   active ? "bg-blue-600 text-white shadow-md shadow-blue-200/70 hover:bg-blue-600 hover:text-white" : ""
                 }`}
