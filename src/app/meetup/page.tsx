@@ -207,7 +207,7 @@ export default function MeetupPage() {
                     {item.title}
                   </h3>
 
-                  <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
+                  <p className="relative mt-4 text-sm font-semibold leading-7 text-slate-600">
                     {item.text}
                   </p>
                 </article>
@@ -216,8 +216,11 @@ export default function MeetupPage() {
           </div>
         </section>
 
-        <section className="mt-20 rounded-[2.4rem] border border-blue-100 bg-white/78 p-7 shadow-[0_30px_100px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-9">
-          <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+        <section className="relative mt-20 overflow-hidden rounded-[2.7rem] border border-blue-100/90 bg-white/88 p-7 shadow-[0_38px_130px_rgba(37,99,235,0.13)] backdrop-blur-2xl sm:p-9">
+          <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-200/35 blur-3xl" />
+          <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-200/35 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:34px_34px]" />
+          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-stretch">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
                 Host support
@@ -228,8 +231,8 @@ export default function MeetupPage() {
               <p className="mt-5 text-base font-semibold leading-8 text-slate-600">
                 Approved events may receive promotional support, digital assets, topic guidance, and practical planning help from Growblic.
               </p>
-              <div className="mt-7 overflow-hidden rounded-[1.7rem] border border-blue-100 bg-blue-50 p-3">
-                <img src="/growblic-website01/images/business/saas-1.jpg" alt="Growblic host support" className="h-64 w-full rounded-[1.35rem] object-cover" />
+              <div className="mt-8 overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-3 shadow-[0_22px_75px_rgba(37,99,235,0.12)]">
+                <img src="/growblic-website01/images/business/saas-1.jpg" alt="Growblic host support" className="h-72 w-full rounded-[1.55rem] object-cover saturate-110" />
               </div>
             </div>
 
@@ -240,22 +243,23 @@ export default function MeetupPage() {
                 return (
                   <article
                     key={card.title}
-                    className="rounded-[1.8rem] border border-blue-100 bg-white/84 p-6 shadow-[0_22px_70px_rgba(37,99,235,0.09)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-300 hover:bg-white"
+                    className="group relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/90 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_34px_105px_rgba(37,99,235,0.16)]"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-black tracking-[0.24em] text-blue-700">
+                    <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-blue-100/70 blur-2xl transition group-hover:bg-cyan-100/80" />
+                    <div className="relative flex items-center justify-between">
+                      <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black tracking-[0.24em] text-blue-700 ring-1 ring-blue-100">
                         {card.number}
                       </span>
-                      <span className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-blue-700 shadow-[0_12px_35px_rgba(37,99,235,0.14)] ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
                         <Icon className="h-5 w-5" />
                       </span>
                     </div>
 
-                    <h3 className="mt-8 text-xl font-black tracking-[-0.04em] text-slate-950">
+                    <h3 className="relative mt-8 text-[1.35rem] font-black leading-tight tracking-[-0.045em] text-slate-950">
                       {card.title}
                     </h3>
 
-                    <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
+                    <p className="relative mt-4 text-sm font-semibold leading-7 text-slate-600">
                       {card.text}
                     </p>
                   </article>
