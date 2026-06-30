@@ -139,27 +139,27 @@ export default function MeetupPage() {
               </div>
             </div>
 
-            <div className="relative min-h-[610px] overflow-hidden rounded-[2.5rem] border border-blue-100 bg-[linear-gradient(135deg,rgba(239,246,255,0.95),rgba(255,255,255,0.97),rgba(236,254,255,0.92))] p-5 shadow-[0_32px_110px_rgba(37,99,235,0.12)]">
+            <div className="relative min-h-[690px] overflow-hidden rounded-[2.5rem] border border-blue-100 bg-[linear-gradient(135deg,rgba(239,246,255,0.95),rgba(255,255,255,0.97),rgba(236,254,255,0.92))] p-5 shadow-[0_32px_110px_rgba(37,99,235,0.12)]">
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-200/55 blur-3xl" />
               <div className="absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-cyan-200/45 blur-3xl" />
 
-              <div className="absolute left-6 top-6 w-[58%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(37,99,235,0.16)]">
-                <img src="/growblic-website01/images/business/mobile-3.jpg" alt="Growblic meetup session" className="h-56 w-full rounded-[1.35rem] object-cover" />
+              <div className="absolute left-6 top-7 w-[50%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(37,99,235,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:-translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_35px_100px_rgba(37,99,235,0.20)]">
+                <img src="/growblic-website01/images/business/mobile-3.jpg" alt="Growblic meetup session" className="h-[13rem] w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Community</p>
                   <h3 className="mt-2 text-[1.9rem] font-extrabold leading-[1.05] tracking-[-0.045em] text-slate-950">Founder circle</h3>
                 </div>
               </div>
 
-              <div className="absolute right-5 top-20 w-[46%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(6,182,212,0.16)]">
-                <img src="/growblic-website01/images/business/ai-1.svg" alt="Workshop night" className="h-48 w-full rounded-[1.35rem] object-cover" />
+              <div className="absolute right-6 top-14 w-[40%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(6,182,212,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:-translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(6,182,212,0.20)]">
+                <img src="/growblic-website01/images/business/ai-1.svg" alt="Workshop night" className="h-40 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-700">Workshop</p>
                   <h3 className="mt-2 text-xl font-black tracking-[-0.05em] text-slate-950">Build night</h3>
                 </div>
               </div>
 
-              <div className="absolute bottom-8 left-10 w-[50%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.13)]">
+              <div className="absolute bottom-8 left-8 w-[44%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.13)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(15,23,42,0.16)]">
                 <img src="/growblic-website01/images/business/mobile-2.jpg" alt="AI automation demo" className="h-44 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Demo</p>
@@ -167,7 +167,7 @@ export default function MeetupPage() {
                 </div>
               </div>
 
-              <div className="absolute bottom-16 right-7 w-[42%] rounded-[1.8rem] border border-blue-100 bg-white/92 p-5 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
+              <div className="absolute bottom-12 right-6 w-[38%] rounded-[1.8rem] border border-blue-100 bg-white/92 p-5 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_36px_110px_rgba(37,99,235,0.16)]">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600 text-white shadow-xl shadow-blue-600/20">
                   <Users className="h-5 w-5" />
                 </div>
@@ -196,7 +196,7 @@ export default function MeetupPage() {
                   className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white/82 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.10)] backdrop-blur-2xl transition hover:-translate-y-1 hover:border-blue-300 hover:bg-white"
                 >
                   <div className="relative h-56 overflow-hidden rounded-[1.5rem] border border-blue-100 bg-blue-50">
-                    <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent" />
                     <div className="absolute left-5 top-5 grid h-12 w-12 place-items-center rounded-2xl bg-white text-blue-700 shadow-xl shadow-blue-950/10">
                       <Icon className="h-5 w-5" />
