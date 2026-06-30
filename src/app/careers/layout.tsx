@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import CareersSubnav from "./CareersSubnav";
 
 const logoUrl =
   "https://play-lh.googleusercontent.com/g0grr8jGzVcS1_uUzh05Ht2a7w7PcavodUBDgK7XOel8DwYKNSVtNZaF6HmqUFPK37xlr4WafEddfvWeyeDSKA=w240-h480-rw";
@@ -24,31 +25,7 @@ export default function CareersLayout({ children }: { children: ReactNode }) {
             </span>
           </Link>
 
-          <nav className="flex max-w-full items-center gap-2 overflow-x-auto rounded-full border border-blue-100/80 bg-white/78 p-1.5 text-xs font-black uppercase tracking-[0.14em] text-slate-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
-            <Link href="/careers/openings" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
-              Openings
-            </Link>
-
-            <Link href="/careers/perks" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
-              Perks
-            </Link>
-
-            <Link href="/careers/values" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
-              Values
-            </Link>
-
-            <Link href="/careers/culture" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
-              Culture
-            </Link>
-
-            <Link href="/careers/insights" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
-              Insights
-            </Link>
-
-            <Link href="/careers/humans" className="shrink-0 rounded-full px-4 py-2 transition hover:bg-blue-50 hover:text-blue-700">
-              Humans
-            </Link>
-          </nav>
+          <CareersSubnav />
         </div>
       </header>
 
