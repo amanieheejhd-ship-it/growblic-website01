@@ -10,7 +10,7 @@ const navLinks = [
     label: "Home",
     href: "/",
     children: [
-      { label: "Home Page", href: "/" },
+      { label: "Home Page", href: "/#top" },
       { label: "Why Growblic", href: "/why-growblic" },
       { label: "Process", href: "/process" },
     ],
