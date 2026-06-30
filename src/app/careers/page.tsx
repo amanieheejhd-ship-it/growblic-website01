@@ -179,41 +179,94 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <section className="px-6 pb-12 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <Scroll3DSection>
-            <div className="grid gap-8 rounded-[2.5rem] border border-white/80 bg-white/82 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-8 lg:grid-cols-[0.75fr_1.25fr] lg:p-10">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">
-                  Why join Growblic
-                </p>
-                <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-                  Work where craft meets ownership.
-                </h2>
-              </div>
-              <div className="grid gap-4 md:grid-cols-3">
-                {whyJoin.map((item, index) => {
-                  const Icon = item.icon;
+      
+      <section className="relative overflow-hidden rounded-[2.25rem] border border-blue-100 bg-white/80 px-6 py-10 shadow-[0_30px_90px_rgba(15,23,42,0.10)] backdrop-blur-2xl sm:px-8 lg:px-10">
+        <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-200/35 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-cyan-200/35 blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.055)_1px,transparent_1px)] bg-[size:36px_36px]" />
 
-                  return (
-                    <Scroll3DSection key={item.title} delay={index * 0.05}>
-                      <article className="relative h-full overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-gradient-to-br from-white via-blue-50/45 to-white p-5 shadow-xl shadow-blue-100/45">
-                        <span className="grid h-11 w-11 place-items-center rounded-2xl border border-white/80 bg-white/75 text-blue-700 shadow-lg shadow-blue-100/65">
-                          <Icon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                        <h3 className="mt-5 text-xl font-black text-slate-950">{item.title}</h3>
-                        <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
-                          {item.text}
-                        </p>
-                      </article>
-                    </Scroll3DSection>
-                  );
-                })}
-              </div>
+        <div className="relative grid gap-8 lg:grid-cols-[0.95fr_1.55fr] lg:items-stretch">
+          <div className="flex flex-col justify-center">
+            <div className="mb-5 inline-flex w-fit rounded-full border border-blue-100 bg-white/75 px-4 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)]">
+              Why join Growblic
             </div>
-          </Scroll3DSection>
+
+            <h2 className="max-w-xl text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl lg:text-6xl">
+              Work where craft meets ownership.
+            </h2>
+
+            <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+              Build real websites, apps, SaaS platforms, dashboards, and automation systems with a team focused on quality, speed, and client outcomes.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              {["Real products", "Modern tools", "Ownership culture"].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-700 shadow-sm"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                number: "01",
+                title: "Build real products",
+                copy: "Work on websites, apps, SaaS platforms, dashboards, and automation systems designed to ship.",
+                accent: "from-blue-500 to-cyan-400",
+                icon: "▣",
+              },
+              {
+                number: "02",
+                title: "Learn fast with modern tools",
+                copy: "Grow through practical design, code, AI workflow, product, and digital delivery experience.",
+                accent: "from-cyan-500 to-sky-400",
+                icon: "✦",
+              },
+              {
+                number: "03",
+                title: "Grow with ownership",
+                copy: "Take responsibility for clearer execution, better systems, and stronger client outcomes.",
+                accent: "from-indigo-500 to-blue-500",
+                icon: "◎",
+              },
+            ].map((card) => (
+              <article
+                key={card.title}
+                className="group relative flex min-h-[300px] flex-col overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white/75 p-6 shadow-[0_24px_70px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_34px_90px_rgba(37,99,235,0.18)]"
+              >
+                <div className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-r ${card.accent} opacity-10 transition-opacity duration-300 group-hover:opacity-20`} />
+                <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-blue-300/20 blur-3xl transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:28px_28px]" />
+
+                <div className="relative mb-8 flex items-start justify-between gap-4">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-100 bg-white/90 text-2xl font-black text-blue-600 shadow-[0_18px_45px_rgba(37,99,235,0.14)] transition-transform duration-300 group-hover:scale-105">
+                    {card.icon}
+                  </div>
+                  <span className="rounded-full border border-blue-100 bg-white/85 px-3 py-1 text-xs font-black tracking-[0.18em] text-blue-700 shadow-sm">
+                    {card.number}
+                  </span>
+                </div>
+
+                <h3 className="relative text-2xl font-black tracking-[-0.04em] text-slate-950">
+                  {card.title}
+                </h3>
+
+                <p className="relative mt-5 text-sm font-semibold leading-7 text-slate-600">
+                  {card.copy}
+                </p>
+
+                <div className={`relative mt-auto h-1 w-full rounded-full bg-gradient-to-r ${card.accent} opacity-80 shadow-[0_0_28px_rgba(37,99,235,0.35)]`} />
+              </article>
+            ))}
+          </div>
         </div>
       </section>
+
 
       <section className="px-6 pb-24 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
