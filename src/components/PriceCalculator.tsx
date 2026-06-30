@@ -71,6 +71,12 @@ const moneyFormatter = new Intl.NumberFormat("en-IN", {
   maximumFractionDigits: 0,
 });
 
+const inputClass =
+  "rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none shadow-sm shadow-blue-100/30 transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100";
+
+const primaryPanelClass =
+  "rounded-[2rem] border border-blue-100/80 bg-white/82 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl";
+
 const timelineOptions: SelectOption[] = [
   { label: "Standard", price: 0, multiplier: 1 },
   { label: "Fast", price: 0, multiplier: 1.2 },
@@ -712,8 +718,10 @@ export default function PriceCalculator() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.95fr_0.72fr] lg:items-start">
-      <section className="rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-5 shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:p-7">
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-0 -z-10 rounded-[2.5rem] bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:54px_54px] opacity-50 [mask-image:radial-gradient(circle_at_50%_15%,black,transparent_72%)]" />
+      <div className="grid gap-6 lg:grid-cols-[0.95fr_0.72fr] lg:items-start">
+        <section className={`${primaryPanelClass} p-4 sm:p-6`}>
         <div className="grid gap-3">
           <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
             Step 01 / Select service
@@ -724,34 +732,37 @@ export default function PriceCalculator() {
                 key={category.id}
                 type="button"
                 onClick={() => updateCategory(category.id)}
-                className={`rounded-2xl border px-4 py-4 text-left text-sm font-black leading-5 transition hover:-translate-y-0.5 ${
+                className={`relative overflow-hidden rounded-[1.35rem] border px-4 py-4 text-left text-sm font-black leading-5 transition duration-300 hover:-translate-y-1 ${
                   selectedCategory.id === category.id
-                    ? "border-blue-600 bg-blue-600 text-white shadow-xl shadow-blue-600/20"
-                    : "border-blue-100 bg-white text-slate-700 shadow-sm shadow-blue-100/40 hover:border-blue-200 hover:text-blue-700"
+                    ? "border-blue-500 bg-gradient-to-br from-blue-600 to-blue-500 text-white shadow-xl shadow-blue-500/25 ring-1 ring-blue-300/50"
+                    : "border-blue-100 bg-white/86 text-slate-700 shadow-sm shadow-blue-100/40 backdrop-blur-xl hover:border-blue-300 hover:bg-white hover:text-blue-700 hover:shadow-lg hover:shadow-blue-100/60"
                 }`}
               >
-                {category.label}
+                {selectedCategory.id === category.id ? (
+                  <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.28),transparent_34%)]" />
+                ) : null}
+                <span className="relative">{category.label}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="mt-8 rounded-[2rem] border border-blue-100 bg-[#fbfdff] p-5 sm:p-6">
+        <div className="mt-6 rounded-[2rem] border border-blue-100/80 bg-[#fbfdff]/82 p-4 shadow-inner shadow-blue-100/40 ring-1 ring-white/70 backdrop-blur-xl sm:p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
                 Step 02 / Configure
               </p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
                 {selectedCategory.label}
               </h2>
             </div>
-            <p className="rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black text-slate-600">
+            <p className="w-fit rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black text-slate-600 shadow-sm shadow-blue-100/50">
               Starts at {formatMoney(selectedCategory.basePrice)}
             </p>
           </div>
 
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
             {selectedCategory.selectGroups.map((group) => (
               <label key={group.key} className="grid gap-2 text-sm font-black text-slate-700">
                 {group.label}
@@ -764,7 +775,7 @@ export default function PriceCalculator() {
                       [group.key]: event.target.value,
                     }));
                   }}
-                  className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+                  className={inputClass}
                 >
                   {group.options.map((option) => (
                     <option key={option.label} value={option.label}>
@@ -796,7 +807,7 @@ export default function PriceCalculator() {
                       [group.key]: Number(event.target.value),
                     }));
                   }}
-                  className="accent-blue-600"
+                  className="h-2 cursor-pointer accent-blue-600"
                 />
                 <span className="text-xs font-bold text-slate-500">
                   Includes {group.included} {group.unit}; additional {formatMoney(group.pricePerUnit)} each
@@ -818,7 +829,7 @@ export default function PriceCalculator() {
                     [selectedCategory.multiplierGroup.key]: event.target.value,
                   }));
                 }}
-                className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+                className={inputClass}
               >
                 {selectedCategory.multiplierGroup.options.map((option) => (
                   <option key={option.label} value={option.label}>
@@ -839,10 +850,10 @@ export default function PriceCalculator() {
                   key={feature.label}
                   type="button"
                   onClick={() => toggleFeature(feature.label)}
-                  className={`rounded-2xl border px-4 py-3 text-left text-sm font-black transition hover:-translate-y-0.5 ${
+                  className={`rounded-[1.35rem] border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
                     featureValues.includes(feature.label)
-                      ? "border-blue-600 bg-blue-50 text-blue-700 shadow-lg shadow-blue-100"
-                      : "border-blue-100 bg-white text-slate-700 hover:border-blue-200"
+                      ? "border-blue-500 bg-blue-50/95 text-blue-700 shadow-lg shadow-blue-100 ring-1 ring-blue-100"
+                      : "border-blue-100 bg-white/86 text-slate-700 shadow-sm shadow-blue-100/30 hover:border-blue-300 hover:bg-white hover:shadow-lg hover:shadow-blue-100/50"
                   }`}
                 >
                   <span className="block">{feature.label}</span>
@@ -854,9 +865,9 @@ export default function PriceCalculator() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
 
-      <aside className="sticky top-28 rounded-[2.4rem] border border-blue-100/80 bg-white/92 p-5 shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:p-7 print:static print:border-0 print:p-0 print:shadow-none">
+        <aside className={`sticky top-28 ${primaryPanelClass} p-4 sm:p-6 print:static print:border-0 print:p-0 print:shadow-none`}>
         <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
           Step 03 / Your details
         </p>
@@ -868,7 +879,7 @@ export default function PriceCalculator() {
               type="text"
               value={customerDetails.fullName}
               onChange={(event) => updateCustomerDetails("fullName", event.target.value)}
-              className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              className={inputClass}
               placeholder="Your name"
             />
           </label>
@@ -880,7 +891,7 @@ export default function PriceCalculator() {
                 type="email"
                 value={customerDetails.email}
                 onChange={(event) => updateCustomerDetails("email", event.target.value)}
-                className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+                className={inputClass}
                 placeholder="you@example.com"
               />
             </label>
@@ -890,7 +901,7 @@ export default function PriceCalculator() {
                 type="tel"
                 value={customerDetails.phone}
                 onChange={(event) => updateCustomerDetails("phone", event.target.value)}
-                className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+                className={inputClass}
                 placeholder="+91..."
               />
             </label>
@@ -902,7 +913,7 @@ export default function PriceCalculator() {
               type="text"
               value={customerDetails.company}
               onChange={(event) => updateCustomerDetails("company", event.target.value)}
-              className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              className={inputClass}
               placeholder="Company name"
             />
           </label>
@@ -913,7 +924,7 @@ export default function PriceCalculator() {
               type="text"
               value={customerDetails.location}
               onChange={(event) => updateCustomerDetails("location", event.target.value)}
-              className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              className={inputClass}
               placeholder="City, Country"
             />
           </label>
@@ -924,7 +935,7 @@ export default function PriceCalculator() {
               value={customerDetails.notes}
               onChange={(event) => updateCustomerDetails("notes", event.target.value)}
               rows={4}
-              className="resize-none rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-bold text-slate-800 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
+              className={`${inputClass} resize-none`}
               placeholder="Share goals, timelines, integrations, or anything important."
             />
           </label>
@@ -934,21 +945,24 @@ export default function PriceCalculator() {
           Step 04 / Estimate
         </p>
         <div className="mt-5 grid gap-3">
-          <div className="flex items-center justify-between rounded-2xl bg-blue-50 px-4 py-3 text-sm font-black text-slate-700">
+          <div className="flex items-center justify-between rounded-2xl border border-blue-100 bg-blue-50/80 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40">
             <span>Subtotal</span>
             <span>{formatMoney(result.subtotal)}</span>
           </div>
-          <div className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 ring-1 ring-blue-100">
+          <div className="flex items-center justify-between rounded-2xl border border-blue-100 bg-white/90 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/35">
             <span>{selectedCategory.multiplierGroup.label} multiplier</span>
             <span>{result.multiplier.toFixed(2)}x</span>
           </div>
-          <div className="rounded-[1.5rem] bg-slate-950 p-5 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-300">
-              Estimated total
-            </p>
-            <p className="mt-2 text-4xl font-black tracking-tight">
-              {formatMoney(result.total)}
-            </p>
+          <div className="relative overflow-hidden rounded-[1.65rem] bg-slate-950 p-5 text-white shadow-[0_25px_80px_rgba(15,23,42,0.22)]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.36),transparent_38%),radial-gradient(circle_at_92%_28%,rgba(6,182,212,0.22),transparent_32%)]" />
+            <div className="relative">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-300">
+                Estimated total
+              </p>
+              <p className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
+                {formatMoney(result.total)}
+              </p>
+            </div>
           </div>
           <p className="text-sm font-semibold leading-6 text-slate-500">
             Final pricing may vary after project discussion.
@@ -961,16 +975,17 @@ export default function PriceCalculator() {
           <button
             type="button"
             onClick={generateEstimate}
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-blue-600 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950 print:hidden"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-blue-600 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-slate-950 hover:shadow-slate-950/20 print:hidden"
           >
             Generate Estimate
           </button>
         </div>
 
         {estimate && (
-          <div className="mt-6 overflow-hidden rounded-[1.8rem] border border-blue-100 bg-[#fbfdff] print:fixed print:inset-0 print:z-[9999] print:m-0 print:h-auto print:overflow-visible print:rounded-none print:border-0 print:bg-white print:p-8">
-            <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-5 text-white print:rounded-2xl print:bg-none print:text-slate-950">
-              <div className="flex items-center gap-4">
+          <div className="mt-6 overflow-hidden rounded-[1.85rem] border border-blue-100/80 bg-[#fbfdff]/92 shadow-xl shadow-blue-100/45 ring-1 ring-white/70 print:fixed print:inset-0 print:z-[9999] print:m-0 print:h-auto print:overflow-visible print:rounded-none print:border-0 print:bg-white print:p-8 print:shadow-none">
+            <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-cyan-500 p-5 text-white print:rounded-2xl print:bg-none print:text-slate-950">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(255,255,255,0.3),transparent_34%)] print:hidden" />
+              <div className="relative flex items-center gap-4">
                 <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white p-2 shadow-lg shadow-blue-950/10 print:border print:border-blue-100">
                   <Image
                     src="/growblic-website01/images/brand/growblic-logo.png"
@@ -1008,7 +1023,7 @@ export default function PriceCalculator() {
                 </p>
               </div>
 
-              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100 print:break-inside-avoid">
+              <div className="rounded-[1.5rem] border border-blue-100 bg-white/90 p-5 shadow-sm shadow-blue-100/40 print:break-inside-avoid">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
                   Customer details
                 </p>
@@ -1038,7 +1053,7 @@ export default function PriceCalculator() {
                   {result.selectedOptions.map((option) => (
                     <p
                       key={option}
-                      className="rounded-2xl border border-blue-100 bg-white px-4 py-2 text-sm font-bold text-slate-600"
+                      className="rounded-2xl border border-blue-100 bg-white/90 px-4 py-2 text-sm font-bold text-slate-600 shadow-sm shadow-blue-100/25"
                     >
                       {option}
                     </p>
@@ -1046,7 +1061,7 @@ export default function PriceCalculator() {
                 </div>
               </div>
 
-              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100 print:break-inside-avoid">
+              <div className="rounded-[1.5rem] border border-blue-100 bg-white/90 p-5 shadow-sm shadow-blue-100/40 print:break-inside-avoid">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
                   Pricing breakdown
                 </p>
@@ -1054,7 +1069,7 @@ export default function PriceCalculator() {
                   {result.breakdownItems.map((item) => (
                     <div
                       key={`${item.label}-${item.value}`}
-                      className="grid grid-cols-[1fr_auto] gap-4 rounded-2xl bg-blue-50/70 px-4 py-3 text-sm font-bold text-slate-700 print:border print:border-blue-100 print:bg-white"
+                      className="grid grid-cols-[1fr_auto] gap-4 rounded-2xl border border-blue-100/70 bg-blue-50/70 px-4 py-3 text-sm font-bold text-slate-700 print:border print:border-blue-100 print:bg-white"
                     >
                       <span>
                         <span className="block text-slate-950">{item.label}</span>
@@ -1078,7 +1093,7 @@ export default function PriceCalculator() {
                 </div>
               </div>
 
-              <div className="rounded-[1.5rem] bg-white p-5 ring-1 ring-blue-100 print:break-inside-avoid">
+              <div className="rounded-[1.5rem] border border-blue-100 bg-white/90 p-5 shadow-sm shadow-blue-100/40 print:break-inside-avoid">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
                   Estimated total
                 </p>
@@ -1094,7 +1109,7 @@ export default function PriceCalculator() {
               </p>
 
               {customerDetails.notes ? (
-                <div className="rounded-[1.5rem] bg-white p-5 text-sm font-semibold leading-6 text-slate-600 ring-1 ring-blue-100 print:break-inside-avoid">
+                <div className="rounded-[1.5rem] border border-blue-100 bg-white/90 p-5 text-sm font-semibold leading-6 text-slate-600 shadow-sm shadow-blue-100/40 print:break-inside-avoid">
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
                     Project notes / requirements
                   </p>
@@ -1117,14 +1132,14 @@ export default function PriceCalculator() {
               <div className="grid gap-3 sm:grid-cols-3 print:hidden">
                 <Link
                   href="/start-project"
-                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
                 >
                   Start Project
                 </Link>
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:text-blue-700"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-100 bg-white px-5 py-3 text-sm font-black text-slate-950 shadow-sm shadow-blue-100/40 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
                 >
                   Print / Save as PDF
                 </button>
@@ -1132,7 +1147,7 @@ export default function PriceCalculator() {
                   type="button"
                   onClick={sendEstimateRequest}
                   disabled={submitStatus === "loading"}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-100 bg-blue-600 px-5 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-slate-950 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-500 bg-blue-600 px-5 py-3 text-sm font-black text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950 disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {submitStatus === "loading" ? "Sending..." : "Send Estimate Request"}
                 </button>
@@ -1140,7 +1155,8 @@ export default function PriceCalculator() {
             </div>
           </div>
         )}
-      </aside>
+        </aside>
+      </div>
     </div>
   );
 }
