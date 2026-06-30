@@ -64,7 +64,7 @@ export default function Insights() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(37,99,235,0.10),transparent_28%),radial-gradient(circle_at_86%_16%,rgba(124,58,237,0.09),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0),rgba(239,246,255,0.38))]" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="growblic-card-reveal grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600 sm:text-sm">
               Insights
@@ -80,7 +80,7 @@ export default function Insights() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="growblic-reveal-grid mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {insights.map((insight) => (
             <Link
               key={insight.title}

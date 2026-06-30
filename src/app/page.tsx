@@ -35,31 +35,47 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-<Scroll3DSection>
+        <Scroll3DSection className="growblic-scroll-reveal">
           <Stats />
         </Scroll3DSection>
-        <Scroll3DSection>
+        <Scroll3DSection className="growblic-scroll-reveal">
           <BusinessSections />
         </Scroll3DSection>
-        <Scroll3DSection>
+        <Scroll3DSection className="growblic-scroll-reveal">
           <Services compact />
         </Scroll3DSection>
-        <TrustSection />
-        <Scroll3DSection>
+        <div className="growblic-scroll-reveal">
+          <TrustSection />
+        </div>
+        <Scroll3DSection className="growblic-scroll-reveal">
           <FeaturedProducts />
         </Scroll3DSection>
-        <CaseStudies />
-        <Scroll3DSection>
+        <div className="growblic-scroll-reveal">
+          <CaseStudies />
+        </div>
+        <Scroll3DSection className="growblic-scroll-reveal">
           <Process />
         </Scroll3DSection>
-        <Insights />
-        <Journey />
-        <Testimonials />
-        <FAQ />
-        <ContactSection />
+        <div className="growblic-scroll-reveal">
+          <Insights />
+        </div>
+        <div className="growblic-scroll-reveal">
+          <Journey />
+        </div>
+        <div className="growblic-scroll-reveal">
+          <Testimonials />
+        </div>
+        <div className="growblic-scroll-reveal">
+          <FAQ />
+        </div>
+        <div className="growblic-scroll-reveal">
+          <ContactSection />
+        </div>
         <CTA />
       </main>
-      <Footer />
+      <div className="growblic-scroll-reveal">
+        <Footer />
+      </div>
       <FloatingContactButton />
     </>
   );

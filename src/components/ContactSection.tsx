@@ -96,7 +96,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="growblic-contact-section bg-[#fbfdff] px-6 py-24">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-        <div>
+        <div className="growblic-card-reveal">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">
             Contact
           </p>
@@ -108,7 +108,7 @@ export default function ContactSection() {
             website, app, SaaS, or automation system.
           </p>
 
-          <div className="mt-8 rounded-[1.75rem] border border-blue-100/80 bg-white p-6 shadow-xl shadow-slate-900/6">
+          <div className="growblic-card-reveal mt-8 rounded-[1.75rem] border border-blue-100/80 bg-white p-6 shadow-xl shadow-slate-900/6">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-blue-600">
               Direct contact
             </p>
@@ -122,7 +122,7 @@ export default function ContactSection() {
         </div>
 
         <form
-          className="growblic-contact-form rounded-[2rem] border border-blue-100/80 bg-white p-6 shadow-2xl shadow-slate-900/8 sm:p-8"
+          className="growblic-card-reveal growblic-contact-form rounded-[2rem] border border-blue-100/80 bg-white p-6 shadow-2xl shadow-slate-900/8 sm:p-8"
           onSubmit={handleSubmit}
         >
           <input type="hidden" name="source" value="Growblic Website" />

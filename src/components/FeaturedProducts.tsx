@@ -84,7 +84,7 @@ export default function FeaturedProducts() {
     >
       <span id="apps" className="absolute -top-24" aria-hidden="true" />
       <div className="mx-auto max-w-7xl">
-        <div className="live-apps-header mb-12 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+        <div className="growblic-card-reveal live-apps-header mb-12 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">
               Growblic Apps
@@ -101,7 +101,7 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="live-apps-marquee relative overflow-hidden py-8">
+        <div className="growblic-card-reveal live-apps-marquee relative overflow-hidden py-8">
           <button
             type="button"
             className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"

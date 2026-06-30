@@ -28,7 +28,7 @@ export default function Journey() {
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(239,246,255,0.62),rgba(255,255,255,0)_34%),radial-gradient(circle_at_50%_12%,rgba(6,182,212,0.10),transparent_30%)]" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="growblic-card-reveal mx-auto max-w-3xl text-center">
           <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600 sm:text-sm">
             Growblic Journey
           </p>
@@ -44,7 +44,7 @@ export default function Journey() {
         <div className="relative mt-12">
           <div className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-blue-500 via-cyan-400 to-violet-500 md:left-0 md:right-0 md:top-9 md:mx-auto md:h-px md:w-[calc(100%-7rem)] md:bg-gradient-to-r" />
 
-          <div className="grid gap-5 md:grid-cols-4">
+          <div className="growblic-reveal-grid grid gap-5 md:grid-cols-4">
             {milestones.map((milestone, index) => (
               <div
                 key={milestone.title}

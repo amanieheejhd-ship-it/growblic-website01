@@ -27,7 +27,7 @@ export default function TrustSection() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_35%)]" />
 
       <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-        <div className="max-w-3xl">
+        <div className="growblic-card-reveal max-w-3xl">
           <span className="inline-flex rounded-full border border-blue-100/80 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-600 shadow-lg shadow-blue-100/45 backdrop-blur">
             Why Growblic
           </span>
@@ -40,7 +40,7 @@ export default function TrustSection() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="growblic-reveal-grid grid gap-5 md:grid-cols-3">
           {trustCards.map((card, index) => (
             <div
               key={card.title}

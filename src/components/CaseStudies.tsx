@@ -45,7 +45,7 @@ export default function CaseStudies() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.055)_1px,transparent_0)] bg-[size:32px_32px] opacity-45" />
 
       <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:sticky lg:top-28 lg:self-start">
-        <aside className="rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-2xl shadow-blue-950/8 backdrop-blur-xl lg:sticky lg:top-28 lg:p-8">
+        <aside className="growblic-card-reveal rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-2xl shadow-blue-950/8 backdrop-blur-xl lg:sticky lg:top-28 lg:p-8">
           <span className="inline-flex rounded-full border border-blue-100 bg-blue-50/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
             CASE STUDIES
           </span>
@@ -76,7 +76,7 @@ export default function CaseStudies() {
           </a>
         </aside>
 
-        <div className="space-y-4">
+        <div className="growblic-reveal-stack space-y-4">
           {caseStudies.map((study) => (
             <article
               key={study.title}

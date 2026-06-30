@@ -90,7 +90,7 @@ function AnimatedNumber({
 export default function Stats() {
   return (
     <section className="relative px-5 py-14 sm:px-6">
-      <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:gap-6">
+      <div className="growblic-reveal-grid mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:gap-6">
         {stats.map((item) => (
           <article
             key={item.label}

@@ -67,8 +67,8 @@ export default function Process() {
 
       <div className="relative mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 48, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 48, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-90px" }}
           transition={{ duration: 0.8, ease }}
           className="mx-auto max-w-4xl text-center"
@@ -97,8 +97,8 @@ export default function Process() {
             return (
               <motion.article
                 key={step.number}
-                initial={{ opacity: 0, y: 48, scale: 0.97, filter: "blur(10px)" }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                initial={{ opacity: 0, y: 48, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.78, delay: index * 0.1, ease }}
                 className="group relative flex min-h-[430px] overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/84 p-6 shadow-[0_26px_85px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_38px_120px_rgba(37,99,235,0.16)]"
@@ -150,8 +150,8 @@ export default function Process() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 46, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 46, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease }}
           className="mt-10 overflow-hidden rounded-[2.2rem] border border-blue-100 bg-white/90 p-7 shadow-[0_30px_100px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-8"

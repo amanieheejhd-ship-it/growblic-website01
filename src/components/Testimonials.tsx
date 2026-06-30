@@ -57,7 +57,7 @@ export default function Testimonials() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.10),transparent_28%),radial-gradient(circle_at_80%_30%,rgba(6,182,212,0.09),transparent_25%),radial-gradient(circle_at_50%_95%,rgba(168,85,247,0.07),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="mb-9 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="growblic-card-reveal mb-9 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">
               Client results
@@ -74,7 +74,7 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2.8rem] border border-blue-100/70 bg-[#fbfdff]/85 p-5 shadow-2xl shadow-slate-200/75 backdrop-blur-xl">
+        <div className="growblic-card-reveal relative overflow-hidden rounded-[2.8rem] border border-blue-100/70 bg-[#fbfdff]/85 p-5 shadow-2xl shadow-slate-200/75 backdrop-blur-xl">
           <div className="absolute inset-x-14 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
           <div className="absolute -left-20 top-4 h-56 w-56 rounded-full bg-blue-100/70 blur-3xl" />
           <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-cyan-100/70 blur-3xl" />
@@ -104,7 +104,7 @@ export default function Testimonials() {
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="growblic-reveal-grid grid gap-4 md:grid-cols-3">
               {metrics.map((metric, index) => (
                 <article
                   key={metric.label}
@@ -136,7 +136,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div className="relative -mt-5 grid gap-4 px-2 md:grid-cols-3 lg:px-8">
+        <div className="growblic-reveal-grid relative -mt-5 grid gap-4 px-2 md:grid-cols-3 lg:px-8">
           {testimonials.map((item, index) => (
             <article
               key={item.name}

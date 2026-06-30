@@ -872,6 +872,54 @@ button {
   }
 }
 
+.growblic-scroll-reveal,
+.growblic-card-reveal,
+.growblic-reveal-grid > *,
+.growblic-reveal-stack > * {
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  animation: growblicScrollReveal 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timeline: view();
+  animation-range: entry 8% cover 30%;
+  will-change: transform, opacity;
+}
+
+@keyframes growblicScrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.growblic-reveal-grid > :nth-child(2),
+.growblic-reveal-stack > :nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.growblic-reveal-grid > :nth-child(3),
+.growblic-reveal-stack > :nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.growblic-reveal-grid > :nth-child(4),
+.growblic-reveal-stack > :nth-child(4) {
+  animation-delay: 210ms;
+}
+
+.growblic-reveal-grid > :nth-child(5),
+.growblic-reveal-stack > :nth-child(5) {
+  animation-delay: 280ms;
+}
+
+.growblic-reveal-grid > :nth-child(n + 6),
+.growblic-reveal-stack > :nth-child(n + 6) {
+  animation-delay: 350ms;
+}
+
 .security-reveal,
 .legal-reveal {
   opacity: 0;
@@ -896,12 +944,25 @@ button {
     transform: none;
     animation: securityRevealUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+
+  .growblic-scroll-reveal,
+  .growblic-card-reveal,
+  .growblic-reveal-grid > *,
+  .growblic-reveal-stack > * {
+    opacity: 1;
+    transform: none;
+    animation: growblicScrollReveal 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal-up,
   .security-reveal,
-  .legal-reveal {
+  .legal-reveal,
+  .growblic-scroll-reveal,
+  .growblic-card-reveal,
+  .growblic-reveal-grid > *,
+  .growblic-reveal-stack > * {
     opacity: 1;
     transform: none;
     filter: none;

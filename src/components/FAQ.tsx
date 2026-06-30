@@ -55,7 +55,7 @@ export default function FAQ() {
   return (
     <section id="faqs" className="relative overflow-hidden px-6 py-14">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8 text-center">
+        <div className="growblic-card-reveal mb-8 text-center">
           <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600">
             FAQs
           </p>
@@ -69,7 +69,7 @@ export default function FAQ() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="growblic-reveal-grid grid gap-4 md:grid-cols-2">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
 
@@ -115,7 +115,7 @@ export default function FAQ() {
           })}
         </div>
 
-        <div className="mt-6 rounded-[2rem] border border-blue-100 bg-gradient-to-r from-slate-950 via-blue-950 to-cyan-950 p-6 text-white shadow-xl shadow-blue-100/60">
+        <div className="growblic-card-reveal mt-6 rounded-[2rem] border border-blue-100 bg-gradient-to-r from-slate-950 via-blue-950 to-cyan-950 p-6 text-white shadow-xl shadow-blue-100/60">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.28em] text-cyan-200">
