@@ -24,7 +24,6 @@ const resourceLinks = [
   { label: "Brand", href: "/brand" },
   { label: "Downloads", href: "/downloads" },
   { label: "Meetup", href: "/meetup" },
-  { label: "Process", href: "/process" },
 ];
 
 const trustLegalLinks = [
