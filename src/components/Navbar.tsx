@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const navLinks = [
   {
@@ -76,12 +76,53 @@ function isActive(pathname: string, href: string) {
 }
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  const dropdownCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navDropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const cancelDropdownClose = () => {
+    if (dropdownCloseTimer.current) {
+      clearTimeout(dropdownCloseTimer.current);
+      dropdownCloseTimer.current = null;
+    }
+  };
+
+  const scheduleDropdownClose = () => {
+    cancelDropdownClose();
+    dropdownCloseTimer.current = setTimeout(() => {
+      setMobileOpen(false);
+    }, 220);
+  };
+
+  useEffect(() => {
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!navDropdownRef.current?.contains(event.target as Node)) {
+        setMobileOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      cancelDropdownClose();
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+;
   const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 border-b border-blue-100/80 bg-[#fbfdff]/90 backdrop-blur-2xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 sm:px-6">
+      <nav ref={navDropdownRef} onMouseEnter={cancelDropdownClose} onMouseLeave={scheduleDropdownClose} className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 sm:px-6">
         <Link
           href="/"
           className="group flex items-center gap-3 rounded-full pr-3 transition hover:bg-white/70"
@@ -121,7 +162,8 @@ export default function Navbar() {
                   {item.label}
                 </Link>
 
-                <div className="pointer-events-none absolute left-1/2 top-full z-50 mt-3 w-72 -translate-x-1/2 translate-y-2 rounded-[1.5rem] border border-blue-100 bg-white p-3 opacity-0 shadow-2xl shadow-blue-100/70 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+                <div onMouseEnter={cancelDropdownClose} onMouseLeave={scheduleDropdownClose} className="pointer-events-none absolute left-1/2 top-full z-50 mt-3 w-72 -translate-x-1/2 translate-y-2 rounded-[1.5rem] border border-blue-100 bg-white p-3 opacity-0 shadow-2xl shadow-blue-100/70 transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+              <div className="dropdown-hover-bridge absolute -top-4 left-0 h-4 w-full" aria-hidden="true" />
                   <div className="grid gap-1">
                     {item.children.map((child) => (
                       <Link
