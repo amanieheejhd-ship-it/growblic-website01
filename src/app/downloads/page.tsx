@@ -178,7 +178,7 @@ export default function DownloadsPage() {
  return (
   <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
    <section className="relative px-6 py-20">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_0%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_84%_80%,rgba(6,182,212,0.10),transparent_30%),linear-gradient(180deg,rgba(239,246,255,0.55),rgba(255,255,255,0.95)_46%,rgba(239,246,255,0.35))]" />
+    <div className="h-fit w-full max-w-[390px] self-start bg-transparent p-0 shadow-none border-0" />
 
     <div className="relative mx-auto max-w-7xl">
      <BackButton />
@@ -201,21 +201,34 @@ export default function DownloadsPage() {
        <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
         Download directory
        </p>
-       <div className="mt-5 grid grid-cols-2 gap-3 text-sm font-black text-slate-700">
-        {[
-         { label: "Live Products", href: "#live-products" },
-         { label: "Mobile Apps", href: "#mobile-apps" },
-         { label: "SaaS Products", href: "#saas-products" },
-        ].map((item) => (
-         <a
-          key={item.href}
-          href={item.href}
-          className="rounded-2xl border border-blue-100 bg-blue-50/55 px-4 py-3 transition hover:bg-blue-600 hover:text-white"
-         >
-          {item.label}
-         </a>
-        ))}
-       </div>
+       <div className="h-fit self-start overflow-hidden rounded-[2rem] border border-blue-100 bg-white/86 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-6">
+         <div className="divide-y divide-blue-100 overflow-hidden rounded-[1.35rem] border border-blue-100 bg-white shadow-[0_18px_55px_rgba(37,99,235,0.10)]">
+          {[
+           { label: "Live Products", detail: "Production-ready systems", href: "#live-products" },
+           { label: "Mobile Apps", detail: "Growblic apps and tools", href: "#mobile-apps" },
+           { label: "SaaS Products", detail: "Business product modules", href: "#saas-products" },
+          ].map((item) => (
+           <a
+            key={item.label}
+            href={item.href}
+            className="group flex items-center justify-between gap-5 px-5 py-4 transition hover:bg-blue-50/70"
+           >
+            <span>
+             <span className="block text-sm font-black text-slate-950">
+              {item.label}
+             </span>
+             <span className="mt-1 block text-xs font-bold text-slate-500">
+              {item.detail}
+             </span>
+            </span>
+
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-blue-50 text-blue-700 transition group-hover:bg-blue-600 group-hover:text-white">
+             →
+            </span>
+           </a>
+          ))}
+         </div>
+        </div>
       </div>
      </div>
 
