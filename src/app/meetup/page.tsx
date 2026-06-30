@@ -95,26 +95,26 @@ export default function MeetupPage() {
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
       <section className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
-        <div className="overflow-hidden rounded-[2.6rem] border border-blue-100 bg-white/80 p-6 shadow-[0_32px_110px_rgba(37,99,235,0.14)] backdrop-blur-2xl sm:p-8 lg:p-10">
-          <div className="grid gap-10 lg:grid-cols-[1fr_0.92fr] lg:items-center">
+        <div className="overflow-hidden rounded-[2.9rem] border border-blue-100/90 bg-white/86 p-6 shadow-[0_38px_130px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-8 lg:p-11">
+          <div className="grid gap-12 lg:grid-cols-[0.98fr_0.92fr] lg:items-center">
             <div>
-              <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)]">
+              <p className="inline-flex rounded-full border border-blue-100 bg-white/95 px-5 py-2.5 text-xs font-extrabold uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.08)]">
                 Growblic Meetup
               </p>
 
-              <h1 className="mt-7 max-w-4xl text-5xl font-black leading-[0.96] tracking-[-0.075em] text-slate-950 sm:text-6xl lg:text-7xl">
+              <h1 className="mt-7 max-w-3xl text-[clamp(3.25rem,6vw,5.9rem)] font-extrabold leading-[1.01] tracking-[-0.06em] text-slate-950">
                 Build a premium digital community in your city.
               </h1>
 
-              <p className="mt-7 max-w-3xl text-lg font-semibold leading-9 text-slate-600">
+              <p className="mt-7 max-w-2xl text-[1.18rem] font-semibold leading-[2.1rem] text-slate-600">
                 Host meetups for founders, creators, developers, marketers, and business owners who want to learn websites, apps, SaaS, AI workflows, and digital growth.
               </p>
 
-              <div className="mt-8 grid max-w-2xl gap-3">
+              <div className="mt-8 grid max-w-2xl gap-3.5">
                 {heroPoints.map((point) => (
                   <div
                     key={point}
-                    className="flex items-center gap-3 rounded-2xl border border-blue-100 bg-white/82 px-5 py-4 text-sm font-black text-slate-700 shadow-sm backdrop-blur-xl"
+                    className="flex items-center gap-3 rounded-[1.25rem] border border-blue-100 bg-white/90 px-5 py-4 text-sm font-extrabold text-slate-700 shadow-[0_12px_30px_rgba(37,99,235,0.06)] backdrop-blur-xl"
                   >
                     <CheckCircle2 className="h-5 w-5 shrink-0 text-blue-600" />
                     {point}
@@ -122,24 +122,24 @@ export default function MeetupPage() {
                 ))}
               </div>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-10 flex flex-col gap-3.5 sm:flex-row">
                 <a
                   href="#become-host"
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-8 py-4 text-sm font-extrabold text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
                 >
                   Become a host <ArrowRight className="h-4 w-4" />
                 </a>
 
                 <a
                   href="#calendar"
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white/90 px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/55 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white px-8 py-4 text-sm font-extrabold text-slate-950 shadow-[0_16px_35px_rgba(37,99,235,0.08)] transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
                 >
                   Meetup calendar <CalendarDays className="h-4 w-4" />
                 </a>
               </div>
             </div>
 
-            <div className="relative min-h-[620px] overflow-hidden rounded-[2.2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-5 shadow-[0_26px_90px_rgba(37,99,235,0.12)]">
+            <div className="relative min-h-[610px] overflow-hidden rounded-[2.5rem] border border-blue-100 bg-[linear-gradient(135deg,rgba(239,246,255,0.95),rgba(255,255,255,0.97),rgba(236,254,255,0.92))] p-5 shadow-[0_32px_110px_rgba(37,99,235,0.12)]">
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-200/55 blur-3xl" />
               <div className="absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-cyan-200/45 blur-3xl" />
 
@@ -147,7 +147,7 @@ export default function MeetupPage() {
                 <img src="/growblic-website01/images/business/mobile-3.jpg" alt="Growblic meetup session" className="h-56 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Community</p>
-                  <h3 className="mt-2 text-2xl font-black tracking-[-0.05em] text-slate-950">Founder circle</h3>
+                  <h3 className="mt-2 text-[1.9rem] font-extrabold leading-[1.05] tracking-[-0.045em] text-slate-950">Founder circle</h3>
                 </div>
               </div>
 
@@ -167,7 +167,7 @@ export default function MeetupPage() {
                 </div>
               </div>
 
-              <div className="absolute bottom-20 right-8 w-[40%] rounded-[1.7rem] border border-blue-100 bg-white/88 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.14)] backdrop-blur-2xl">
+              <div className="absolute bottom-16 right-7 w-[42%] rounded-[1.8rem] border border-blue-100 bg-white/92 p-5 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600 text-white shadow-xl shadow-blue-600/20">
                   <Users className="h-5 w-5" />
                 </div>
