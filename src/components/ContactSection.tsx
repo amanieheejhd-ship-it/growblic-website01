@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   ArrowRight,
-  CheckCircle2,
   Clock3,
   Mail,
   MessageSquare,
@@ -26,11 +25,6 @@ const highlights = [
   },
 ];
 
-const steps = [
-  "Share requirement",
-  "Get a clear plan",
-  "Start building",
-];
 
 export default function ContactSection() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -120,34 +114,6 @@ export default function ContactSection() {
                 </div>
               );
             })}
-          </div>
-
-          <div className="rounded-[1.8rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-600">
-                <CheckCircle2 className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-600">
-                  Simple process
-                </p>
-                <h3 className="text-2xl font-black text-slate-950">From idea to execution</h3>
-              </div>
-            </div>
-
-            <div className="grid gap-3">
-              {steps.map((step, index) => (
-                <div
-                  key={step}
-                  className="flex items-center gap-4 rounded-2xl border border-blue-100 bg-slate-50/80 px-4 py-3"
-                >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-950 text-sm font-black text-white">
-                    {index + 1}
-                  </div>
-                  <p className="font-bold text-slate-700">{step}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="rounded-[1.8rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
