@@ -100,7 +100,7 @@ function FooterColumn({
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-blue-100/80 bg-[#fbfdff] px-4 py-6 sm:px-6 sm:py-8">
+    <footer id="footer" className="relative overflow-hidden border-t border-blue-100/80 bg-[#fbfdff] px-4 py-6 sm:px-6 sm:py-8">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,rgba(37,99,235,0.09),transparent_28%),radial-gradient(circle_at_88%_80%,rgba(6,182,212,0.09),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/82 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-6 lg:p-7">

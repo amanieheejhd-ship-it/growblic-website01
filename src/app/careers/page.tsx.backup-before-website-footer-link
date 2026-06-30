@@ -101,15 +101,6 @@ export default function CareersPage() {
         <div className="absolute bottom-10 right-[12%] h-56 w-56 rounded-full bg-cyan-200/30 blur-3xl" />
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-center">
           <div>
-            <Link
-              href="/#footer"
-              aria-label="Back to website footer"
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-5 py-3 text-xs font-black uppercase tracking-[0.20em] text-slate-700 shadow-xl shadow-blue-100/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white"
-            >
-              <span>←</span>
-              <span>Website footer</span>
-            </Link>
-
             <p className="inline-flex rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-black uppercase tracking-[0.30em] text-blue-700 shadow-lg shadow-blue-100/60">
               Careers at Growblic
             </p>
