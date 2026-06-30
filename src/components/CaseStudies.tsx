@@ -38,7 +38,7 @@ const rowLabels = ["Problem", "Solution", "Result"];
 
 export default function CaseStudies() {
   return (
-    <section className="case-studies-section relative overflow-hidden bg-white px-6 py-20 pb-28 sm:py-24 sm:pb-28">
+    <section className="case-studies-section relative bg-white px-6 py-20 pb-28 sm:py-24 sm:pb-28 lg:min-h-[1100px]">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(239,246,255,0.9),rgba(255,255,255,0.72)_38%,rgba(236,254,255,0.7))]" />
       <div className="pointer-events-none absolute left-[-10rem] top-24 h-80 w-80 rounded-full bg-blue-100/60 blur-3xl" />
       <div className="pointer-events-none absolute right-[-12rem] bottom-16 h-96 w-96 rounded-full bg-cyan-100/55 blur-3xl" />
