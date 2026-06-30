@@ -836,3 +836,31 @@ button {
   animation-duration: 8s !important;
 }
 /* apps-slider-hover-speed-end */
+
+
+@keyframes growblicContactSlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-22%);
+  }
+}
+
+@keyframes growblicContactSlideReverse {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(22%);
+  }
+}
+
+@keyframes growblicContactFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -16px, 0) scale(1.08);
+  }
+}

@@ -94,34 +94,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="growblic-contact-section bg-[#fbfdff] px-6 py-24 relative overflow-hidden">
-      <div className="growblic-contact-motion-layer pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-18%] top-14 flex w-[140%] gap-4 opacity-60 animate-[growblicContactSlide_32s_linear_infinite]">
-          {["Websites", "Apps", "SaaS", "Automation", "Dashboards", "CRM", "SEO", "AI Workflow"].map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-blue-100 bg-white/70 px-5 py-2 text-xs font-black uppercase tracking-[0.26em] text-blue-700 shadow-sm backdrop-blur-xl"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div className="absolute bottom-16 right-[-18%] flex w-[140%] justify-end gap-4 opacity-45 animate-[growblicContactSlideReverse_38s_linear_infinite]">
-          {["Plan", "Design", "Build", "Launch", "Improve", "Support", "Scale"].map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-cyan-100 bg-cyan-50/70 px-5 py-2 text-xs font-black uppercase tracking-[0.26em] text-cyan-700 shadow-sm backdrop-blur-xl"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div className="absolute left-10 top-1/2 h-44 w-44 rounded-full bg-blue-200/25 blur-3xl animate-[growblicContactFloat_8s_ease-in-out_infinite]" />
-        <div className="absolute right-14 top-24 h-52 w-52 rounded-full bg-cyan-200/25 blur-3xl animate-[growblicContactFloat_10s_ease-in-out_infinite]" />
-      </div>
-
+    <section id="contact" className="growblic-contact-section bg-[#fbfdff] px-6 py-24">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">
