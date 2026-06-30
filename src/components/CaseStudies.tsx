@@ -38,14 +38,14 @@ const rowLabels = ["Problem", "Solution", "Result"];
 
 export default function CaseStudies() {
   return (
-    <section className="case-studies-section relative bg-white px-6 py-20 sm:py-24">
+    <section className="case-studies-section relative bg-white px-6 py-20 pb-28 sm:py-24 sm:pb-28 lg:min-h-[1100px]">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(239,246,255,0.9),rgba(255,255,255,0.72)_38%,rgba(236,254,255,0.7))]" />
       <div className="pointer-events-none absolute left-[-10rem] top-24 h-80 w-80 rounded-full bg-blue-100/60 blur-3xl" />
       <div className="pointer-events-none absolute right-[-12rem] bottom-16 h-96 w-96 rounded-full bg-cyan-100/55 blur-3xl" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.055)_1px,transparent_0)] bg-[size:32px_32px] opacity-45" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-        <aside className="growblic-card-reveal rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_24px_85px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl lg:sticky lg:top-28 lg:p-8">
+      <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:sticky lg:top-28 lg:self-start">
+        <aside className="growblic-card-reveal rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-2xl shadow-blue-950/8 backdrop-blur-xl lg:sticky lg:top-28 lg:p-8">
           <span className="inline-flex rounded-full border border-blue-100 bg-blue-50/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
             CASE STUDIES
           </span>
@@ -76,11 +76,11 @@ export default function CaseStudies() {
           </a>
         </aside>
 
-        <div className="growblic-reveal-stack grid gap-4">
+        <div className="growblic-reveal-stack space-y-4">
           {caseStudies.map((study) => (
             <article
               key={study.title}
-              className="group rounded-[1.75rem] border border-blue-100/80 bg-white/88 p-5 shadow-xl shadow-blue-950/6 ring-1 ring-white/70 backdrop-blur-xl transition duration-300 ease-out hover:-translate-y-1 hover:border-cyan-200 hover:bg-white hover:shadow-2xl hover:shadow-blue-950/10 sm:p-6"
+              className="group rounded-[1.6rem] border border-white/80 bg-white/88 p-5 shadow-xl shadow-blue-950/6 backdrop-blur-xl transition duration-300 ease-out hover:-translate-y-1 hover:border-cyan-200 hover:shadow-2xl hover:shadow-blue-950/10 sm:p-6"
             >
               <div className="grid gap-5 xl:grid-cols-[auto_1fr_auto] xl:items-center">
                 <div className="flex items-center gap-3">

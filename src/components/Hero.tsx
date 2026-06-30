@@ -1,40 +1,49 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Layers3, Rocket, ShieldCheck, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const previewTiles = [
+const orbitItems = [
   {
-    title: "SaaS Dashboard",
-    detail: "Roles, metrics, workflows",
-    icon: Layers3,
+    title: "Websites",
+    desc: "Premium UI",
+    position: "top-[3%] left-1/2 -translate-x-1/2",
+    mobilePosition: "hero-mobile-chip-top",
+    glow: "from-blue-500 to-cyan-400",
+    bg: "from-blue-50 to-cyan-50",
   },
   {
-    title: "Mobile App",
-    detail: "Clean customer flows",
-    icon: Sparkles,
+    title: "Mobile Apps",
+    desc: "iOS + Android",
+    position: "right-[1%] top-1/2 -translate-y-1/2",
+    mobilePosition: "hero-mobile-chip-right",
+    glow: "from-violet-500 to-blue-500",
+    bg: "from-violet-50 to-blue-50",
   },
   {
-    title: "Automation",
-    detail: "Less repeated work",
-    icon: Rocket,
+    title: "SaaS",
+    desc: "Dashboards",
+    position: "bottom-[3%] left-1/2 -translate-x-1/2",
+    mobilePosition: "hero-mobile-chip-bottom",
+    glow: "from-emerald-400 to-cyan-500",
+    bg: "from-emerald-50 to-cyan-50",
   },
   {
-    title: "Security Ready",
-    detail: "Practical review paths",
-    icon: ShieldCheck,
+    title: "AI Flow",
+    desc: "Automation",
+    position: "left-[1%] top-1/2 -translate-y-1/2",
+    mobilePosition: "hero-mobile-chip-left",
+    glow: "from-fuchsia-500 to-violet-500",
+    bg: "from-fuchsia-50 to-violet-50",
   },
 ];
-
-const buildSteps = ["Plan", "Design", "Build", "Launch"];
 
 export default function Hero() {
   return (
     <section className="home-hero-section relative min-h-screen overflow-hidden bg-[#fbfcff] px-6 pb-20 pt-32">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_6%,rgba(37,99,235,0.16),transparent_30%),radial-gradient(circle_at_82%_20%,rgba(6,182,212,0.14),transparent_28%),radial-gradient(circle_at_52%_100%,rgba(99,102,241,0.10),transparent_32%),linear-gradient(180deg,#fbfcff,#eef6ff_48%,#ffffff)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:84px_84px] opacity-55 [mask-image:radial-gradient(circle_at_50%_12%,black,transparent_72%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_8%,rgba(37,99,235,0.15),transparent_32%),radial-gradient(circle_at_82%_28%,rgba(6,182,212,0.13),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(168,85,247,0.11),transparent_30%),radial-gradient(circle_at_8%_80%,rgba(16,185,129,0.08),transparent_26%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:88px_88px] opacity-35" />
 
       <motion.div
         animate={{ y: [0, -18, 0], x: [0, 12, 0] }}
@@ -47,7 +56,7 @@ export default function Hero() {
         className="absolute right-[8%] bottom-[18%] h-52 w-52 rounded-full bg-cyan-200/35 blur-3xl"
       />
 
-      <div className="home-hero-layout relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="home-hero-layout relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -63,7 +72,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08 }}
-            className="mt-7 max-w-4xl text-5xl font-black leading-[0.95] tracking-tight text-slate-950 sm:text-6xl md:text-7xl"
+            className="mt-7 max-w-4xl text-6xl font-black leading-[0.92] tracking-tight text-slate-950 md:text-8xl"
           >
             We turn ideas into{" "}
             <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 bg-clip-text text-transparent">
@@ -90,163 +99,168 @@ export default function Hero() {
           >
             <Link
               href="/products"
-              className="inline-flex min-h-12 items-center gap-2 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition-all duration-500 ease-out hover:-translate-y-1.5 hover:bg-blue-700 hover:shadow-2xl"
+              className="rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
             >
-              Explore Products <ArrowRight className="h-4 w-4" />
+              Explore Products →
             </Link>
             <Link
               href="/start-project"
-              className="inline-flex min-h-12 items-center rounded-full border border-blue-100/70 bg-[#fbfdff] px-7 py-4 text-sm font-black text-slate-800 shadow-lg shadow-blue-100/60 transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 hover:shadow-xl"
+              className="rounded-full border border-blue-100/70 bg-[#fbfdff] px-7 py-4 text-sm font-black text-slate-800 shadow-lg transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-xl"
             >
-              Start Project
+              Start a Project
             </Link>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.32 }}
-            className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
-          >
-            {buildSteps.map((step, index) => (
-              <div
-                key={step}
-                className="rounded-2xl border border-blue-100 bg-white/80 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/45 backdrop-blur"
-              >
-                <span className="block text-xs text-blue-600">0{index + 1}</span>
-                {step}
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 28 }}
+          initial={{ opacity: 0, scale: 0.96, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.18 }}
-          className="relative"
+          transition={{ duration: 0.65, delay: 0.18 }}
+          className="hero-mobile-engine md:hidden"
         >
-          <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/35 via-cyan-200/25 to-indigo-200/30 blur-3xl" />
+          <div className="hero-mobile-orbit" />
+          <div className="hero-mobile-orbit hero-mobile-orbit-mid" />
+          <div className="hero-mobile-orbit hero-mobile-orbit-inner" />
 
-          <div className="relative overflow-hidden rounded-[2.75rem] border border-blue-100/80 bg-white/78 p-4 shadow-[0_34px_120px_rgba(37,99,235,0.16)] ring-1 ring-white/80 backdrop-blur-2xl">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(37,99,235,0.13),transparent_34%),radial-gradient(circle_at_90%_18%,rgba(6,182,212,0.13),transparent_30%)]" />
-
-            <div className="relative overflow-hidden rounded-[2.25rem] border border-blue-100 bg-[#fbfdff] p-5 sm:p-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-lg shadow-blue-100/60">
-                    <Image
-                      src="/growblic-website01/images/brand/growblic-logo.png"
-                      alt="Growblic"
-                      fill
-                      sizes="48px"
-                      priority
-                      className="object-cover p-1"
-                    />
-                  </span>
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">
-                      Product Launch Dashboard
-                    </p>
-                    <h2 className="mt-1 text-xl font-black tracking-tight text-slate-950">
-                      Growblic delivery system
-                    </h2>
-                  </div>
-                </div>
-                <span className="w-fit rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">
-                  Ready for build
-                </span>
+          <div className="hero-mobile-center-card">
+            <div className="hero-mobile-card-inner">
+              <div className="hero-mobile-logo relative overflow-hidden">
+                <Image
+                  src="/growblic-website01/images/brand/growblic-logo.png"
+                  alt="Growblic"
+                  fill
+                  sizes="64px"
+                  priority
+                  className="object-cover"
+                />
               </div>
 
-              <div className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-                <div className="rounded-[2rem] border border-blue-100 bg-white p-5 shadow-xl shadow-blue-100/45">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
-                        Build pipeline
-                      </p>
-                      <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
-                        Website, app, SaaS, automation.
-                      </h3>
-                    </div>
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-950 text-white shadow-lg shadow-slate-950/15">
-                      <Rocket className="h-5 w-5" />
-                    </span>
-                  </div>
+              <p className="hero-mobile-eyebrow">Growblic Engine</p>
+              <h3 className="hero-mobile-title">
+                <span>Design</span>
+                <span>Build</span>
+                <span>Launch</span>
+              </h3>
 
-                  <div className="mt-6 grid gap-3">
-                    {buildSteps.map((step, index) => (
-                      <div
-                        key={step}
-                        className="flex items-center gap-3 rounded-2xl border border-blue-100 bg-blue-50/50 px-4 py-3"
-                      >
-                        <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                        <span className="text-sm font-black text-slate-700">{step}</span>
-                        <span className="ml-auto rounded-full bg-white px-3 py-1 text-[0.65rem] font-black text-blue-700 ring-1 ring-blue-100">
-                          0{index + 1}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid gap-4">
-                  <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-600 to-cyan-500 p-5 text-white shadow-xl shadow-blue-500/20">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-100">
-                      Current focus
-                    </p>
-                    <h3 className="mt-3 text-3xl font-black tracking-tight">
-                      Premium software experiences
-                    </h3>
-                    <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/25">
-                      <motion.div
-                        animate={{ x: ["-100%", "0%", "100%"] }}
-                        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-                        className="h-full w-1/2 rounded-full bg-white"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="rounded-[2rem] border border-blue-100 bg-white p-5 shadow-xl shadow-blue-100/45">
-                    <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-700">
-                      Launch quality
-                    </p>
-                    <div className="mt-4 grid grid-cols-2 gap-3">
-                      {["UI", "Speed", "Forms", "Support"].map((item) => (
-                        <span
-                          key={item}
-                          className="rounded-2xl border border-blue-100 bg-blue-50/60 px-3 py-2 text-center text-xs font-black text-slate-700"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {previewTiles.map((tile) => {
-                  const Icon = tile.icon;
-
-                  return (
-                    <div
-                      key={tile.title}
-                      className="rounded-[1.4rem] border border-blue-100 bg-white/90 p-4 shadow-sm shadow-blue-100/45"
-                    >
-                      <Icon className="h-5 w-5 text-blue-600" />
-                      <h4 className="mt-3 text-sm font-black text-slate-950">
-                        {tile.title}
-                      </h4>
-                      <p className="mt-1 text-xs font-semibold leading-5 text-slate-500">
-                        {tile.detail}
-                      </p>
-                    </div>
-                  );
-                })}
+              <div className="hero-mobile-progress">
+                <span />
               </div>
             </div>
           </div>
+
+          {orbitItems.map((item) => (
+            <div
+              key={`mobile-${item.title}`}
+              className={`hero-mobile-chip ${item.mobilePosition}`}
+            >
+              <span className={`hero-mobile-dot bg-gradient-to-r ${item.glow}`} />
+              <div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.18 }}
+          className="hero-engine-visual relative hidden min-h-[650px] md:block"
+        >
+          <div className="hero-engine-glow absolute left-1/2 top-1/2 h-[610px] w-[610px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/30 via-cyan-200/25 to-violet-200/30 blur-2xl" />
+          <div className="hero-engine-orbit hero-engine-orbit-outer absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-[#fbfdff]/55 shadow-2xl shadow-blue-100/80 backdrop-blur-xl" />
+          <div className="hero-engine-orbit hero-engine-orbit-mid absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
+          <div className="hero-engine-orbit hero-engine-orbit-inner absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
+
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="hero-engine-spin hero-engine-spin-outer absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          >
+            <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-600 shadow-[0_0_24px_rgba(37,99,235,0.9)]" />
+            <span className="absolute bottom-0 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-cyan-500 shadow-[0_0_24px_rgba(6,182,212,0.9)]" />
+          </motion.div>
+
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+            className="hero-engine-spin hero-engine-spin-inner absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          >
+            <span className="absolute right-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-violet-500 shadow-[0_0_22px_rgba(168,85,247,0.8)]" />
+            <span className="absolute left-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_22px_rgba(59,130,246,0.8)]" />
+          </motion.div>
+
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+            className="hero-engine-card absolute left-1/2 top-1/2 z-20 w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-[3rem] border border-blue-100/70 bg-[#fbfdff]/92 p-5 shadow-2xl shadow-slate-300/80 backdrop-blur-xl"
+          >
+            <div className="hero-engine-card-inner relative overflow-hidden rounded-[2.35rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/80 to-violet-50/70 p-6 text-center">
+              <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-cyan-200/60 blur-2xl" />
+              <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-violet-200/60 blur-2xl" />
+
+              <div className="relative">
+                <div className="hero-engine-logo relative mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
+                  <Image
+                    src="/growblic-website01/images/brand/growblic-logo.png"
+                    alt="Growblic"
+                    fill
+                    sizes="80px"
+                    priority
+                    className="rounded-full object-cover p-2"
+                  />
+                </div>
+
+                <p className="hero-engine-eyebrow mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">
+                  Growblic Engine
+                </p>
+                <h3 className="hero-engine-title mt-3 text-5xl font-black leading-none tracking-tight text-slate-950">
+                  Design Build Launch
+                </h3>
+
+                <div className="mx-auto mt-7 h-2 w-36 overflow-hidden rounded-full bg-slate-100">
+                  <motion.div
+                    animate={{ x: ["-100%", "0%", "100%"] }}
+                    transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+                    className="h-full w-1/2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-500"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {orbitItems.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1, y: [0, index % 2 === 0 ? -8 : 8, 0] }}
+              transition={{
+                opacity: { duration: 0.55, delay: 0.35 + index * 0.08 },
+                scale: { duration: 0.55, delay: 0.35 + index * 0.08 },
+                y: { duration: 4.2 + index * 0.45, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className={`hero-engine-chip ${item.mobilePosition} absolute z-30 ${item.position} w-[178px] overflow-hidden rounded-[1.8rem] border border-blue-100/70 bg-gradient-to-br ${item.bg} p-4 shadow-2xl shadow-slate-200/75 backdrop-blur-xl`}
+            >
+              <div className={`absolute -right-8 -top-8 h-20 w-20 rounded-full bg-gradient-to-br ${item.glow} opacity-25 blur-xl`} />
+              <div className="relative flex items-center gap-3">
+                <span className={`h-3 w-3 rounded-full bg-gradient-to-r ${item.glow} shadow-[0_0_18px_rgba(37,99,235,0.8)]`} />
+                <h4 className="text-base font-black text-slate-950">
+                  {item.title}
+                </h4>
+              </div>
+              <p className="relative mt-3 text-sm font-semibold leading-6 text-slate-500">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+
+          <motion.div
+            animate={{ opacity: [0.35, 0.9, 0.35], scale: [1, 1.06, 1] }}
+            transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+            className="hero-engine-ground absolute bottom-[8%] left-1/2 h-3 w-64 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-500 blur-sm"
+          />
         </motion.div>
       </div>
     </section>
