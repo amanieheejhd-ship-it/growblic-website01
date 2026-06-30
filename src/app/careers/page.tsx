@@ -87,10 +87,10 @@ const careerOptions = [
 ];
 
 const heroStats = [
-  { label: "Open roles", href: "/careers/openings" },
-  { label: "Remote-first", href: "/careers/perks" },
-  { label: "Growth culture", href: "/careers/culture" },
-  { label: "Build with Growblic", href: "/careers/values" },
+  "Open roles",
+  "Remote-first",
+  "Growth culture",
+  "Build with Growblic",
 ];
 
 const whyJoin = [
@@ -163,17 +163,13 @@ export default function CareersPage() {
               </p>
               <div className="relative mt-7 grid gap-3">
                 {heroStats.map((item, index) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="group/stat flex items-center justify-between rounded-2xl border border-blue-100 bg-white/85 px-5 py-4 text-left font-black text-slate-800 shadow-[0_14px_35px_rgba(37,99,235,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-700 hover:shadow-[0_22px_55px_rgba(37,99,235,0.15)]"
+                  <div
+                    key={item}
+                    className="flex items-center justify-between rounded-2xl border border-blue-100/80 bg-white/72 px-4 py-3 shadow-lg shadow-blue-100/45 backdrop-blur"
                   >
-                    <span>{item.label}</span>
-                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs tracking-[0.16em] text-blue-700 transition group-hover/stat:bg-blue-600 group-hover/stat:text-white">
+                    <span className="text-sm font-black text-slate-800">{item}</span>
+                    <span className="grid h-7 w-7 place-items-center rounded-full bg-blue-50 text-xs font-black text-blue-700">
                       {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </Link>
-                ))}
                     </span>
                   </div>
                 ))}
