@@ -6,7 +6,6 @@ import {
   HeartHandshake,
   Lightbulb,
   Sparkles,
-  Target,
   Users,
 } from "lucide-react";
 import Scroll3DSection, { TiltCard } from "../../components/Scroll3DSection";
