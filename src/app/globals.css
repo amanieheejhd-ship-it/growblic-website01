@@ -838,21 +838,39 @@ button {
 /* apps-slider-hover-speed-end */
 
 
-@keyframes growblicContactSlide {
+@keyframes growblicContactDriftA {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+  50% {
+    transform: translate3d(14px, -18px, 0) rotate(1deg);
   }
   100% {
-    transform: translateX(-22%);
+    transform: translate3d(0, 0, 0) rotate(-2deg);
   }
 }
 
-@keyframes growblicContactSlideReverse {
+@keyframes growblicContactDriftB {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) rotate(2deg);
+  }
+  50% {
+    transform: translate3d(-18px, 12px, 0) rotate(-1deg);
   }
   100% {
-    transform: translateX(22%);
+    transform: translate3d(0, 0, 0) rotate(2deg);
+  }
+}
+
+@keyframes growblicContactDriftC {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(1deg);
+  }
+  50% {
+    transform: translate3d(10px, 16px, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1deg);
   }
 }
 
@@ -862,5 +880,11 @@ button {
   }
   50% {
     transform: translate3d(18px, -16px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .growblic-contact-motion-layer [class*="animate-"] {
+    animation: none !important;
   }
 }
