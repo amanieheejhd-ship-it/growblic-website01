@@ -2,38 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 import { companyApps } from "../data/companyApps";
 import { TiltCard } from "./Scroll3DSection";
 
 export default function FeaturedProducts() {
-  
-  const sliderRef = useRef<HTMLDivElement | null>(null);
-
-  const handleScroll = (direction: "left" | "right") => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    slider.scrollBy({
-      left: direction === "left" ? -360 : 360,
-      behavior: "smooth",
-    });
-  };
-
-  const loopApps = [...companyApps, ...companyApps];
+  const featuredApps = companyApps.slice(0, 8);
 
   const renderAppCard = (app: (typeof companyApps)[number], index: number) => (
     <TiltCard
       key={`${app.slug}-${index}`}
-      className="live-app-card group"
+      className="group h-full"
     >
       <Link
         href={`/apps/${app.slug}`}
         className="block h-full"
       >
-        <div className="live-app-card-shell relative flex h-full flex-col overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-white/90 p-7 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
+        <div className="relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/90 p-6 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition-all duration-500 ease-out hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-200/60">
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-r from-blue-50 via-cyan-50 to-white" />
+        <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-100/70 blur-2xl transition group-hover:bg-cyan-100" />
         <div className="relative flex items-start justify-between gap-5">
-          <span className="live-app-icon relative grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-[1.8rem] bg-white shadow-xl shadow-blue-100/70">
+          <span className="relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-[1.5rem] bg-white shadow-xl shadow-blue-100/70 ring-1 ring-blue-100">
             <Image
               src={app.logo}
               alt={app.name}
@@ -44,31 +32,31 @@ export default function FeaturedProducts() {
             />
           </span>
 
-          <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="rounded-full bg-emerald-50 px-4 py-2 text-xs font-black text-emerald-700 ring-1 ring-emerald-100 transition-all duration-300 group-hover:bg-slate-950 group-hover:text-white">
             Live
           </span>
         </div>
 
-        <div className="live-app-content relative mt-8">
-          <span className="live-app-category rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+        <div className="relative mt-7">
+          <span className="rounded-full bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 ring-1 ring-blue-100">
             {app.category}
           </span>
 
-          <h3 className="live-app-title mt-6 min-h-[92px] text-3xl font-black leading-tight tracking-tight text-slate-950">
+          <h3 className="mt-6 min-h-[68px] text-2xl font-black leading-tight tracking-tight text-slate-950">
             {app.name}
           </h3>
 
-          <p className="live-app-description mt-5 line-clamp-4 text-base font-semibold leading-7 text-slate-600">
+          <p className="mt-4 line-clamp-3 text-sm font-semibold leading-7 text-slate-600">
             {app.short}
           </p>
         </div>
 
-        <div className="live-app-footer relative mt-auto flex items-center justify-between pt-8">
+        <div className="relative mt-auto flex items-center justify-between pt-7">
           <span className="text-sm font-black text-slate-950">
             View Product
           </span>
 
-          <span className="grid h-12 w-12 place-items-center rounded-full bg-slate-950 text-xl font-black text-white transition-all duration-500 group-hover:rotate-[-35deg] group-hover:bg-blue-700 backdrop-blur-xl hover:-translate-y-0.5 hover:scale-105 hover:bg-slate-950 hover:text-white transition-all duration-300">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-slate-950 text-xl font-black text-white transition-all duration-500 group-hover:rotate-[-35deg] group-hover:bg-blue-700">
             →
           </span>
         </div>
@@ -96,38 +84,28 @@ export default function FeaturedProducts() {
           </div>
 
           <p className="max-w-xl text-lg font-semibold leading-8 text-slate-600 lg:justify-self-end">
-            Explore real apps built by Growblic. Each product card opens a
-            dedicated app website page with details, features, and Play Store link.
+            Explore a curated set of real apps built by Growblic. Each product card opens
+            a dedicated app website page with details, features, and Play Store link.
           </p>
         </div>
 
-        <div className="growblic-card-reveal live-apps-marquee relative overflow-hidden py-8">
-          <button
-            type="button"
-            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
-            aria-label="Scroll apps left"
-            onClick={() => handleScroll("left")}
-          >
-            ←
-          </button>
+        <div className="growblic-card-reveal relative overflow-hidden rounded-[2.75rem] border border-blue-100/80 bg-white/70 p-4 shadow-[0_28px_100px_rgba(37,99,235,0.12)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-5">
+          <div className="absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
+          <div className="absolute -left-24 top-10 h-64 w-64 rounded-full bg-blue-100/70 blur-3xl" />
+          <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-cyan-100/70 blur-3xl" />
 
-          <button
-            type="button"
-            className="group inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-semibold text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-950 hover:bg-slate-950 hover:text-white active:scale-95"
-            aria-label="Scroll apps right"
-            onClick={() => handleScroll("right")}
-          >
-            →
-          </button>
-
-          <div className="live-apps-fade pointer-events-none absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
-          <div className="live-apps-fade pointer-events-none absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#fbfdff] via-[#fbfdff]/80 to-transparent" />
-
-          <div
-            className="live-apps-track"
-          >
-            {loopApps.map(renderAppCard)}
+          <div className="growblic-reveal-grid relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredApps.map(renderAppCard)}
           </div>
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/downloads"
+            className="inline-flex min-h-12 items-center justify-center rounded-full border border-blue-100 bg-white px-7 py-3.5 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/60 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+          >
+            View all apps →
+          </Link>
         </div>
       </div>
     </section>
