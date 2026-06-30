@@ -214,23 +214,38 @@ export default function MeetupPage() {
           </div>
         </section>
 
-        <section className="relative mt-20 overflow-hidden rounded-[2.7rem] border border-blue-100/90 bg-white/88 p-7 shadow-[0_38px_130px_rgba(37,99,235,0.13)] backdrop-blur-2xl sm:p-9">
-          <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-blue-200/35 blur-3xl" />
-          <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-200/35 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:34px_34px]" />
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-stretch">
-            <div>
+        <section className="relative mt-20 overflow-hidden rounded-[3rem] border border-blue-100/90 bg-white/92 p-6 shadow-[0_42px_140px_rgba(37,99,235,0.14)] backdrop-blur-2xl sm:p-8 lg:p-10">
+          <div className="pointer-events-none absolute -left-28 top-0 h-80 w-80 rounded-full bg-blue-200/35 blur-3xl" />
+          <div className="pointer-events-none absolute -right-28 bottom-0 h-96 w-96 rounded-full bg-cyan-200/35 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.038)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.038)_1px,transparent_1px)] bg-[size:34px_34px]" />
+
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:items-stretch">
+            <div className="flex flex-col rounded-[2.25rem] border border-blue-100 bg-white/86 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.10)] backdrop-blur-xl">
               <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
-                Host support
+                Host Support
               </p>
-              <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+
+              <h2 className="mt-4 text-[clamp(2.4rem,4vw,4.1rem)] font-extrabold leading-[1.02] tracking-[-0.065em] text-slate-950">
                 Support for your Growblic meetups.
               </h2>
+
               <p className="mt-5 text-base font-semibold leading-8 text-slate-600">
                 Approved events may receive promotional support, digital assets, topic guidance, and practical planning help from Growblic.
               </p>
-              <div className="mt-8 overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-3 shadow-[0_22px_75px_rgba(37,99,235,0.12)]">
-                <img src="/growblic-website01/images/business/saas-1.jpg" alt="Growblic host support" className="h-72 w-full rounded-[1.55rem] object-cover saturate-110" />
+
+              <div className="mt-7 overflow-hidden rounded-[1.8rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-3 shadow-[0_22px_75px_rgba(37,99,235,0.12)]">
+                <div className="relative overflow-hidden rounded-[1.45rem]">
+                  <img src="{hero4}" alt="Growblic host support" className="h-72 w-full object-cover saturate-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-slate-950/5 to-transparent" />
+                  <div className="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/55 bg-white/92 px-4 py-3 shadow-xl backdrop-blur-xl">
+                    <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
+                      Host kit
+                    </p>
+                    <p className="mt-1 text-sm font-black text-slate-950">
+                      Planning, assets, topics and support.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -241,25 +256,30 @@ export default function MeetupPage() {
                 return (
                   <article
                     key={card.title}
-                    className="group relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/90 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.10)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_34px_105px_rgba(37,99,235,0.16)]"
+                    className="group relative min-h-[255px] overflow-hidden rounded-[2.15rem] border border-blue-100 bg-white/92 p-6 shadow-[0_26px_90px_rgba(37,99,235,0.11)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_38px_120px_rgba(37,99,235,0.17)]"
                   >
-                    <div className="pointer-events-none absolute -right-14 -top-14 h-36 w-36 rounded-full bg-blue-100/70 blur-2xl transition group-hover:bg-cyan-100/80" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-blue-50 via-white to-cyan-50" />
+                    <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-blue-100/80 blur-2xl transition group-hover:bg-cyan-100" />
+
                     <div className="relative flex items-center justify-between">
-                      <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black tracking-[0.24em] text-blue-700 ring-1 ring-blue-100">
+                      <span className="rounded-full bg-white px-3 py-1 text-xs font-black tracking-[0.24em] text-blue-700 shadow-sm ring-1 ring-blue-100">
                         {card.number}
                       </span>
-                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-blue-700 shadow-[0_12px_35px_rgba(37,99,235,0.14)] ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
+
+                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-blue-700 shadow-[0_14px_40px_rgba(37,99,235,0.14)] ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
                         <Icon className="h-5 w-5" />
                       </span>
                     </div>
 
-                    <h3 className="relative mt-8 text-[1.35rem] font-black leading-tight tracking-[-0.045em] text-slate-950">
+                    <h3 className="relative mt-10 text-[1.45rem] font-black leading-tight tracking-[-0.045em] text-slate-950">
                       {card.title}
                     </h3>
 
                     <p className="relative mt-4 text-sm font-semibold leading-7 text-slate-600">
                       {card.text}
                     </p>
+
+                    <div className="absolute bottom-0 left-6 right-6 h-1 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-200 opacity-0 transition group-hover:opacity-100" />
                   </article>
                 );
               })}
