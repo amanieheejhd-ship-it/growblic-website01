@@ -1,365 +1,355 @@
-import Image from "next/image";
-import BackButton from "../../components/BackButton";
-import { createPageMetadata } from "../seo";
+/* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Ban,
+  Brush,
+  CheckCircle2,
+  Copy,
+  Download,
+  FileText,
+  Layers3,
+  Palette,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 
-export const metadata = createPageMetadata({
-  title: "Growblic Brand Guidelines",
-  description:
-    "Brand, logo, color, partnership, and trademark usage guidelines for Growblic.",
-  path: "/brand",
-});
-
-const logoCards = [
-  {
-    title: "Growblic mark",
-    description: "Use the mark when the Growblic name is already clear.",
-    variant: "mark",
-  },
-  {
-    title: "Growblic wordmark",
-    description: "Use the wordmark for headlines, documents, and brand-first layouts.",
-    variant: "wordmark",
-  },
-  {
-    title: "Primary lockup",
-    description: "Use the lockup when space allows the clearest brand recognition.",
-    variant: "lockup",
-  },
-];
-
-const colors = [
-  { name: "Growblic Navy / Ink", hex: "#0F172A", className: "bg-slate-950 text-white" },
-  { name: "Growblic Blue", hex: "#2563EB", className: "bg-blue-600 text-white" },
-  { name: "Soft Sky", hex: "#E0F2FE", className: "bg-sky-100 text-slate-950" },
-  { name: "White", hex: "#FFFFFF", className: "bg-white text-slate-950" },
-  { name: "Slate Text", hex: "#475569", className: "bg-slate-600 text-white" },
-];
-
-const partnershipCards = [
-  ["Growblic", "Client"],
-  ["Growblic", "Partner"],
-  ["Growblic", "Community"],
-];
-
-const pairingExamples = [
-  "Growblic | Partner",
-  "Partner | Growblic",
-  "Growblic + Product",
-];
-
-const misuseCards = [
-  "Never stretch or distort the logo",
-  "Never rotate or skew the logo",
-  "Never recolor the logo without approval",
-  "Never place logo on low contrast backgrounds",
-  "Never outline the mark",
-  "Never combine Growblic with another brand without spacing",
-  "Never use unofficial typefaces for the Growblic wordmark",
-  "Never modify the icon shape",
-];
+const logoUrl =
+  "https://play-lh.googleusercontent.com/g0grr8jGzVcS1_uUzh05Ht2a7w7PcavodUBDgK7XOel8DwYKNSVtNZaF6HmqUFPK37xlr4WafEddfvWeyeDSKA=w240-h480-rw";
 
 const navItems = [
   { label: "Logos", href: "#logos" },
   { label: "Colors", href: "#colors" },
   { label: "Icon", href: "#icon" },
   { label: "Partnerships", href: "#partnerships" },
-  { label: "Pairing logos", href: "#pairing-logos" },
+  { label: "Pairing", href: "#pairing" },
   { label: "Usage", href: "#usage" },
 ];
 
-function LogoPreview({ variant }: { variant: string }) {
-  if (variant === "mark") {
+const logoCards = [
+  {
+    title: "Growblic mark",
+    text: "Use the mark when the Growblic name is already clear.",
+    preview: "mark",
+  },
+  {
+    title: "Growblic wordmark",
+    text: "Use the wordmark for headlines, documents, and brand-first layouts.",
+    preview: "wordmark",
+  },
+  {
+    title: "Primary lockup",
+    text: "Use the lockup when space allows the clearest brand recognition.",
+    preview: "lockup",
+  },
+];
+
+const colors = [
+  { hex: "#0F172A", name: "Growblic Navy / Ink", className: "bg-slate-950 text-white" },
+  { hex: "#2563EB", name: "Growblic Blue", className: "bg-blue-600 text-white" },
+  { hex: "#E0F2FE", name: "Soft Sky", className: "bg-sky-100 text-slate-950" },
+  { hex: "#FFFFFF", name: "White", className: "bg-white text-slate-950" },
+  { hex: "#475569", name: "Slate Text", className: "bg-slate-600 text-white" },
+];
+
+const donts = [
+  "Never stretch or distort the logo",
+  "Never rotate or skew the logo",
+  "Never recolor the logo without approval",
+  "Never place logo on low contrast backgrounds",
+  "Never outline the mark",
+  "Never combine Growblic with another brand without spacing",
+];
+
+const usageCards = [
+  {
+    title: "Use clear space",
+    text: "Keep enough spacing around Growblic marks so the brand feels clean and premium.",
+    icon: Layers3,
+  },
+  {
+    title: "Keep contrast strong",
+    text: "Use the mark on clean light or dark surfaces where it remains easy to recognize.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Use approved colors",
+    text: "Keep the Growblic brand in the navy, blue, sky, white, and slate system.",
+    icon: Palette,
+  },
+];
+
+function LogoPreview({ type }: { type: string }) {
+  if (type === "mark") {
     return (
-      <div className="relative h-24 w-24 overflow-hidden rounded-[1.8rem] border border-blue-100 bg-white shadow-xl shadow-blue-100/70">
-        <Image
-          src="/growblic-website01/images/brand/growblic-logo.png"
-          alt="Growblic mark"
-          fill
-          sizes="96px"
-          className="object-cover p-3"
-        />
-      </div>
-    );
-  }
-
-  if (variant === "wordmark") {
-    return (
-      <div className="rounded-[1.8rem] border border-blue-100 bg-white px-7 py-5 shadow-xl shadow-blue-100/70">
-        <span className="text-4xl font-black tracking-tight text-slate-950">Growblic</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-center gap-4 rounded-[1.8rem] border border-blue-100 bg-white px-6 py-5 shadow-xl shadow-blue-100/70">
-      <span className="relative h-16 w-16 overflow-hidden rounded-2xl border border-blue-100 bg-white">
-        <Image
-          src="/growblic-website01/images/brand/growblic-logo.png"
-          alt="Growblic"
-          fill
-          sizes="64px"
-          className="object-cover p-2"
-        />
-      </span>
-      <span className="text-3xl font-black tracking-tight text-slate-950">Growblic</span>
-    </div>
-  );
-}
-
-function MisuseMockup({ label, index }: { label: string; index: number }) {
-  return (
-    <article className="relative overflow-hidden rounded-[1.8rem] border border-red-100 bg-white p-5 shadow-xl shadow-blue-100/40">
-      <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-red-50 blur-2xl" />
-      <div className="relative grid h-32 place-items-center rounded-[1.3rem] border border-blue-100 bg-blue-50/50">
-        <div
-          className={[
-            "relative flex items-center gap-2 rounded-2xl bg-white px-4 py-3 shadow-lg shadow-blue-100/60",
-            index === 0 ? "scale-x-125" : "",
-            index === 1 ? "rotate-6 skew-x-3" : "",
-            index === 2 ? "text-cyan-500" : "text-slate-950",
-            index === 3 ? "bg-blue-100 text-blue-100" : "",
-            index === 4 ? "bg-transparent text-transparent ring-2 ring-blue-600" : "",
-            index === 7 ? "rounded-full" : "",
-          ].join(" ")}
-        >
-          <span className="relative h-8 w-8 overflow-hidden rounded-lg border border-blue-100 bg-white">
-            <Image
-              src="/growblic-website01/images/brand/growblic-logo.png"
-              alt=""
-              fill
-              sizes="32px"
-              className="object-cover p-1"
-            />
-          </span>
-          <span className="text-lg font-black">Growblic</span>
-          {index === 5 ? <span className="text-lg font-black text-slate-400">Partner</span> : null}
+      <div className="grid h-full place-items-center rounded-[1.6rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+        <div className="grid h-24 w-24 place-items-center rounded-[1.4rem] border border-blue-100 bg-white shadow-[0_22px_60px_rgba(37,99,235,0.14)]">
+          <img src={logoUrl} alt="Growblic mark" className="h-16 w-16 rounded-xl object-cover" />
         </div>
-        <span className="absolute h-1 w-40 rotate-[-28deg] rounded-full bg-red-500" />
       </div>
-      <p className="mt-4 text-sm font-black leading-6 text-slate-700">{label}</p>
-    </article>
+    );
+  }
+
+  if (type === "wordmark") {
+    return (
+      <div className="grid h-full place-items-center rounded-[1.6rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+        <div className="rounded-3xl border border-blue-100 bg-white px-10 py-5 text-4xl font-black tracking-[-0.05em] text-slate-950 shadow-[0_22px_60px_rgba(37,99,235,0.12)]">
+          Growblic
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid h-full place-items-center rounded-[1.6rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+      <div className="flex items-center gap-4 rounded-3xl border border-blue-100 bg-white px-8 py-5 shadow-[0_22px_60px_rgba(37,99,235,0.12)]">
+        <img src={logoUrl} alt="Growblic lockup" className="h-12 w-12 rounded-xl object-cover" />
+        <span className="text-3xl font-black tracking-[-0.05em] text-slate-950">Growblic</span>
+      </div>
+    </div>
   );
 }
 
 export default function BrandPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
-      <section className="relative px-6 py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_0%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_84%_80%,rgba(6,182,212,0.10),transparent_30%)]" />
+    <main className="relative overflow-hidden bg-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_6%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_92%_70%,rgba(6,182,212,0.12),transparent_30%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.62),#ffffff)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-        <div className="relative mx-auto max-w-7xl">
-          <BackButton />
+      <section className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)]">
+            Growblic Brand
+          </p>
 
-          <div className="mx-auto mt-12 max-w-5xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">
-              Growblic Brand
-            </p>
-            <h1 className="mt-5 text-5xl font-black leading-[0.94] tracking-tight text-slate-950 md:text-8xl">
-              Growblic brand and trademark guidelines
-            </h1>
-            <p className="mx-auto mt-7 max-w-3xl text-lg font-semibold leading-9 text-slate-600 sm:text-xl">
-              Guidelines for using the Growblic name, logo, icon, and brand assets
-              consistently across websites, apps, documents, and partnerships.
-            </p>
+          <h1 className="mt-7 text-5xl font-black leading-[0.95] tracking-[-0.075em] text-slate-950 sm:text-6xl lg:text-7xl">
+            Brand and trademark guidelines for Growblic.
+          </h1>
+
+          <p className="mx-auto mt-7 max-w-3xl text-lg font-semibold leading-9 text-slate-600">
+            A clean system for using the Growblic name, logo, colors, icon, and brand assets across websites, apps, documents, and partnerships.
+          </p>
+
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href="#logos"
-              className="mt-9 inline-flex rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+              href="#usage"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
-              Read the brand guidelines ↓
+              Read guidelines <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              href="mailto:hello@growblic.com"
+              className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white/90 px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/55 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+            >
+              Request assets <Download className="h-4 w-4" />
             </a>
           </div>
+        </div>
 
-          <nav className="sticky top-4 z-20 mx-auto mt-12 flex max-w-4xl gap-2 overflow-x-auto rounded-full border border-blue-100/80 bg-white/88 p-2 shadow-xl shadow-blue-100/55 backdrop-blur-xl">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="whitespace-nowrap rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:bg-blue-600 hover:text-white"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+        <nav className="sticky top-4 z-20 mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-2 rounded-full border border-blue-100 bg-white/84 p-2 shadow-[0_18px_60px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="rounded-full px-5 py-3 text-xs font-black uppercase tracking-[0.22em] text-slate-600 transition hover:bg-blue-600 hover:text-white"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-          <section id="logos" className="mt-16 scroll-mt-28">
-            <div className="max-w-3xl">
-              <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-                Logos
-              </p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-                Essentials
+        <section id="logos" className="mt-16 scroll-mt-28">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Logos</p>
+              <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+                Essential brand assets.
               </h2>
             </div>
+            <p className="max-w-md text-sm font-semibold leading-7 text-slate-600">
+              Use these core Growblic assets consistently across digital and print surfaces.
+            </p>
+          </div>
 
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {logoCards.map((card) => (
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {logoCards.map((card) => (
+              <article
+                key={card.title}
+                className="group overflow-hidden rounded-[2rem] border border-blue-100 bg-white/80 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.10)] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-white hover:shadow-[0_34px_100px_rgba(37,99,235,0.15)]"
+              >
+                <div className="h-56">
+                  <LogoPreview type={card.preview} />
+                </div>
+                <div className="p-2 pt-6">
+                  <h3 className="text-2xl font-black tracking-[-0.04em] text-slate-950">{card.title}</h3>
+                  <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">{card.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="colors" className="mt-16 scroll-mt-28">
+          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Colors</p>
+          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+            Brand color system.
+          </h2>
+
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {colors.map((color) => (
+              <div
+                key={color.hex}
+                className="overflow-hidden rounded-[1.5rem] border border-blue-100 bg-white shadow-[0_20px_60px_rgba(37,99,235,0.08)] transition hover:-translate-y-1 hover:border-blue-300"
+              >
+                <div className={`h-36 p-5 text-sm font-black ${color.className}`}>{color.hex}</div>
+                <div className="p-5">
+                  <p className="font-black text-slate-950">{color.name}</p>
+                  <button className="mt-3 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
+                    <Copy className="h-3.5 w-3.5" /> Copy
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="icon" className="mt-16 grid gap-8 scroll-mt-28 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Icon</p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+              App icon and product mark.
+            </h2>
+            <p className="mt-5 max-w-xl text-base font-semibold leading-8 text-slate-600">
+              Use the Growblic mark in clean square or rounded-square containers with enough clear space.
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/80 p-8 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(6,182,212,0.16),transparent_36%)]" />
+            <div className="relative mx-auto grid h-72 max-w-xl place-items-center rounded-[1.8rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+              <div className="grid h-36 w-36 place-items-center rounded-[2rem] border border-blue-100 bg-white shadow-[0_30px_80px_rgba(37,99,235,0.18)]">
+                <img src={logoUrl} alt="Growblic icon" className="h-24 w-24 rounded-2xl object-cover" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="partnerships" className="mt-16 scroll-mt-28">
+          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Partnerships</p>
+          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+            Co-branding examples.
+          </h2>
+          <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600">
+            Keep both marks balanced, aligned, and with enough clear space.
+          </p>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {["Client", "Partner", "Community"].map((item) => (
+              <div
+                key={item}
+                className="rounded-[1.8rem] border border-blue-100 bg-white/80 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.09)] backdrop-blur-xl"
+              >
+                <div className="flex items-center justify-center gap-5 rounded-[1.4rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50 px-6 py-10">
+                  <span className="rounded-2xl bg-white px-6 py-4 text-xl font-black text-slate-950 shadow-md">Growblic</span>
+                  <span className="text-2xl font-black text-blue-600">×</span>
+                  <span className="rounded-2xl bg-white px-6 py-4 text-xl font-black text-slate-500 shadow-md">{item}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="pairing" className="mt-16 scroll-mt-28">
+          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Pairing logos</p>
+          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+            Correct logo pairings.
+          </h2>
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {["Growblic | Partner", "Partner | Growblic", "Growblic + Product"].map((item) => (
+              <div
+                key={item}
+                className="rounded-[1.5rem] border border-blue-100 bg-white/86 px-8 py-8 text-center text-2xl font-black tracking-[-0.04em] text-slate-950 shadow-[0_20px_60px_rgba(37,99,235,0.08)]"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="usage" className="mt-16 scroll-mt-28">
+          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Usage</p>
+          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+            Use the Growblic brand correctly.
+          </h2>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {usageCards.map((card) => {
+              const Icon = card.icon;
+              return (
                 <article
                   key={card.title}
-                  className="rounded-[2rem] border border-blue-100/70 bg-white p-7 shadow-xl shadow-blue-100/50"
+                  className="rounded-[1.7rem] border border-blue-100 bg-white/82 p-6 shadow-[0_22px_70px_rgba(37,99,235,0.09)] backdrop-blur-xl"
                 >
-                  <div className="grid min-h-52 place-items-center rounded-[1.6rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6">
-                    <LogoPreview variant={card.variant} />
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-5 text-2xl font-black text-slate-950">{card.title}</h3>
-                  <p className="mt-2 text-sm font-semibold leading-7 text-slate-600">
-                    {card.description}
-                  </p>
+                  <h3 className="mt-6 text-2xl font-black tracking-[-0.04em] text-slate-950">{card.title}</h3>
+                  <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">{card.text}</p>
                 </article>
-              ))}
-            </div>
-          </section>
+              );
+            })}
+          </div>
 
-          <section id="colors" className="mt-20 scroll-mt-28">
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-              Colors
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-              Brand color system
-            </h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {colors.map((color) => (
-                <article
-                  key={color.name}
-                  className="overflow-hidden rounded-[1.7rem] border border-blue-100 bg-white shadow-xl shadow-blue-100/45"
-                >
-                  <div className={`h-32 p-4 ${color.className}`}>
-                    <p className="text-sm font-black">{color.hex}</p>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {donts.map((item) => (
+              <article
+                key={item}
+                className="rounded-[1.5rem] border border-red-100 bg-white/80 p-5 shadow-[0_18px_55px_rgba(239,68,68,0.07)]"
+              >
+                <div className="flex h-32 items-center justify-center rounded-[1.2rem] border border-blue-100 bg-blue-50/55">
+                  <div className="relative rounded-2xl bg-white px-6 py-4 text-lg font-black text-slate-950 shadow-md">
+                    Growblic
+                    <span className="absolute left-1/2 top-1/2 h-1 w-36 -translate-x-1/2 -translate-y-1/2 -rotate-[28deg] rounded-full bg-red-500" />
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-sm font-black text-slate-950">{color.name}</h3>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
+                </div>
+                <div className="mt-5 flex items-start gap-3">
+                  <Ban className="mt-1 h-5 w-5 shrink-0 text-red-500" />
+                  <p className="text-sm font-black leading-7 text-slate-700">{item}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-          <section id="icon" className="mt-20 grid scroll-mt-28 gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+        <section className="mt-16 overflow-hidden rounded-[2rem] border border-blue-100 bg-white/84 p-8 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-center">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-                Icon
-              </p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-                App icon / Product icon
+              <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Trademark and permissions</p>
+              <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+                Using Growblic brand assets.
               </h2>
-              <p className="mt-5 text-base font-semibold leading-8 text-slate-600">
-                Use the icon only where the Growblic name is already clear or in compact
-                product spaces.
+              <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600">
+                Growblic name, logo, and brand assets should not be misused. Permission for partnerships, press, or co-branding can be requested at hello@growblic.com. Abuse or impersonation can be reported at abuse@growblic.com.
               </p>
             </div>
-            <div className="grid place-items-center rounded-[2.4rem] border border-blue-100 bg-white p-10 shadow-2xl shadow-blue-100/60">
-              <div className="relative h-48 w-48 overflow-hidden rounded-[3rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-100 p-5 shadow-2xl shadow-blue-200/70">
-                <Image
-                  src="/growblic-website01/images/brand/growblic-logo.png"
-                  alt="Growblic product icon"
-                  fill
-                  sizes="192px"
-                  className="object-cover p-7"
-                />
-              </div>
-            </div>
-          </section>
 
-          <section id="partnerships" className="mt-20 scroll-mt-28">
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-              Partnerships
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-              Co-branding examples
-            </h2>
-            <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600">
-              Keep both marks balanced, aligned, and with enough clear space.
-            </p>
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {partnershipCards.map(([left, right]) => (
-                <article
-                  key={`${left}-${right}`}
-                  className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-xl shadow-blue-100/50"
-                >
-                  <div className="flex items-center justify-center gap-4 rounded-[1.5rem] bg-blue-50/60 p-8">
-                    <span className="rounded-2xl bg-white px-5 py-4 text-lg font-black text-slate-950 shadow-lg">
-                      {left}
-                    </span>
-                    <span className="text-2xl font-black text-blue-600">×</span>
-                    <span className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-lg font-black text-slate-500 shadow-lg">
-                      {right}
-                    </span>
-                  </div>
-                </article>
-              ))}
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <a
+                href="mailto:hello@growblic.com"
+                className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+              >
+                Contact Growblic <FileText className="h-4 w-4" />
+              </a>
+              <a
+                href="mailto:abuse@growblic.com"
+                className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/55 transition hover:-translate-y-0.5 hover:border-red-200 hover:text-red-600"
+              >
+                Report Abuse <BadgeCheck className="h-4 w-4" />
+              </a>
             </div>
-          </section>
-
-          <section id="pairing-logos" className="mt-20 scroll-mt-28">
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-              Pairing logos
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-              Correct logo pairings
-            </h2>
-            <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600">
-              Use spacing, equal visual weight, and consistent alignment when pairing
-              Growblic with partners or product names.
-            </p>
-            <div className="mt-8 grid gap-4 lg:grid-cols-3">
-              {pairingExamples.map((example) => (
-                <div
-                  key={example}
-                  className="rounded-[1.8rem] border border-blue-100 bg-white p-8 text-center text-2xl font-black text-slate-950 shadow-xl shadow-blue-100/45"
-                >
-                  {example}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section id="usage" className="mt-20 scroll-mt-28">
-            <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-              Usage
-            </p>
-            <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-              Do not misuse the Growblic brand
-            </h2>
-            <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {misuseCards.map((label, index) => (
-                <MisuseMockup key={label} label={label} index={index} />
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-20 overflow-hidden rounded-[2.4rem] border border-blue-100 bg-white shadow-2xl shadow-blue-100/60">
-            <div className="relative p-8 sm:p-12">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(37,99,235,0.12),transparent_30%),linear-gradient(135deg,rgba(239,246,255,0.72),rgba(255,255,255,0.96))]" />
-              <div className="relative max-w-4xl">
-                <p className="text-sm font-black uppercase tracking-[0.24em] text-blue-600">
-                  Trademark and permissions
-                </p>
-                <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-                  Using Growblic brand assets
-                </h2>
-                <p className="mt-5 text-base font-semibold leading-8 text-slate-600">
-                  Growblic name, logo, and brand assets should not be misused. Permission
-                  for partnerships, press, or co-branding can be requested at
-                  hello@growblic.com. Abuse or impersonation can be reported at
-                  abuse@growblic.com.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href="mailto:hello@growblic.com?subject=Growblic Brand Permission"
-                    className="rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-                  >
-                    Contact Growblic
-                  </a>
-                  <a
-                    href="mailto:abuse@growblic.com?subject=Growblic Brand Abuse Report"
-                    className="rounded-full border border-blue-100 bg-white px-7 py-4 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
-                  >
-                    Report Abuse
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </section>
     </main>
   );
