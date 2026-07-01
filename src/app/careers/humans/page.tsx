@@ -109,7 +109,8 @@ export default function HumansPage() {
               {teamMembers.map((person, index) => (
                 <article
                   key={person.name}
-                  style={{ animationDelay: `${index * 90}ms` }}\n                  className="team-card-animate group relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.11)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(37,99,235,0.22)]"
+                  style={{ animationDelay: `${index * 90}ms` }}
+                  className="team-card-animate group relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.11)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(37,99,235,0.22)]"
                 >
                   <div className="relative aspect-[4/4.15] overflow-hidden">
                     <img
