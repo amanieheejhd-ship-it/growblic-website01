@@ -49,6 +49,13 @@ const teamMembers = [
     alt: "Bhumit Sharma, Business Analyst at Growblic",
     line: "Turning business needs into clear product requirements, workflow insights, and practical solutions.",
   },
+ ];
+
+const focusLinks = [
+  { label: "Product Thinking", href: "#bintu-malik" },
+  { label: "Clean UI", href: "#gautam" },
+  { label: "Strong Software", href: "#jaspreet-singh-thind" },
+  { label: "Business Growth", href: "#deepak" },
 ];
 
 export default function HumansPage() {
@@ -92,13 +99,14 @@ export default function HumansPage() {
                   </p>
 
                   <div className="mt-7 flex flex-wrap gap-3">
-                    {["Product Thinking", "Clean UI", "Strong Software", "Business Growth"].map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-slate-600 shadow-sm transition hover:-translate-y-1 hover:text-blue-600"
+                    {focusLinks.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-slate-600 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-600 hover:text-white"
                       >
-                        {item}
-                      </span>
+                        {item.label}
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -108,6 +116,7 @@ export default function HumansPage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {teamMembers.map((person, index) => (
                 <article
+                  id={person.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
                   key={person.name}
                   style={{ animationDelay: `${index * 90}ms` }}
                   className="team-card-animate group relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.11)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(37,99,235,0.22)]"
@@ -153,6 +162,10 @@ export default function HumansPage() {
       </section>
 
       <style>{`
+        html {
+          scroll-behavior: smooth;
+        }
+
         @keyframes teamCardEnter {
           from {
             opacity: 0;
