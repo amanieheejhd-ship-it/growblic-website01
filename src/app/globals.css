@@ -1123,3 +1123,39 @@ html {
   transform: none !important;
   animation: none !important;
 }
+
+/* FINAL: Security page left menu stays fixed while right content scrolls */
+.security-sections-sidebar {
+  position: relative;
+  align-self: start;
+}
+
+@media (min-width: 1024px) {
+  .security-sections-sidebar {
+    position: fixed !important;
+    top: 7rem !important;
+    left: max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem)) !important;
+    width: 280px !important;
+    height: fit-content !important;
+    z-index: 40 !important;
+  }
+}
+
+.security-sections-sidebar,
+.security-sections-sidebar * {
+  filter: none !important;
+  transform: none !important;
+}
+
+#overview,
+#compliance,
+#data-security,
+#product-security,
+#infrastructure-network,
+#organizational-security,
+#operational-security,
+#enterprise-security,
+#vulnerability-disclosure,
+#report-abuse {
+  scroll-margin-top: 120px;
+}
