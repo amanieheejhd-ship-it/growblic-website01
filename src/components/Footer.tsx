@@ -46,17 +46,17 @@ const socialLinks = [
   {
     label: "YouTube",
     href: "https://www.youtube.com/@growblic",
-    logo: "https://static.vecteezy.com/system/resources/thumbnails/023/986/739/small/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png",
+    icon: "https://static.vecteezy.com/system/resources/thumbnails/023/986/739/small/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png",
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/bintu-malik-6b7917387?utm_source=share_via&utm_content=profile&utm_medium=membe_android",
-    logo: "https://i.pinimg.com/736x/92/d1/db/92d1db1521d374335498624cc95e9554.jpg",
+    icon: "https://i.pinimg.com/736x/92/d1/db/92d1db1521d374335498624cc95e9554.jpg",
   },
   {
     label: "Instagram",
     href: "https://www.instagram.com/growblic?igsh=MWk2OHZiaTQzeGw2bA",
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKQWYhUTjoT0qzAysHn7dgNjPZOg6Wme3ENTb1TN2XXg&s=10",
+    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKQWYhUTjoT0qzAysHn7dgNjPZOg6Wme3ENTb1TN2XXg&s=10",
   },
 ];
 
@@ -167,19 +167,19 @@ export default function Footer() {
         <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
           <div className="flex items-center justify-center gap-6 sm:justify-end">
-            {socialLinks.map((item) => (
+            {socialLinks.map((social) => (
               <a
-                key={item.label}
-                href={item.href}
+                key={social.label}
+                href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={item.label}
-                className="group inline-flex items-center justify-center transition duration-300 hover:-translate-y-1 hover:opacity-80"
+                aria-label={social.label}
+                className="group flex h-10 w-10 items-center justify-center transition duration-300 hover:-translate-y-1 hover:opacity-80"
               >
                 <img
-                  src={item.logo}
-                  alt={item.label}
-                  className="h-7 w-7 object-contain opacity-90 transition duration-300 group-hover:scale-110 group-hover:opacity-100 sm:h-8 sm:w-8"
+                  src={social.icon}
+                  alt={social.label}
+                  className="h-7 w-7 object-contain opacity-90 transition duration-300 group-hover:scale-110 group-hover:opacity-100"
                 />
               </a>
             ))}
