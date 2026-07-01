@@ -51,7 +51,7 @@ const socialLinks = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/bintu-malik-6b7917387?utm_source=share_via&utm_content=profile&utm_medium=membe_android",
-    logo: "https://freebiehive.com/wp-content/uploads/2023/07/Linkedin-logo-transparent-Black.jpg",
+    logo: "https://i.pinimg.com/736x/92/d1/db/92d1db1521d374335498624cc95e9554.jpg",
   },
   {
     label: "Instagram",
