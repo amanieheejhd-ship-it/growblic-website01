@@ -272,7 +272,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-            <aside className="security-reveal h-fit lg:sticky lg:top-28 lg:self-start">
+            <aside className="security-sections-sidebar">
               <div className="h-fit rounded-[2rem] border border-blue-100/80 bg-white/94 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections
