@@ -29,7 +29,7 @@ const resourceLinks = [
 const trustLegalLinks = [
   { label: "Security", href: "/security" },
   { label: "Legal", href: "/legal" },
-  { label: "Report Abuse", href: "mailto:abuse@growblic.com" },
+  { label: "Report Abuse", href: "/security#report-abuse" },
 ];
 
 const connectLinks = [

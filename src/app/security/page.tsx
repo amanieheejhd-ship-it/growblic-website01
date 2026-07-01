@@ -187,8 +187,8 @@ const cardClass =
 
 export default function SecurityPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
-      <section className="relative px-6 py-16 sm:py-20">
+    <main className="min-h-screen overflow-x-hidden bg-[#fbfdff]">
+      <section className="security-page-shell relative px-6 py-16 sm:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_88%_22%,rgba(6,182,212,0.11),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.86),rgba(239,246,255,0.58),rgba(255,255,255,0.96))]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45 [mask-image:radial-gradient(circle_at_50%_12%,black,transparent_72%)]" />
 
@@ -272,7 +272,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-            <aside className="security-reveal lg:sticky lg:top-28 lg:self-start">
+            <aside className="security-reveal h-fit lg:sticky lg:top-28 lg:self-start">
               <div className="h-fit rounded-[2rem] border border-blue-100/80 bg-white/92 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections

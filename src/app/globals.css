@@ -982,21 +982,14 @@ button {
   animation: none !important;
 }
 
-/* Security page safety: keep lower sections sharp and visible */
-.security-reveal,
-.security-reveal * {
-  filter: none !important;
-}
-
-.security-reveal {
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
-}
-
 /* Framer-style security page scroll behavior */
 html {
   scroll-behavior: smooth;
+}
+
+.security-page-shell {
+  transform: none !important;
+  backface-visibility: visible;
 }
 
 #overview,
@@ -1012,7 +1005,7 @@ html {
   scroll-margin-top: 110px;
 }
 
-/* Security page safety: keep lower sections sharp and visible */
+/* Security page safety: keep sections sharp and visible */
 .security-reveal,
 .security-reveal * {
   filter: none !important;
