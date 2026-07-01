@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import Image from "next/image";
 import { MessageCircle, Sparkles, Users } from "lucide-react";
 import Scroll3DSection, { TiltCard } from "../../../components/Scroll3DSection";
 
@@ -71,13 +70,10 @@ export default function HumansPage() {
               <TiltCard className="h-full">
                 <article className="group relative h-full overflow-hidden rounded-[1.75rem] border border-white/85 bg-white shadow-[0_26px_80px_rgba(37,99,235,0.20)] ring-1 ring-blue-100/80">
                   <div className="relative min-h-[31rem] overflow-hidden bg-blue-50 sm:min-h-[38rem] lg:min-h-[44rem]">
-                    <Image
-                      src="/images/team/bintu-malik.jpg"
+                    <img
+                      src="/growblic-website01/images/team/bintu-malik.jpg"
                       alt="Bintu Malik, Founder of Growblic"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 58vw"
-                      priority
-                      className="object-cover object-center transition duration-500 ease-out md:group-hover:scale-[1.03] md:group-hover:blur-[2px]"
+                      className="h-full w-full object-cover object-center transition duration-500 ease-out md:group-hover:scale-[1.03] md:group-hover:blur-[2px]"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/16 via-transparent to-white/4 transition duration-500 md:group-hover:from-slate-950/44 md:group-hover:via-slate-950/10" />
                     <div className="pointer-events-none absolute inset-x-5 top-5 flex items-center justify-between gap-4">
