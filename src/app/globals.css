@@ -1017,67 +1017,7 @@ html {
   animation: none !important;
 }
 
-/* Security sticky sidebar behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-#overview,
-#compliance,
-#data-security,
-#product-security,
-#infrastructure-network,
-#organizational-security,
-#operational-security,
-#enterprise-security,
-#vulnerability-disclosure,
-#report-abuse {
-  scroll-margin-top: 120px;
-}
-
-.security-reveal,
-.security-reveal * {
-  filter: none !important;
-}
-
-.security-reveal {
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
-}
-
-.security-shell,
-.security-shell * {
-  transform-style: flat;
-}
-
-
-/* Security sticky sidebar final safety */
-#overview,
-#compliance,
-#data-security,
-#product-security,
-#infrastructure-network,
-#organizational-security,
-#operational-security,
-#enterprise-security,
-#vulnerability-disclosure,
-#report-abuse {
-  scroll-margin-top: 120px;
-}
-
-.security-reveal,
-.security-reveal * {
-  filter: none !important;
-}
-
-.security-reveal {
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
-}
-
-/* Exact Security page behavior: only left Security Sections sidebar sticks */
+/* Security sidebar stays in the article grid; never fixed over the hero */
 .security-sections-sidebar {
   position: relative;
   align-self: start;
@@ -1087,57 +1027,8 @@ html {
   .security-sections-sidebar {
     position: sticky !important;
     top: 7rem !important;
-    align-self: start !important;
     height: fit-content !important;
-    z-index: 20;
-  }
-}
-
-.security-sections-sidebar,
-.security-sections-sidebar * {
-  transform: none !important;
-  filter: none !important;
-}
-
-#overview,
-#compliance,
-#data-security,
-#product-security,
-#infrastructure-network,
-#organizational-security,
-#operational-security,
-#enterprise-security,
-#vulnerability-disclosure,
-#report-abuse {
-  scroll-margin-top: 120px;
-}
-
-/* Security final no blur safety */
-.security-reveal,
-.security-reveal * {
-  filter: none !important;
-}
-
-.security-reveal {
-  opacity: 1 !important;
-  transform: none !important;
-  animation: none !important;
-}
-
-/* FINAL: Security page left menu stays fixed while right content scrolls */
-.security-sections-sidebar {
-  position: relative;
-  align-self: start;
-}
-
-@media (min-width: 1024px) {
-  .security-sections-sidebar {
-    position: fixed !important;
-    top: 7rem !important;
-    left: max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem)) !important;
-    width: 280px !important;
-    height: fit-content !important;
-    z-index: 40 !important;
+    z-index: 20 !important;
   }
 }
 
@@ -1145,17 +1036,4 @@ html {
 .security-sections-sidebar * {
   filter: none !important;
   transform: none !important;
-}
-
-#overview,
-#compliance,
-#data-security,
-#product-security,
-#infrastructure-network,
-#organizational-security,
-#operational-security,
-#enterprise-security,
-#vulnerability-disclosure,
-#report-abuse {
-  scroll-margin-top: 120px;
 }

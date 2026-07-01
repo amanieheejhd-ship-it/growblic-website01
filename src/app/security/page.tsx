@@ -196,7 +196,7 @@ export default function SecurityPage() {
           <BackButton />
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
-            <div className="security-reveal lg:sticky lg:top-28 lg:self-start">
+            <div className="security-reveal">
               <p className="inline-flex rounded-full border border-blue-100 bg-white/86 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-blue-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
                 Version 1.0 - Effective 2026
               </p>
@@ -272,7 +272,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-            <aside className="security-sections-sidebar">
+            <aside className="security-sections-sidebar security-reveal h-fit lg:sticky lg:top-28 lg:self-start">
               <div className="h-fit rounded-[2rem] border border-blue-100/80 bg-white/94 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections
