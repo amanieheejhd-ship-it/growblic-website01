@@ -67,51 +67,49 @@ export default function HumansPage() {
           <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-blue-200/60 blur-3xl" />
 
           <div className="relative">
-            <div className="mb-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-              <div>
-                <p className="mb-4 text-sm font-black uppercase tracking-[0.45em] text-blue-600">
-                  Growblic Team
-                </p>
-                <h1 className="max-w-3xl text-4xl font-black tracking-[-0.05em] text-slate-950 sm:text-5xl lg:text-6xl">
-                  People behind Growblic.
-                </h1>
-                <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-                  Builders, operators, analysts, and product thinkers shaping Growblic&apos;s work with craft, ownership, and speed.
-                </p>
-              </div>
+            <div className="mb-12 overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.13)] backdrop-blur-xl sm:p-8 lg:p-10">
+              <div className="relative">
+                <div className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 animate-pulse rounded-full bg-cyan-200/70 blur-3xl" />
+                <div className="pointer-events-none absolute -right-16 -bottom-16 h-44 w-44 animate-pulse rounded-full bg-blue-200/70 blur-3xl" />
 
-              <div className="rounded-3xl border border-blue-100 bg-white/80 p-5 shadow-[0_18px_55px_rgba(37,99,235,0.12)]">
-                <p className="text-xs font-black uppercase tracking-[0.35em] text-blue-600">
-                  Real team
-                </p>
-                <div className="mt-5 grid grid-cols-3 gap-3 text-center">
-                  <div className="rounded-2xl bg-blue-50 p-4">
-                    <p className="text-2xl font-black text-slate-950">06</p>
-                    <p className="mt-1 text-[10px] font-black uppercase tracking-[0.22em] text-slate-500">
-                      People
-                    </p>
+                <div className="relative">
+                  <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-blue-100 bg-blue-50/80 px-4 py-2 shadow-sm">
+                    <span className="h-2 w-2 animate-ping rounded-full bg-blue-600" />
+                    <span className="text-xs font-black uppercase tracking-[0.35em] text-blue-600">
+                      Growblic Team
+                    </span>
                   </div>
-                  <div className="rounded-2xl bg-cyan-50 p-4">
-                    <p className="text-2xl font-black text-slate-950">05</p>
-                    <p className="mt-1 text-[10px] font-black uppercase tracking-[0.22em] text-slate-500">
-                      Roles
-                    </p>
-                  </div>
-                  <div className="rounded-2xl bg-indigo-50 p-4">
-                    <p className="text-2xl font-black text-slate-950">01</p>
-                    <p className="mt-1 text-[10px] font-black uppercase tracking-[0.22em] text-slate-500">
-                      Vision
-                    </p>
+
+                  <h1 className="max-w-5xl text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl lg:text-7xl">
+                    People who build the future of{" "}
+                    <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent">
+                      Growblic.
+                    </span>
+                  </h1>
+
+                  <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+                    A focused team of builders, analysts, developers, and operators working together to create premium digital products.
+                  </p>
+
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    {["Product Thinking", "Clean UI", "Strong Software", "Business Growth"].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-slate-600 shadow-sm transition hover:-translate-y-1 hover:text-blue-600"
+                      >
+                        {item}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {teamMembers.map((person) => (
+              {teamMembers.map((person, index) => (
                 <article
                   key={person.name}
-                  className="group relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.11)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(37,99,235,0.22)]"
+                  style={{ animationDelay: `${index * 90}ms` }}\n                  className="team-card-animate group relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.11)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(37,99,235,0.22)]"
                 >
                   <div className="relative aspect-[4/4.15] overflow-hidden">
                     <img
@@ -152,6 +150,24 @@ export default function HumansPage() {
           </div>
         </div>
       </section>
+
+      <style>{`
+        @keyframes teamCardEnter {
+          from {
+            opacity: 0;
+            transform: translateY(28px) scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        .team-card-animate {
+          opacity: 0;
+          animation: teamCardEnter 0.75s ease forwards;
+        }
+      `}</style>
     </main>
   );
 }
