@@ -166,7 +166,8 @@ export default function Footer() {
 
         <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
-          <div className="inline-flex items-center justify-center gap-3 self-center rounded-full border border-blue-100 bg-white/80 px-4 py-3 shadow-[0_14px_40px_rgba(37,99,235,0.12)] backdrop-blur-xl sm:self-auto">
+          <div className="flex items-center justify-center gap-4 sm:justify-end">
+            <span className="text-sm font-semibold text-slate-500">Follow us</span>
             {socialLinks.map((item) => (
               <a
                 key={item.label}
@@ -174,7 +175,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="group flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                className="group inline-flex items-center justify-center transition hover:-translate-y-0.5 hover:opacity-70"
               >
                 <img
                   src={item.logo}
