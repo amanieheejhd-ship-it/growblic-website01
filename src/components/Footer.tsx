@@ -42,6 +42,24 @@ const connectLinks = [
   },
 ];
 
+const socialLinks = [
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@growblic",
+    logo: "https://img.magnific.com/premium-vector/free-vector-youtube-icon-logo-black-white_901408-456.jpg?semt=ais_hybrid&w=740&q=80",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/bintu-malik-6b7917387?utm_source=share_via&utm_content=profile&utm_medium=membe_android",
+    logo: "https://freebiehive.com/wp-content/uploads/2023/07/Linkedin-logo-transparent-Black.jpg",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/growblic?igsh=MWk2OHZiaTQzeGw2bA",
+    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKQWYhUTjoT0qzAysHn7dgNjPZOg6Wme3ENTb1TN2XXg&s=10",
+  },
+];
+
 function FooterColumn({
   title,
   links,
@@ -148,7 +166,24 @@ export default function Footer() {
 
         <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
-          <p>Building premium websites, apps, SaaS products, and automation systems.</p>
+          <div className="flex items-center justify-center gap-3 sm:justify-end">
+            {socialLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+                className="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-lg shadow-blue-100/60 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/80"
+              >
+                <img
+                  src={item.logo}
+                  alt={item.label}
+                  className="h-6 w-6 object-contain"
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
