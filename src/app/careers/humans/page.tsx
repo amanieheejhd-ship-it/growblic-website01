@@ -118,15 +118,9 @@ export default function HumansPage() {
                     <span className="rounded-full border border-white/80 bg-white/88 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.16em] text-blue-700 shadow-lg shadow-blue-950/10 backdrop-blur-xl">
                       {person.role}
                     </span>
-                    <span className="rounded-full border border-white/75 bg-white/76 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.16em] text-slate-600 shadow-lg shadow-blue-950/10 backdrop-blur-xl">
-                      {person.company}
-                    </span>
                   </div>
 
                   <div className="absolute inset-x-4 bottom-4 rounded-[1.15rem] border border-white/75 bg-white/92 p-4 shadow-2xl shadow-blue-950/16 backdrop-blur-xl transition duration-300 md:translate-y-5 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
-                    <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-blue-700">
-                      {person.company}
-                    </p>
                     <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
                       {person.name}
                     </h3>
