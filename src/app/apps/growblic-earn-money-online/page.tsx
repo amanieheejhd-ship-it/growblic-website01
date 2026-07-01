@@ -3,7 +3,7 @@ import Link from "next/link";
 import BackButton from "../../../components/BackButton";
 import { companyApps } from "../../../data/companyApps";
 
-const app = companyApps[0];
+const app = companyApps.find((item) => item.slug === "growblic-earn-money-online")!;
 
 export const metadata = {
   title: "Growblic: Earn Money Online | Growblic App",
