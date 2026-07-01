@@ -46,7 +46,7 @@ const teamMembers = [
     name: "Jaspreet Singh Thind",
     role: "Backend Developer",
     company: "Growblic",
-    image: "/growblic-website01/images/team/jaspreet-singh-thind.jpg",
+    image: "/growblic-website01/images/team/jaspreet-singh-thind-v01.jpg",
     alt: "Jaspreet Singh Thind, Backend Developer at Growblic",
     line: "Building reliable backend systems, APIs, and scalable product foundations.",
   },
