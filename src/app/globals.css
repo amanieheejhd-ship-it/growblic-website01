@@ -1016,24 +1016,3 @@ html {
   transform: none !important;
   animation: none !important;
 }
-
-/* Security sidebar stays in the article grid; never fixed over the hero */
-.security-sections-sidebar {
-  position: relative;
-  align-self: start;
-}
-
-@media (min-width: 1024px) {
-  .security-sections-sidebar {
-    position: sticky !important;
-    top: 7rem !important;
-    height: fit-content !important;
-    z-index: 20 !important;
-  }
-}
-
-.security-sections-sidebar,
-.security-sections-sidebar * {
-  filter: none !important;
-  transform: none !important;
-}

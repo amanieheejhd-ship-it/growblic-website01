@@ -183,7 +183,7 @@ const securitySections = [
 ];
 
 const cardClass =
-  "security-reveal group scroll-mt-24 rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
+  "security-reveal group scroll-mt-28 rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
 
 export default function SecurityPage() {
   return (
@@ -272,7 +272,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-            <aside className="security-sections-sidebar security-reveal h-fit lg:sticky lg:top-28 lg:self-start">
+            <aside className="security-sections-sidebar security-reveal h-fit lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
               <div className="h-fit rounded-[2rem] border border-blue-100/80 bg-white/94 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections
@@ -450,7 +450,7 @@ export default function SecurityPage() {
 
               <article
                 id="report-abuse"
-                className="security-reveal scroll-mt-24 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/86 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl"
+                className="security-reveal scroll-mt-28 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/86 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl"
                 style={{ animationDelay: "800ms" }}
               >
                 <div className="relative p-7 sm:p-8">
