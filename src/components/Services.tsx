@@ -4,7 +4,6 @@ import { services } from "@/data/services";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { TiltCard } from "./Scroll3DSection";
 
 export default function Services({ compact = false }: { compact?: boolean }) {
   const visible = compact ? services.slice(0, 6) : services;
@@ -35,8 +34,8 @@ export default function Services({ compact = false }: { compact?: boolean }) {
                 className="h-full"
                 style={{ transformPerspective: 1200, transformStyle: "preserve-3d" }}
               >
-                <TiltCard className="group relative flex h-full min-h-[390px] flex-col overflow-hidden rounded-[1.9rem] border border-blue-100/70 bg-white p-7 pb-24 shadow-xl shadow-slate-900/6 transition hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-900/10">
-                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-100/70 blur-2xl transition group-hover:bg-cyan-100" />
+                <div className="group relative flex h-full min-h-[390px] flex-col overflow-hidden rounded-[1.9rem] border border-blue-100/70 bg-white p-7 pb-28 shadow-xl shadow-slate-900/6 transition duration-[250ms] hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-900/10">
+                  <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-100/60 transition group-hover:bg-cyan-100/75" />
                   <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-blue-600 via-cyan-400 to-violet-500 opacity-0 transition group-hover:opacity-100" />
 
                   <div className="relative flex items-start justify-between gap-4">
@@ -64,14 +63,15 @@ export default function Services({ compact = false }: { compact?: boolean }) {
                     ))}
                   </ul>
 
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/95 to-white/0 opacity-100 md:opacity-0 md:transition-opacity md:duration-[250ms] md:group-hover:opacity-100 md:group-focus-within:opacity-100" />
                   <Link
                     href={service.href}
-                    className="absolute inset-x-4 bottom-4 z-20 inline-flex min-h-14 translate-y-0 items-center justify-between gap-3 rounded-[1.25rem] border border-blue-100 bg-white/95 px-5 py-4 text-sm font-black text-blue-700 opacity-100 shadow-[0_18px_50px_rgba(37,99,235,0.16)] backdrop-blur-xl transition duration-300 hover:border-blue-200 hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-100 md:pointer-events-none md:translate-y-5 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100"
+                    className="absolute inset-x-5 bottom-5 z-20 inline-flex min-h-14 translate-y-0 items-center justify-between gap-3 rounded-[1.25rem] border border-blue-100 bg-white/95 px-5 py-4 text-sm font-black text-blue-700 opacity-100 shadow-[0_18px_50px_rgba(37,99,235,0.16)] transition duration-[250ms] hover:border-blue-200 hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-100 md:pointer-events-none md:translate-y-4 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:pointer-events-auto md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100"
                   >
                     <span>View service</span>
                     <ArrowRight size={16} className="shrink-0 transition group-hover:translate-x-0.5" />
                   </Link>
-                </TiltCard>
+                </div>
               </motion.div>
             );
           })}
