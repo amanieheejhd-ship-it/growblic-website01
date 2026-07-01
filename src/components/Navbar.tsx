@@ -57,7 +57,6 @@ const navLinks = [
     href: "/#contact",
     children: [
       { label: "Start Project", href: "/start-project" },
-      { label: "Contact Section", href: "/#contact" },
       { label: "Support", href: "/support" },
     ],
   },
