@@ -196,7 +196,7 @@ export default function SecurityPage() {
           <BackButton />
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
-            <div className="security-reveal lg:fixed lg:left-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] lg:top-28 lg:z-30 lg:w-[280px]">
+            <div className="security-reveal lg:sticky lg:top-28 lg:self-start">
               <p className="inline-flex rounded-full border border-blue-100 bg-white/86 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-blue-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
                 Version 1.0 - Effective 2026
               </p>

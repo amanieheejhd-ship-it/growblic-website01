@@ -1017,7 +1017,7 @@ html {
   animation: none !important;
 }
 
-/* Security Framer-style fixed legal nav */
+/* Security sticky sidebar behavior */
 html {
   scroll-behavior: smooth;
 }
@@ -1049,4 +1049,30 @@ html {
 .security-shell,
 .security-shell * {
   transform-style: flat;
+}
+
+
+/* Security sticky sidebar final safety */
+#overview,
+#compliance,
+#data-security,
+#product-security,
+#infrastructure-network,
+#organizational-security,
+#operational-security,
+#enterprise-security,
+#vulnerability-disclosure,
+#report-abuse {
+  scroll-margin-top: 120px;
+}
+
+.security-reveal,
+.security-reveal * {
+  filter: none !important;
+}
+
+.security-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
 }
