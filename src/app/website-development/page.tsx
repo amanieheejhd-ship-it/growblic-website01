@@ -2,16 +2,15 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  BadgeCheck,
   BarChart3,
   CheckCircle2,
   Globe2,
   Layers3,
-  LayoutDashboard,
   MousePointerClick,
   SearchCheck,
   Smartphone,
   Sparkles,
+  Target,
   Zap,
 } from "lucide-react";
 
@@ -61,17 +60,19 @@ const features = [
   },
 ];
 
+const flow = ["Hero", "Services", "Trust", "Enquiry"];
+
 export default function WebsiteDevelopmentPage() {
   return (
     <main className="relative overflow-hidden bg-[#f8fbff] text-slate-950">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:44px_44px]" />
-      <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/30 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-24 h-[34rem] w-[34rem] rounded-full bg-cyan-200/35 blur-3xl" />
+      <div className="pointer-events-none absolute left-0 top-0 h-[36rem] w-[36rem] rounded-full bg-blue-200/35 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-24 h-[36rem] w-[36rem] rounded-full bg-cyan-200/40 blur-3xl" />
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-14 pt-10 sm:pb-20 sm:pt-14">
         <Link
           href="/services"
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-sm font-black text-slate-700 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
+          className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-sm font-black text-slate-700 shadow-[0_12px_35px_rgba(15,23,42,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to services
@@ -98,7 +99,7 @@ export default function WebsiteDevelopmentPage() {
               {heroPoints.map((item, index) => (
                 <div
                   key={item}
-                  className="rounded-[1.4rem] border border-blue-100 bg-white/85 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.07)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200"
+                  className="rounded-[1.4rem] border border-blue-100 bg-white/90 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.07)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-blue-200"
                 >
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-blue-600">
                     0{index + 1}
@@ -119,7 +120,7 @@ export default function WebsiteDevelopmentPage() {
 
               <Link
                 href="/price-calculator"
-                className="inline-flex items-center justify-center rounded-full border border-blue-100 bg-white/85 px-6 py-4 text-sm font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
+                className="inline-flex items-center justify-center rounded-full border border-blue-100 bg-white/90 px-6 py-4 text-sm font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
               >
                 Estimate Budget
               </Link>
@@ -127,37 +128,42 @@ export default function WebsiteDevelopmentPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-5 rounded-[3rem] bg-gradient-to-br from-blue-200/45 via-cyan-200/30 to-transparent blur-2xl" />
+            <div className="absolute -inset-5 rounded-[3rem] bg-gradient-to-br from-blue-200/45 via-cyan-200/35 to-transparent blur-2xl" />
 
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-blue-100 bg-white/80 p-5 shadow-[0_35px_110px_rgba(15,23,42,0.16)] backdrop-blur-2xl">
-              <div className="rounded-[2rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-inner">
-                <div className="mb-5 flex items-center justify-between">
+            <div className="relative overflow-hidden rounded-[2.6rem] border border-blue-100 bg-white/88 p-5 shadow-[0_35px_110px_rgba(15,23,42,0.14)] backdrop-blur-2xl">
+              <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyan-200/40 blur-3xl" />
+              <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-blue-200/40 blur-3xl" />
+
+              <div className="relative rounded-[2.1rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/65 to-cyan-50/55 p-6 shadow-inner">
+                <div className="mb-6 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.32em] text-cyan-300">
+                    <p className="text-xs font-black uppercase tracking-[0.32em] text-blue-600">
                       Growblic Website OS
                     </p>
-                    <h2 className="mt-2 text-2xl font-black">Conversion website system</h2>
+                    <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] text-slate-950">
+                      Conversion website system
+                    </h2>
                   </div>
-                  <div className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-white">
+                  <div className="rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-600 shadow-sm">
                     SEO-ready
                   </div>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-[1.1fr_0.9fr]">
-                  <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5">
+                <div className="grid gap-4 sm:grid-cols-[1.08fr_0.92fr]">
+                  <div className="rounded-[1.6rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
                     <div className="flex items-center justify-between">
-                      <p className="font-black">Page launch flow</p>
-                      <Zap className="h-5 w-5 text-cyan-300" />
+                      <p className="font-black text-slate-950">Page launch flow</p>
+                      <Zap className="h-5 w-5 text-cyan-500" />
                     </div>
 
                     <div className="mt-5 space-y-3">
-                      {["Hero", "Services", "Trust", "Enquiry"].map((item, index) => (
+                      {flow.map((item, index) => (
                         <div
                           key={item}
-                          className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3"
+                          className="flex items-center justify-between rounded-2xl border border-blue-100 bg-slate-50/80 px-4 py-3"
                         >
-                          <span className="text-sm font-bold text-slate-200">{item}</span>
-                          <span className="rounded-full bg-cyan-300/15 px-3 py-1 text-xs font-black text-cyan-200">
+                          <span className="text-sm font-black text-slate-700">{item}</span>
+                          <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-600">
                             0{index + 1}
                           </span>
                         </div>
@@ -166,22 +172,39 @@ export default function WebsiteDevelopmentPage() {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5">
-                      <p className="text-sm font-bold text-slate-300">Lead sections</p>
-                      <p className="mt-3 text-5xl font-black tracking-[-0.05em]">8+</p>
-                      <div className="mt-4 h-2 rounded-full bg-white/10">
-                        <div className="h-2 w-4/5 rounded-full bg-gradient-to-r from-blue-400 to-cyan-300" />
+                    <div className="rounded-[1.6rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-black text-slate-600">Lead sections</p>
+                        <Target className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <p className="mt-3 text-5xl font-black tracking-[-0.05em] text-slate-950">
+                        8+
+                      </p>
+                      <div className="mt-4 h-2 rounded-full bg-blue-100">
+                        <div className="h-2 w-4/5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400" />
                       </div>
                     </div>
 
-                    <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.07] p-5">
-                      <p className="text-sm font-bold text-slate-300">Build quality</p>
-                      <div className="mt-4 flex items-center gap-2 text-sm font-black text-emerald-300">
+                    <div className="rounded-[1.6rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
+                      <p className="text-sm font-black text-slate-600">Build quality</p>
+                      <div className="mt-4 flex items-center gap-2 text-sm font-black text-emerald-600">
                         <CheckCircle2 className="h-4 w-4" />
                         Responsive ready
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {["Fast pages", "Clean UI", "Lead-ready"].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-blue-100 bg-white/80 px-4 py-3 text-sm font-black text-slate-700 shadow-sm"
+                    >
+                      <Sparkles className="mb-2 h-4 w-4 text-blue-600" />
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -194,7 +217,7 @@ export default function WebsiteDevelopmentPage() {
       </section>
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-16">
-        <div className="rounded-[2.4rem] border border-blue-100 bg-white/72 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
+        <div className="rounded-[2.4rem] border border-blue-100 bg-white/76 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
           <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600">
@@ -257,16 +280,17 @@ export default function WebsiteDevelopmentPage() {
       </section>
 
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20">
-        <div className="overflow-hidden rounded-[2.4rem] border border-slate-800/20 bg-[radial-gradient(circle_at_20%_0%,rgba(34,211,238,0.22),transparent_30%),linear-gradient(135deg,#020617,#172554)] p-8 text-white shadow-[0_34px_110px_rgba(15,23,42,0.24)] sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="overflow-hidden rounded-[2.4rem] border border-blue-100 bg-white/88 p-8 text-slate-950 shadow-[0_34px_110px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-10">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(37,99,235,0.12),transparent_28%),radial-gradient(circle_at_90%_0%,rgba(6,182,212,0.14),transparent_30%)]" />
+          <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.34em] text-cyan-300">
+              <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600">
                 Ready to build
               </p>
               <h2 className="mt-4 max-w-2xl text-4xl font-black tracking-[-0.05em] sm:text-5xl">
-                Let Growblic shape this into a real product.
+                Let Growblic shape this into a real website.
               </h2>
-              <p className="mt-4 max-w-3xl text-base font-medium leading-7 text-slate-300">
+              <p className="mt-4 max-w-3xl text-base font-semibold leading-7 text-slate-600">
                 From planning to UI, development, launch, and support — we can
                 handle the complete website journey.
               </p>
@@ -275,7 +299,7 @@ export default function WebsiteDevelopmentPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/start-project"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-4 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-100"
+                className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-6 py-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.20)] transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
                 Contact Growblic
                 <ArrowRight className="h-4 w-4" />
@@ -283,7 +307,7 @@ export default function WebsiteDevelopmentPage() {
 
               <Link
                 href="/"
-                className="inline-flex items-center rounded-full border border-white/15 px-6 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/10"
+                className="inline-flex items-center rounded-full border border-blue-100 bg-white px-6 py-4 text-sm font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
               >
                 Back Home
               </Link>
