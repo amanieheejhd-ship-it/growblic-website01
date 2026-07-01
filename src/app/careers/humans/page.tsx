@@ -74,6 +74,14 @@ const teamMembers = [
     alt: "Deepak, Business Analyst at Growblic",
     line: "Turning business needs into clear product requirements, workflow insights, and practical solutions.",
   },
+  {
+    name: "Bhumit Sharma",
+    role: "Business Analyst",
+    company: "Growblic",
+    image: "/growblic-website01/images/team/bhumit-sharma-business-analyst.jpg",
+    alt: "Bhumit Sharma, Business Analyst at Growblic",
+    line: "Turning business needs into clear product requirements, workflow insights, and practical solutions.",
+  },
 ];
 
 export default function HumansPage() {
