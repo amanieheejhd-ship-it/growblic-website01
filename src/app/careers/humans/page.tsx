@@ -50,6 +50,14 @@ const teamMembers = [
     alt: "Jaspreet Singh Thind, Backend Developer at Growblic",
     line: "Building reliable backend systems, APIs, and scalable product foundations.",
   },
+  {
+    name: "Gautam",
+    role: "Frontend Developer",
+    company: "Growblic",
+    image: "/growblic-website01/images/team/gautam-frontend-developer.jpg",
+    alt: "Gautam, Frontend Developer at Growblic",
+    line: "Building clean frontend interfaces, responsive layouts, and smooth user experiences.",
+  },
 ];
 
 export default function HumansPage() {
