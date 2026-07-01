@@ -51,12 +51,6 @@ const teamMembers = [
   },
  ];
 
-const focusLinks = [
-  { label: "Product Thinking", href: "#bintu-malik" },
-  { label: "Clean UI", href: "#gautam" },
-  { label: "Strong Software", href: "#jaspreet-singh-thind" },
-  { label: "Business Growth", href: "#deepak" },
-];
 
 export default function HumansPage() {
   return (
@@ -97,18 +91,6 @@ export default function HumansPage() {
                   <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
                     A focused team of builders, analysts, developers, and operators working together to create premium digital products.
                   </p>
-
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    {focusLinks.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className="rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-slate-600 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-600 hover:text-white"
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
