@@ -58,6 +58,14 @@ const teamMembers = [
     alt: "Gautam, Frontend Developer at Growblic",
     line: "Building clean frontend interfaces, responsive layouts, and smooth user experiences.",
   },
+  {
+    name: "Madhu Bala",
+    role: "HR",
+    company: "Growblic",
+    image: "/growblic-website01/images/team/madhu-bala-hr.jpg",
+    alt: "Madhu Bala, HR at Growblic",
+    line: "Supporting team culture, hiring coordination, and people operations at Growblic.",
+  },
 ];
 
 export default function HumansPage() {
