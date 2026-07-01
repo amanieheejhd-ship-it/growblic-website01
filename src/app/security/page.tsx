@@ -224,7 +224,7 @@ export default function SecurityPage() {
             </div>
 
             <div className="security-reveal rounded-[2rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.14)] ring-1 ring-white/70 backdrop-blur-2xl [animation-delay:120ms]">
-              <div className="relative overflow-hidden rounded-[1.65rem] border border-blue-100 bg-[#fbfdff] p-6">
+              <div className="relative overflow-x-hidden rounded-[1.65rem] border border-blue-100 bg-[#fbfdff] p-6">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_90%_20%,rgba(6,182,212,0.13),transparent_30%)]" />
                 <div className="relative">
                   <div className="flex items-start justify-between gap-5">
@@ -272,7 +272,7 @@ export default function SecurityPage() {
           </div>
 
           <div className="mt-14 grid gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
-            <aside className="security-reveal lg:sticky lg:top-28">
+            <aside className="security-reveal lg:sticky lg:top-28 lg:self-start">
               <div className="rounded-[2rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections
