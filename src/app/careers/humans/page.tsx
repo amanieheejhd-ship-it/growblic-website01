@@ -27,11 +27,7 @@ const storyCards = [
   },
 ];
 
-const comingSoonCards = [
-  "Future team story",
-  "Future builder profile",
-  "Future operator note",
-];
+
 
 const teamMembers = [
   {
@@ -150,36 +146,7 @@ export default function HumansPage() {
                 </article>
               ))}
 
-              {comingSoonCards.map((title, index) => (
-                <article
-                  key={title}
-                  className="relative flex min-h-[25rem] overflow-hidden rounded-[1.45rem] border border-dashed border-blue-100 bg-white/62 p-5 shadow-lg shadow-blue-100/35 ring-1 ring-white/70 backdrop-blur-xl"
-                >
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-br from-cyan-500/12 via-blue-100/14 to-transparent" />
-                  <div className="relative flex h-full w-full flex-col justify-between rounded-[1.1rem] border border-blue-100/70 bg-white/62 p-5">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-[0.20em] text-blue-700">
-                        Coming soon
-                      </p>
-                      <h3 className="mt-4 text-2xl font-black tracking-tight text-slate-950">
-                        {title}
-                      </h3>
-                      <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
-                        Reserved for a real Growblic team member profile.
-                      </p>
-                    </div>
-                    <div className="mt-8 flex items-center justify-between">
-                      <span className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.16em] text-blue-700">
-                        Growblic
-                      </span>
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-white text-xs font-black text-blue-700 shadow-inner">
-                        {String(index + 3).padStart(2, "0")}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="pointer-events-none absolute inset-x-6 bottom-0 h-1 rounded-t-full bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-300 opacity-50" />
-                </article>
-              ))}
+              
             </div>
           </article>
         </Scroll3DSection>
