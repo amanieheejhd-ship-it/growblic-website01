@@ -66,10 +66,10 @@ export default function HumansPage() {
               Builders, operators, and product thinkers shaping Growblic&apos;s work.
             </p>
 
-            <div className="relative mt-9 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+            <div className="relative mt-9 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(320px,1fr)]">
               <TiltCard className="h-full">
-                <article className="group relative h-full overflow-hidden rounded-[1.75rem] border border-white/85 bg-white shadow-[0_26px_80px_rgba(37,99,235,0.20)] ring-1 ring-blue-100/80">
-                  <div className="relative min-h-[31rem] overflow-hidden bg-blue-50 sm:min-h-[38rem] lg:min-h-[44rem]">
+                <article className="group relative h-full overflow-hidden rounded-[1.5rem] border border-white/85 bg-white shadow-[0_22px_65px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/80">
+                  <div className="relative min-h-[26rem] overflow-hidden bg-blue-50 sm:min-h-[30rem] lg:min-h-[34rem]">
                     <img
                       src="/growblic-website01/images/team/bintu-malik.jpg"
                       alt="Bintu Malik, Founder of Growblic"
@@ -85,11 +85,11 @@ export default function HumansPage() {
                       </span>
                     </div>
 
-                    <div className="absolute inset-x-5 bottom-5 hidden translate-y-5 rounded-[1.5rem] border border-white/70 bg-white/90 p-6 opacity-0 shadow-2xl shadow-blue-950/18 backdrop-blur-2xl transition duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 md:block">
+                    <div className="absolute inset-x-4 bottom-4 hidden translate-y-5 rounded-[1.25rem] border border-white/70 bg-white/90 p-5 opacity-0 shadow-2xl shadow-blue-950/18 backdrop-blur-2xl transition duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 md:block">
                       <p className="text-xs font-black uppercase tracking-[0.20em] text-blue-700">
                         Growblic
                       </p>
-                      <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+                      <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
                         Bintu Malik
                       </h3>
                       <p className="mt-1 text-sm font-black uppercase tracking-[0.18em] text-slate-500">
