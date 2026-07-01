@@ -46,7 +46,7 @@ const socialLinks = [
   {
     label: "YouTube",
     href: "https://www.youtube.com/@growblic",
-    logo: "https://img.magnific.com/premium-vector/free-vector-youtube-icon-logo-black-white_901408-456.jpg?semt=ais_hybrid&w=740&q=80",
+    logo: "https://static.vecteezy.com/system/resources/thumbnails/023/986/739/small/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png",
   },
   {
     label: "LinkedIn",
@@ -166,7 +166,7 @@ export default function Footer() {
 
         <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
-          <div className="flex items-center justify-center gap-5 sm:justify-end">
+          <div className="flex items-center justify-center gap-6 sm:justify-end">
             {socialLinks.map((item) => (
               <a
                 key={item.label}
@@ -179,7 +179,7 @@ export default function Footer() {
                 <img
                   src={item.logo}
                   alt={item.label}
-                  className="h-6 w-6 object-contain opacity-85 transition group-hover:opacity-100"
+                  className="h-7 w-7 object-contain opacity-90 transition duration-300 group-hover:scale-110 group-hover:opacity-100 sm:h-8 sm:w-8"
                 />
               </a>
             ))}
