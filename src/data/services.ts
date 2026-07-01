@@ -8,6 +8,7 @@ import {
   Smartphone,
   Star,
   Workflow,
+  Calculator,
 } from "lucide-react";
 
 export const services = [
@@ -40,7 +41,7 @@ export const services = [
     description:
       "Turn a product idea into a scalable SaaS platform with onboarding, accounts, and business-ready modules.",
     features: ["User onboarding", "Admin controls", "Scalable product base"],
-    href: "/saas",
+    href: "/saas-products",
     icon: Workflow,
   },
   {
@@ -82,5 +83,13 @@ export const services = [
     features: ["Profile improvement", "Review strategy", "Local trust signals"],
     href: "/gmb-rating-reviews",
     icon: Star,
+  },
+  {
+    title: "Price Calculator",
+    description:
+      "Estimate website, app, SaaS, software, automation, and marketing project scope with a guided calculator.",
+    features: ["Service estimate", "Scope planning", "Budget clarity"],
+    href: "/price-calculator",
+    icon: Calculator,
   },
 ];
