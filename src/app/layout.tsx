@@ -4,6 +4,7 @@ import "./globals.css";
 import OpeningSplash from "../components/OpeningSplash";
 import ScrollSoundExperience from "../components/ScrollSoundExperience";
 import { absoluteUrl, createPageMetadata, defaultSeo, siteUrl } from "./seo";
+import ScrollSound from "@/components/ScrollSound";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -71,8 +72,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
       <body className="min-h-full flex flex-col bg-[#fbfdff] text-[#050505]">
+        <ScrollSound />
         <OpeningSplash />
         <SmoothScroll />
         <ScrollSoundExperience />
