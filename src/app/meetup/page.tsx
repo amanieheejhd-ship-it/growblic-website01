@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import MeetupInterestForm from "@/components/MeetupInterestForm";
 import {
   ArrowRight,
   BadgeCheck,
@@ -122,11 +123,9 @@ export default function MeetupPage() {
 
               <div className="mt-10 flex flex-col gap-3.5 sm:flex-row">
                 <a
-                          href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@growblic.com&su=Growblic%20Meetup%20Interest&body=Hi%20Growblic%2C%20I%20want%20to%20register%20interest%20for%20Growblic%20AI%20Automation%20Workshop."
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-8 py-4 text-sm font-extrabold text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
-                        >
+                  href="#meetup-interest"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-8 py-4 text-sm font-extrabold text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
+                >
                   Become a host <ArrowRight className="h-4 w-4" />
                 </a>
 
@@ -328,13 +327,7 @@ export default function MeetupPage() {
                     </div>
 
                     <a
-                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=hello@growblic.com&su=${encodeURIComponent(
-                        `Growblic Meetup Interest - Growblic AI Automation Workshop`
-                      )}&body=${encodeURIComponent(
-                        `Hi Growblic, I want to register interest for Growblic AI Automation Workshop.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#meetup-interest"
                       className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
                     >
                       Register interest
@@ -403,12 +396,7 @@ export default function MeetupPage() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <a
-                href="mailto:hello@growblic.com?subject=Growblic Meetup Host Request"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-              >
-                Become a host <ArrowRight className="h-4 w-4" />
-              </a>
+              <MeetupInterestForm />
 
               <Link
                 href="/start-project"

@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { submitLead } from "@/lib/api";
 
 const projectTypes = [
   "Website Development",
@@ -27,68 +28,41 @@ type FormStatus =
   | { type: "idle"; message: "" }
   | { type: "success" | "error"; message: string };
 
-const web3FormsAccessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
 export default function StartProjectForm() {
   const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submittedAt, setSubmittedAt] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!web3FormsAccessKey) {
-      setStatus({
-        type: "error",
-        message:
-          "Start Project form is not configured yet. Please email hello@growblic.com.",
-      });
-      return;
-    }
-
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
-    const timestamp = new Date().toISOString();
+    const email = String(form.get("email") || "").trim();
+    const phone = String(form.get("phone") || "").trim();
 
-    setSubmittedAt(timestamp);
     setIsSubmitting(true);
     setStatus({ type: "idle", message: "" });
 
-    form.set("access_key", web3FormsAccessKey);
-    form.set("subject", "New Start Project request from Growblic Website");
-    form.set("from_name", "Growblic Website");
-    form.set("source", "Growblic Website");
-    form.set("page", "Start Project");
-    form.set("submittedAt", timestamp);
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: form,
+      await submitLead("/leads/start-project", {
+        name: String(form.get("name") || "").trim(),
+        email: email || undefined,
+        phone: phone || undefined,
+        service: String(form.get("projectType") || "").trim() || undefined,
+        budget: String(form.get("budgetRange") || "").trim() || undefined,
+        message: String(form.get("message") || "").trim(),
+        source: "start-project-page",
       });
-      const result = (await response.json()) as {
-        success?: boolean;
-        message?: string;
-      };
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Unable to submit the form right now.");
-      }
 
       formElement.reset();
-      setSubmittedAt("");
       setStatus({
         type: "success",
-        message:
-          "Thanks! Your project request has been sent. Growblic will review it and get back to you soon.",
+        message: "Thanks, our team will contact you soon.",
       });
-    } catch (error) {
+    } catch {
       setStatus({
         type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "Something went wrong. Please email hello@growblic.com.",
+        message: "Something went wrong. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -102,7 +76,6 @@ export default function StartProjectForm() {
     >
       <input type="hidden" name="source" value="Growblic Website" />
       <input type="hidden" name="page" value="Start Project" />
-      <input type="hidden" name="submittedAt" value={submittedAt} />
 
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
@@ -124,7 +97,6 @@ export default function StartProjectForm() {
           <input
             name="email"
             type="email"
-            required
             className={fieldClass}
             placeholder="you@example.com"
           />
@@ -132,12 +104,12 @@ export default function StartProjectForm() {
 
         <label className="grid gap-2 text-sm font-black text-slate-700">
           Phone
-          <input name="phone" type="tel" required className={fieldClass} placeholder="+91..." />
+          <input name="phone" type="tel" className={fieldClass} placeholder="+91..." />
         </label>
 
         <label className="grid gap-2 text-sm font-black text-slate-700">
           Project type
-          <select name="projectType" required className={fieldClass} defaultValue="">
+          <select name="projectType" className={fieldClass} defaultValue="">
             <option value="" disabled>
               Select project type
             </option>
@@ -149,7 +121,7 @@ export default function StartProjectForm() {
 
         <label className="grid gap-2 text-sm font-black text-slate-700 sm:col-span-2">
           Budget range
-          <select name="budgetRange" required className={fieldClass} defaultValue="">
+          <select name="budgetRange" className={fieldClass} defaultValue="">
             <option value="" disabled>
               Select budget range
             </option>

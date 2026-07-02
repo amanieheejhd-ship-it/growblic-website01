@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { submitLead } from "@/lib/api";
 
 type SelectOption = {
   label: string;
@@ -636,14 +637,6 @@ export default function PriceCalculator() {
       return "Please enter your full name before generating the estimate.";
     }
 
-    if (!customerDetails.email.trim()) {
-      return "Please enter your email before generating the estimate.";
-    }
-
-    if (!customerDetails.phone.trim()) {
-      return "Please enter your phone number before generating the estimate.";
-    }
-
     return "";
   }
 
@@ -676,14 +669,6 @@ export default function PriceCalculator() {
       return;
     }
 
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-    if (!accessKey) {
-      setSubmitStatus("error");
-      setSubmitMessage("Estimate request is not configured yet. Please email hello@growblic.com.");
-      return;
-    }
-
     setSubmitStatus("loading");
     setSubmitMessage("");
 
@@ -693,49 +678,37 @@ export default function PriceCalculator() {
       .join("\n");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Growblic estimate request ${estimate.id}`,
-          from_name: customerDetails.fullName,
-          email: customerDetails.email,
-          phone: customerDetails.phone,
-          company: customerDetails.company,
-          location: customerDetails.location,
-          message: customerDetails.notes,
-          source: "price-calculator",
-          page: "/price-calculator",
-          estimateId: estimate.id,
-          submittedAt: new Date().toISOString(),
-          selectedCurrency: currency,
-          conversionRate: `1 USD = Rs ${INR_TO_USD}`,
-          serviceCategory: selectedCategory.label,
-          selectedOptions: selectedOptionsText,
-          pricingBreakdown: breakdownText,
-          basePrice: formatMoney(selectedCategory.basePrice, currency),
-          subtotal: formatMoney(result.subtotal, currency),
-          multiplier: `${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
-          estimatedTotal: formatMoney(result.total, currency),
-          estimatedTotalInInr: formatMoney(result.total, "INR"),
-        }),
+      await submitLead("/leads/contact", {
+        name: customerDetails.fullName.trim(),
+        email: customerDetails.email.trim() || undefined,
+        phone: customerDetails.phone.trim() || undefined,
+        service: selectedCategory.label,
+        budget: formatMoney(result.total, currency),
+        message: [
+          customerDetails.notes.trim(),
+          `Estimate ID: ${estimate.id}`,
+          `Company: ${customerDetails.company || ""}`,
+          `Location: ${customerDetails.location || ""}`,
+          `Currency: ${currency}`,
+          `Conversion rate: 1 USD = Rs ${INR_TO_USD}`,
+          `Selected options:\n${selectedOptionsText}`,
+          `Pricing breakdown:\n${breakdownText}`,
+          `Base price: ${formatMoney(selectedCategory.basePrice, currency)}`,
+          `Subtotal: ${formatMoney(result.subtotal, currency)}`,
+          `Multiplier: ${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
+          `Estimated total: ${formatMoney(result.total, currency)}`,
+          `Estimated total INR: ${formatMoney(result.total, "INR")}`,
+        ]
+          .filter(Boolean)
+          .join("\n\n"),
+        source: "price-calculator",
       });
 
-      const data = (await response.json()) as { success?: boolean; message?: string };
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message ?? "Unable to send estimate request.");
-      }
-
       setSubmitStatus("success");
-      setSubmitMessage("Estimate request sent. Growblic will contact you soon.");
+      setSubmitMessage("Thanks, our team will contact you soon.");
     } catch {
       setSubmitStatus("error");
-      setSubmitMessage("Could not send estimate request. Please try again or email hello@growblic.com.");
+      setSubmitMessage("Something went wrong. Please try again.");
     }
   }
 

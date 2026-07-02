@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import { submitLead } from "@/lib/api";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -35,39 +36,29 @@ export default function ContactSection() {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-    if (!accessKey) {
-      setStatus("error");
-      setMessage("Contact form is not configured yet. Please email hello@growblic.com.");
-      return;
-    }
-
-    formData.append("access_key", accessKey);
-    formData.append("subject", "New Growblic project enquiry");
-    formData.append("from_name", "Growblic Website");
+    const email = String(formData.get("email") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
 
     try {
       setStatus("loading");
       setMessage("");
 
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
+      await submitLead("/leads/contact", {
+        name: String(formData.get("name") || "").trim(),
+        email: email || undefined,
+        phone: phone || undefined,
+        service: String(formData.get("projectType") || "").trim() || undefined,
+        budget: String(formData.get("budgetRange") || "").trim() || undefined,
+        message: String(formData.get("message") || "").trim(),
+        source: "contact-form",
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        setStatus("success");
-        setMessage("Thanks! Your request has been sent. Growblic will get back to you soon.");
-        form.reset();
-      } else {
-        throw new Error(result.message || "Something went wrong.");
-      }
+      setStatus("success");
+      setMessage("Thanks, our team will contact you soon.");
+      form.reset();
     } catch {
       setStatus("error");
-      setMessage("Something went wrong. Please try again or email hello@growblic.com.");
+      setMessage("Something went wrong. Please try again.");
     }
   }
 
@@ -179,7 +170,6 @@ export default function ContactSection() {
               <label className="space-y-2">
                 <span className="text-sm font-black text-slate-700">Phone</span>
                 <input
-                  required
                   name="phone"
                   type="tel"
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
@@ -189,7 +179,6 @@ export default function ContactSection() {
               <label className="space-y-2 sm:col-span-2">
                 <span className="text-sm font-black text-slate-700">Email</span>
                 <input
-                  required
                   name="email"
                   type="email"
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
@@ -199,7 +188,6 @@ export default function ContactSection() {
               <label className="space-y-2">
                 <span className="text-sm font-black text-slate-700">Project Type</span>
                 <select
-                  required
                   name="projectType"
                   defaultValue=""
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
@@ -219,7 +207,6 @@ export default function ContactSection() {
               <label className="space-y-2">
                 <span className="text-sm font-black text-slate-700">Budget Range</span>
                 <select
-                  required
                   name="budgetRange"
                   defaultValue=""
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
