@@ -3,29 +3,29 @@ import Link from "next/link";
 
 const companyLinks = [
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Careers", href: "/careers" },
   { label: "Blog", href: "/blog" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/#contact" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Services", href: "/services" }
 ];
 
 const serviceLinks = [
-  { label: "Website Development", href: "/website-development" },
-  { label: "Software Development", href: "/software" },
-  { label: "Mobile Apps", href: "/mobile-apps" },
-  { label: "SaaS Products", href: "/saas" },
   { label: "AI Automation", href: "/ai-automation" },
-  { label: "SEO Services", href: "/seo-services" },
+  { label: "Mobile Apps", href: "/mobile-apps" },
   { label: "Price Calculator", href: "/price-calculator" },
+  { label: "SaaS Products", href: "/saas" },
+  { label: "SEO Services", href: "/seo-services" },
+  { label: "Software Development", href: "/software" },
+  { label: "Website Development", href: "/website-development" }
 ];
 
 const resourceLinks = [
-  { label: "Developer", href: "/developer" },
   { label: "Brand", href: "/brand" },
-  { label: "Downloads", href: "/downloads" },
-  { label: "Meetups", href: "/meetup" },
   { label: "Datacenter", href: "/datacenter" },
+  { label: "Developer", href: "/developer" },
+  { label: "Downloads", href: "/downloads" },
+  { label: "Meetups", href: "/meetup" }
 ];
 
 const trustLegalLinks = [
@@ -35,13 +35,13 @@ const trustLegalLinks = [
 ];
 
 const connectLinks = [
-  { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
-  { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true },
   {
     label: "India",
     href: "https://www.google.com/maps/search/?api=1&query=India",
     external: true,
   },
+  { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
+  { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true }
 ];
 
 const socialLinks = [
