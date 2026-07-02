@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   UserCheck,
 } from "lucide-react";
+import Footer from "@/components/Footer";
 import BackButton from "../../components/BackButton";
 import { createPageMetadata } from "../seo";
 
@@ -273,11 +274,11 @@ export default function SecurityPage() {
 
           <div className="security-sticky-grid mt-14 grid items-start gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
             <aside className="security-sections-sidebar h-fit lg:sticky lg:top-24 lg:self-start">
-              <div className="security-reveal h-fit rounded-[2rem] border border-blue-100/80 bg-white/94 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
+              <div className="security-sidebar-card security-reveal h-fit rounded-[2rem] border border-blue-100/80 bg-white/94 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
                   Security sections
                 </p>
-                <nav className="mt-4 flex gap-2 overflow-x-auto pb-2 lg:grid lg:gap-2 lg:overflow-visible lg:pb-0">
+                <nav className="security-sidebar-nav mt-4 flex gap-2 overflow-x-auto pb-2 lg:grid lg:gap-2 lg:overflow-visible lg:pb-0">
                   {sidebarLinks.map((link) => {
                     const Icon = link.icon;
 
@@ -285,7 +286,7 @@ export default function SecurityPage() {
                       <a
                         key={link.href}
                         href={link.href}
-                        className="group flex shrink-0 items-center justify-between gap-3 whitespace-nowrap rounded-full border border-blue-100 bg-white/84 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/35 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3"
+                        className="security-sidebar-link group flex shrink-0 items-center justify-between gap-3 whitespace-nowrap rounded-full border border-blue-100 bg-white/84 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/35 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3"
                       >
                         <span className="flex items-center gap-2">
                           <Icon className="h-4 w-4 text-blue-600 transition group-hover:text-white" aria-hidden="true" />
@@ -484,6 +485,7 @@ export default function SecurityPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }

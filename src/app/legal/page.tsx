@@ -16,6 +16,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
+import Footer from "@/components/Footer";
 import BackButton from "../../components/BackButton";
 import { createPageMetadata } from "../seo";
 
@@ -179,7 +180,7 @@ const cardClass =
 
 export default function LegalPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen bg-[#fbfdff]">
       <section className="relative px-6 py-16 sm:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_88%_24%,rgba(6,182,212,0.11),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.88),rgba(239,246,255,0.58),rgba(255,255,255,0.96))]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45 [mask-image:radial-gradient(circle_at_50%_12%,black,transparent_72%)]" />
@@ -253,13 +254,16 @@ export default function LegalPage() {
             </div>
           </div>
 
-          <div className="mt-14 grid gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
-            <aside className="lg:sticky lg:top-28">
-              <div className="rounded-[2rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
-                <p className="px-3 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
-                  Policy sections
-                </p>
-                <nav className="mt-4 flex gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0">
+          <div className="legal-sticky-grid mt-14 grid items-start gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
+            <aside className="legal-sections-sidebar h-fit lg:sticky lg:top-24 lg:self-start">
+              <div className="legal-sidebar-card rounded-[2rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
+                <div className="legal-sidebar-head px-3">
+                    <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">
+                      Policy sections
+                    </p>
+                    <span aria-hidden="true" />
+                  </div>
+                <nav className="legal-sidebar-nav mt-4 flex gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0">
                   {sidebarLinks.map((link) => {
                     const Icon = link.icon;
 
@@ -267,7 +271,7 @@ export default function LegalPage() {
                       <a
                         key={link.href}
                         href={link.href}
-                        className="group flex shrink-0 items-center justify-between gap-3 whitespace-nowrap rounded-full border border-blue-100 bg-white/84 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/35 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3"
+                        className="legal-sidebar-link group flex shrink-0 items-center justify-between gap-3 whitespace-nowrap rounded-full border border-blue-100 bg-white/84 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/35 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3"
                       >
                         <span className="flex items-center gap-2">
                           <Icon className="h-4 w-4 text-blue-600 transition group-hover:text-white" aria-hidden="true" />
@@ -394,6 +398,7 @@ export default function LegalPage() {
           </div>
         </div>
       </section>
+          <Footer />
     </main>
   );
 }
