@@ -1,18 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Building2,
-  GraduationCap,
-  Landmark,
-  Layers3,
-  MapPinHouse,
-  Scissors,
-  ShieldCheck,
-  Sparkles,
-  UsersRound,
-  WalletCards,
-} from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, GraduationCap, Landmark, Layers3, MapPinHouse, Scissors, ShieldCheck, Sparkles, UsersRound, WalletCards, FileText, Users } from "lucide-react";
 import BackButton from "@/components/BackButton";
 import Footer from "@/components/Footer";
 import { createPageMetadata } from "../seo";
@@ -26,52 +13,64 @@ export const metadata = createPageMetadata({
 
 const featuredWork = [
   {
+    title: "Classta",
+    icon: GraduationCap,
+    category: "Education Platform",
+    badge: "Popular",
+    description:
+      "A learning product category for courses, live classes, assignments, notes, resources, and student progress workflows.",
+    href: "/apps/classta",
+    downloadHref: "/downloads",
+  },
+  {
     title: "Bill Vault",
-    category: "Fintech utility",
+    icon: FileText,
+    category: "Fintech Utility",
+    badge: "Useful",
     description:
       "A document and warranty-bill management concept for storing receipts, warranty cards, reminders, and support details in one place.",
     href: "/apps/bill-vault",
-    icon: WalletCards,
-  },
-  {
-    title: "Classta",
-    category: "Education platform",
-    description:
-      "A learning product category for courses, live classes, assignments, tests, notes, resources, and student progress workflows.",
-    href: "/apps/classta",
-    icon: GraduationCap,
+    downloadHref: "/downloads",
   },
   {
     title: "Fresh Fade",
-    category: "Local services app",
+    icon: Scissors,
+    category: "Local Services App",
+    badge: "Trending",
     description:
       "A booking app concept for barber discovery, appointments, nearby services, calls, chat, profiles, and simple service management.",
     href: "/apps/fresh-fade",
-    icon: Scissors,
+    downloadHref: "/downloads",
   },
   {
     title: "Property Dost",
-    category: "Real estate platform",
+    icon: Building2,
+    category: "Real Estate Platform",
+    badge: "Featured",
     description:
       "A property product category for listings, buying, renting, chat, verification flows, saved properties, and admin operations.",
     href: "/apps/property-dost",
-    icon: MapPinHouse,
+    downloadHref: "/downloads",
   },
   {
-    title: "Payroll HR",
-    category: "HR and payroll system",
+    title: "SocioConnect",
+    icon: Users,
+    category: "Social Platform",
+    badge: "Famous",
     description:
-      "A business operations product for GPS attendance, employee profiles, salary slips, reports, analytics, and HR workflows.",
-    href: "/apps/payroll-hr",
-    icon: UsersRound,
+      "A social connection product category for profiles, content, community features, discovery, conversations, and digital engagement.",
+    href: "/apps/socioconnect",
+    downloadHref: "/downloads",
   },
   {
     title: "True Auth",
-    category: "Security product",
+    icon: ShieldCheck,
+    category: "Security Product",
+    badge: "Secure",
     description:
       "A secure credential and authentication product category for vaults, TOTP, 2FA, encrypted sync, notes, and private records.",
     href: "/apps/true-auth",
-    icon: ShieldCheck,
+    downloadHref: "/downloads",
   },
 ];
 
