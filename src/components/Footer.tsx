@@ -23,7 +23,7 @@ const resourceLinks = [
   { label: "Developer", href: "/developer" },
   { label: "Brand", href: "/brand" },
   { label: "Downloads", href: "/downloads" },
-  { label: "Meetup", href: "/meetup" },
+  { label: "Meetups", href: "/meetup" },
 ];
 
 const trustLegalLinks = [
