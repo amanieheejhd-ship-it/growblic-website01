@@ -94,9 +94,9 @@ export default function Stats() {
         {stats.map((item) => (
           <article
             key={item.label}
-            className="group rounded-[1.8rem] border border-blue-100 bg-white/85 p-7 shadow-xl shadow-blue-100/50 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70 sm:p-8"
+            className="group rounded-[1.8rem] border border-blue-100 bg-white/85 p-7 shadow-xl shadow-blue-100/50 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70 sm:p-5"
           >
-            <p className="text-5xl font-black tracking-tight text-blue-950 sm:text-6xl">
+            <p className="text-5xl font-black tracking-tight text-blue-950 sm:text-5xl">
               <AnimatedNumber value={item.value} suffix={item.suffix} />
             </p>
 
