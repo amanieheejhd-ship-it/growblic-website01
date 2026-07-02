@@ -1016,3 +1016,24 @@ html {
   transform: none !important;
   animation: none !important;
 }
+
+
+
+
+
+
+/* Security page sticky left navigation */
+@media (min-width: 1024px) {
+  .security-sticky-grid {
+    overflow: visible !important;
+    align-items: flex-start !important;
+  }
+
+  .security-sections-sidebar {
+    position: sticky !important;
+    top: 6rem !important;
+    align-self: flex-start !important;
+    height: max-content !important;
+    z-index: 30 !important;
+  }
+}
