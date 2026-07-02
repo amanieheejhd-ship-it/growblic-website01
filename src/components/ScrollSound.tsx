@@ -2,54 +2,32 @@
 
 import { useEffect, useRef } from "react";
 
-const BASE_PATH = "/growblic-website01";
 const AMBIENT_SOUND = "/sounds/growblic-ambient.mp3";
-const CLICK_SOUND = "/sounds/growblic-click.wav";
-const AMBIENT_TARGET_VOLUME = 0.2;
-const CLICK_VOLUME = 0.28;
-const SCROLL_IDLE_DELAY_MS = 220;
-const FADE_UP_MS = 260;
-const FADE_DOWN_MS = 360;
-const CLICKABLE_SELECTOR =
-  'a, button, [role="button"], input, textarea, select, summary';
-const SCROLL_KEYS = new Set([
-  " ",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowUp",
-  "End",
-  "Home",
-  "PageDown",
-  "PageUp",
-]);
+const MAX_VOLUME = 0.075;
+const SCROLL_IDLE_MS = 220;
+const FADE_IN_MS = 900;
+const FADE_OUT_MS = 800;
 
-function withRuntimeBasePath(path: string) {
-  if (window.location.pathname.startsWith(BASE_PATH)) {
-    return `${BASE_PATH}${path}`;
-  }
-
-  return path;
+function clampVolume(value: number) {
+  if (!Number.isFinite(value)) return 0;
+  return Math.min(1, Math.max(0, value));
 }
 
 export default function ScrollSound() {
-  const ambientRef = useRef<HTMLAudioElement | null>(null);
-  const clickRef = useRef<HTMLAudioElement | null>(null);
-  const stopTimerRef = useRef<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const idleTimerRef = useRef<number | null>(null);
   const fadeFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const ambient = new Audio(withRuntimeBasePath(AMBIENT_SOUND));
-    ambient.loop = true;
-    ambient.preload = "auto";
-    ambient.volume = 0;
+    const basePath = window.location.pathname.startsWith("/growblic-website01")
+      ? "/growblic-website01"
+      : "";
 
-    const click = new Audio(withRuntimeBasePath(CLICK_SOUND));
-    click.preload = "auto";
-    click.volume = CLICK_VOLUME;
-
-    ambientRef.current = ambient;
-    clickRef.current = click;
+    const audio = new Audio(`${basePath}${AMBIENT_SOUND}`);
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = 0;
+    audioRef.current = audio;
 
     const cancelFade = () => {
       if (fadeFrameRef.current !== null) {
@@ -59,106 +37,100 @@ export default function ScrollSound() {
     };
 
     const fadeAmbientTo = (targetVolume: number, durationMs: number) => {
+      const activeAudio = audioRef.current;
+      if (!activeAudio) return;
+
       cancelFade();
 
-      const audio = ambientRef.current;
-      if (!audio) return;
-
-      const startVolume = audio.volume;
+      const safeTarget = clampVolume(targetVolume);
+      const startVolume = clampVolume(activeAudio.volume);
       const startedAt = performance.now();
 
       const tick = (now: number) => {
-        const progress = Math.min((now - startedAt) / durationMs, 1);
-        audio.volume = startVolume + (targetVolume - startVolume) * progress;
+        const rawProgress = (now - startedAt) / durationMs;
+        const progress = Math.min(1, Math.max(0, rawProgress));
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        const nextVolume = clampVolume(
+          startVolume + (safeTarget - startVolume) * eased
+        );
+
+        activeAudio.volume = nextVolume;
 
         if (progress < 1) {
           fadeFrameRef.current = window.requestAnimationFrame(tick);
           return;
         }
 
-        audio.volume = targetVolume;
+        activeAudio.volume = safeTarget;
         fadeFrameRef.current = null;
 
-        if (targetVolume === 0) {
-          audio.pause();
+        if (safeTarget === 0) {
+          activeAudio.pause();
         }
       };
 
       fadeFrameRef.current = window.requestAnimationFrame(tick);
     };
 
-    const queueAmbientStop = () => {
-      if (stopTimerRef.current !== null) {
-        window.clearTimeout(stopTimerRef.current);
-      }
+    const startScrollSound = () => {
+      const activeAudio = audioRef.current;
+      if (!activeAudio) return;
 
-      stopTimerRef.current = window.setTimeout(() => {
-        fadeAmbientTo(0, FADE_DOWN_MS);
-      }, SCROLL_IDLE_DELAY_MS);
-    };
-
-    const startAmbient = () => {
-      const audio = ambientRef.current;
-      if (!audio) return;
-
-      if (audio.paused) {
-        audio.currentTime = 0;
-      }
-
-      audio
+      void activeAudio
         .play()
         .then(() => {
-          fadeAmbientTo(AMBIENT_TARGET_VOLUME, FADE_UP_MS);
+          fadeAmbientTo(MAX_VOLUME, FADE_IN_MS);
         })
         .catch(() => {
-          // Autoplay restrictions can block audio before a user gesture.
+          // Browser autoplay block kare to silently ignore.
         });
 
-      queueAmbientStop();
+      if (idleTimerRef.current !== null) {
+        window.clearTimeout(idleTimerRef.current);
+      }
+
+      idleTimerRef.current = window.setTimeout(() => {
+        fadeAmbientTo(0, FADE_OUT_MS);
+      }, SCROLL_IDLE_MS);
     };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!SCROLL_KEYS.has(event.key)) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      const scrollKeys = new Set([
+        "ArrowUp",
+        "ArrowDown",
+        "PageUp",
+        "PageDown",
+        "Home",
+        "End",
+        " ",
+        "Spacebar",
+      ]);
 
-      startAmbient();
+      if (scrollKeys.has(event.key)) {
+        startScrollSound();
+      }
     };
 
-    const handleClick = (event: MouseEvent) => {
-      if (!(event.target instanceof Element)) return;
-      if (!event.target.closest(CLICKABLE_SELECTOR)) return;
-
-      const audio = clickRef.current;
-      if (!audio) return;
-
-      audio.volume = CLICK_VOLUME;
-      audio.currentTime = 0;
-      audio.play().catch(() => {
-        // Autoplay restrictions can still block in some browser states.
-      });
-    };
-
-    window.addEventListener("wheel", startAmbient, { passive: true });
-    window.addEventListener("touchmove", startAmbient, { passive: true });
-    window.addEventListener("scroll", startAmbient, { passive: true });
-    window.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("click", handleClick, { passive: true });
+    window.addEventListener("wheel", startScrollSound, { passive: true });
+    window.addEventListener("scroll", startScrollSound, { passive: true });
+    window.addEventListener("touchmove", startScrollSound, { passive: true });
+    window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      window.removeEventListener("wheel", startAmbient);
-      window.removeEventListener("touchmove", startAmbient);
-      window.removeEventListener("scroll", startAmbient);
-      window.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("click", handleClick);
+      window.removeEventListener("wheel", startScrollSound);
+      window.removeEventListener("scroll", startScrollSound);
+      window.removeEventListener("touchmove", startScrollSound);
+      window.removeEventListener("keydown", onKeyDown);
 
-      if (stopTimerRef.current !== null) {
-        window.clearTimeout(stopTimerRef.current);
+      if (idleTimerRef.current !== null) {
+        window.clearTimeout(idleTimerRef.current);
       }
 
       cancelFade();
-      ambient.pause();
-      click.pause();
-      ambientRef.current = null;
-      clickRef.current = null;
+
+      audio.pause();
+      audio.src = "";
     };
   }, []);
 
