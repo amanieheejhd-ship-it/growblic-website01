@@ -6,6 +6,7 @@ const companyLinks = [
   { label: "Services", href: "/services" },
   { label: "Careers", href: "/careers" },
   { label: "Blog", href: "/blog" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/#contact" },
 ];
 
