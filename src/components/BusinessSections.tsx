@@ -145,32 +145,84 @@ export default function Capabilities() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/82 via-slate-950/18 to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-cyan-400/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                <div className="absolute left-5 top-5 rounded-2xl border border-white/25 bg-[#fbfdff]/18 px-4 py-3 text-xs font-black text-white shadow-xl backdrop-blur-xl">
-                  {item.stat}
-                </div>
-
                 <div className="absolute right-5 top-5 rounded-full border border-white/25 bg-[#fbfdff]/18 px-4 py-2 text-xs font-black text-white shadow-xl backdrop-blur-xl">
                   {item.badge}
                 </div>
 
                 <div className="absolute inset-x-8 top-1/2 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                <div className="absolute bottom-5 left-5 right-5">
-                  <div className="rounded-[1.8rem] border border-white/20 bg-[#fbfdff]/16 p-5 text-white shadow-2xl backdrop-blur-xl">
+                <div
+
+
+                  className={[
+
+
+                    "absolute left-5 right-5",
+
+
+                    item.size === "small" ? "inset-y-5" : "bottom-5",
+
+
+                  ].join(" ")}
+
+
+                >
+
+
+                  <div
+
+
+                    className={[
+
+
+                      "rounded-[1.8rem] border border-white/20 bg-[#fbfdff]/16 text-white shadow-2xl backdrop-blur-xl",
+
+
+                      item.size === "small" ? "flex h-full flex-col justify-center p-5" : "p-5",
+
+
+                    ].join(" ")}
+
+
+                  >
                     <h3
                       className={[
                         "font-black tracking-tight",
-                        item.size === "large" ? "text-5xl" : "text-3xl",
+
+                        item.size === "large"
+
+                          ? "text-5xl leading-[0.98]"
+
+                          : item.size === "small"
+
+                            ? "text-[1.85rem] leading-[1.05]"
+
+                            : "text-3xl leading-tight",
                       ].join(" ")}
                     >
                       {item.title}
                     </h3>
 
-                    <p className="mt-3 max-w-xl text-sm font-semibold leading-6 text-white/78">
+                    <p
+
+
+                      className={[
+
+
+                        "mt-3 max-w-xl font-semibold text-white/78",
+
+
+                        item.size === "small" ? "text-[13px] leading-[1.65]" : "text-sm leading-6",
+
+
+                      ].join(" ")}
+
+
+                    >
                       {item.text}
                     </p>
 
-                    <div className="mt-5 flex items-center justify-between gap-4">
+                    <div className={["flex items-center justify-between gap-4", item.size === "small" ? "mt-4" : "mt-5"].join(" ")}>
                       <div className="h-1.5 w-14 rounded-full bg-[#fbfdff]/35 transition-all duration-500 ease-out group-hover:w-24 group-hover:bg-[#fbfdff]" />
                       <span className="text-xs font-black uppercase tracking-[0.2em] text-white/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                         Open
