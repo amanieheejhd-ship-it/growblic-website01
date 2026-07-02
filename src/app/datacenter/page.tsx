@@ -134,15 +134,16 @@ export default function DatacenterPage() {
               return (
                 <article
                   key={card.title}
-                  className="group rounded-[1.6rem] border border-blue-100/80 bg-white/82 p-6 shadow-[0_18px_55px_rgba(37,99,235,0.07)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_26px_70px_rgba(37,99,235,0.11)]"
+                  className="group relative flex h-full min-h-[19rem] flex-col overflow-hidden rounded-[1.7rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.96),rgba(248,251,255,0.92)_48%,rgba(239,246,255,0.78))] p-6 shadow-[0_20px_60px_rgba(37,99,235,0.08)] ring-1 ring-white/80 backdrop-blur-xl transition-all duration-300 before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-blue-300/70 before:to-transparent after:pointer-events-none after:absolute after:-right-16 after:-top-16 after:h-36 after:w-36 after:rounded-full after:bg-blue-100/70 after:blur-3xl hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_30px_82px_rgba(37,99,235,0.14)]"
                 >
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm transition group-hover:bg-white">
-                    <Icon className="h-5 w-5" strokeWidth={1.9} />
+                  <span className="relative grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-700 shadow-[0_14px_34px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/80 transition group-hover:-translate-y-0.5 group-hover:text-blue-600 group-hover:shadow-[0_18px_42px_rgba(37,99,235,0.18)]">
+                    <Icon className="h-5 w-5" strokeWidth={1.85} />
                   </span>
-                  <h2 className="mt-7 text-xl font-bold tracking-[-0.025em] text-slate-900">
+                  <span className="relative mt-6 h-1 w-12 rounded-full bg-gradient-to-r from-blue-500/70 via-cyan-400/70 to-transparent" />
+                  <h2 className="relative mt-5 text-xl font-bold tracking-[-0.025em] text-slate-900">
                     {card.title}
                   </h2>
-                  <p className="mt-4 text-sm font-medium leading-7 text-slate-600">
+                  <p className="relative mt-4 text-sm font-medium leading-7 text-slate-600">
                     {card.text}
                   </p>
                 </article>
