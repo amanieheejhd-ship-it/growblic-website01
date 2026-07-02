@@ -151,12 +151,17 @@ export default function DatacenterPage() {
             })}
           </section>
 
-          <section className="mt-16 grid gap-8 rounded-[2rem] border border-blue-100/80 bg-white/86 p-7 shadow-[0_22px_75px_rgba(37,99,235,0.08)] backdrop-blur-2xl lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700">
+          <section className="relative mt-16 grid overflow-hidden rounded-[2.1rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.96),rgba(248,251,255,0.90)_48%,rgba(239,246,255,0.74))] p-7 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-10">
+            <div className="pointer-events-none absolute -left-20 top-8 h-52 w-52 rounded-full bg-blue-100/70 blur-3xl" />
+            <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-cyan-100/55 blur-3xl" />
+            <div className="relative">
+              <span className="inline-flex rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm">
+                Launch-ready systems
+              </span>
+              <p className="mt-5 text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700">
                 Why Growblic Datacenter Matters
               </p>
-              <h2 className="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.04em] text-slate-900 lg:text-4xl">
+              <h2 className="mt-4 max-w-3xl text-3xl font-bold leading-[1.12] tracking-[-0.035em] text-slate-900 lg:text-4xl xl:text-5xl">
                 Infrastructure should support the product, not distract from it.
               </h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-600">
@@ -166,14 +171,16 @@ export default function DatacenterPage() {
               </p>
             </div>
 
-            <div className="grid gap-3">
+            <div className="relative mt-8 grid gap-3 lg:mt-0">
               {reliabilityPoints.map((point) => (
                 <div
                   key={point}
-                  className="flex gap-3 rounded-2xl border border-blue-100/80 bg-white/90 p-4 text-sm font-medium leading-6 text-slate-600 shadow-[0_10px_30px_rgba(37,99,235,0.05)]"
+                  className="group flex gap-3 rounded-2xl border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(248,251,255,0.86))] p-4 text-sm font-medium leading-6 text-slate-600 shadow-[0_12px_34px_rgba(37,99,235,0.06)] transition duration-300 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(37,99,235,0.11)]"
                 >
-                  <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
-                  {point}
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-600 shadow-sm ring-1 ring-blue-100/80 transition group-hover:text-blue-700">
+                    <ShieldCheck className="h-4 w-4" strokeWidth={1.9} />
+                  </span>
+                  <span className="pt-1">{point}</span>
                 </div>
               ))}
             </div>
