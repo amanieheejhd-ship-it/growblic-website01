@@ -24,7 +24,7 @@ const initialMessages: ChatMessage[] = [
   {
     role: "assistant",
     content:
-      "Hi, I’m Growblic Assistant. You can ask about Growblic services, apps, pricing guidance, cloud deployment, or starting a project.",
+      "Hello, I’m Growblic Assistant. I can help you explore Growblic services, products, pricing guidance, cloud deployment, and starting a project.",
   },
 ];
 
@@ -84,17 +84,166 @@ const services = [
 ];
 
 const quickPrompts = [
-  "Growblic kya services deta hai?",
-  "Mujhe website banwani hai",
-  "Project ka estimate kaise milega?",
-  "Cloud deployment me help karte ho?",
+  "What services does Growblic offer?",
+  "I want to build a website",
+  "Show Growblic apps/products",
+  "How does pricing work?",
 ];
+
+const businessFeatureProfiles = [
+  {
+    match: /\b(shoe|shoes|footwear|sneaker|sneakers|slipper|slippers|sandals?)\b/i,
+    label: "footwear",
+    features: [
+      "product catalog",
+      "size and color variants",
+      "cart and checkout",
+      "secure payments",
+      "inventory/admin controls",
+      "offers and order tracking",
+    ],
+  },
+  {
+    match: /\b(restaurant|cafe|hotel|food|kitchen|bakery|cloud kitchen)\b/i,
+    label: "restaurant",
+    features: [
+      "menu pages",
+      "table booking",
+      "online ordering",
+      "location and hours",
+      "offers",
+      "order/admin management",
+    ],
+  },
+  {
+    match: /\b(school|college|academy|institute|tuition|coaching)\b/i,
+    label: "school",
+    features: [
+      "student and teacher profiles",
+      "attendance",
+      "notices",
+      "fees",
+      "classes",
+      "admin dashboard",
+    ],
+  },
+  {
+    match: /\b(doctor|clinic|hospital|dentist|healthcare|medical)\b/i,
+    label: "doctor/clinic",
+    features: [
+      "appointment booking",
+      "patient records",
+      "availability slots",
+      "reminders",
+      "prescriptions",
+      "staff/admin controls",
+    ],
+  },
+  {
+    match: /\b(gym|fitness|trainer|yoga|sports club)\b/i,
+    label: "gym",
+    features: [
+      "membership plans",
+      "attendance",
+      "payments",
+      "trainer management",
+      "renewal reminders",
+      "reports",
+    ],
+  },
+  {
+    match: /\b(real estate|property|broker|realtor|builder|apartment|plots?|rental)\b/i,
+    label: "real estate",
+    features: [
+      "property listings",
+      "search filters",
+      "photo galleries",
+      "lead forms",
+      "location maps",
+      "agent/admin dashboard",
+    ],
+  },
+  {
+    match: /\b(laundry|dry clean|dry cleaning|wash|ironing)\b/i,
+    label: "laundry",
+    features: [
+      "pickup scheduling",
+      "delivery tracking",
+      "service pricing",
+      "order status",
+      "payments",
+      "vendor/admin management",
+    ],
+  },
+  {
+    match: /\b(ecommerce|e-commerce|online store|store|shop|marketplace)\b/i,
+    label: "ecommerce",
+    features: [
+      "catalog",
+      "cart",
+      "checkout",
+      "payment integration",
+      "stock management",
+      "admin dashboard",
+    ],
+  },
+];
+
+const solutionIntentPattern =
+  /\b(website|web app|app|mobile app|software|dashboard|ecommerce|e-commerce|booking|system|platform|portal|marketplace)\b/i;
+
+function getSolutionLabel(text: string) {
+  const match = text.match(solutionIntentPattern);
+  return match?.[0]?.replace("e-commerce", "ecommerce") || "digital product";
+}
+
+function extractBusinessIdea(input: string) {
+  const normalized = input.toLowerCase();
+  const profile = businessFeatureProfiles.find((item) => item.match.test(normalized));
+
+  if (profile) {
+    return profile;
+  }
+
+  const solutionMatch = normalized.match(solutionIntentPattern);
+  if (!solutionMatch?.index) return null;
+
+  const beforeIntent = normalized
+    .slice(0, solutionMatch.index)
+    .replace(/\b(i|we|want|need|to|build|make|create|develop|a|an|the|for|my|our|new)\b/g, " ")
+    .replace(/[^a-z0-9\s/-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!beforeIntent || beforeIntent.length < 3) return null;
+
+  return {
+    label: beforeIntent,
+    features: [
+      "clear service or product pages",
+      "lead capture forms",
+      "customer workflow",
+      "admin dashboard",
+      "analytics",
+      "deployment-ready setup",
+    ],
+  };
+}
+
+function buildBusinessIdeaReply(input: string) {
+  if (!solutionIntentPattern.test(input)) return null;
+
+  const idea = extractBusinessIdea(input);
+  if (!idea) return null;
+
+  const solutionLabel = getSolutionLabel(input.toLowerCase());
+  const featureList = idea.features.join(", ");
+
+  return `That sounds like a ${idea.label} ${solutionLabel}. A strong version could include ${featureList}. Growblic can design, develop, and deploy it with a premium frontend, backend/admin panel, integrations, and launch support. Do you want this mainly for lead generation, online sales/bookings, or internal operations?`;
+}
 
 function buildFallbackReply(input: string) {
   const text = input.toLowerCase();
-  const isHinglish =
-    /[\u0900-\u097f]/.test(input) ||
-    /\b(kya|kaise|kon|kaun|konsa|kaunse|mujhe|banwani|banwana|hai|ho|karte|price|kitna|chahiye)\b/i.test(input);
   const productList = liveProducts.join(", ");
   const serviceList = services.join(", ");
   const asksForProductList =
@@ -103,56 +252,43 @@ function buildFallbackReply(input: string) {
     /\bgrowblic\b.*\bapp\b.*\b(kon|kaun|kaunse|konsa|which|list|naam|names)\b/i.test(text);
 
   if (/\b(hi|hello|hey|namaste|sat sri akal)\b/i.test(text)) {
-    return isHinglish
-      ? "Hi, kaise help kar sakta hoon? Aap website, app, SaaS, pricing, ya cloud deployment ke baare me pooch sakte ho."
-      : "Hi, how can I help? You can ask about Growblic websites, apps, SaaS, pricing guidance, or cloud deployment.";
+    return "Hello, I’m Growblic Assistant. I can help with Growblic services, products, pricing guidance, cloud deployment, and project planning. What would you like to build or explore?";
   }
 
   if (asksForProductList) {
-    return isHinglish
-      ? `Growblic ke live apps/products hain: ${productList}.`
-      : `Growblic live apps/products are: ${productList}.`;
+    return `Growblic live apps/products are: ${productList}.`;
   }
 
   if (/\b(service|services|seo|ads|automation|gmb|reviews|support)\b/i.test(text)) {
-    return isHinglish
-      ? `Growblic services: ${serviceList}. Aap kis service ke baare me detail chahte ho?`
-      : `Growblic services: ${serviceList}. Which service would you like details on?`;
+    return `Growblic services include: ${serviceList}. Which service would you like details on?`;
   }
 
   if (/\b(price|pricing|cost|budget|estimate|kitna|charges|rate)\b/i.test(text)) {
-    return isHinglish
-      ? "Pricing scope par depend karti hai: features, design, backend, dashboard, integrations, platform, screens, timeline, aur maintenance. Exact price ke liye Price Calculator ya Start Project form best rahega. Aap kis type ka project plan kar rahe ho?"
-      : "Pricing depends on scope: features, design, backend, dashboard, integrations, platform, screens, timeline, and maintenance. For an estimate, use the Price Calculator or Start Project form. What type of project are you planning?";
+    return "Pricing depends on scope: features, design depth, backend/admin needs, integrations, platform, screens, timeline, and maintenance. For a practical estimate, use the Price Calculator or Start Project form. What type of project are you planning?";
   }
 
-  if (/\b(website|web|site|landing|ecommerce)\b/i.test(text)) {
-    return isHinglish
-      ? "Growblic website development me premium business websites, landing pages, e-commerce flows, SEO-ready pages, forms, analytics, aur launch setup provide karta hai. Aap simple website chahte ho ya dashboard/backend ke saath?"
-      : "Growblic website development covers premium business websites, landing pages, e-commerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
+  const businessIdeaReply = buildBusinessIdeaReply(input);
+  if (businessIdeaReply) {
+    return businessIdeaReply;
   }
 
-  if (/\b(app banwani hai|app banwana hai|mobile app chahiye|mobile app banwani|mobile app banwana|android app|ios app|build app)\b/i.test(text)) {
-    return isHinglish
-      ? "Growblic mobile app development me Android/iOS apps, backend APIs, admin panels, auth, payments, notifications, aur launch support cover karta hai. Aapko customer app chahiye ya business/internal app?"
-      : "Growblic mobile app development covers Android/iOS apps, backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
+  if (/\b(website|web|site|landing|ecommerce|e-commerce)\b/i.test(text)) {
+    return "Growblic website development covers premium business websites, landing pages, ecommerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
   }
 
-  if (/\b(saas|software|dashboard|admin|api|backend)\b/i.test(text)) {
-    return isHinglish
-      ? "Growblic SaaS platforms, dashboards, backend APIs, admin panels, aur automation systems build karta hai. Planning idea se design, development, deployment, aur launch support tak ho sakti hai. Core features kya honge?"
-      : "Growblic builds SaaS platforms, dashboards, backend APIs, admin panels, and automation systems, from idea to design, development, deployment, and launch support. What core features do you need?";
+  if (/\b(mobile app|android app|ios app|build app|app development)\b/i.test(text)) {
+    return "Growblic mobile app development covers Android/iOS apps, backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
+  }
+
+  if (/\b(saas|software|dashboard|admin|api|backend|platform|system)\b/i.test(text)) {
+    return "Growblic builds SaaS platforms, dashboards, backend APIs, admin panels, and automation systems, from idea to design, development, deployment, and launch support. What core features do you need?";
   }
 
   if (/\b(cloud|deploy|deployment|datacenter|server|render|vercel|postgres|database)\b/i.test(text)) {
-    return isHinglish
-      ? "Growblic cloud-ready deployment planning me help karta hai: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, env variables, logs, backups, monitoring, aur launch checks. Growblic physical AWS-like datacenters own nahi karta. Aapka project kis stack par hai?"
-      : "Growblic helps with cloud-ready deployment planning: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, environment variables, logs, backups, monitoring, and launch checks. Growblic does not own AWS-like physical datacenters. What stack is your project using?";
+    return "Growblic helps with cloud-ready deployment planning: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, environment variables, logs, backups, monitoring, and launch checks. Growblic does not own AWS-like physical datacenters. What stack is your project using?";
   }
 
-  return isHinglish
-    ? "Main Growblic services aur project guidance me help kar sakta hoon. Aap project type, features, timeline, budget range, ya platform bata do, main next step suggest kar dunga."
-    : "I can help with Growblic services and project guidance. Share your project type, features, timeline, budget range, or platform, and I’ll suggest the next step.";
+  return "I can help with Growblic services and project guidance. Share your project type, features, timeline, budget range, or platform, and I’ll suggest a strong next step.";
 }
 
 export default function GrowblicAIChat() {
@@ -160,6 +296,7 @@ export default function GrowblicAIChat() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+  const hasUserMessage = messages.some((item) => item.role === "user");
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const requestControllerRef = useRef<AbortController | null>(null);
@@ -226,7 +363,7 @@ export default function GrowblicAIChat() {
       const data = (await response.json()) as { reply?: string };
       const reply =
         data.reply ||
-        "Main abhi reply nahi de pa raha. Aap Start Project page se enquiry bhej sakte ho.";
+        "I’m having trouble generating a full reply right now. You can still use the Start Project page to send Growblic your enquiry.";
 
       setMessages((items) => [...items, { role: "assistant", content: reply }]);
     } catch {
@@ -313,18 +450,20 @@ export default function GrowblicAIChat() {
           </div>
 
           <div className="border-t border-blue-100 bg-white/80 p-4">
-            <div className="mb-3 grid grid-cols-2 gap-2">
-              {quickPrompts.map((prompt) => (
-                <button
-                  key={prompt}
-                  type="button"
-                  onClick={() => sendMessage(prompt)}
-                  className="rounded-2xl border border-blue-100 bg-white px-3 py-2 text-left text-xs font-extrabold text-slate-700 shadow-sm transition hover:border-blue-300 hover:text-blue-700"
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
+            {!hasUserMessage && !loading ? (
+              <div className="mb-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {quickPrompts.map((prompt) => (
+                  <button
+                    key={prompt}
+                    type="button"
+                    onClick={() => sendMessage(prompt)}
+                    className="rounded-2xl border border-blue-100 bg-white px-3 py-2 text-left text-xs font-extrabold leading-5 text-slate-700 shadow-sm transition hover:border-blue-300 hover:text-blue-700"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
               <input
