@@ -21,6 +21,7 @@ import {
 import Footer from "@/components/Footer";
 import BackButton from "../../components/BackButton";
 import DatacenterCoverage from "@/components/DatacenterCoverage";
+import DatacenterIndustries from "@/components/DatacenterIndustries";
 import { createPageMetadata } from "../seo";
 
 export const metadata = createPageMetadata({
