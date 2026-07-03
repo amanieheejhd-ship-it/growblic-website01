@@ -5,6 +5,7 @@ import OpeningSplash from "../components/OpeningSplash";
 import ScrollSoundExperience from "../components/ScrollSoundExperience";
 import { absoluteUrl, createPageMetadata, defaultSeo, siteUrl } from "./seo";
 import ScrollSound from "@/components/ScrollSound";
+import GrowblicAIChat from "@/components/GrowblicAIChat";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -79,6 +80,7 @@ export default function RootLayout({
         <SmoothScroll />
         <ScrollSoundExperience />
         {children}
+              <GrowblicAIChat />
       </body>
     </html>
   );
