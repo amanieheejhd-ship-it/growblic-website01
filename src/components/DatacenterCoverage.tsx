@@ -53,7 +53,7 @@ const deploymentRegions: Region[] = [
   {
     name: "Europe",
     summary:
-      "Cloud region planning for GDPR-aware product launches, business websites, dashboards, and backend services.",
+      "Best for Europe-focused websites, SaaS products, admin dashboards, and backend services where user location and compliance planning matter.",
     focus: "EU websites and SaaS",
     setupPaths: ["Business websites", "SaaS platforms", "Admin dashboards", "Logs and monitoring"],
     stackOptions: ["Vercel", "Render", "PostgreSQL", "Cloud storage"],
@@ -294,7 +294,7 @@ export function DatacenterCoverage() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-slate-500">
+                  <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500">
                     <Layers3 className="h-4 w-4 text-blue-600" />
                     Supported setup paths
                   </p>
@@ -312,7 +312,7 @@ export function DatacenterCoverage() {
                 </div>
 
                 <div>
-                  <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-slate-500">
+                  <p className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-slate-500">
                     <Database className="h-4 w-4 text-cyan-600" />
                     Provider / stack options
                   </p>
