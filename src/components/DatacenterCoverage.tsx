@@ -388,38 +388,45 @@ export function DatacenterCoverage() {
                     return pointColors[supportPoint.type];
                   }}
                   pointResolution={24}
-                  pointLabel={(point: object) => {
-                    const supportPoint = point as SupportPoint;
-                    return `
-                      <div style="
-                        position: relative;
-                        padding: 10px 14px;
-                        border-radius: 10px;
-                        background: rgba(15, 23, 42, 0.96);
-                        color: #ffffff;
-                        font-family: Inter, ui-sans-serif, system-ui;
-                        font-size: 13px;
-                        font-weight: 800;
-                        letter-spacing: 0.01em;
-                        box-shadow: 0 16px 35px rgba(15, 23, 42, 0.28);
-                        white-space: nowrap;
-                      ">
-                        ${supportPoint.name}
-                        <div style="
-                          position: absolute;
-                          left: 50%;
-                          bottom: -6px;
-                          width: 12px;
-                          height: 12px;
-                          transform: translateX(-50%) rotate(45deg);
-                          background: rgba(15, 23, 42, 0.96);
-                        "></div>
-                      </div>
-                    `;
-                  }}
+                  pointLabel={() => ""}
                   onPointHover={(point: object | null) =>
                     setHoveredPoint(point ? (point as SupportPoint) : null)
                   }
+                  htmlElementsData={hoveredPoint ? [hoveredPoint] : []}
+                  htmlLat={(point: object) => (point as SupportPoint).lat}
+                  htmlLng={(point: object) => (point as SupportPoint).lng}
+                  htmlAltitude={0.12}
+                  htmlElement={(point: object) => {
+                    const supportPoint = point as SupportPoint;
+                    const el = document.createElement("div");
+
+                    el.style.position = "relative";
+                    el.style.transform = "translate(-50%, -130%)";
+                    el.style.pointerEvents = "none";
+                    el.style.padding = "9px 13px";
+                    el.style.borderRadius = "10px";
+                    el.style.background = "rgba(15, 23, 42, 0.96)";
+                    el.style.color = "#ffffff";
+                    el.style.fontFamily = "Inter, ui-sans-serif, system-ui";
+                    el.style.fontSize = "13px";
+                    el.style.fontWeight = "900";
+                    el.style.whiteSpace = "nowrap";
+                    el.style.boxShadow = "0 16px 35px rgba(15, 23, 42, 0.28)";
+                    el.style.border = "1px solid rgba(255,255,255,0.12)";
+                    el.textContent = supportPoint.name;
+
+                    const arrow = document.createElement("span");
+                    arrow.style.position = "absolute";
+                    arrow.style.left = "50%";
+                    arrow.style.bottom = "-5px";
+                    arrow.style.width = "10px";
+                    arrow.style.height = "10px";
+                    arrow.style.transform = "translateX(-50%) rotate(45deg)";
+                    arrow.style.background = "rgba(15, 23, 42, 0.96)";
+
+                    el.appendChild(arrow);
+                    return el;
+                  }}
                   ringsData={ringsData}
                   ringLat="lat"
                   ringLng="lng"
