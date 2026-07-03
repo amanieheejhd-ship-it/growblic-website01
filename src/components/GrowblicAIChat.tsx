@@ -339,22 +339,11 @@ export default function GrowblicAIChat() {
     setMessage("");
     setLoading(true);
     const controller = new AbortController();
-    let timedOut = false;
-    let fallbackShown = false;
-    requestControllerRef.current?.abort();
+    
+    const requestTimeout = window.setTimeout(() => controller.abort(), 15000);
+let timedOut = false;
+requestControllerRef.current?.abort();
     requestControllerRef.current = controller;
-    const fallbackTimeout = window.setTimeout(() => {
-      timedOut = true;
-      fallbackShown = true;
-      controller.abort();
-      setMessages((items) => [
-        ...items,
-        {
-          role: "assistant",
-          content: buildFallbackReply(finalMessage),
-        },
-      ]);
-    }, QUICK_FALLBACK_TIMEOUT_MS);
     const timeout = window.setTimeout(() => {
       timedOut = true;
       controller.abort();
@@ -382,12 +371,11 @@ export default function GrowblicAIChat() {
       const data = (await response.json()) as { reply?: string };
       const reply =
         data.reply ||
-        "I’m having trouble generating a full reply right now. You can still use the Start Project page to send Growblic your enquiry.";
+        "Hm, I’m having trouble connecting right now. Please try again in a moment, or use the Start Project page to contact Growblic.";
 
       setMessages((items) => [...items, { role: "assistant", content: reply }]);
     } catch {
-      if (fallbackShown) return;
-      if (controller.signal.aborted && !timedOut) return;
+if (controller.signal.aborted && !timedOut) return;
       setMessages((items) => [
         ...items,
         {
@@ -396,7 +384,7 @@ export default function GrowblicAIChat() {
         },
       ]);
     } finally {
-      window.clearTimeout(fallbackTimeout);
+      window.clearTimeout(requestTimeout);
       window.clearTimeout(timeout);
       if (requestControllerRef.current === controller) {
         requestControllerRef.current = null;
