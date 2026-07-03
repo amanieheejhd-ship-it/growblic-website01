@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { submitLead } from "@/lib/api";
 
 type SelectOption = {
@@ -67,8 +67,11 @@ type BreakdownItem = {
 };
 
 type Currency = "INR" | "USD";
+type ExchangeRateStatus = "loading" | "live" | "fallback";
 
-const INR_TO_USD = 83;
+const SAFE_USD_INR_RATE = 85;
+const PRIMARY_USD_INR_API = "https://api.frankfurter.dev/v1/latest?base=USD&symbols=INR";
+const FALLBACK_USD_INR_API = "https://open.er-api.com/v6/latest/USD";
 const currencyOptions: Array<{ label: string; symbol: string; value: Currency }> = [
   { label: "INR", symbol: "₹", value: "INR" },
   { label: "USD", symbol: "$", value: "USD" },
@@ -83,7 +86,8 @@ const inrFormatter = new Intl.NumberFormat("en-IN", {
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
 });
 
 const inputClass =
@@ -487,9 +491,13 @@ const categories: CalculatorCategory[] = [
   },
 ];
 
-function formatMoney(valueInInr: number, currency: Currency) {
+function getValidRate(value: unknown) {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : null;
+}
+
+function formatMoney(valueInInr: number, currency: Currency, usdInrRate: number) {
   if (currency === "USD") {
-    return usdFormatter.format(Math.round(valueInInr / INR_TO_USD));
+    return usdFormatter.format(valueInInr / usdInrRate);
   }
 
   return inrFormatter.format(Math.round(valueInInr));
@@ -519,6 +527,8 @@ export default function PriceCalculator() {
   const selectedCategory = categories.find((item) => item.id === selectedCategoryId) ?? categories[0];
   const initialSelections = getInitialSelections(selectedCategory);
   const [currency, setCurrency] = useState<Currency>("INR");
+  const [usdInrRate, setUsdInrRate] = useState(SAFE_USD_INR_RATE);
+  const [exchangeRateStatus, setExchangeRateStatus] = useState<ExchangeRateStatus>("loading");
   const [selectValues, setSelectValues] = useState<Record<string, string>>(initialSelections.selectValues);
   const [numberValues, setNumberValues] = useState<Record<string, number>>(initialSelections.numberValues);
   const [featureValues, setFeatureValues] = useState<string[]>([]);
@@ -534,6 +544,63 @@ export default function PriceCalculator() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
   const [estimate, setEstimate] = useState<Estimate | null>(null);
+
+  useEffect(() => {
+    let isActive = true;
+
+    async function fetchUsdInrRate() {
+      try {
+        const primaryResponse = await fetch(PRIMARY_USD_INR_API);
+
+        if (!primaryResponse.ok) {
+          throw new Error("Primary exchange rate request failed.");
+        }
+
+        const primaryData = (await primaryResponse.json()) as { rates?: { INR?: unknown } };
+        const primaryRate = getValidRate(primaryData.rates?.INR);
+
+        if (!primaryRate) {
+          throw new Error("Primary exchange rate was invalid.");
+        }
+
+        if (isActive) {
+          setUsdInrRate(primaryRate);
+          setExchangeRateStatus("live");
+        }
+      } catch {
+        try {
+          const fallbackResponse = await fetch(FALLBACK_USD_INR_API);
+
+          if (!fallbackResponse.ok) {
+            throw new Error("Fallback exchange rate request failed.");
+          }
+
+          const fallbackData = (await fallbackResponse.json()) as { rates?: { INR?: unknown } };
+          const fallbackRate = getValidRate(fallbackData.rates?.INR);
+
+          if (!fallbackRate) {
+            throw new Error("Fallback exchange rate was invalid.");
+          }
+
+          if (isActive) {
+            setUsdInrRate(fallbackRate);
+            setExchangeRateStatus("live");
+          }
+        } catch {
+          if (isActive) {
+            setUsdInrRate(SAFE_USD_INR_RATE);
+            setExchangeRateStatus("fallback");
+          }
+        }
+      }
+    }
+
+    fetchUsdInrRate();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   function updateCustomerDetails(field: keyof CustomerDetails, value: string) {
     setCustomerDetails((current) => ({ ...current, [field]: value }));
@@ -558,7 +625,9 @@ export default function PriceCalculator() {
 
   const result = useMemo(() => {
     let subtotal = selectedCategory.basePrice;
-    const selectedOptions: string[] = [`Base estimate: ${formatMoney(selectedCategory.basePrice, currency)}`];
+    const selectedOptions: string[] = [
+      `Base estimate: ${formatMoney(selectedCategory.basePrice, currency, usdInrRate)}`,
+    ];
     const breakdownItems: BreakdownItem[] = [
       { label: "Base price", value: selectedCategory.label, price: selectedCategory.basePrice },
     ];
@@ -619,7 +688,7 @@ export default function PriceCalculator() {
       selectedOptions,
       breakdownItems,
     };
-  }, [currency, featureValues, numberValues, selectValues, selectedCategory]);
+  }, [currency, featureValues, numberValues, selectValues, selectedCategory, usdInrRate]);
 
   function toggleFeature(feature: string) {
     setEstimate(null);
@@ -674,7 +743,7 @@ export default function PriceCalculator() {
 
     const selectedOptionsText = result.selectedOptions.join("\n");
     const breakdownText = result.breakdownItems
-      .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price, currency)}`)
+      .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price, currency, usdInrRate)}`)
       .join("\n");
 
     try {
@@ -683,21 +752,21 @@ export default function PriceCalculator() {
         email: customerDetails.email.trim() || undefined,
         phone: customerDetails.phone.trim() || undefined,
         service: selectedCategory.label,
-        budget: formatMoney(result.total, currency),
+        budget: formatMoney(result.total, currency, usdInrRate),
         message: [
           customerDetails.notes.trim(),
           `Estimate ID: ${estimate.id}`,
           `Company: ${customerDetails.company || ""}`,
           `Location: ${customerDetails.location || ""}`,
           `Currency: ${currency}`,
-          `Conversion rate: 1 USD = Rs ${INR_TO_USD}`,
+          `Conversion rate: 1 USD = Rs ${usdInrRate.toFixed(2)}`,
           `Selected options:\n${selectedOptionsText}`,
           `Pricing breakdown:\n${breakdownText}`,
-          `Base price: ${formatMoney(selectedCategory.basePrice, currency)}`,
-          `Subtotal: ${formatMoney(result.subtotal, currency)}`,
+          `Base price: ${formatMoney(selectedCategory.basePrice, currency, usdInrRate)}`,
+          `Subtotal: ${formatMoney(result.subtotal, currency, usdInrRate)}`,
           `Multiplier: ${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
-          `Estimated total: ${formatMoney(result.total, currency)}`,
-          `Estimated total INR: ${formatMoney(result.total, "INR")}`,
+          `Estimated total: ${formatMoney(result.total, currency, usdInrRate)}`,
+          `Estimated total INR: ${formatMoney(result.total, "INR", usdInrRate)}`,
         ]
           .filter(Boolean)
           .join("\n\n"),
@@ -722,31 +791,43 @@ export default function PriceCalculator() {
             <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">
               Step 01 / Select service
             </p>
-            <div className="flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/78 p-1 shadow-lg shadow-blue-100/40 backdrop-blur-xl">
-              <span className="pl-3 text-[0.65rem] font-black uppercase tracking-[0.18em] text-slate-500">
-                Currency
-              </span>
-              <div className="flex rounded-full bg-blue-50/70 p-1">
-                {currencyOptions.map((option) => {
-                  const isActive = currency === option.value;
+            <div className="flex flex-col gap-1 sm:items-end">
+              <div className="flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/78 p-1 shadow-lg shadow-blue-100/40 backdrop-blur-xl">
+                <span className="pl-3 text-[0.65rem] font-black uppercase tracking-[0.18em] text-slate-500">
+                  Currency
+                </span>
+                <div className="flex rounded-full bg-blue-50/70 p-1">
+                  {currencyOptions.map((option) => {
+                    const isActive = currency === option.value;
 
-                  return (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => setCurrency(option.value)}
-                      className={`min-h-9 rounded-full px-3 text-xs font-black transition ${
-                        isActive
-                          ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
-                          : "text-slate-600 hover:bg-white hover:text-blue-700"
-                      }`}
-                      aria-pressed={isActive}
-                    >
-                      {option.label} {option.symbol}
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setCurrency(option.value)}
+                        className={`min-h-9 rounded-full px-3 text-xs font-black transition ${
+                          isActive
+                            ? "bg-blue-600 text-white shadow-lg shadow-blue-500/25"
+                            : "text-slate-600 hover:bg-white hover:text-blue-700"
+                        }`}
+                        aria-pressed={isActive}
+                      >
+                        {option.label} {option.symbol}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+              <p className="px-1 text-xs font-bold text-slate-500">
+                {exchangeRateStatus === "loading"
+                  ? "Fetching live rate..."
+                  : `Live rate: ₹${usdInrRate.toFixed(2)} / USD`}
+              </p>
+              {exchangeRateStatus === "fallback" ? (
+                <p className="px-1 text-xs font-bold text-amber-700">
+                  Using fallback exchange rate.
+                </p>
+              ) : null}
             </div>
           </div>
           <div className="grid gap-3 md:grid-cols-3">
@@ -781,7 +862,7 @@ export default function PriceCalculator() {
               </h2>
             </div>
             <p className="w-fit rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black text-slate-600 shadow-sm shadow-blue-100/50">
-              Starts at {formatMoney(selectedCategory.basePrice, currency)}
+              Starts at {formatMoney(selectedCategory.basePrice, currency, usdInrRate)}
             </p>
           </div>
 
@@ -833,7 +914,7 @@ export default function PriceCalculator() {
                   className="h-2 cursor-pointer accent-blue-600"
                 />
                 <span className="text-xs font-bold text-slate-500">
-                  Includes {group.included} {group.unit}; additional {formatMoney(group.pricePerUnit, currency)} each
+                  Includes {group.included} {group.unit}; additional {formatMoney(group.pricePerUnit, currency, usdInrRate)} each
                 </span>
               </label>
             ))}
@@ -881,7 +962,7 @@ export default function PriceCalculator() {
                 >
                   <span className="block">{feature.label}</span>
                   <span className="mt-1 block text-xs font-bold text-slate-500">
-                    + {formatMoney(feature.price, currency)}
+                    + {formatMoney(feature.price, currency, usdInrRate)}
                   </span>
                 </button>
               ))}
@@ -970,7 +1051,7 @@ export default function PriceCalculator() {
         <div className="mt-5 grid gap-3">
           <div className="flex items-center justify-between rounded-2xl border border-blue-100 bg-blue-50/80 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40">
             <span>Subtotal</span>
-            <span>{formatMoney(result.subtotal, currency)}</span>
+            <span>{formatMoney(result.subtotal, currency, usdInrRate)}</span>
           </div>
           <div className="flex items-center justify-between rounded-2xl border border-blue-100 bg-white/90 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/35">
             <span>{selectedCategory.multiplierGroup.label} multiplier</span>
@@ -983,7 +1064,7 @@ export default function PriceCalculator() {
                 Estimated total
               </p>
               <p className="mt-3 text-4xl font-black tracking-tight sm:text-5xl">
-                {formatMoney(result.total, currency)}
+                {formatMoney(result.total, currency, usdInrRate)}
               </p>
             </div>
           </div>
@@ -1098,14 +1179,14 @@ export default function PriceCalculator() {
                         <span className="block text-slate-950">{item.label}</span>
                         <span className="block text-xs text-slate-500">{item.value}</span>
                       </span>
-                      <span>{formatMoney(item.price, currency)}</span>
+                      <span>{formatMoney(item.price, currency, usdInrRate)}</span>
                     </div>
                   ))}
                 </div>
                 <div className="mt-4 grid gap-2 border-t border-blue-100 pt-4 text-sm font-black text-slate-700">
                   <div className="flex items-center justify-between">
                     <span>Estimated subtotal</span>
-                    <span>{formatMoney(result.subtotal, currency)}</span>
+                    <span>{formatMoney(result.subtotal, currency, usdInrRate)}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>{selectedCategory.multiplierGroup.label} multiplier</span>
@@ -1121,7 +1202,7 @@ export default function PriceCalculator() {
                   Estimated total
                 </p>
                 <p className="mt-2 text-3xl font-black text-slate-950">
-                  {formatMoney(result.total, currency)}
+                  {formatMoney(result.total, currency, usdInrRate)}
                 </p>
               </div>
 
