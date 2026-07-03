@@ -18,6 +18,70 @@ type ChatMessage = {
 
 const API_URL =
   process.env.NEXT_PUBLIC_GROWBLIC_API_URL || "https://growblic-api.onrender.com";
+const FETCH_TIMEOUT_MS = 7000;
+
+const initialMessages: ChatMessage[] = [
+  {
+    role: "assistant",
+    content:
+      "Hi, I’m Growblic Assistant. You can ask about Growblic services, apps, pricing guidance, cloud deployment, or starting a project.",
+  },
+];
+
+const liveProducts = [
+  "Bill Vault",
+  "Chess Offline",
+  "Classta",
+  "Classta Admin",
+  "Classta Mentor",
+  "ColorCraft ASMR",
+  "Dexa Sheet",
+  "Docura",
+  "Event Sync",
+  "EventSync Organizer",
+  "Fresh Fade",
+  "Fresh Fade Business",
+  "Fresh Fade IN",
+  "Fresh Fold",
+  "Fresh Fold Vendor",
+  "Growblic Captain",
+  "Growblic Earn Money Online",
+  "GST Billing Management",
+  "INS PETRO",
+  "Jeev Setu",
+  "Kheti Hub",
+  "Kumbha",
+  "LockVault",
+  "Myniq",
+  "Myniq Admin",
+  "Nil",
+  "PairUp Meet",
+  "PayRoll+HR",
+  "PivotOS Minimalist Launcher",
+  "Presenta",
+  "Project Pipeline",
+  "Property Dost",
+  "Qmail",
+  "SocioConnect",
+  "Sociva",
+  "TapMystic",
+  "True Auth",
+];
+
+const services = [
+  "Website Development",
+  "Software Development",
+  "Mobile App Development",
+  "SaaS Product Development",
+  "AI Automation",
+  "SEO Services",
+  "Google Ads",
+  "Meta Ads",
+  "GMB Rating & Reviews",
+  "Price Calculator",
+  "Start Project",
+  "Support",
+];
 
 const quickPrompts = [
   "Growblic kya services deta hai?",
@@ -30,12 +94,30 @@ function buildFallbackReply(input: string) {
   const text = input.toLowerCase();
   const isHinglish =
     /[\u0900-\u097f]/.test(input) ||
-    /\b(kya|kaise|mujhe|banwani|banwana|hai|ho|karte|price|kitna|chahiye)\b/i.test(input);
+    /\b(kya|kaise|kon|kaun|konsa|kaunse|mujhe|banwani|banwana|hai|ho|karte|price|kitna|chahiye)\b/i.test(input);
+  const productList = liveProducts.join(", ");
+  const serviceList = services.join(", ");
+  const asksForProductList =
+    (/\b(apps|products?|portfolio|live apps|live products|tools)\b/i.test(text) &&
+      /\b(growblic|kon|kaun|kaunse|konsa|which|list|naam|names)\b/i.test(text)) ||
+    /\bgrowblic\b.*\bapp\b.*\b(kon|kaun|kaunse|konsa|which|list|naam|names)\b/i.test(text);
 
   if (/\b(hi|hello|hey|namaste|sat sri akal)\b/i.test(text)) {
     return isHinglish
       ? "Hi, kaise help kar sakta hoon? Aap website, app, SaaS, pricing, ya cloud deployment ke baare me pooch sakte ho."
       : "Hi, how can I help? You can ask about Growblic websites, apps, SaaS, pricing guidance, or cloud deployment.";
+  }
+
+  if (asksForProductList) {
+    return isHinglish
+      ? `Growblic ke live apps/products hain: ${productList}.`
+      : `Growblic live apps/products are: ${productList}.`;
+  }
+
+  if (/\b(service|services|seo|ads|automation|gmb|reviews|support)\b/i.test(text)) {
+    return isHinglish
+      ? `Growblic services: ${serviceList}. Aap kis service ke baare me detail chahte ho?`
+      : `Growblic services: ${serviceList}. Which service would you like details on?`;
   }
 
   if (/\b(price|pricing|cost|budget|estimate|kitna|charges|rate)\b/i.test(text)) {
@@ -44,16 +126,16 @@ function buildFallbackReply(input: string) {
       : "Pricing depends on scope: features, design, backend, dashboard, integrations, platform, screens, timeline, and maintenance. For an estimate, use the Price Calculator or Start Project form. What type of project are you planning?";
   }
 
-  if (/\b(app|mobile|android|ios)\b/i.test(text)) {
-    return isHinglish
-      ? "Growblic Android/iOS mobile apps design aur develop kar sakta hai, including backend APIs, admin panels, auth, payments, notifications, aur launch support. Aapko customer app chahiye ya business/internal app?"
-      : "Growblic designs and develops Android/iOS mobile apps with backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
-  }
-
   if (/\b(website|web|site|landing|ecommerce)\b/i.test(text)) {
     return isHinglish
-      ? "Growblic premium business websites, landing pages, e-commerce flows, SEO-ready pages, forms, analytics, aur launch setup me help karta hai. Aap simple website chahte ho ya dashboard/backend ke saath?"
-      : "Growblic builds premium business websites, landing pages, e-commerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
+      ? "Growblic website development me premium business websites, landing pages, e-commerce flows, SEO-ready pages, forms, analytics, aur launch setup provide karta hai. Aap simple website chahte ho ya dashboard/backend ke saath?"
+      : "Growblic website development covers premium business websites, landing pages, e-commerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
+  }
+
+  if (/\b(app banwani hai|app banwana hai|mobile app chahiye|mobile app banwani|mobile app banwana|android app|ios app|build app)\b/i.test(text)) {
+    return isHinglish
+      ? "Growblic mobile app development me Android/iOS apps, backend APIs, admin panels, auth, payments, notifications, aur launch support cover karta hai. Aapko customer app chahiye ya business/internal app?"
+      : "Growblic mobile app development covers Android/iOS apps, backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
   }
 
   if (/\b(saas|software|dashboard|admin|api|backend)\b/i.test(text)) {
@@ -68,12 +150,6 @@ function buildFallbackReply(input: string) {
       : "Growblic helps with cloud-ready deployment planning: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, environment variables, logs, backups, monitoring, and launch checks. Growblic does not own AWS-like physical datacenters. What stack is your project using?";
   }
 
-  if (/\b(service|services|seo|ads|automation|gmb|reviews)\b/i.test(text)) {
-    return isHinglish
-      ? "Growblic websites, software, SaaS, mobile apps, AI automation, SEO, Google Ads, Meta Ads, GMB ratings/reviews, aur cloud/deployment planning provide karta hai. Aap kis service ke baare me detail chahte ho?"
-      : "Growblic provides website development, software development, SaaS, mobile apps, AI automation, SEO, Google Ads, Meta Ads, GMB ratings/reviews, and cloud/deployment planning. Which service should I explain?";
-  }
-
   return isHinglish
     ? "Main Growblic services aur project guidance me help kar sakta hoon. Aap project type, features, timeline, budget range, ya platform bata do, main next step suggest kar dunga."
     : "I can help with Growblic services and project guidance. Share your project type, features, timeline, budget range, or platform, and I’ll suggest the next step.";
@@ -83,15 +159,10 @@ export default function GrowblicAIChat() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi, I’m Growblic Assistant. You can ask about Growblic services, apps, pricing guidance, cloud deployment, or starting a project.",
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const requestControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -102,12 +173,21 @@ export default function GrowblicAIChat() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") resetChat();
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
+
+  function resetChat() {
+    requestControllerRef.current?.abort();
+    requestControllerRef.current = null;
+    setOpen(false);
+    setMessage("");
+    setLoading(false);
+    setMessages(initialMessages);
+  }
 
   async function sendMessage(customMessage?: string) {
     const finalMessage = (customMessage || message).trim();
@@ -115,10 +195,14 @@ export default function GrowblicAIChat() {
 
     setMessage("");
     setLoading(true);
-    const history = messages.slice(-8).map(({ role, content }) => ({
-      role,
-      content,
-    }));
+    const controller = new AbortController();
+    let timedOut = false;
+    requestControllerRef.current?.abort();
+    requestControllerRef.current = controller;
+    const timeout = window.setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, FETCH_TIMEOUT_MS);
 
     setMessages((items) => [...items, { role: "user", content: finalMessage }]);
 
@@ -128,7 +212,11 @@ export default function GrowblicAIChat() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: finalMessage, history }),
+        body: JSON.stringify({
+          message: finalMessage,
+          history: messages.slice(-8),
+        }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -142,6 +230,7 @@ export default function GrowblicAIChat() {
 
       setMessages((items) => [...items, { role: "assistant", content: reply }]);
     } catch {
+      if (controller.signal.aborted && !timedOut) return;
       setMessages((items) => [
         ...items,
         {
@@ -150,7 +239,11 @@ export default function GrowblicAIChat() {
         },
       ]);
     } finally {
-      setLoading(false);
+      window.clearTimeout(timeout);
+      if (requestControllerRef.current === controller) {
+        requestControllerRef.current = null;
+        setLoading(false);
+      }
     }
   }
 
@@ -183,7 +276,7 @@ export default function GrowblicAIChat() {
               <button
                 type="button"
                 aria-label="Close Growblic Assistant chat"
-                onClick={() => setOpen(false)}
+                onClick={resetChat}
                 className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
               >
                 <X className="h-4 w-4" />
@@ -213,7 +306,7 @@ export default function GrowblicAIChat() {
               <div className="flex justify-start">
                 <div className="inline-flex items-center gap-2 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm font-bold text-slate-700">
                   <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                  Thinking...
+                  Typing...
                 </div>
               </div>
             ) : null}
@@ -260,7 +353,14 @@ export default function GrowblicAIChat() {
       <button
         type="button"
         aria-label="Open Growblic Assistant chat"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          if (open) {
+            resetChat();
+            return;
+          }
+
+          setOpen(true);
+        }}
         className="group flex items-center gap-3 rounded-full border border-blue-100 bg-white/90 px-4 py-3 text-sm font-black text-slate-900 shadow-[0_18px_60px_rgba(37,99,235,0.20)] ring-1 ring-white/80 backdrop-blur-2xl transition hover:-translate-y-1 hover:border-blue-300"
       >
         <span className="grid h-10 w-10 place-items-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/25 transition group-hover:bg-slate-950">
