@@ -9,127 +9,109 @@ const industries = [
     title: "Financial Services",
     text: "Secure websites, dashboards, payment-ready workflows, lead systems, and data-aware product planning.",
     href: "/fintech-app",
-    visual:
-      "radial-gradient(circle at 30% 30%, #67e8f9 0 10%, transparent 24%), radial-gradient(circle at 70% 40%, #8b5cf6 0 9%, transparent 26%), linear-gradient(135deg,#0f172a,#1d4ed8 48%,#22d3ee)",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Healthcare & Clinics",
     text: "Appointment flows, patient enquiry forms, service pages, admin panels, and secure deployment planning.",
     href: "/services",
-    visual:
-      "radial-gradient(circle at 25% 35%, #ffffff 0 8%, transparent 22%), radial-gradient(circle at 70% 45%, #bae6fd 0 12%, transparent 28%), linear-gradient(135deg,#eff6ff,#dff7ff 45%,#93c5fd)",
+    image: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Government & Public Services",
     text: "Information portals, citizen enquiry workflows, document pages, dashboards, and reliable hosting paths.",
     href: "/custom-software",
-    visual:
-      "repeating-linear-gradient(90deg,rgba(15,23,42,.12) 0 6px,transparent 6px 18px), linear-gradient(135deg,#f8fafc,#dbeafe,#bfdbfe)",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Telecommunications",
     text: "Customer portals, plan pages, support workflows, admin dashboards, and monitoring-ready deployments.",
     href: "/software",
-    visual:
-      "radial-gradient(circle at 35% 30%, #a855f7 0 10%, transparent 28%), radial-gradient(circle at 70% 55%, #2563eb 0 9%, transparent 26%), linear-gradient(135deg,#1e1b4b,#312e81,#06b6d4)",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Advertising & Marketing",
     text: "Campaign pages, lead funnels, analytics dashboards, CRM flows, and conversion-focused websites.",
     href: "/google-ads-management",
-    visual:
-      "radial-gradient(circle at 30% 45%, #facc15 0 10%, transparent 24%), radial-gradient(circle at 65% 35%, #ec4899 0 12%, transparent 28%), linear-gradient(135deg,#22c55e,#67e8f9,#a855f7)",
+    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Manufacturing",
     text: "Product catalogues, vendor dashboards, inventory flows, operations portals, and backend planning.",
     href: "/custom-software",
-    visual:
-      "radial-gradient(circle at 70% 25%, #7dd3fc 0 10%, transparent 24%), linear-gradient(135deg,#0f172a,#1d4ed8 45%,#93c5fd)",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Media & Entertainment",
     text: "Creator platforms, event pages, content systems, media workflows, and scalable launch architecture.",
     href: "/mobile-apps",
-    visual:
-      "radial-gradient(circle at 20% 35%, #f472b6 0 8%, transparent 24%), radial-gradient(circle at 70% 45%, #22d3ee 0 8%, transparent 24%), linear-gradient(135deg,#020617,#4c1d95,#1d4ed8)",
+    image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Games & Community",
     text: "Game landing pages, community products, profile systems, leaderboards, and mobile backend support.",
     href: "/mobile-apps",
-    visual:
-      "radial-gradient(circle at 25% 40%, #60a5fa 0 9%, transparent 23%), radial-gradient(circle at 70% 35%, #f59e0b 0 11%, transparent 28%), linear-gradient(135deg,#0f172a,#7c3aed,#22d3ee)",
+    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Education Platforms",
     text: "Course websites, class dashboards, mentor panels, assignments, notes, and student progress workflows.",
     href: "/apps/classta",
-    visual:
-      "radial-gradient(circle at 30% 30%, #bfdbfe 0 12%, transparent 26%), linear-gradient(135deg,#ffffff,#dbeafe,#93c5fd)",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Retail & Ecommerce",
     text: "Product pages, order flows, enquiry systems, vendor panels, and customer support dashboards.",
     href: "/products",
-    visual:
-      "radial-gradient(circle at 35% 35%, #fbbf24 0 10%, transparent 24%), radial-gradient(circle at 72% 42%, #22d3ee 0 11%, transparent 28%), linear-gradient(135deg,#f8fafc,#dbeafe,#60a5fa)",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Real Estate",
     text: "Property listing platforms, enquiry workflows, saved properties, verification flows, and admin panels.",
     href: "/apps/property-dost",
-    visual:
-      "radial-gradient(circle at 70% 30%, #38bdf8 0 9%, transparent 24%), linear-gradient(135deg,#f8fafc,#bfdbfe,#2563eb)",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Local Services",
     text: "Booking apps, profile pages, appointment systems, calls, chat flows, and service management dashboards.",
     href: "/apps/fresh-fade",
-    visual:
-      "radial-gradient(circle at 35% 30%, #22d3ee 0 10%, transparent 26%), radial-gradient(circle at 70% 55%, #8b5cf6 0 10%, transparent 28%), linear-gradient(135deg,#eff6ff,#bfdbfe,#06b6d4)",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "SaaS Startups",
     text: "MVP launches, tenant-ready dashboards, authentication flows, APIs, databases, and deployment setup.",
     href: "/saas-products",
-    visual:
-      "radial-gradient(circle at 35% 45%, #60a5fa 0 10%, transparent 26%), linear-gradient(135deg,#0f172a,#2563eb,#67e8f9)",
+    image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Travel & Hospitality",
     text: "Booking pages, hotel/service listings, enquiry forms, customer portals, and admin workflows.",
     href: "/services",
-    visual:
-      "radial-gradient(circle at 28% 35%, #fde68a 0 10%, transparent 25%), linear-gradient(135deg,#eff6ff,#7dd3fc,#3b82f6)",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Logistics & Delivery",
     text: "Order tracking, delivery dashboards, vendor panels, route planning screens, and backend support.",
     href: "/custom-software",
-    visual:
-      "radial-gradient(circle at 75% 35%, #22d3ee 0 10%, transparent 25%), linear-gradient(135deg,#f8fafc,#bfdbfe,#1d4ed8)",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "HR & Payroll",
     text: "Employee profiles, attendance, payslips, reports, approval flows, and business admin dashboards.",
     href: "/apps/payroll-hr",
-    visual:
-      "radial-gradient(circle at 30% 40%, #a78bfa 0 10%, transparent 25%), linear-gradient(135deg,#ffffff,#dbeafe,#8b5cf6)",
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Security Products",
     text: "Credential tools, authentication flows, 2FA/TOTP products, encrypted notes, and secure setup planning.",
     href: "/apps/true-auth",
-    visual:
-      "radial-gradient(circle at 30% 35%, #22d3ee 0 9%, transparent 25%), linear-gradient(135deg,#020617,#1e3a8a,#06b6d4)",
+    image: "https://images.unsplash.com/photo-1563986768711-b3bde3dc821e?auto=format&fit=crop&w=1200&q=80",
   },
   {
     title: "Automation Systems",
     text: "Internal tools, AI automation flows, dashboards, integrations, alerts, and practical business workflows.",
     href: "/ai-automation",
-    visual:
-      "radial-gradient(circle at 32% 38%, #60a5fa 0 9%, transparent 25%), radial-gradient(circle at 70% 42%, #f472b6 0 10%, transparent 26%), linear-gradient(135deg,#111827,#2563eb,#22d3ee)",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -197,13 +179,15 @@ export default function DatacenterIndustries() {
               key={industry.title}
               className="group overflow-hidden rounded-[1.55rem] border border-blue-100/80 bg-white/78 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_38px_110px_rgba(37,99,235,0.18)]"
             >
-              <div
-                className="relative h-44 overflow-hidden rounded-b-[1.25rem]"
-                style={{ backgroundImage: industry.visual }}
-              >
-                <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.16),transparent_45%,rgba(255,255,255,0.2))]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(255,255,255,0.45),transparent_30%)]" />
-                <div className="absolute -bottom-10 left-8 h-28 w-28 rounded-full border border-white/35 bg-white/10 backdrop-blur-sm transition duration-300 group-hover:scale-110" />
+              <div className="relative h-44 overflow-hidden rounded-b-[1.25rem] bg-slate-100">
+                <img
+                  src={industry.image}
+                  alt={`${industry.title} industry`}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-slate-950/5 to-white/10" />
+                <div className="absolute inset-0 ring-1 ring-inset ring-white/20" />
               </div>
 
               <div className="p-7">
