@@ -381,7 +381,7 @@ export function DatacenterCoverage() {
                   pointAltitude={0.045}
                   pointRadius={(point: object) => {
                     const supportPoint = point as SupportPoint;
-                    return hoveredPoint?.name === supportPoint.name ? 0.72 : 0.48;
+                    return hoveredPoint?.name === supportPoint.name ? 0.9 : 0.56;
                   }}
                   pointColor={(point: object) => {
                     const supportPoint = point as SupportPoint;
@@ -391,30 +391,31 @@ export function DatacenterCoverage() {
                   pointLabel={(point: object) => {
                     const supportPoint = point as SupportPoint;
                     return `
-                    <div style="
-                      padding: 12px 14px;
-                      border-radius: 16px;
-                      background: rgba(255,255,255,0.94);
-                      border: 1px solid rgba(147,197,253,0.75);
-                      box-shadow: 0 18px 45px rgba(15,23,42,0.16);
-                      color: #0f172a;
-                      font-family: Inter, ui-sans-serif, system-ui;
-                      min-width: 190px;
-                    ">
-                      <div style="font-size: 12px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; color: ${pointColors[supportPoint.type]};">
-                        ${supportPoint.type}
-                      </div>
-                      <div style="margin-top: 5px; font-size: 16px; font-weight: 900;">
+                      <div style="
+                        position: relative;
+                        padding: 10px 14px;
+                        border-radius: 10px;
+                        background: rgba(15, 23, 42, 0.96);
+                        color: #ffffff;
+                        font-family: Inter, ui-sans-serif, system-ui;
+                        font-size: 13px;
+                        font-weight: 800;
+                        letter-spacing: 0.01em;
+                        box-shadow: 0 16px 35px rgba(15, 23, 42, 0.28);
+                        white-space: nowrap;
+                      ">
                         ${supportPoint.name}
+                        <div style="
+                          position: absolute;
+                          left: 50%;
+                          bottom: -6px;
+                          width: 12px;
+                          height: 12px;
+                          transform: translateX(-50%) rotate(45deg);
+                          background: rgba(15, 23, 42, 0.96);
+                        "></div>
                       </div>
-                      <div style="margin-top: 4px; font-size: 13px; font-weight: 700; color: #64748b;">
-                        ${activeRegion.name}
-                      </div>
-                      <div style="margin-top: 8px; font-size: 12px; line-height: 1.55; color: #475569;">
-                        ${supportPoint.note}
-                      </div>
-                    </div>
-                  `;
+                    `;
                   }}
                   onPointHover={(point: object | null) =>
                     setHoveredPoint(point ? (point as SupportPoint) : null)
