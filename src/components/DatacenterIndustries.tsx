@@ -117,7 +117,7 @@ const industries = [
 
 export default function DatacenterIndustries() {
   const [query, setQuery] = useState("");
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const filteredIndustries = useMemo(() => {
     const value = query.trim().toLowerCase();
@@ -162,7 +162,7 @@ export default function DatacenterIndustries() {
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
-              setVisibleCount(8);
+              setVisibleCount(6);
             }}
             placeholder="Search industry"
             className="w-full bg-transparent text-base font-semibold text-slate-800 outline-none placeholder:text-slate-400"
@@ -213,10 +213,10 @@ export default function DatacenterIndustries() {
           <div className="mt-9 flex justify-center">
             <button
               type="button"
-              onClick={() => setVisibleCount((count) => count + 8)}
+              onClick={() => setVisibleCount((count) => count + 6)}
               className="rounded-full border border-blue-100 bg-white/90 px-7 py-3 text-sm font-extrabold text-slate-900 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
             >
-              Show 8 more
+              Show 6 more
             </button>
           </div>
         ) : null}
