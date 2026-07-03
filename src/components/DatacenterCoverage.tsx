@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ComponentType, Ref } from "react";
 import type { GlobeMethods, GlobeProps } from "react-globe.gl";
+import * as THREE from "three";
 import {
   CheckCircle2,
   CloudCog,
@@ -33,6 +34,11 @@ type DeploymentRegion = {
   camera: { lat: number; lng: number; altitude: number };
   locations: CoverageLocation[];
   featured?: boolean;
+};
+
+type StylizedContinent = {
+  name: string;
+  coordinates: number[][][];
 };
 
 const Globe = dynamic(() => import("react-globe.gl"), {
@@ -142,6 +148,89 @@ const deploymentRegions: DeploymentRegion[] = [
   },
 ];
 
+const stylizedContinents: StylizedContinent[] = [
+  {
+    name: "North America",
+    coordinates: [[
+      [-168, 58],
+      [-142, 70],
+      [-96, 68],
+      [-58, 54],
+      [-72, 25],
+      [-104, 15],
+      [-129, 28],
+      [-168, 58],
+    ]],
+  },
+  {
+    name: "South America",
+    coordinates: [[
+      [-82, 12],
+      [-52, 7],
+      [-38, -16],
+      [-56, -55],
+      [-76, -42],
+      [-82, 12],
+    ]],
+  },
+  {
+    name: "Europe",
+    coordinates: [[
+      [-12, 36],
+      [8, 58],
+      [36, 56],
+      [45, 42],
+      [24, 34],
+      [-12, 36],
+    ]],
+  },
+  {
+    name: "Africa",
+    coordinates: [[
+      [-18, 30],
+      [33, 32],
+      [50, 3],
+      [28, -34],
+      [-10, -35],
+      [-18, 30],
+    ]],
+  },
+  {
+    name: "Asia",
+    coordinates: [[
+      [36, 55],
+      [82, 70],
+      [146, 54],
+      [150, 18],
+      [110, -8],
+      [68, 8],
+      [44, 26],
+      [36, 55],
+    ]],
+  },
+  {
+    name: "India and Southeast Asia",
+    coordinates: [[
+      [68, 24],
+      [86, 28],
+      [105, 12],
+      [98, -6],
+      [76, 7],
+      [68, 24],
+    ]],
+  },
+  {
+    name: "Australia",
+    coordinates: [[
+      [112, -12],
+      [154, -18],
+      [151, -42],
+      [116, -39],
+      [112, -12],
+    ]],
+  },
+];
+
 const legendItems = [
   { label: "Available planning", className: "bg-blue-600 shadow-[0_0_18px_rgba(37,99,235,0.45)]" },
   { label: "Provider dependent", className: "bg-cyan-500 shadow-[0_0_18px_rgba(6,182,212,0.45)]" },
@@ -193,6 +282,19 @@ export default function DatacenterCoverage() {
   const [selectedRegionName, setSelectedRegionName] = useState("India");
   const [hoveredLocation, setHoveredLocation] = useState<CoverageLocation | null>(null);
   const [globeSize, setGlobeSize] = useState({ width: 640, height: 520 });
+  const globeMaterial = useMemo(
+    () =>
+      new THREE.MeshPhongMaterial({
+        color: "#dbeafe",
+        emissive: "#dbeafe",
+        emissiveIntensity: 0.22,
+        shininess: 34,
+        opacity: 0.92,
+        transparent: true,
+        specular: new THREE.Color("#ffffff"),
+      }),
+    [],
+  );
 
   const selectedRegion = useMemo(
     () =>
@@ -243,6 +345,12 @@ export default function DatacenterCoverage() {
       controls.minDistance = 230;
       controls.maxDistance = 520;
     }
+
+    globeRef.current?.lights([
+      new THREE.AmbientLight("#ffffff", 2.4),
+      new THREE.DirectionalLight("#dbeafe", 1.35),
+      new THREE.DirectionalLight("#a5b4fc", 0.9),
+    ]);
 
     globeRef.current?.pointOfView(selectedRegion.camera, 0);
   }
@@ -409,11 +517,22 @@ export default function DatacenterCoverage() {
                     height={globeSize.height}
                     backgroundColor="rgba(0,0,0,0)"
                     showAtmosphere
-                    atmosphereColor="#bfdbfe"
-                    atmosphereAltitude={0.22}
+                    atmosphereColor="#93c5fd"
+                    atmosphereAltitude={0.26}
                     showGraticules
-                    globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-                    bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+                    globeImageUrl={null}
+                    bumpImageUrl={null}
+                    globeMaterial={globeMaterial}
+                    polygonsData={stylizedContinents}
+                    polygonGeoJsonGeometry={(polygon: object) => ({
+                      type: "Polygon",
+                      coordinates: (polygon as StylizedContinent).coordinates as unknown as number[],
+                    })}
+                    polygonAltitude={0.008}
+                    polygonCapColor={() => "rgba(255,255,255,0.48)"}
+                    polygonSideColor={() => "rgba(147,197,253,0.18)"}
+                    polygonStrokeColor={() => "rgba(37,99,235,0.30)"}
+                    polygonCapCurvatureResolution={4}
                     pointsData={selectedRegion.locations}
                     pointLat="lat"
                     pointLng="lng"
