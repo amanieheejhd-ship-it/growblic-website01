@@ -237,7 +237,7 @@ export function DatacenterCoverage() {
 
   return (
     <section className="mx-auto mt-16 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="rounded-[2.25rem] border border-blue-100 bg-white/70 p-5 shadow-[0_30px_100px_rgba(37,99,235,0.10)] backdrop-blur-2xl sm:p-8">
+      <div className="rounded-[2.25rem] border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/70 p-5 shadow-[0_30px_100px_rgba(37,99,235,0.10)] backdrop-blur-2xl sm:p-8">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.45em] text-blue-600">
@@ -263,7 +263,7 @@ export function DatacenterCoverage() {
                   className={`rounded-full border px-4 py-2 text-sm font-black transition ${
                     activeRegion.name === region.name
                       ? "border-transparent bg-gradient-to-r from-blue-600 to-cyan-400 text-white shadow-[0_18px_45px_rgba(37,99,235,0.24)]"
-                      : "border-blue-100 bg-white/80 text-slate-600 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
+                      : "border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 text-slate-600 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
                   }`}
                 >
                   {region.name}
@@ -286,7 +286,7 @@ export function DatacenterCoverage() {
                   <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
                     {activeRegion.summary}
                   </p>
-                  <div className="mt-4 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-slate-500">
+                  <div className="mt-4 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-slate-500">
                     {activeRegion.points.length} planning locations • {selectedRegionLabel}
                   </div>
                 </div>
@@ -302,7 +302,7 @@ export function DatacenterCoverage() {
                     {activeRegion.setupPaths.map((item) => (
                       <div
                         key={item}
-                        className="flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-black text-slate-700"
+                        className="flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 px-4 py-2 text-sm font-black text-slate-700"
                       >
                         <CheckCircle2 className="h-4 w-4 text-blue-600" />
                         {item}
@@ -320,7 +320,7 @@ export function DatacenterCoverage() {
                     {activeRegion.stackOptions.map((item) => (
                       <div
                         key={item}
-                        className="flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-black text-slate-700"
+                        className="flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 px-4 py-2 text-sm font-black text-slate-700"
                       >
                         <Server className="h-4 w-4 text-cyan-600" />
                         {item}
@@ -342,7 +342,7 @@ export function DatacenterCoverage() {
                   Drag to explore. Hover a location for details.
                 </p>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/90 px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
                 <Radar className="h-4 w-4 text-blue-600" />
                 Active view: {activeRegion.name}
               </div>
@@ -378,7 +378,7 @@ export function DatacenterCoverage() {
                   pointsData={activeRegion.points}
                   pointLat="lat"
                   pointLng="lng"
-                  pointAltitude={0.045}
+                  pointAltitude={0.06}
                   pointRadius={(point: object) => {
                     const supportPoint = point as SupportPoint;
                     return hoveredPoint?.name === supportPoint.name ? 0.9 : 0.56;
@@ -481,7 +481,7 @@ export function DatacenterCoverage() {
               </div>
             </div>
 
-            <div className="mt-4 rounded-2xl border border-blue-100 bg-white/80 p-4 text-sm font-semibold leading-7 text-slate-500">
+            <div className="mt-4 rounded-2xl border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 p-4 text-sm font-semibold leading-7 text-slate-500">
               Coverage depends on selected cloud and hosting provider. Growblic helps
               plan and configure deployments; it does not operate physical cloud regions.
             </div>
