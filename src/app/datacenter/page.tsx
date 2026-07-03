@@ -263,7 +263,9 @@ export default function DatacenterPage() {
 
           <DatacenterCoverage />
 
-          <section className="relative mt-16 grid overflow-hidden rounded-[2rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.97),rgba(248,251,255,0.92)_48%,rgba(236,254,255,0.72))] p-6 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-10">
+          
+            <DatacenterIndustries />
+<section className="relative mt-16 grid overflow-hidden rounded-[2rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.97),rgba(248,251,255,0.92)_48%,rgba(236,254,255,0.72))] p-6 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-10">
             <div className="pointer-events-none absolute -left-20 top-10 h-56 w-56 rounded-full bg-blue-100/70 blur-3xl" />
             <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-cyan-100/60 blur-3xl" />
 
