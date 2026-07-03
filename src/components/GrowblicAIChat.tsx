@@ -19,6 +19,7 @@ type ChatMessage = {
 const API_URL =
   process.env.NEXT_PUBLIC_GROWBLIC_API_URL || "https://growblic-api.onrender.com";
 const FETCH_TIMEOUT_MS = 7000;
+const QUICK_FALLBACK_TIMEOUT_MS = 2500;
 
 const initialMessages: ChatMessage[] = [
   {
@@ -191,6 +192,8 @@ const businessFeatureProfiles = [
 
 const solutionIntentPattern =
   /\b(website|web app|app|mobile app|software|dashboard|ecommerce|e-commerce|booking|system|platform|portal|marketplace)\b/i;
+const mobileAppDevelopmentIntentPattern =
+  /\b(app banwani hai|mobile app chahiye|android app|ios app|build app)\b/i;
 
 function getSolutionLabel(text: string) {
   const match = text.match(solutionIntentPattern);
@@ -247,9 +250,12 @@ function buildFallbackReply(input: string) {
   const productList = liveProducts.join(", ");
   const serviceList = services.join(", ");
   const asksForProductList =
-    (/\b(apps|products?|portfolio|live apps|live products|tools)\b/i.test(text) &&
-      /\b(growblic|kon|kaun|kaunse|konsa|which|list|naam|names)\b/i.test(text)) ||
-    /\bgrowblic\b.*\bapp\b.*\b(kon|kaun|kaunse|konsa|which|list|naam|names)\b/i.test(text);
+    (/\b(apps?|products?|portfolio|live apps?|live products?|tools)\b/i.test(text) &&
+      /\b(growblic|kon|kaun|kaunse|konsa|kaun kaun|which|list|naam|names)\b/i.test(text)) ||
+    /\bgrowblic\b.*\bapps?\b.*\b(kon|kaun|kaunse|konsa|kaun kaun|which|list|naam|names)\b/i.test(
+      text,
+    ) ||
+    /\bapps?\b.*\b(kon|kaun|kaunse|konsa|kaun kaun|which|list|naam|names)\b/i.test(text);
 
   if (/\b(hi|hello|hey|namaste|sat sri akal)\b/i.test(text)) {
     return "Hello, I’m Growblic Assistant. I can help with Growblic services, products, pricing guidance, cloud deployment, and project planning. What would you like to build or explore?";
@@ -257,6 +263,10 @@ function buildFallbackReply(input: string) {
 
   if (asksForProductList) {
     return `Growblic live apps/products are: ${productList}.`;
+  }
+
+  if (/\b(cloud|deploy|deployment|datacenter|data center|server|render|vercel|postgres|database)\b/i.test(text)) {
+    return "Growblic helps with cloud-ready deployment planning: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, environment variables, logs, backups, monitoring, and launch checks. Growblic does not own AWS-like physical datacenters. What stack is your project using?";
   }
 
   if (/\b(service|services|seo|ads|automation|gmb|reviews|support)\b/i.test(text)) {
@@ -267,25 +277,21 @@ function buildFallbackReply(input: string) {
     return "Pricing depends on scope: features, design depth, backend/admin needs, integrations, platform, screens, timeline, and maintenance. For a practical estimate, use the Price Calculator or Start Project form. What type of project are you planning?";
   }
 
+  if (/\b(website|web|site|landing|ecommerce|e-commerce)\b/i.test(text)) {
+    return "Growblic website development covers premium business websites, landing pages, ecommerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
+  }
+
+  if (mobileAppDevelopmentIntentPattern.test(text)) {
+    return "Growblic mobile app development covers Android/iOS apps, backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
+  }
+
   const businessIdeaReply = buildBusinessIdeaReply(input);
   if (businessIdeaReply) {
     return businessIdeaReply;
   }
 
-  if (/\b(website|web|site|landing|ecommerce|e-commerce)\b/i.test(text)) {
-    return "Growblic website development covers premium business websites, landing pages, ecommerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
-  }
-
-  if (/\b(mobile app|android app|ios app|build app|app development)\b/i.test(text)) {
-    return "Growblic mobile app development covers Android/iOS apps, backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
-  }
-
   if (/\b(saas|software|dashboard|admin|api|backend|platform|system)\b/i.test(text)) {
     return "Growblic builds SaaS platforms, dashboards, backend APIs, admin panels, and automation systems, from idea to design, development, deployment, and launch support. What core features do you need?";
-  }
-
-  if (/\b(cloud|deploy|deployment|datacenter|server|render|vercel|postgres|database)\b/i.test(text)) {
-    return "Growblic helps with cloud-ready deployment planning: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, environment variables, logs, backups, monitoring, and launch checks. Growblic does not own AWS-like physical datacenters. What stack is your project using?";
   }
 
   return "I can help with Growblic services and project guidance. Share your project type, features, timeline, budget range, or platform, and I’ll suggest a strong next step.";
@@ -334,8 +340,21 @@ export default function GrowblicAIChat() {
     setLoading(true);
     const controller = new AbortController();
     let timedOut = false;
+    let fallbackShown = false;
     requestControllerRef.current?.abort();
     requestControllerRef.current = controller;
+    const fallbackTimeout = window.setTimeout(() => {
+      timedOut = true;
+      fallbackShown = true;
+      controller.abort();
+      setMessages((items) => [
+        ...items,
+        {
+          role: "assistant",
+          content: buildFallbackReply(finalMessage),
+        },
+      ]);
+    }, QUICK_FALLBACK_TIMEOUT_MS);
     const timeout = window.setTimeout(() => {
       timedOut = true;
       controller.abort();
@@ -367,6 +386,7 @@ export default function GrowblicAIChat() {
 
       setMessages((items) => [...items, { role: "assistant", content: reply }]);
     } catch {
+      if (fallbackShown) return;
       if (controller.signal.aborted && !timedOut) return;
       setMessages((items) => [
         ...items,
@@ -376,6 +396,7 @@ export default function GrowblicAIChat() {
         },
       ]);
     } finally {
+      window.clearTimeout(fallbackTimeout);
       window.clearTimeout(timeout);
       if (requestControllerRef.current === controller) {
         requestControllerRef.current = null;
@@ -443,7 +464,7 @@ export default function GrowblicAIChat() {
               <div className="flex justify-start">
                 <div className="inline-flex items-center gap-2 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm font-bold text-slate-700">
                   <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                  Typing...
+                  Typing…
                 </div>
               </div>
             ) : null}
