@@ -128,6 +128,33 @@ const deploymentRegions: Region[] = [
   },
 ];
 
+
+const stylizedGlobeTexture =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="512" viewBox="0 0 1024 512">
+      <defs>
+        <linearGradient id="ocean" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#eff6ff"/>
+          <stop offset="38%" stop-color="#dff7ff"/>
+          <stop offset="70%" stop-color="#bfdbfe"/>
+          <stop offset="100%" stop-color="#e0f2fe"/>
+        </linearGradient>
+        <radialGradient id="glow" cx="42%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.92"/>
+          <stop offset="45%" stop-color="#dbeafe" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#93c5fd" stop-opacity="0.18"/>
+        </radialGradient>
+      </defs>
+      <rect width="1024" height="512" fill="url(#ocean)"/>
+      <rect width="1024" height="512" fill="url(#glow)"/>
+      <g stroke="#60a5fa" stroke-width="1" opacity="0.22">
+        <path d="M0 64H1024M0 128H1024M0 192H1024M0 256H1024M0 320H1024M0 384H1024M0 448H1024"/>
+        <path d="M128 0V512M256 0V512M384 0V512M512 0V512M640 0V512M768 0V512M896 0V512"/>
+      </g>
+    </svg>
+  `);
+
 const pointColors: Record<SupportPoint["type"], string> = {
   "Available planning": "#2563eb",
   "Provider dependent": "#06b6d4",
@@ -343,16 +370,16 @@ export function DatacenterCoverage() {
                   showAtmosphere
                   atmosphereColor="#7dd3fc"
                   atmosphereAltitude={0.22}
-                  globeImageUrl={undefined}
+                  globeImageUrl={stylizedGlobeTexture}
                   bumpImageUrl={undefined}
                   polygonsData={countries}
                   polygonAltitude={(feature: any) => {
                     const centroidName = String(feature?.properties?.name || "");
                     return centroidName ? 0.008 : 0.006;
                   }}
-                  polygonCapColor={() => "rgba(34, 211, 238, 0.34)"}
-                  polygonSideColor={() => "rgba(37, 99, 235, 0.10)"}
-                  polygonStrokeColor={() => "rgba(37, 99, 235, 0.48)"}
+                  polygonCapColor={() => "rgba(14, 165, 233, 0.42)"}
+                  polygonSideColor={() => "rgba(59, 130, 246, 0.18)"}
+                  polygonStrokeColor={() => "rgba(37, 99, 235, 0.62)"}
                   polygonsTransitionDuration={300}
                   pointsData={activeRegion.points}
                   pointLat="lat"
@@ -413,12 +440,13 @@ export function DatacenterCoverage() {
                     if (!globe) return;
 
                     const material = globe.globeMaterial() as THREE.MeshPhongMaterial;
-                    material.color = new THREE.Color("#e8fbff");
-                    material.emissive = new THREE.Color("#dbeafe");
-                    material.emissiveIntensity = 0.18;
-                    material.shininess = 7;
+                    material.color = new THREE.Color("#ffffff");
+                    material.emissive = new THREE.Color("#c7f9ff");
+                    material.emissiveIntensity = 0.42;
+                    material.shininess = 18;
                     material.transparent = true;
-                    material.opacity = 0.96;
+                    material.opacity = 1;
+                    material.needsUpdate = true;
 
                     const controls = globe.controls();
                     controls.autoRotate = true;
