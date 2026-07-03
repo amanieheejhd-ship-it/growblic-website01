@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Cloud,
   Database,
-  Globe2,
   Layers3,
   MapPin,
   Radar,
@@ -250,11 +249,6 @@ export function DatacenterCoverage() {
             <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-slate-600">
               Growblic helps choose hosting paths, backend regions, databases, monitoring, and deployment workflows based on your product audience.
             </p>
-          </div>
-
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
-            <Globe2 className="h-4 w-4 text-blue-600" />
-            Interactive 3D globe
           </div>
         </div>
 
