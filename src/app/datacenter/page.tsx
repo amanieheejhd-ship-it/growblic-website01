@@ -265,139 +265,176 @@ export default function DatacenterPage() {
 
           
             <DatacenterIndustries />
-<section className="relative mt-16 grid overflow-hidden rounded-[2rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.97),rgba(248,251,255,0.92)_48%,rgba(236,254,255,0.72))] p-6 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-10">
-            <div className="pointer-events-none absolute -left-20 top-10 h-56 w-56 rounded-full bg-blue-100/70 blur-3xl" />
-            <div className="pointer-events-none absolute -right-20 bottom-0 h-56 w-56 rounded-full bg-cyan-100/60 blur-3xl" />
+<section className="relative mt-16 overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(241,248,255,0.94)_48%,rgba(224,251,255,0.82))] p-6 shadow-[0_34px_120px_rgba(37,99,235,0.13)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
+              <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl" />
+              <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-200/45 blur-3xl" />
+              <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
 
-            <div className="relative">
-              <span className="inline-flex rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm">
-                Product foundation
-              </span>
-              <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
-                Build on the right foundation.
-              </h2>
-              <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-                Different products need different hosting paths. Growblic keeps the
-                infrastructure plan aligned with the product stage, budget, data needs,
-                traffic expectations, and maintenance reality.
-              </p>
-            </div>
+              <div className="relative">
+                <span className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_36px_rgba(37,99,235,0.10)]">
+                  Product foundation
+                </span>
 
-            <div className="relative mt-8 grid gap-3 lg:mt-0">
-              {foundationItems.map((item, index) => (
-                <div
-                  key={item}
-                  className="group flex items-center gap-4 rounded-2xl border border-blue-100/80 bg-white/86 p-4 shadow-[0_12px_34px_rgba(37,99,235,0.06)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(37,99,235,0.11)]"
-                >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-50 text-sm font-extrabold text-blue-700 ring-1 ring-blue-100">
-                    0{index + 1}
-                  </span>
-                  <span className="text-base font-bold text-slate-900">{item}</span>
-                  <CheckCircle2 className="ml-auto h-5 w-5 text-blue-600" strokeWidth={1.9} />
+                <h2 className="mt-7 max-w-lg text-4xl font-black leading-[1.05] tracking-tight text-slate-950 lg:text-5xl">
+                  Build on the right foundation.
+                </h2>
+
+                <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
+                  Different products need different hosting paths. Growblic keeps the
+                  infrastructure plan aligned with the product stage, budget, data
+                  needs, traffic expectations, and maintenance reality.
+                </p>
+
+                <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-extrabold text-slate-700 shadow-sm">
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_18px_rgba(16,185,129,0.55)]" />
+                  Launch-ready planning
                 </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-16">
-            <div className="max-w-3xl">
-              <p className="text-xs font-extrabold uppercase tracking-[0.26em] text-blue-700">
-                Infrastructure workflow
-              </p>
-              <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
-                From cloud plan to monitored launch.
-              </h2>
-            </div>
-
-            <div className="mt-8 grid gap-4 md:grid-cols-4">
-              {workflowSteps.map((step, index) => (
-                <article
-                  key={step.title}
-                  className="relative flex h-full min-h-[14rem] flex-col rounded-[1.5rem] border border-blue-100/80 bg-white/88 p-5 shadow-[0_18px_54px_rgba(37,99,235,0.08)] ring-1 ring-white/80 transition hover:-translate-y-1 hover:border-blue-200"
-                >
-                  <span className="mb-5 grid h-11 w-11 place-items-center rounded-2xl bg-blue-600 text-sm font-extrabold text-white shadow-lg shadow-blue-600/20">
-                    {index + 1}
-                  </span>
-                  <h3 className="text-xl font-bold text-slate-950">{step.title}</h3>
-                  <p className="mt-3 text-sm font-medium leading-7 text-slate-600">
-                    {step.text}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-16">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-3xl">
-                <p className="text-xs font-extrabold uppercase tracking-[0.26em] text-blue-700">
-                  Deployment paths
-                </p>
-                <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
-                  Support for popular deployment paths.
-                </h2>
-              </div>
-              <p className="max-w-xl text-sm font-medium leading-7 text-slate-600">
-                These are technologies Growblic can help integrate or use when they fit
-                the project. This does not imply official partnership.
-              </p>
-            </div>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {deploymentPaths.map((path) => {
-                const Icon = path.icon;
-
-                return (
-                  <article
-                    key={path.title}
-                    className="group flex h-full gap-4 rounded-[1.45rem] border border-blue-100/80 bg-white/88 p-5 shadow-[0_16px_48px_rgba(37,99,235,0.07)] ring-1 ring-white/80 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_24px_70px_rgba(37,99,235,0.12)]"
-                  >
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-700 ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
-                      <Icon className="h-5 w-5" strokeWidth={1.9} />
-                    </span>
-                    <span>
-                      <h3 className="text-lg font-bold text-slate-950">{path.title}</h3>
-                      <p className="mt-2 text-sm font-medium leading-6 text-slate-600">
-                        {path.text}
-                      </p>
-                    </span>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="relative mt-16 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,255,0.86),rgba(236,254,255,0.72))] p-6 shadow-[0_24px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8 lg:p-10">
-            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-100/70 blur-3xl" />
-            <div className="relative grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-              <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.26em] text-blue-700">
-                  Reliability planning
-                </p>
-                <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
-                  Security, backup, and reliability.
-                </h2>
-                <p className="mt-5 text-base font-medium leading-8 text-slate-600">
-                  Growblic helps teams prepare safer launch routines without pretending
-                  every project needs enterprise-scale infrastructure on day one.
-                </p>
               </div>
 
-              <div className="grid gap-3">
-                {securityItems.map((item) => (
+              <div className="relative mt-9 grid gap-4 lg:mt-0">
+                {foundationItems.map((item, index) => (
                   <div
                     key={item}
-                    className="flex items-center gap-3 rounded-2xl border border-blue-100/80 bg-white/86 p-4 text-sm font-bold text-slate-700 shadow-[0_12px_34px_rgba(37,99,235,0.06)]"
+                    className="group flex items-center gap-5 rounded-[1.35rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_18px_60px_rgba(37,99,235,0.09)] ring-1 ring-white/90 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_28px_82px_rgba(37,99,235,0.15)]"
                   >
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-blue-50 text-blue-700 ring-1 ring-blue-100">
-                      <ShieldCheck className="h-4 w-4" strokeWidth={1.9} />
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-sm font-black text-blue-700 shadow-sm transition group-hover:bg-blue-600 group-hover:text-white">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
-                    {item}
+                    <span className="flex-1 text-base font-black text-slate-950">
+                      {item}
+                    </span>
+                    <CheckCircle2 className="h-5 w-5 text-blue-600 transition group-hover:scale-110" />
                   </div>
                 ))}
               </div>
-            </div>
-          </section>
+            </section>
+
+          <section className="relative mt-20 overflow-hidden rounded-[2.3rem] border border-blue-100/80 bg-white/72 p-6 shadow-[0_34px_110px_rgba(37,99,235,0.10)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9">
+              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-100/70 blur-3xl" />
+              <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-cyan-100/70 blur-3xl" />
+
+              <div className="relative max-w-3xl">
+                <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">
+                  Infrastructure workflow
+                </p>
+                <h2 className="mt-5 text-4xl font-black leading-[1.06] tracking-tight text-slate-950 lg:text-5xl">
+                  From cloud plan to monitored launch.
+                </h2>
+                <p className="mt-5 text-base font-semibold leading-8 text-slate-600">
+                  A cleaner launch process with planning, configuration, deployment,
+                  and monitoring handled in the right order.
+                </p>
+              </div>
+
+              <div className="relative mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+                {workflowSteps.map((step, index) => (
+                  <article
+                    key={step.title}
+                    className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-white/85 p-6 shadow-[0_24px_78px_rgba(37,99,235,0.10)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_34px_100px_rgba(37,99,235,0.17)]"
+                  >
+                    <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
+                    <div className="relative">
+                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600 text-base font-black text-white shadow-[0_16px_34px_rgba(37,99,235,0.35)]">
+                        {index + 1}
+                      </span>
+                      <h3 className="mt-7 text-xl font-black tracking-tight text-slate-950">
+                        {step.title}
+                      </h3>
+                      <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
+                        {step.text}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+          <section className="relative mt-20 overflow-hidden rounded-[2.3rem] border border-blue-100/80 bg-[linear-gradient(145deg,#ffffff,rgba(248,251,255,0.96)_48%,rgba(236,254,255,0.72))] p-6 shadow-[0_34px_115px_rgba(37,99,235,0.11)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9">
+              <div className="pointer-events-none absolute -right-28 top-0 h-80 w-80 rounded-full bg-cyan-100/70 blur-3xl" />
+              <div className="pointer-events-none absolute -left-28 bottom-0 h-80 w-80 rounded-full bg-blue-100/70 blur-3xl" />
+
+              <div className="relative grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">
+                    Deployment paths
+                  </p>
+                  <h2 className="mt-5 max-w-2xl text-4xl font-black leading-[1.06] tracking-tight text-slate-950 lg:text-5xl">
+                    Support for popular deployment paths.
+                  </h2>
+                </div>
+                <p className="max-w-xl text-base font-semibold leading-8 text-slate-600 lg:justify-self-end">
+                  These are technologies Growblic can help integrate or use when they
+                  fit the project. This does not imply official partnership.
+                </p>
+              </div>
+
+              <div className="relative mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {deploymentPaths.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <article
+                      key={item.title}
+                      className="group flex min-h-[8.5rem] items-start gap-5 rounded-[1.55rem] border border-blue-100/80 bg-white/86 p-5 shadow-[0_22px_72px_rgba(37,99,235,0.09)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-1.5 hover:border-blue-300 hover:shadow-[0_32px_95px_rgba(37,99,235,0.16)]"
+                    >
+                      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm transition group-hover:bg-blue-600 group-hover:text-white">
+                        <Icon className="h-5 w-5" strokeWidth={1.9} />
+                      </span>
+                      <span>
+                        <h3 className="text-lg font-black text-slate-950">
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 text-sm font-semibold leading-7 text-slate-600">
+                          {item.text}
+                        </p>
+                      </span>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+
+          <section className="relative mt-16 overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(241,248,255,0.95)_48%,rgba(224,251,255,0.82))] p-6 shadow-[0_36px_125px_rgba(37,99,235,0.13)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9 lg:grid lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
+              <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-blue-200/45 blur-3xl" />
+              <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-200/45 blur-3xl" />
+              <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
+
+              <div className="relative">
+                <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">
+                  Reliability planning
+                </p>
+                <h2 className="mt-5 max-w-xl text-4xl font-black leading-[1.06] tracking-tight text-slate-950 lg:text-5xl">
+                  Security, backup, and reliability.
+                </h2>
+                <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
+                  Growblic helps teams prepare safer launch routines without pretending
+                  every project needs enterprise-scale infrastructure on day one.
+                </p>
+
+                <Link
+                  href="/security"
+                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-blue-600 px-6 py-3 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950"
+                >
+                  View security approach <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="relative mt-9 grid gap-4 lg:mt-0">
+                {securityItems.map((item) => (
+                  <div
+                    key={item}
+                    className="group flex items-center gap-4 rounded-[1.35rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_20px_68px_rgba(37,99,235,0.10)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_30px_92px_rgba(37,99,235,0.16)]"
+                  >
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 transition group-hover:bg-blue-600 group-hover:text-white">
+                      <ShieldCheck className="h-5 w-5" strokeWidth={1.9} />
+                    </span>
+                    <span className="text-sm font-black text-slate-800">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
 
           <section className="mt-16 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(239,246,255,0.90),rgba(219,234,254,0.76))] p-8 shadow-[0_24px_80px_rgba(37,99,235,0.12)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-10">
             <div className="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
