@@ -225,25 +225,36 @@ export default function DatacenterPage() {
 
                 return (
                   <article
-                    key={card.title}
-                    className="group flex h-full min-h-[17rem] flex-col rounded-[1.65rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.98),rgba(248,251,255,0.92)_52%,rgba(239,246,255,0.76))] p-6 shadow-[0_20px_60px_rgba(37,99,235,0.08)] ring-1 ring-white/80 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_30px_82px_rgba(37,99,235,0.14)]"
-                  >
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-700 shadow-[0_14px_34px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/80 transition group-hover:bg-blue-600 group-hover:text-white">
-                      <Icon className="h-5 w-5" strokeWidth={1.85} />
-                    </span>
-                    <h3 className="mt-6 text-xl font-bold tracking-tight text-slate-950">
-                      {card.title}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm font-medium leading-7 text-slate-600">
-                      {card.text}
-                    </p>
-                    <Link
-                      href="/services"
-                      className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-extrabold text-blue-700 transition hover:text-slate-950"
+                      key={card.title}
+                      className="group relative flex h-full min-h-[18rem] flex-col overflow-hidden rounded-[1.9rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.99),rgba(246,251,255,0.95)_45%,rgba(232,247,255,0.82))] p-7 shadow-[0_26px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/90 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_38px_110px_rgba(37,99,235,0.18)]"
                     >
-                      Learn more <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </article>
+                      <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/75 to-transparent" />
+                      <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-200/35 blur-3xl transition duration-300 group-hover:bg-blue-300/40" />
+                      <div className="pointer-events-none absolute -bottom-28 left-6 h-44 w-44 rounded-full bg-blue-100/60 blur-3xl" />
+
+                      <div className="relative z-10">
+                        <span className="grid h-14 w-14 place-items-center rounded-[1.25rem] border border-white/90 bg-[linear-gradient(145deg,#ffffff,#eff6ff_58%,#dff7ff)] text-blue-700 shadow-[0_18px_42px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/90 transition duration-300 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white">
+                          <Icon className="h-6 w-6" strokeWidth={1.9} />
+                        </span>
+
+                        <h3 className="mt-7 text-2xl font-extrabold tracking-tight text-slate-950">
+                          {card.title}
+                        </h3>
+
+                        <p className="mt-4 min-h-[5.25rem] text-sm font-semibold leading-7 text-slate-600">
+                          {card.text}
+                        </p>
+                      </div>
+
+                      <div className="relative z-10 mt-auto pt-6">
+                        <Link
+                          href="/services"
+                          className="inline-flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2.5 text-sm font-extrabold text-blue-700 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
+                        >
+                          Learn more <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </article>
                 );
               })}
             </div>
