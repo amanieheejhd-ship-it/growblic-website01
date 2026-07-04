@@ -26,7 +26,6 @@ const resourceLinks = [
   { label: "Developer", href: "/developer" },
   { label: "Downloads", href: "/downloads" },
   { label: "Fastoldp", href: "/fastoldp" },
-  { label: "Chating", href: "https://web.growblic.com" },
   { label: "Meetups", href: "/meetup" }
 ];
 
@@ -43,7 +42,8 @@ const connectLinks = [
     external: true,
   },
   { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
-  { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true }
+  { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true },
+  { label: "PairupChat", href: "https://web.growblic.com", external: true }
 ];
 
 const socialLinks = [
