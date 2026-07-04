@@ -36,13 +36,7 @@ const trustLegalLinks = [
 ];
 
 const connectLinks = [
-  {
-    label: "India",
-    href: "https://www.google.com/maps/search/?api=1&query=India",
-    external: true,
-  },
   { label: "Email: hello@growblic.com", href: "mailto:hello@growblic.com" },
-  { label: "Website: www.growblic.com", href: "https://www.growblic.com", external: true },
   { label: "PairupChat", href: "https://web.growblic.com", external: true }
 ];
 
