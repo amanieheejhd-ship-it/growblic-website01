@@ -10,6 +10,14 @@ function YouTubeIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function XIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M18.9 2h3.3l-7.2 8.2L23.5 22h-6.7l-5.2-6.8L5.6 22H2.3l7.7-8.8L1.8 2h6.9l4.7 6.2L18.9 2Zm-1.2 17.9h1.8L7.7 4H5.8l11.9 15.9Z" />
+    </svg>
+  );
+}
+
 function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
@@ -80,6 +88,11 @@ const socialLinks = [
     label: "YouTube",
     href: "https://www.youtube.com/@growblic",
     Icon: YouTubeIcon,
+  },
+  {
+    label: "X",
+    href: "https://x.com/bintumalik545",
+    Icon: XIcon,
   },
   {
     label: "LinkedIn",
