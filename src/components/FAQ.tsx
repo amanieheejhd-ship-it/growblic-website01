@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-const INITIAL_FAQ_COUNT = 9;
+const INITIAL_FAQ_COUNT = 8;
 
 const faqs = [
   {
@@ -131,12 +131,35 @@ const faqs = [
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllFaqs, setShowAllFaqs] = useState(false);
+  const lastPointerType = useRef<string | null>(null);
 
   const visibleFaqs = showAllFaqs ? faqs : faqs.slice(0, INITIAL_FAQ_COUNT);
 
   function toggleFaqList() {
     setShowAllFaqs((current) => !current);
     setOpenIndex(null);
+  }
+
+  function openFaqOnMouse(index: number, pointerType: string) {
+    if (pointerType === "mouse") {
+      setOpenIndex(index);
+    }
+  }
+
+  function closeFaqOnMouse(index: number, pointerType: string) {
+    if (pointerType === "mouse") {
+      setOpenIndex((currentIndex) =>
+        currentIndex === index ? null : currentIndex,
+      );
+    }
+  }
+
+  function toggleFaq(index: number, isOpen: boolean) {
+    if (lastPointerType.current === "mouse") {
+      return;
+    }
+
+    setOpenIndex(isOpen ? null : index);
   }
 
   return (
@@ -164,12 +187,24 @@ export default function FAQ() {
               <button
                 type="button"
                 key={faq.q}
-                onClick={() => setOpenIndex(isOpen ? null : index)}
+                onClick={(event) => {
+                  if (event.detail === 0) {
+                    lastPointerType.current = null;
+                  }
+
+                  toggleFaq(index, isOpen);
+                }}
+                onPointerDown={(event) => {
+                  lastPointerType.current = event.pointerType;
+                }}
+                onPointerEnter={(event) => openFaqOnMouse(index, event.pointerType)}
+                onPointerLeave={(event) => closeFaqOnMouse(index, event.pointerType)}
                 onFocus={() => setOpenIndex(index)}
-                className={`group cursor-pointer overflow-hidden rounded-[1.7rem] border bg-white text-left shadow-lg shadow-blue-100/45 transition-all duration-300 ease-out ${
+                aria-expanded={isOpen}
+                className={`group cursor-pointer overflow-hidden rounded-[1.7rem] border bg-white text-left shadow-lg shadow-blue-100/45 outline-none transition-all duration-300 ease-out focus-visible:border-blue-300 focus-visible:ring-4 focus-visible:ring-blue-100/80 ${
                   isOpen
                     ? "border-blue-300 bg-blue-50/70 shadow-xl shadow-blue-100/70"
-                    : "border-blue-100/70 hover:-translate-y-1 hover:border-blue-200"
+                    : "border-blue-100/70 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/65"
                 }`}
               >
                 <div className="flex items-center justify-between gap-4 p-5">
@@ -187,15 +222,21 @@ export default function FAQ() {
                 </div>
 
                 <div
-                  className={`transition-all duration-300 ease-out ${
+                  className={`grid transition-all duration-300 ease-out ${
                     isOpen
-                      ? "max-h-40 translate-y-0 opacity-100"
-                      : "max-h-0 -translate-y-2 opacity-0"
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <p className="px-5 pb-5 text-sm font-semibold leading-7 text-slate-600">
-                    {faq.a}
-                  </p>
+                  <div className="overflow-hidden">
+                    <p
+                      className={`px-5 pb-5 text-sm font-semibold leading-7 text-slate-600 transition-transform duration-300 ease-out ${
+                        isOpen ? "translate-y-0" : "-translate-y-2"
+                      }`}
+                    >
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
               </button>
             );
