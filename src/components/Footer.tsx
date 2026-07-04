@@ -25,6 +25,7 @@ const resourceLinks = [
   { label: "Datacenter", href: "/datacenter" },
   { label: "Developer", href: "/developer" },
   { label: "Downloads", href: "/downloads" },
+  { label: "Fastoldp", href: "/fastoldp" },
   { label: "Meetups", href: "/meetup" }
 ];
 
