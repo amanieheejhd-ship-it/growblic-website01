@@ -16,30 +16,27 @@ const metrics = [
   },
 ];
 
-const testimonials = [
+const workflowHighlights = [
   {
-    quote:
-      "Growblic helped us move from spreadsheet operations to a polished internal platform our team actually enjoys using.",
-    name: "Ananya Rao",
-    role: "Operations Director",
-    avatar: "AR",
-    result: "Workflow lift",
+    title: "Built for real business workflows",
+    detail:
+      "Clear user journeys, practical dashboards, and tools shaped around day-to-day operations.",
+    badge: "Workflow fit",
+    marker: "01",
   },
   {
-    quote:
-      "The product thinking was the difference. They challenged weak assumptions and shipped a clean first version quickly.",
-    name: "Marcus Lee",
-    role: "SaaS Founder",
-    avatar: "ML",
-    result: "Fast launch",
+    title: "Clean UI systems",
+    detail:
+      "Reusable interface patterns, polished interactions, and layouts that stay easy to scan.",
+    badge: "UI quality",
+    marker: "02",
   },
   {
-    quote:
-      "Our mobile app launch felt calm because the team handled details across design, testing, deployment, and support.",
-    name: "Sara Khan",
-    role: "Product CEO",
-    avatar: "SK",
-    result: "Smooth delivery",
+    title: "Automation-ready launch support",
+    detail:
+      "Frontend foundations, handoff details, and support flows prepared for ongoing iteration.",
+    badge: "Launch ready",
+    marker: "03",
   },
 ];
 
@@ -137,37 +134,32 @@ export default function Testimonials() {
         </div>
 
         <div className="growblic-reveal-grid relative -mt-5 grid gap-4 px-2 md:grid-cols-3 lg:px-8">
-          {testimonials.map((item, index) => (
+          {workflowHighlights.map((item, index) => (
             <article
-              key={item.name}
+              key={item.title}
               className={[
                 "group relative overflow-hidden rounded-[2rem] border border-blue-100/70 bg-[#fbfdff] p-6 shadow-xl shadow-slate-200/75 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl",
                 index === 1 ? "md:translate-y-4" : "",
               ].join(" ")}
             >
-              <div className="absolute -left-4 -top-8 text-8xl font-black leading-none text-slate-100 transition-colors duration-300 group-hover:text-blue-50">
-                “
-              </div>
               <div className="absolute right-0 top-0 h-20 w-20 rounded-bl-[3.5rem] bg-gradient-to-br from-blue-50 to-cyan-50" />
+              <div className="absolute -left-10 bottom-[-52px] h-36 w-36 rounded-full bg-blue-50/80 transition-transform duration-500 group-hover:scale-125" />
 
               <div className="relative flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-950 text-xs font-black text-white shadow-lg">
-                    {item.avatar}
-                  </div>
-                  <div>
-                    <h4 className="font-black text-slate-950">{item.name}</h4>
-                    <p className="text-xs font-semibold text-slate-500">{item.role}</p>
-                  </div>
+                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-950 text-xs font-black text-white shadow-lg">
+                  {item.marker}
                 </div>
 
                 <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-black text-blue-700">
-                  {item.result}
+                  {item.badge}
                 </span>
               </div>
 
-              <p className="relative mt-6 text-base font-semibold leading-7 text-slate-800">
-                {item.quote}
+              <h4 className="relative mt-6 text-xl font-black tracking-tight text-slate-950">
+                {item.title}
+              </h4>
+              <p className="relative mt-3 text-sm font-semibold leading-6 text-slate-500">
+                {item.detail}
               </p>
             </article>
           ))}
