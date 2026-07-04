@@ -25,7 +25,6 @@ export const metadata = createPageMetadata({
 const heroActions = [
   { label: "Start Project", href: "/start-project" },
   { label: "Price Calculator", href: "/price-calculator" },
-  { label: "Contact Support", href: "/support" },
 ];
 
 const quickActions = [
