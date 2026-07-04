@@ -26,6 +26,7 @@ const corePages = [
   { path: "/gmb-rating-reviews", priority: 0.76 },
   { path: "/products", priority: 0.9 },
   { path: "/downloads", priority: 0.84 },
+  { path: "/fastoldp", priority: 0.82 },
   { path: "/blog", priority: 0.85 },
   { path: "/developer", priority: 0.66 },
   { path: "/brand", priority: 0.62 },

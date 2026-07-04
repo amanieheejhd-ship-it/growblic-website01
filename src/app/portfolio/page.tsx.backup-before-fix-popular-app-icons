@@ -1,0 +1,291 @@
+import Link from "next/link";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  GraduationCap,
+  Landmark,
+  Layers3,
+  MapPinHouse,
+  Scissors,
+  ShieldCheck,
+  Sparkles,
+  UsersRound,
+  WalletCards,
+} from "lucide-react";
+import BackButton from "@/components/BackButton";
+import Footer from "@/components/Footer";
+import { createPageMetadata } from "../seo";
+
+export const metadata = createPageMetadata({
+  title: "Growblic Portfolio",
+  description:
+    "A look at the digital products, apps, and platforms Growblic builds across software, mobile apps, SaaS, operations, and secure product systems.",
+  path: "/portfolio",
+});
+
+const featuredWork = [
+  {
+    title: "Classta",
+    category: "Education Platform",
+    badge: "Popular",
+    description:
+      "A learning product category for courses, live classes, assignments, notes, resources, and student progress workflows.",
+    href: "/apps/classta",
+    downloadHref: "/downloads",
+  },
+  {
+    title: "Bill Vault",
+    category: "Fintech Utility",
+    badge: "Useful",
+    description:
+      "A document and warranty-bill management concept for storing receipts, warranty cards, reminders, and support details in one place.",
+    href: "/apps/bill-vault",
+    downloadHref: "/downloads",
+  },
+  {
+    title: "Fresh Fade",
+    category: "Local Services App",
+    badge: "Trending",
+    description:
+      "A booking app concept for barber discovery, appointments, nearby services, calls, chat, profiles, and simple service management.",
+    href: "/apps/fresh-fade",
+    downloadHref: "/downloads",
+  },
+  {
+    title: "Property Dost",
+    category: "Real Estate Platform",
+    badge: "Featured",
+    description:
+      "A property product category for listings, buying, renting, chat, verification flows, saved properties, and admin operations.",
+    href: "/apps/property-dost",
+    downloadHref: "/downloads",
+  },
+  {
+    title: "SocioConnect",
+    category: "Social Platform",
+    badge: "Famous",
+    description:
+      "A social connection product category for profiles, content, community features, discovery, conversations, and digital engagement.",
+    href: "/apps/socioconnect",
+    downloadHref: "/downloads",
+  },
+  {
+    title: "True Auth",
+    category: "Security Product",
+    badge: "Secure",
+    description:
+      "A secure credential and authentication product category for vaults, TOTP, 2FA, encrypted sync, notes, and private records.",
+    href: "/apps/true-auth",
+    downloadHref: "/downloads",
+  },
+];
+
+const productCategories = [
+  "Mobile apps",
+  "SaaS dashboards",
+  "Admin panels",
+  "Booking systems",
+  "Marketplace platforms",
+  "Secure user portals",
+];
+
+const industries = [
+  { title: "Education", icon: GraduationCap },
+  { title: "Fintech", icon: Landmark },
+  { title: "Real Estate", icon: Building2 },
+  { title: "HR & Payroll", icon: UsersRound },
+  { title: "Local Services", icon: MapPinHouse },
+  { title: "SaaS Platforms", icon: Layers3 },
+];
+
+export default function PortfolioPage() {
+  return (
+    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+      <section className="relative px-6 py-16 sm:py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_86%_28%,rgba(6,182,212,0.08),transparent_30%),linear-gradient(180deg,#ffffff_0%,#f8fbff_54%,#ffffff_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.028)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.028)_1px,transparent_1px)] bg-[size:48px_48px]" />
+
+        <div className="relative mx-auto max-w-7xl">
+          <BackButton />
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+            <div>
+              <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700 shadow-[0_12px_30px_rgba(37,99,235,0.08)]">
+                Growblic Portfolio
+              </p>
+
+              <h1 className="mt-7 max-w-5xl text-4xl font-extrabold leading-[1.04] tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl">
+                Growblic Portfolio
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-slate-600 sm:text-lg">
+                A look at the digital products, apps, and platforms we build.
+              </p>
+            </div>
+
+            <div className="relative overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/78 p-6 shadow-[0_24px_75px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl">
+              <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-blue-100/65 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-20 left-6 h-52 w-52 rounded-full bg-cyan-100/55 blur-3xl" />
+              <div className="relative">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-700 shadow-[0_14px_34px_rgba(37,99,235,0.12)] ring-1 ring-blue-100/80">
+                  <Sparkles className="h-5 w-5" strokeWidth={1.9} />
+                </span>
+                <p className="mt-6 text-sm font-bold uppercase tracking-[0.22em] text-blue-700">
+                  Selected product concepts
+                </p>
+                <p className="mt-4 text-base font-medium leading-8 text-slate-600">
+                  Selected product concepts and live software categories from Growblic,
+                  presented without fake client names, awards, or inflated results.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <section className="mt-16">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700">
+                  Featured Work
+                </p>
+                <h2 className="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-slate-900 sm:text-4xl">
+                  Product ideas shaped into clear, usable software.
+                </h2>
+              </div>
+              <p className="max-w-xl text-sm font-medium leading-7 text-slate-600">
+                Each card represents a product category Growblic can design, build,
+                launch, or adapt for a real business workflow.
+              </p>
+            </div>
+
+            <div className="mt-9 grid auto-rows-fr gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {featuredWork.map((project) => {
+                const Icon = project.icon;
+
+                return (
+                  <article
+                    key={project.title}
+                    className="group relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[1.7rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.96),rgba(248,251,255,0.92)_48%,rgba(239,246,255,0.78))] p-6 shadow-[0_20px_60px_rgba(37,99,235,0.08)] ring-1 ring-white/80 backdrop-blur-xl transition-all duration-300 before:absolute before:inset-x-6 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-blue-300/70 before:to-transparent after:pointer-events-none after:absolute after:-right-16 after:-top-16 after:h-36 after:w-36 after:rounded-full after:bg-blue-100/70 after:blur-3xl hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_30px_82px_rgba(37,99,235,0.14)]"
+                  >
+                    <span className="relative grid h-12 w-12 place-items-center rounded-2xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-700 shadow-[0_14px_34px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/80 transition group-hover:-translate-y-0.5 group-hover:text-blue-600">
+                      <Icon className="h-5 w-5" strokeWidth={1.85} />
+                    </span>
+
+                    <p className="relative mt-6 text-xs font-extrabold uppercase tracking-[0.22em] text-blue-700">
+                      {project.category}
+                    </p>
+                    <h3 className="relative mt-3 text-2xl font-bold tracking-[-0.03em] text-slate-950">
+                      {project.title}
+                    </h3>
+                    <p className="relative mt-4 flex-1 text-sm font-medium leading-7 text-slate-600">
+                      {project.description}
+                    </p>
+
+                    <Link
+                      href={project.href}
+                      className="relative mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/86 px-5 py-3 text-sm font-extrabold text-slate-800 shadow-lg shadow-blue-100/45 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+                    >
+                      View project <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="mt-16 grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+            <div>
+              <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700">
+                Product Categories
+              </p>
+              <h2 className="mt-4 max-w-2xl text-3xl font-bold leading-tight tracking-[-0.035em] text-slate-900 sm:text-4xl">
+                Built around practical business workflows.
+              </h2>
+              <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-slate-600">
+                Growblic focuses on product systems that feel polished, easy to maintain,
+                and useful for the people who operate them every day.
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {productCategories.map((category) => (
+                <div
+                  key={category}
+                  className="flex items-center gap-3 rounded-2xl border border-blue-100/80 bg-white/88 p-4 text-sm font-bold text-slate-700 shadow-[0_12px_34px_rgba(37,99,235,0.06)] ring-1 ring-white/80 transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(37,99,235,0.10)]"
+                >
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-600 shadow-sm ring-1 ring-blue-100/80">
+                    <BadgeCheck className="h-4 w-4" strokeWidth={1.9} />
+                  </span>
+                  {category}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-16 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(239,246,255,0.86),rgba(236,254,255,0.70))] p-7 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700">
+                  Industries We Build For
+                </p>
+                <h2 className="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-slate-900 sm:text-4xl">
+                  Flexible software for focused markets.
+                </h2>
+              </div>
+              <p className="max-w-lg text-sm font-medium leading-7 text-slate-600">
+                These categories guide common product decisions without locking a project
+                into a fixed template.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {industries.map((industry) => {
+                const Icon = industry.icon;
+
+                return (
+                  <div
+                    key={industry.title}
+                    className="group flex items-center gap-4 rounded-2xl border border-blue-100/80 bg-white/82 p-4 shadow-[0_12px_34px_rgba(37,99,235,0.06)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-[0_18px_48px_rgba(37,99,235,0.10)]"
+                  >
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-white/80 bg-[linear-gradient(145deg,#ffffff,#eff6ff)] text-blue-700 shadow-sm ring-1 ring-blue-100/80 transition group-hover:text-blue-600">
+                      <Icon className="h-5 w-5" strokeWidth={1.85} />
+                    </span>
+                    <span className="text-sm font-bold text-slate-800">
+                      {industry.title}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="mt-16 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-white/88 p-8 shadow-[0_24px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-10">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.28em] text-blue-700">
+                  Start with clarity
+                </p>
+                <h2 className="mt-4 max-w-3xl text-3xl font-bold leading-tight tracking-[-0.035em] text-slate-900 sm:text-4xl">
+                  Have an idea for your next product?
+                </h2>
+                <p className="mt-4 max-w-2xl text-sm font-medium leading-7 text-slate-600">
+                  Share the product, app, or platform you want to build. Growblic can help
+                  turn it into a clear scope, clean interface, and launch-ready build.
+                </p>
+              </div>
+
+              <Link
+                href="/start-project"
+                className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+              >
+                Start Project <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+}
