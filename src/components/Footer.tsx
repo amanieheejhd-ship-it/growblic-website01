@@ -1,5 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { SVGProps } from "react";
+
+function YouTubeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z" />
+    </svg>
+  );
+}
+
+function LinkedInIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
+      <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.53V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0Z" />
+    </svg>
+  );
+}
+
+function InstagramIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
+      <rect
+        width="18"
+        height="18"
+        x="3"
+        y="3"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" />
+    </svg>
+  );
+}
 
 const companyLinks = [
   { label: "About", href: "/about" },
@@ -44,17 +79,17 @@ const socialLinks = [
   {
     label: "YouTube",
     href: "https://www.youtube.com/@growblic",
-    icon: "https://static.vecteezy.com/system/resources/thumbnails/023/986/739/small/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png",
+    Icon: YouTubeIcon,
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/bintu-malik-6b7917387?utm_source=share_via&utm_content=profile&utm_medium=membe_android",
-    icon: "https://i.pinimg.com/736x/92/d1/db/92d1db1521d374335498624cc95e9554.jpg",
+    Icon: LinkedInIcon,
   },
   {
     label: "Instagram",
     href: "https://www.instagram.com/growblic?igsh=MWk2OHZiaTQzeGw2bA",
-    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKQWYhUTjoT0qzAysHn7dgNjPZOg6Wme3ENTb1TN2XXg&s=10",
+    Icon: InstagramIcon,
   },
 ];
 
@@ -165,22 +200,22 @@ export default function Footer() {
         <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Growblic. All rights reserved.</p>
           <div className="flex items-center justify-center gap-6 sm:justify-end">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className="group flex h-10 w-10 items-center justify-center transition duration-300 hover:-translate-y-1 hover:opacity-80"
-              >
-                <img
-                  src={social.icon}
-                  alt={social.label}
-                  className="h-7 w-7 object-contain opacity-90 transition duration-300 group-hover:scale-110 group-hover:opacity-100"
-                />
-              </a>
-            ))}
+            {socialLinks.map((social) => {
+              const Icon = social.Icon;
+
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="group grid h-10 w-10 place-items-center rounded-full border border-blue-100/80 bg-white text-slate-950 shadow-md shadow-blue-100/50 ring-1 ring-white/80 transition-all duration-300 hover:-translate-y-1 hover:border-slate-950 hover:bg-slate-950 hover:text-white hover:shadow-xl hover:shadow-slate-950/15"
+                >
+                  <Icon className="h-[18px] w-[18px] transition-transform duration-300 group-hover:scale-105" />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
