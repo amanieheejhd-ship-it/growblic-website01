@@ -19,7 +19,6 @@ type ChatMessage = {
 const API_URL =
   process.env.NEXT_PUBLIC_GROWBLIC_API_URL || "https://growblic-api.onrender.com";
 const FETCH_TIMEOUT_MS = 7000;
-const QUICK_FALLBACK_TIMEOUT_MS = 2500;
 
 const initialMessages: ChatMessage[] = [
   {
@@ -29,273 +28,12 @@ const initialMessages: ChatMessage[] = [
   },
 ];
 
-const liveProducts = [
-  "Bill Vault",
-  "Chess Offline",
-  "Classta",
-  "Classta Admin",
-  "Classta Mentor",
-  "ColorCraft ASMR",
-  "Dexa Sheet",
-  "Docura",
-  "Event Sync",
-  "EventSync Organizer",
-  "Fresh Fade",
-  "Fresh Fade Business",
-  "Fresh Fade IN",
-  "Fresh Fold",
-  "Fresh Fold Vendor",
-  "Growblic Captain",
-  "Growblic Earn Money Online",
-  "GST Billing Management",
-  "INS PETRO",
-  "Jeev Setu",
-  "Kheti Hub",
-  "Kumbha",
-  "LockVault",
-  "Myniq",
-  "Myniq Admin",
-  "Nil",
-  "PairUp Meet",
-  "PayRoll+HR",
-  "PivotOS Minimalist Launcher",
-  "Presenta",
-  "Project Pipeline",
-  "Property Dost",
-  "Qmail",
-  "SocioConnect",
-  "Sociva",
-  "TapMystic",
-  "True Auth",
-];
-
-const services = [
-  "Website Development",
-  "Software Development",
-  "Mobile App Development",
-  "SaaS Product Development",
-  "AI Automation",
-  "SEO Services",
-  "Google Ads",
-  "Meta Ads",
-  "GMB Rating & Reviews",
-  "Price Calculator",
-  "Start Project",
-  "Support",
-];
-
 const quickPrompts = [
   "What services does Growblic offer?",
   "I want to build a website",
   "Show Growblic apps/products",
   "How does pricing work?",
 ];
-
-const businessFeatureProfiles = [
-  {
-    match: /\b(shoe|shoes|footwear|sneaker|sneakers|slipper|slippers|sandals?)\b/i,
-    label: "footwear",
-    features: [
-      "product catalog",
-      "size and color variants",
-      "cart and checkout",
-      "secure payments",
-      "inventory/admin controls",
-      "offers and order tracking",
-    ],
-  },
-  {
-    match: /\b(restaurant|cafe|hotel|food|kitchen|bakery|cloud kitchen)\b/i,
-    label: "restaurant",
-    features: [
-      "menu pages",
-      "table booking",
-      "online ordering",
-      "location and hours",
-      "offers",
-      "order/admin management",
-    ],
-  },
-  {
-    match: /\b(school|college|academy|institute|tuition|coaching)\b/i,
-    label: "school",
-    features: [
-      "student and teacher profiles",
-      "attendance",
-      "notices",
-      "fees",
-      "classes",
-      "admin dashboard",
-    ],
-  },
-  {
-    match: /\b(doctor|clinic|hospital|dentist|healthcare|medical)\b/i,
-    label: "doctor/clinic",
-    features: [
-      "appointment booking",
-      "patient records",
-      "availability slots",
-      "reminders",
-      "prescriptions",
-      "staff/admin controls",
-    ],
-  },
-  {
-    match: /\b(gym|fitness|trainer|yoga|sports club)\b/i,
-    label: "gym",
-    features: [
-      "membership plans",
-      "attendance",
-      "payments",
-      "trainer management",
-      "renewal reminders",
-      "reports",
-    ],
-  },
-  {
-    match: /\b(real estate|property|broker|realtor|builder|apartment|plots?|rental)\b/i,
-    label: "real estate",
-    features: [
-      "property listings",
-      "search filters",
-      "photo galleries",
-      "lead forms",
-      "location maps",
-      "agent/admin dashboard",
-    ],
-  },
-  {
-    match: /\b(laundry|dry clean|dry cleaning|wash|ironing)\b/i,
-    label: "laundry",
-    features: [
-      "pickup scheduling",
-      "delivery tracking",
-      "service pricing",
-      "order status",
-      "payments",
-      "vendor/admin management",
-    ],
-  },
-  {
-    match: /\b(ecommerce|e-commerce|online store|store|shop|marketplace)\b/i,
-    label: "ecommerce",
-    features: [
-      "catalog",
-      "cart",
-      "checkout",
-      "payment integration",
-      "stock management",
-      "admin dashboard",
-    ],
-  },
-];
-
-const solutionIntentPattern =
-  /\b(website|web app|app|mobile app|software|dashboard|ecommerce|e-commerce|booking|system|platform|portal|marketplace)\b/i;
-const mobileAppDevelopmentIntentPattern =
-  /\b(app banwani hai|mobile app chahiye|android app|ios app|build app)\b/i;
-
-function getSolutionLabel(text: string) {
-  const match = text.match(solutionIntentPattern);
-  return match?.[0]?.replace("e-commerce", "ecommerce") || "digital product";
-}
-
-function extractBusinessIdea(input: string) {
-  const normalized = input.toLowerCase();
-  const profile = businessFeatureProfiles.find((item) => item.match.test(normalized));
-
-  if (profile) {
-    return profile;
-  }
-
-  const solutionMatch = normalized.match(solutionIntentPattern);
-  if (!solutionMatch?.index) return null;
-
-  const beforeIntent = normalized
-    .slice(0, solutionMatch.index)
-    .replace(/\b(i|we|want|need|to|build|make|create|develop|a|an|the|for|my|our|new)\b/g, " ")
-    .replace(/[^a-z0-9\s/-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  if (!beforeIntent || beforeIntent.length < 3) return null;
-
-  return {
-    label: beforeIntent,
-    features: [
-      "clear service or product pages",
-      "lead capture forms",
-      "customer workflow",
-      "admin dashboard",
-      "analytics",
-      "deployment-ready setup",
-    ],
-  };
-}
-
-function buildBusinessIdeaReply(input: string) {
-  if (!solutionIntentPattern.test(input)) return null;
-
-  const idea = extractBusinessIdea(input);
-  if (!idea) return null;
-
-  const solutionLabel = getSolutionLabel(input.toLowerCase());
-  const featureList = idea.features.join(", ");
-
-  return `That sounds like a ${idea.label} ${solutionLabel}. A strong version could include ${featureList}. Growblic can design, develop, and deploy it with a premium frontend, backend/admin panel, integrations, and launch support. Do you want this mainly for lead generation, online sales/bookings, or internal operations?`;
-}
-
-function buildFallbackReply(input: string) {
-  const text = input.toLowerCase();
-  const productList = liveProducts.join(", ");
-  const serviceList = services.join(", ");
-  const asksForProductList =
-    (/\b(apps?|products?|portfolio|live apps?|live products?|tools)\b/i.test(text) &&
-      /\b(growblic|kon|kaun|kaunse|konsa|kaun kaun|which|list|naam|names)\b/i.test(text)) ||
-    /\bgrowblic\b.*\bapps?\b.*\b(kon|kaun|kaunse|konsa|kaun kaun|which|list|naam|names)\b/i.test(
-      text,
-    ) ||
-    /\bapps?\b.*\b(kon|kaun|kaunse|konsa|kaun kaun|which|list|naam|names)\b/i.test(text);
-
-  if (/\b(hi|hello|hey|namaste|sat sri akal)\b/i.test(text)) {
-    return "Hello, I’m Growblic Assistant. I can help with Growblic services, products, pricing guidance, cloud deployment, and project planning. What would you like to build or explore?";
-  }
-
-  if (asksForProductList) {
-    return `Growblic live apps/products are: ${productList}.`;
-  }
-
-  if (/\b(cloud|deploy|deployment|datacenter|data center|server|render|vercel|postgres|database)\b/i.test(text)) {
-    return "Growblic helps with cloud-ready deployment planning: Vercel, Render, Node.js APIs, PostgreSQL, HTTPS, environment variables, logs, backups, monitoring, and launch checks. Growblic does not own AWS-like physical datacenters. What stack is your project using?";
-  }
-
-  if (/\b(service|services|seo|ads|automation|gmb|reviews|support)\b/i.test(text)) {
-    return `Growblic services include: ${serviceList}. Which service would you like details on?`;
-  }
-
-  if (/\b(price|pricing|cost|budget|estimate|kitna|charges|rate)\b/i.test(text)) {
-    return "Pricing depends on scope: features, design depth, backend/admin needs, integrations, platform, screens, timeline, and maintenance. For a practical estimate, use the Price Calculator or Start Project form. What type of project are you planning?";
-  }
-
-  if (/\b(website|web|site|landing|ecommerce|e-commerce)\b/i.test(text)) {
-    return "Growblic website development covers premium business websites, landing pages, ecommerce flows, SEO-ready pages, forms, analytics, and launch setup. Do you need a simple website or one with a dashboard/backend?";
-  }
-
-  if (mobileAppDevelopmentIntentPattern.test(text)) {
-    return "Growblic mobile app development covers Android/iOS apps, backend APIs, admin panels, authentication, payments, notifications, and launch support. Is it a customer app or an internal business app?";
-  }
-
-  const businessIdeaReply = buildBusinessIdeaReply(input);
-  if (businessIdeaReply) {
-    return businessIdeaReply;
-  }
-
-  if (/\b(saas|software|dashboard|admin|api|backend|platform|system)\b/i.test(text)) {
-    return "Growblic builds SaaS platforms, dashboards, backend APIs, admin panels, and automation systems, from idea to design, development, deployment, and launch support. What core features do you need?";
-  }
-
-  return "I can help with Growblic services and project guidance. Share your project type, features, timeline, budget range, or platform, and I’ll suggest a strong next step.";
-}
 
 export default function GrowblicAIChat() {
   const [open, setOpen] = useState(false);
@@ -339,10 +77,9 @@ export default function GrowblicAIChat() {
     setMessage("");
     setLoading(true);
     const controller = new AbortController();
-    
-    const requestTimeout = window.setTimeout(() => controller.abort(), 15000);
-let timedOut = false;
-requestControllerRef.current?.abort();
+
+    let timedOut = false;
+    requestControllerRef.current?.abort();
     requestControllerRef.current = controller;
     const timeout = window.setTimeout(() => {
       timedOut = true;
@@ -359,7 +96,7 @@ requestControllerRef.current?.abort();
         },
         body: JSON.stringify({
           message: finalMessage,
-          history: messages.slice(-8),
+          history: messages.slice(-10),
         }),
         signal: controller.signal,
       });
@@ -369,22 +106,12 @@ requestControllerRef.current?.abort();
       }
 
       const data = (await response.json()) as { reply?: string };
-      const reply =
-        data.reply ||
-        "Hm, I’m having trouble connecting right now. Please try again in a moment, or use the Start Project page to contact Growblic.";
-
-      setMessages((items) => [...items, { role: "assistant", content: reply }]);
+      if (data.reply) {
+        setMessages((items) => [...items, { role: "assistant", content: data.reply || "" }]);
+      }
     } catch {
-if (controller.signal.aborted && !timedOut) return;
-      setMessages((items) => [
-        ...items,
-        {
-          role: "assistant",
-          content: buildFallbackReply(finalMessage),
-        },
-      ]);
+      if (controller.signal.aborted && !timedOut) return;
     } finally {
-      window.clearTimeout(requestTimeout);
       window.clearTimeout(timeout);
       if (requestControllerRef.current === controller) {
         requestControllerRef.current = null;
@@ -399,21 +126,47 @@ if (controller.signal.aborted && !timedOut) return;
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-[90] font-sans sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-3 right-3 z-[90] font-sans sm:bottom-6 sm:right-6">
       {open ? (
-        <div className="mb-4 w-[calc(100vw-2.5rem)] max-w-[390px] overflow-hidden rounded-[1.7rem] border border-blue-100/80 bg-white/92 shadow-[0_30px_110px_rgba(37,99,235,0.22)] ring-1 ring-white/80 backdrop-blur-2xl">
-          <div className="relative overflow-hidden bg-[linear-gradient(135deg,#0f172a,#1d4ed8_48%,#06b6d4)] p-5 text-white">
-            <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-cyan-300/30 blur-3xl" />
+        <div className="mb-3 w-[calc(100vw-24px)] max-w-[410px] origin-bottom-right animate-[growblicChatIn_220ms_cubic-bezier(0.16,1,0.3,1)] overflow-hidden rounded-[28px] border border-white/70 bg-white/90 shadow-[0_34px_120px_rgba(15,23,42,0.24),0_12px_44px_rgba(14,165,233,0.18)] ring-1 ring-sky-100/70 backdrop-blur-2xl sm:mb-4">
+          <style jsx>{`
+            @keyframes growblicChatIn {
+              from {
+                opacity: 0;
+                transform: translateY(14px) scale(0.97);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+              }
+            }
+
+            @keyframes growblicMessageIn {
+              from {
+                opacity: 0;
+                transform: translateY(8px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
+          <div className="relative overflow-hidden bg-[linear-gradient(140deg,#07111f_0%,#0f3f8f_48%,#0891b2_100%)] px-5 py-5 text-white sm:px-6">
+            <div className="pointer-events-none absolute -left-16 -top-20 h-44 w-44 rounded-full bg-sky-300/24 blur-3xl" />
+            <div className="pointer-events-none absolute -right-10 top-1 h-36 w-36 rounded-full bg-cyan-200/32 blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(255,255,255,0.20),transparent_26%),radial-gradient(circle_at_82%_4%,rgba(34,211,238,0.26),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.10),transparent_62%)]" />
             <div className="relative flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15 shadow-xl ring-1 ring-white/20 backdrop-blur-xl">
-                  <Bot className="h-6 w-6" />
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/16 shadow-[inset_0_1px_0_rgba(255,255,255,0.32),0_14px_32px_rgba(8,47,73,0.28)] ring-1 ring-white/30 backdrop-blur-xl">
+                  <Bot className="h-6 w-6 drop-shadow-sm" />
                 </span>
-                <div>
-                  <p className="flex items-center gap-2 text-base font-black">
-                    Growblic Assistant <Sparkles className="h-4 w-4 text-cyan-200" />
+                <div className="min-w-0">
+                  <p className="flex items-center gap-2 text-base font-black tracking-normal">
+                    Growblic Assistant
+                    <Sparkles className="h-4 w-4 shrink-0 text-cyan-100" />
                   </p>
-                  <p className="mt-1 text-xs font-semibold leading-5 text-blue-50">
+                  <p className="mt-1 max-w-[270px] text-xs font-semibold leading-5 text-sky-50/90">
                     Ask about services, apps, pricing, cloud setup, or starting a project.
                   </p>
                 </div>
@@ -423,24 +176,29 @@ if (controller.signal.aborted && !timedOut) return;
                 type="button"
                 aria-label="Close Growblic Assistant chat"
                 onClick={resetChat}
-                className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/12 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.24)] ring-1 ring-white/20 backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:bg-white/22 hover:ring-white/35"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div ref={scrollRef} className="max-h-[330px] space-y-3 overflow-y-auto p-4">
+          <div
+            ref={scrollRef}
+            className="max-h-[360px] space-y-4 overflow-y-auto bg-[linear-gradient(180deg,rgba(248,250,252,0.90),rgba(255,255,255,0.82))] px-4 py-5 sm:px-5"
+          >
             {messages.map((item, index) => (
               <div
                 key={`${item.role}-${index}`}
-                className={`flex ${item.role === "user" ? "justify-end" : "justify-start"}`}
+                className={`flex animate-[growblicMessageIn_180ms_ease-out_both] ${
+                  item.role === "user" ? "justify-end" : "justify-start"
+                }`}
               >
                 <div
-                  className={`max-w-[86%] rounded-2xl px-4 py-3 text-sm font-semibold leading-6 ${
+                  className={`max-w-[86%] px-4 py-3 text-sm font-semibold leading-6 shadow-sm ${
                     item.role === "user"
-                      ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-                      : "border border-blue-100 bg-blue-50/70 text-slate-700"
+                      ? "rounded-[20px] rounded-br-md bg-[linear-gradient(135deg,#2563eb,#0891b2)] text-white shadow-[0_12px_30px_rgba(37,99,235,0.24)]"
+                      : "rounded-[20px] rounded-bl-md border border-sky-100/90 bg-white/82 text-slate-700 shadow-[0_10px_32px_rgba(15,23,42,0.07)] ring-1 ring-white/70 backdrop-blur-xl"
                   }`}
                 >
                   {item.content}
@@ -450,7 +208,7 @@ if (controller.signal.aborted && !timedOut) return;
 
             {loading ? (
               <div className="flex justify-start">
-                <div className="inline-flex items-center gap-2 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm font-bold text-slate-700">
+                <div className="inline-flex animate-[growblicMessageIn_180ms_ease-out_both] items-center gap-2 rounded-[20px] rounded-bl-md border border-sky-100 bg-white/86 px-4 py-3 text-sm font-bold text-slate-700 shadow-[0_10px_32px_rgba(15,23,42,0.07)] ring-1 ring-white/70 backdrop-blur-xl">
                   <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
                   Typing…
                 </div>
@@ -458,15 +216,15 @@ if (controller.signal.aborted && !timedOut) return;
             ) : null}
           </div>
 
-          <div className="border-t border-blue-100 bg-white/80 p-4">
+          <div className="border-t border-sky-100/80 bg-white/88 p-4 shadow-[0_-18px_46px_rgba(255,255,255,0.76)] backdrop-blur-2xl sm:p-5">
             {!hasUserMessage && !loading ? (
-              <div className="mb-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <div className="mb-3 grid grid-cols-1 gap-2 min-[390px]:grid-cols-2">
                 {quickPrompts.map((prompt) => (
                   <button
                     key={prompt}
                     type="button"
                     onClick={() => sendMessage(prompt)}
-                    className="rounded-2xl border border-blue-100 bg-white px-3 py-2 text-left text-xs font-extrabold leading-5 text-slate-700 shadow-sm transition hover:border-blue-300 hover:text-blue-700"
+                    className="rounded-2xl border border-sky-100/90 bg-white/82 px-3 py-2.5 text-left text-xs font-extrabold leading-5 text-slate-700 shadow-[0_8px_24px_rgba(15,23,42,0.05)] ring-1 ring-white/70 backdrop-blur-xl transition duration-200 hover:-translate-y-0.5 hover:border-sky-200 hover:text-blue-700 hover:shadow-[0_14px_34px_rgba(14,165,233,0.14)]"
                   >
                     {prompt}
                   </button>
@@ -478,20 +236,20 @@ if (controller.signal.aborted && !timedOut) return;
               <input
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
-                placeholder="Ask Growblic Assistant..."
-                className="min-w-0 flex-1 rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-400"
+                placeholder="Ask Growblic Assistant…"
+                className="min-w-0 flex-1 rounded-full border border-sky-100 bg-white/92 px-4 py-3 text-sm font-semibold text-slate-800 shadow-inner shadow-slate-100/70 outline-none transition duration-200 placeholder:text-slate-400 focus:border-sky-300 focus:ring-4 focus:ring-sky-100"
               />
               <button
                 type="submit"
                 aria-label="Send message"
                 disabled={loading || !message.trim()}
-                className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20 transition hover:bg-slate-950 disabled:cursor-not-allowed disabled:opacity-50"
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[linear-gradient(135deg,#2563eb,#06b6d4)] text-white shadow-[0_14px_32px_rgba(37,99,235,0.26)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_42px_rgba(37,99,235,0.34)] disabled:cursor-not-allowed disabled:opacity-45 disabled:shadow-none disabled:hover:translate-y-0"
               >
                 {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
               </button>
             </form>
 
-            <p className="mt-3 text-center text-[11px] font-medium leading-5 text-slate-400">
+            <p className="mt-3 text-center text-[11px] font-semibold leading-5 text-slate-400">
               Growblic Assistant helps with Growblic services and project guidance.
             </p>
           </div>
@@ -509,13 +267,15 @@ if (controller.signal.aborted && !timedOut) return;
 
           setOpen(true);
         }}
-        className="group flex items-center gap-3 rounded-full border border-blue-100 bg-white/90 px-4 py-3 text-sm font-black text-slate-900 shadow-[0_18px_60px_rgba(37,99,235,0.20)] ring-1 ring-white/80 backdrop-blur-2xl transition hover:-translate-y-1 hover:border-blue-300"
+        className="group flex items-center gap-3 rounded-full border border-white/70 bg-white/82 px-3.5 py-3 text-sm font-black text-slate-900 shadow-[0_18px_60px_rgba(15,23,42,0.16),0_10px_34px_rgba(14,165,233,0.18)] ring-1 ring-sky-100/80 backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:bg-white/92 hover:shadow-[0_24px_76px_rgba(15,23,42,0.20),0_16px_44px_rgba(14,165,233,0.22)] sm:px-4"
       >
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/25 transition group-hover:bg-slate-950">
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-[linear-gradient(135deg,#2563eb,#06b6d4)] text-white shadow-[0_12px_28px_rgba(37,99,235,0.28)] ring-1 ring-white/50 transition duration-300 group-hover:scale-105">
           {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
         </span>
-        <span>Ask Growblic Assistant</span>
-        <ArrowRight className="h-4 w-4 text-blue-600 transition group-hover:translate-x-0.5" />
+        <span className="whitespace-nowrap">Ask Growblic Assistant</span>
+        <span className="grid h-7 w-7 place-items-center rounded-full bg-sky-50 text-blue-600 ring-1 ring-sky-100 transition duration-300 group-hover:translate-x-0.5 group-hover:bg-blue-50">
+          <ArrowRight className="h-4 w-4" />
+        </span>
       </button>
     </div>
   );
