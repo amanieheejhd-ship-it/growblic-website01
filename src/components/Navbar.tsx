@@ -50,6 +50,9 @@ const navLinks = [
       { label: "About Growblic", href: "/about" },
       { label: "Careers", href: "/careers" },
       { label: "Support", href: "/support" },
+      { label: "Price Calculator", href: "/price-calculator" },
+      { label: "Email Growblic", href: "mailto:hello@growblic.com" },
+      { label: "PairupChat", href: "https://web.growblic.com" },
     ],
   },
   {
@@ -57,6 +60,9 @@ const navLinks = [
     href: "/#contact",
     children: [
       { label: "Support", href: "/support" },
+      { label: "Email Growblic", href: "mailto:hello@growblic.com" },
+      { label: "PairupChat", href: "https://web.growblic.com" },
+      { label: "Price Calculator", href: "/price-calculator" },
     ],
   },
 ];
