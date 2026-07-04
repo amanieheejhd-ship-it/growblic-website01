@@ -56,7 +56,6 @@ const navLinks = [
     label: "Contact",
     href: "/#contact",
     children: [
-      { label: "Start Project", href: "/start-project" },
       { label: "Support", href: "/support" },
     ],
   },
@@ -181,12 +180,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/start-project"
-            className="hidden min-h-11 items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700 md:inline-flex"
-          >
-            Start Project →
-          </Link>
 
           <button
             type="button"
