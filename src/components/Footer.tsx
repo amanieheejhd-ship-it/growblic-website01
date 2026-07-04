@@ -26,6 +26,7 @@ const resourceLinks = [
   { label: "Developer", href: "/developer" },
   { label: "Downloads", href: "/downloads" },
   { label: "Fastoldp", href: "/fastoldp" },
+  { label: "Chating", href: "https://web.growblic.com" },
   { label: "Meetups", href: "/meetup" }
 ];
 
