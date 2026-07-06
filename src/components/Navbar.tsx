@@ -125,14 +125,14 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-blue-100/80 bg-[#fbfdff]/90 backdrop-blur-2xl">
-      <nav ref={navDropdownRef} onMouseEnter={cancelDropdownClose} onMouseLeave={scheduleDropdownClose} className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 sm:px-6">
+    <header className="sticky top-0 z-50 overflow-x-clip border-b border-blue-100/80 bg-[#fbfdff]/90 backdrop-blur-2xl">
+      <nav ref={navDropdownRef} onMouseEnter={cancelDropdownClose} onMouseLeave={scheduleDropdownClose} className="mx-auto flex max-w-7xl min-w-0 items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:px-6 sm:py-4 lg:gap-5">
         <Link
           href="/"
-          className="group flex items-center gap-3 rounded-full pr-3 transition hover:bg-white/70"
+          className="group flex min-w-0 max-w-[calc(100vw-7rem)] items-center gap-2 rounded-full pr-2 transition hover:bg-white/70 sm:max-w-none sm:gap-3 sm:pr-3"
           onClick={() => setMobileOpen(false)}
         >
-          <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
+          <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70 sm:h-11 sm:w-11">
             <Image
               src="/growblic-website01/images/brand/growblic-logo.png"
               alt="Growblic"
@@ -142,7 +142,7 @@ export default function Navbar() {
               className="rounded-full object-cover"
             />
           </span>
-          <span className="text-2xl font-black tracking-tight text-slate-950 transition group-hover:text-blue-700">
+          <span className="min-w-0 truncate text-lg font-black tracking-tight text-slate-950 transition group-hover:text-blue-700 sm:text-2xl">
             Growblic
           </span>
         </Link>
@@ -190,7 +190,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen((value) => !value)}
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-blue-100 bg-white px-4 py-2.5 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/55 transition hover:border-blue-200 hover:text-blue-700 lg:hidden"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full border border-blue-100 bg-white px-3 py-2.5 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/55 transition hover:border-blue-200 hover:text-blue-700 sm:px-4 lg:hidden"
             aria-expanded={mobileOpen}
             aria-label="Toggle navigation menu"
           >
@@ -200,7 +200,7 @@ export default function Navbar() {
       </nav>
 
       {mobileOpen && (
-        <div className="border-t border-blue-100/80 bg-[#fbfdff]/96 px-5 py-5 shadow-2xl shadow-blue-100/60 backdrop-blur-2xl lg:hidden">
+        <div className="max-h-[calc(100dvh-68px)] overflow-y-auto overscroll-contain border-t border-blue-100/80 bg-[#fbfdff]/96 px-3 py-4 shadow-2xl shadow-blue-100/60 backdrop-blur-2xl sm:max-h-[calc(100dvh-72px)] sm:px-5 sm:py-5 lg:hidden">
           <div className="mx-auto grid max-w-7xl gap-3">
             {navLinks.map((item) => {
               const active =
@@ -208,27 +208,27 @@ export default function Navbar() {
                 item.children.some((child) => isActive(pathname, child.href));
 
               return (
-                <div key={item.label} className="grid gap-2">
+                <div key={item.label} className="grid min-w-0 gap-2">
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center justify-between rounded-2xl border px-5 py-4 text-base font-black shadow-sm transition ${
+                    className={`flex min-w-0 items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 text-sm font-black shadow-sm transition sm:px-5 sm:py-4 sm:text-base ${
                       active
                         ? "border-slate-950 bg-slate-950 text-white"
                         : "border-blue-100 bg-white text-slate-800 hover:border-slate-950 hover:bg-slate-950 hover:text-white"
                     }`}
                   >
-                    <span>{item.label}</span>
+                    <span className="min-w-0 break-words">{item.label}</span>
                     <span className={active ? "text-white" : "text-blue-600"}>→</span>
                   </Link>
 
-                  <div className="ml-4 grid gap-2 border-l border-blue-100 pl-3">
+                  <div className="ml-2 grid min-w-0 gap-2 border-l border-blue-100 pl-3 sm:ml-4">
                     {item.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
                         onClick={() => setMobileOpen(false)}
-                        className="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
+                        className="min-w-0 break-words rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-black leading-5 text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
                       >
                         {child.label}
                       </Link>

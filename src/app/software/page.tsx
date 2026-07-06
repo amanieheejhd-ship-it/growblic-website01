@@ -81,7 +81,7 @@ export default function SoftwarePage() {
               Software
             </div>
 
-            <h1 className="max-w-2xl text-5xl font-black leading-[0.92] tracking-[-0.07em] text-slate-950 sm:text-7xl">
+            <h1 className="max-w-2xl break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl md:text-6xl lg:text-7xl">
               Custom software built for your business.
             </h1>
 

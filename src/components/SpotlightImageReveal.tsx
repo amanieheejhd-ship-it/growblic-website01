@@ -98,7 +98,7 @@ export default function SpotlightImageReveal({
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#fbfdff] px-6 py-20 sm:py-24">
+    <section className="relative overflow-hidden bg-[#fbfdff] px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(37,99,235,0.12),transparent_30%),radial-gradient(circle_at_84%_12%,rgba(6,182,212,0.10),transparent_26%),linear-gradient(180deg,rgba(239,246,255,0.7),rgba(255,255,255,0.92))]" />
 
       <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">

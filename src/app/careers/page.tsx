@@ -113,7 +113,7 @@ export default function CareersPage() {
             <p className="inline-flex rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-black uppercase tracking-[0.30em] text-blue-700 shadow-lg shadow-blue-100/60">
               Careers at Growblic
             </p>
-            <h1 className="mt-7 max-w-4xl text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+            <h1 className="mt-7 max-w-4xl break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-7xl">
               Build real products with a premium digital team.
             </h1>
             <p className="mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
@@ -184,7 +184,7 @@ export default function CareersPage() {
               Why join Growblic
             </div>
 
-            <h2 className="max-w-xl text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl lg:text-6xl">
+            <h2 className="max-w-xl break-words text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
               Work where craft meets ownership.
             </h2>
 

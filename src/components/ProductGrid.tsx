@@ -14,9 +14,9 @@ export default function ProductGrid() {
   );
 
   return (
-    <section className="bg-[#f5f7fb] px-6 py-20">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex gap-2 overflow-x-auto pb-3">
+    <section className="overflow-hidden bg-[#f5f7fb] px-4 py-14 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-7xl min-w-0">
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0">
           {productCategories.map((item) => (
             <button
               key={item}
@@ -33,11 +33,12 @@ export default function ProductGrid() {
           ))}
         </div>
 
-        <motion.div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <motion.div className="mt-8 grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((product) => (
               <motion.div
                 key={product.slug}
+                className="min-w-0"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 18 }}

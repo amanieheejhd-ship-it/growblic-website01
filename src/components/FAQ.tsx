@@ -163,14 +163,14 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faqs" className="relative overflow-hidden px-6 py-14">
+    <section id="faqs" className="relative overflow-hidden px-4 py-14 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <div className="growblic-card-reveal mb-8 text-center">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600 sm:tracking-[0.34em]">
             FAQs
           </p>
 
-          <h2 className="mt-3 text-4xl font-black tracking-tight text-slate-950 md:text-6xl">
+          <h2 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-4xl md:text-6xl">
             Common questions.
           </h2>
 
@@ -201,14 +201,14 @@ export default function FAQ() {
                 onPointerLeave={(event) => closeFaqOnMouse(index, event.pointerType)}
                 onFocus={() => setOpenIndex(index)}
                 aria-expanded={isOpen}
-                className={`group cursor-pointer overflow-hidden rounded-[1.7rem] border bg-white text-left shadow-lg shadow-blue-100/45 outline-none transition-all duration-300 ease-out focus-visible:border-blue-300 focus-visible:ring-4 focus-visible:ring-blue-100/80 ${
+                className={`group min-w-0 cursor-pointer overflow-hidden rounded-[1.35rem] border bg-white text-left shadow-lg shadow-blue-100/45 outline-none transition-all duration-300 ease-out focus-visible:border-blue-300 focus-visible:ring-4 focus-visible:ring-blue-100/80 sm:rounded-[1.7rem] ${
                   isOpen
                     ? "border-blue-300 bg-blue-50/70 shadow-xl shadow-blue-100/70"
                     : "border-blue-100/70 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/65"
                 }`}
               >
-                <div className="flex items-center justify-between gap-4 p-5">
-                  <span className="text-lg font-black leading-tight text-slate-950">
+                <div className="flex min-w-0 items-center justify-between gap-3 p-4 sm:gap-4 sm:p-5">
+                  <span className="min-w-0 break-words text-base font-black leading-tight text-slate-950 sm:text-lg">
                     {faq.q}
                   </span>
 
@@ -257,14 +257,14 @@ export default function FAQ() {
           </button>
         </div>
 
-        <div className="growblic-card-reveal relative mt-8 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/90 p-6 shadow-xl shadow-blue-100/50 ring-1 ring-white/80 backdrop-blur-xl">
+        <div className="growblic-card-reveal relative mt-8 overflow-hidden rounded-[1.5rem] border border-blue-100/80 bg-white/90 p-5 shadow-xl shadow-blue-100/50 ring-1 ring-white/80 backdrop-blur-xl sm:rounded-[2rem] sm:p-6">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_92%_100%,rgba(6,182,212,0.11),transparent_32%)]" />
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="relative">
               <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-600">
                 Need custom help?
               </p>
-              <h3 className="mt-2 text-2xl font-black text-slate-950">
+              <h3 className="mt-2 break-words text-xl font-black text-slate-950 sm:text-2xl">
                 Tell us your idea, we will guide you.
               </h3>
             </div>

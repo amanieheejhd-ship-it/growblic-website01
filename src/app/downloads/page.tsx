@@ -177,26 +177,26 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
 export default function DownloadsPage() {
  return (
   <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
-   <section className="relative px-6 py-20">
-    <div className="relative mx-auto max-w-7xl">
+   <section className="relative px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
+    <div className="relative mx-auto max-w-7xl min-w-0">
      <BackButton />
 
-     <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+     <div className="mt-8 grid min-w-0 gap-8 sm:mt-10 lg:gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
       <div>
-       <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">
+       <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:text-sm sm:tracking-[0.28em]">
         Growblic Downloads
        </p>
-       <h1 className="mt-5 max-w-5xl text-6xl font-black leading-[0.94] tracking-tight text-slate-950 md:text-8xl">
+       <h1 className="mt-5 max-w-5xl break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl md:text-6xl lg:text-7xl">
         Growblic Downloads
        </h1>
-       <p className="mt-7 max-w-3xl text-xl font-semibold leading-9 text-slate-600">
+       <p className="mt-5 max-w-3xl text-base font-semibold leading-7 text-slate-600 sm:mt-7 sm:text-lg sm:leading-8 lg:text-xl lg:leading-9">
         Access Growblic live products, mobile apps, SaaS platforms, and
         business tools from one place.
        </p>
       </div>
 
-      <div className="h-fit self-start rounded-[1.7rem] border border-blue-100 bg-white p-5 shadow-[0_18px_55px_rgba(37,99,235,0.10)] sm:p-6">
-       <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
+      <div className="h-fit min-w-0 self-start rounded-[1.7rem] border border-blue-100 bg-white p-5 shadow-[0_18px_55px_rgba(37,99,235,0.10)] sm:p-6">
+       <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.28em]">
         Download Directory
        </p>
 
@@ -209,9 +209,9 @@ export default function DownloadsPage() {
          <a
           key={item.label}
           href={item.href}
-          className="group flex items-center justify-between gap-5 px-5 py-4 transition hover:bg-blue-50/70"
+          className="group flex min-w-0 items-center justify-between gap-5 px-5 py-4 transition hover:bg-blue-50/70"
          >
-          <span>
+          <span className="min-w-0">
            <span className="block text-base font-black text-slate-950">
             {item.label}
            </span>
@@ -235,7 +235,7 @@ export default function DownloadsPage() {
        title="Production-ready product systems"
        description="Explore live Growblic product concepts and business platforms. Product systems can be opened for details or requested for access/demo."
       />
-      <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-3">
        {liveProducts.map((product) => (
         <ProductDownloadCard key={product.slug} product={product} />
        ))}
@@ -248,7 +248,7 @@ export default function DownloadsPage() {
        title="Growblic mobile apps"
        description="Use real Play Store links where available. If a store link is not available or not verified, request access through Growblic."
       />
-      <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8 grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-4">
        {mobileApps.map((app) => (
         <MobileAppCard key={app.slug} app={app} />
        ))}
@@ -261,7 +261,7 @@ export default function DownloadsPage() {
        title="SaaS, CRM, portals, and dashboards"
        description="These systems are available as product concepts, client-ready builds, or custom SaaS implementations."
       />
-      <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid min-w-0 gap-5 sm:grid-cols-2 xl:grid-cols-3">
        {saasProducts.map((product) => (
         <ProductDownloadCard key={product.slug} product={product} primaryLabel="Request Demo" />
        ))}

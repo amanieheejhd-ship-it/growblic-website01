@@ -41,7 +41,7 @@ const orbitItems = [
 
 export default function Hero() {
   return (
-    <section className="home-hero-section relative min-h-screen overflow-hidden bg-[#fbfcff] px-6 pb-20 pt-32">
+    <section className="home-hero-section relative min-h-[100svh] overflow-hidden bg-[#fbfcff] px-4 pb-14 pt-24 sm:px-6 sm:pb-20 sm:pt-32">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_8%,rgba(37,99,235,0.15),transparent_32%),radial-gradient(circle_at_82%_28%,rgba(6,182,212,0.13),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(168,85,247,0.11),transparent_30%),radial-gradient(circle_at_8%_80%,rgba(16,185,129,0.08),transparent_26%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:88px_88px] opacity-35" />
 
@@ -56,13 +56,13 @@ export default function Hero() {
         className="absolute right-[8%] bottom-[18%] h-52 w-52 rounded-full bg-cyan-200/35 blur-3xl"
       />
 
-      <div className="home-hero-layout relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.92fr_1.08fr]">
-        <div>
+      <div className="home-hero-layout relative mx-auto grid max-w-7xl min-w-0 items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+        <div className="min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-            className="inline-flex items-center gap-3 rounded-full border border-blue-100 bg-[#fbfdff]/90 px-4 py-2 text-sm font-black text-slate-700 shadow-lg shadow-blue-100/70 backdrop-blur"
+            className="inline-flex max-w-full items-center gap-3 rounded-full border border-blue-100 bg-[#fbfdff]/90 px-3 py-2 text-xs font-black leading-5 text-slate-700 shadow-lg shadow-blue-100/70 backdrop-blur sm:px-4 sm:text-sm"
           >
             <span className="h-2 w-2 rounded-full bg-blue-600 shadow-[0_0_18px_rgba(37,99,235,0.8)]" />
             Premium digital products for modern businesses
@@ -72,7 +72,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08 }}
-            className="mt-7 max-w-4xl text-6xl font-black leading-[0.92] tracking-tight text-slate-950 md:text-8xl"
+            className="mt-6 max-w-4xl break-words text-3xl font-black leading-[1.02] tracking-tight text-slate-950 sm:mt-7 sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
           >
             We turn ideas into{" "}
             <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 bg-clip-text text-transparent">
@@ -85,7 +85,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.16 }}
-            className="mt-7 max-w-2xl text-xl leading-9 text-slate-600"
+            className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-600 sm:mt-7 sm:text-lg sm:leading-8 lg:text-xl lg:leading-9"
           >
             Growblic designs and develops websites, mobile apps, SaaS platforms,
             dashboards, and automation systems with premium UI and reliable engineering.
@@ -95,17 +95,17 @@ export default function Hero() {
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.24 }}
-            className="mt-9 flex flex-wrap gap-4"
+            className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4"
           >
             <Link
               href="/products"
-              className="rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-slate-950 px-7 py-4 text-center text-sm font-black text-white shadow-xl transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl sm:w-auto"
             >
               Explore Products →
             </Link>
             <Link
               href="/start-project"
-              className="rounded-full border border-blue-100/70 bg-[#fbfdff] px-7 py-4 text-sm font-black text-slate-800 shadow-lg transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-xl"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-blue-100/70 bg-[#fbfdff] px-7 py-4 text-center text-sm font-black text-slate-800 shadow-lg transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-xl sm:w-auto"
             >
               Start a Project
             </Link>
@@ -167,17 +167,17 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.18 }}
-          className="hero-engine-visual relative hidden min-h-[650px] md:block"
+          className="hero-engine-visual relative hidden min-h-[540px] overflow-hidden md:block lg:min-h-[650px]"
         >
-          <div className="hero-engine-glow absolute left-1/2 top-1/2 h-[610px] w-[610px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/30 via-cyan-200/25 to-violet-200/30 blur-2xl" />
-          <div className="hero-engine-orbit hero-engine-orbit-outer absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-[#fbfdff]/55 shadow-2xl shadow-blue-100/80 backdrop-blur-xl" />
-          <div className="hero-engine-orbit hero-engine-orbit-mid absolute left-1/2 top-1/2 h-[470px] w-[470px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
-          <div className="hero-engine-orbit hero-engine-orbit-inner absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
+          <div className="hero-engine-glow absolute left-1/2 top-1/2 h-[min(74vw,610px)] w-[min(74vw,610px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-blue-200/30 via-cyan-200/25 to-violet-200/30 blur-2xl" />
+          <div className="hero-engine-orbit hero-engine-orbit-outer absolute left-1/2 top-1/2 h-[min(72vw,600px)] w-[min(72vw,600px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-[#fbfdff]/55 shadow-2xl shadow-blue-100/80 backdrop-blur-xl" />
+          <div className="hero-engine-orbit hero-engine-orbit-mid absolute left-1/2 top-1/2 h-[min(57vw,470px)] w-[min(57vw,470px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
+          <div className="hero-engine-orbit hero-engine-orbit-inner absolute left-1/2 top-1/2 h-[min(39vw,320px)] w-[min(39vw,320px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-100/70/90" />
 
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="hero-engine-spin hero-engine-spin-outer absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="hero-engine-spin hero-engine-spin-outer absolute left-1/2 top-1/2 h-[min(65vw,540px)] w-[min(65vw,540px)] -translate-x-1/2 -translate-y-1/2 rounded-full"
           >
             <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-600 shadow-[0_0_24px_rgba(37,99,235,0.9)]" />
             <span className="absolute bottom-0 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-cyan-500 shadow-[0_0_24px_rgba(6,182,212,0.9)]" />
@@ -186,7 +186,7 @@ export default function Hero() {
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-            className="hero-engine-spin hero-engine-spin-inner absolute left-1/2 top-1/2 h-[390px] w-[390px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="hero-engine-spin hero-engine-spin-inner absolute left-1/2 top-1/2 h-[min(47vw,390px)] w-[min(47vw,390px)] -translate-x-1/2 -translate-y-1/2 rounded-full"
           >
             <span className="absolute right-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-violet-500 shadow-[0_0_22px_rgba(168,85,247,0.8)]" />
             <span className="absolute left-0 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-blue-500 shadow-[0_0_22px_rgba(59,130,246,0.8)]" />
@@ -195,7 +195,7 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-            className="hero-engine-card absolute left-1/2 top-1/2 z-20 w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-[3rem] border border-blue-100/70 bg-[#fbfdff]/92 p-5 shadow-2xl shadow-slate-300/80 backdrop-blur-xl"
+            className="hero-engine-card absolute left-1/2 top-1/2 z-20 w-[min(40vw,320px)] min-w-0 -translate-x-1/2 -translate-y-1/2 rounded-[3rem] border border-blue-100/70 bg-[#fbfdff]/92 p-4 shadow-2xl shadow-slate-300/80 backdrop-blur-xl lg:min-w-[270px] lg:p-5"
           >
             <div className="hero-engine-card-inner relative overflow-hidden rounded-[2.35rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50/80 to-violet-50/70 p-6 text-center">
               <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-cyan-200/60 blur-2xl" />
@@ -216,7 +216,7 @@ export default function Hero() {
                 <p className="hero-engine-eyebrow mt-8 text-xs font-black uppercase tracking-[0.28em] text-blue-700">
                   Growblic Engine
                 </p>
-                <h3 className="hero-engine-title mt-3 text-5xl font-black leading-none tracking-tight text-slate-950">
+                <h3 className="hero-engine-title mt-3 text-4xl font-black leading-none tracking-tight text-slate-950 lg:text-5xl">
                   Design Build Launch
                 </h3>
 

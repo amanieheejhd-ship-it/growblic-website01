@@ -134,7 +134,7 @@ function FooterColumn({
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
+            className="group max-w-full break-words text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
               <FooterLinkLabel label={item.label} />
             </a>
@@ -142,7 +142,7 @@ function FooterColumn({
             <a
               key={item.label}
               href={item.href}
-              className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
+              className="group max-w-full break-words text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
               <FooterLinkLabel label={item.label} />
             </a>
@@ -150,7 +150,7 @@ function FooterColumn({
             <Link
               key={item.label}
               href={item.href}
-              className="group w-fit text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
+              className="group max-w-full break-words text-sm font-bold leading-5 text-slate-500 transition hover:text-blue-700"
             >
               <FooterLinkLabel label={item.label} />
             </Link>
@@ -169,8 +169,8 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/82 p-5 shadow-[0_24px_80px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-6 lg:p-7">
         <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
 
-        <div className="grid gap-7 xl:grid-cols-[0.72fr_2.28fr] xl:items-start">
-          <div>
+        <div className="grid min-w-0 gap-7 xl:grid-cols-[0.72fr_2.28fr] xl:items-start">
+          <div className="min-w-0">
             <Link href="/" className="flex items-center gap-3">
               <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
                 <Image
@@ -201,7 +201,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5 xl:gap-x-8">
+          <div className="grid min-w-0 grid-cols-1 gap-x-6 gap-y-6 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:gap-x-8">
             <FooterColumn title="Company" links={companyLinks} />
             <FooterColumn title="Services" links={serviceLinks} />
             <FooterColumn title="Resources" links={resourceLinks} />
@@ -210,9 +210,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-7 flex flex-col gap-2 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Growblic. All rights reserved.</p>
-          <div className="flex items-center justify-center gap-6 sm:justify-end">
+        <div className="mt-7 flex flex-col gap-4 border-t border-blue-100/80 pt-4 text-sm font-semibold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-center sm:text-left">© 2026 Growblic. All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end sm:gap-4">
             {socialLinks.map((social) => {
               const Icon = social.Icon;
 

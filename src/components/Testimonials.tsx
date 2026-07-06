@@ -60,7 +60,7 @@ export default function Testimonials() {
               Client results
             </p>
 
-            <h2 className="mt-4 max-w-4xl text-5xl font-black leading-[1] tracking-tight text-slate-950 md:text-6xl">
+            <h2 className="mt-4 max-w-4xl break-words text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl md:text-6xl">
               Software that feels premium and performs in real business.
             </h2>
           </div>

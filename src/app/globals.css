@@ -114,10 +114,26 @@ body {
   box-sizing: border-box;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+main,
+section,
+article,
+header,
+footer,
+nav {
+  min-width: 0;
+}
+
 img,
 video,
 canvas,
 svg {
+  max-width: 100%;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -1293,3 +1309,158 @@ html {
     filter: drop-shadow(0 4px 8px rgba(37,99,235,0.12));
   }
 }
+
+
+/* Growblic live apps mobile premium polish */
+@media (max-width: 767px) {
+  #products {
+    padding-bottom: 6.5rem !important;
+  }
+
+  #products .app-hover-slider,
+  #products .gb-apps-track {
+    gap: 1rem !important;
+    padding-left: 1.15rem !important;
+    padding-right: 3.25rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  #products .app-hover-card,
+  #products .gb-app-card {
+    flex: 0 0 min(74vw, 305px) !important;
+    width: min(74vw, 305px) !important;
+    max-width: min(74vw, 305px) !important;
+  }
+
+  #products .app-hover-card > div,
+  #products .gb-app-card > div {
+    min-height: 382px !important;
+    padding: 1.1rem !important;
+    border-radius: 1.45rem !important;
+    box-shadow: 0 18px 42px rgba(59, 130, 246, 0.16) !important;
+  }
+
+  #products .app-hover-card > div > div:first-child > span:first-child,
+  #products .gb-app-card > div > div:first-child > span:first-child {
+    height: 3.7rem !important;
+    width: 3.7rem !important;
+    border-radius: 1.05rem !important;
+  }
+
+  #products .app-hover-card h3,
+  #products .gb-app-card h3 {
+    margin-top: 1rem !important;
+    min-height: 2.7rem !important;
+    font-size: 1.22rem !important;
+    line-height: 1.16 !important;
+  }
+
+  #products .app-hover-card p,
+  #products .gb-app-card p {
+    margin-top: 0.85rem !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    font-size: 0.84rem !important;
+    line-height: 1.55 !important;
+  }
+
+  #products .app-hover-card span,
+  #products .gb-app-card span {
+    max-width: 100% !important;
+  }
+
+  #products .app-hover-card > div > div:last-child,
+  #products .gb-app-card > div > div:last-child {
+    padding-top: 1.1rem !important;
+  }
+
+  #products .app-hover-card > div > div:last-child span:first-child,
+  #products .gb-app-card > div > div:last-child span:first-child {
+    font-size: 0.82rem !important;
+  }
+
+  #products .app-hover-card > div > div:last-child span:last-child,
+  #products .gb-app-card > div > div:last-child span:last-child {
+    height: 2.55rem !important;
+    width: 2.55rem !important;
+    font-size: 1.05rem !important;
+  }
+
+  #products .app-carousel-edge,
+  #products .gb-apps-edge {
+    width: 22px !important;
+    opacity: 0.45 !important;
+    pointer-events: none !important;
+  }
+
+  #products .app-carousel-edge-left,
+  #products .gb-apps-edge-left {
+    background: linear-gradient(90deg, #f8fbff 0%, rgba(248, 251, 255, 0.35) 45%, rgba(248, 251, 255, 0) 100%) !important;
+  }
+
+  #products .app-carousel-edge-right,
+  #products .gb-apps-edge-right {
+    background: linear-gradient(270deg, #f8fbff 0%, rgba(248, 251, 255, 0.35) 45%, rgba(248, 251, 255, 0) 100%) !important;
+  }
+
+  #products .app-side-hover-btn,
+  #products .gb-apps-arrow {
+    display: none !important;
+  }
+
+  #products .app-marquee-track,
+  #products .gb-apps-track {
+    animation-duration: 42s !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #products .app-hover-card,
+  #products .gb-app-card {
+    flex-basis: 72vw !important;
+    width: 72vw !important;
+    max-width: 292px !important;
+  }
+
+  #products .app-hover-card > div,
+  #products .gb-app-card > div {
+    min-height: 365px !important;
+    padding: 1rem !important;
+  }
+
+  #products .app-hover-card h3,
+  #products .gb-app-card h3 {
+    font-size: 1.12rem !important;
+  }
+}
+/* End Growblic live apps mobile premium polish */
+
+
+/* Growblic live apps remove side blur */
+#products .app-carousel-edge,
+#products .gb-apps-edge,
+#products .app-carousel-edge-left,
+#products .app-carousel-edge-right,
+#products .gb-apps-edge-left,
+#products .gb-apps-edge-right {
+  display: none !important;
+  opacity: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
+}
+/* End Growblic live apps remove side blur */
+
+
+/* Growblic live apps hide mobile arrows */
+@media (max-width: 767px) {
+  #products .app-side-hover-btn,
+  #products .gb-apps-arrow {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+/* End Growblic live apps hide mobile arrows */
+

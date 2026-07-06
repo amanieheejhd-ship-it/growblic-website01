@@ -65,23 +65,23 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="growblic-scroll-reveal relative overflow-hidden border-y border-blue-100/80 bg-[radial-gradient(circle_at_18%_12%,rgba(37,99,235,0.08),transparent_28%),radial-gradient(circle_at_92%_18%,rgba(6,182,212,0.10),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] px-6 py-20"
+      className="growblic-scroll-reveal relative overflow-hidden border-y border-blue-100/80 bg-[radial-gradient(circle_at_18%_12%,rgba(37,99,235,0.08),transparent_28%),radial-gradient(circle_at_92%_18%,rgba(6,182,212,0.10),transparent_32%),linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] px-4 py-14 sm:px-6 sm:py-16 lg:py-20"
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="space-y-6">
+      <div className="relative z-10 mx-auto grid max-w-7xl min-w-0 items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="min-w-0 space-y-6">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.32em] text-blue-600 shadow-sm">
+            <div className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-blue-200 bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-blue-600 shadow-sm sm:tracking-[0.32em]">
               <MessageSquare className="h-4 w-4" />
               Contact
             </div>
 
-            <h2 className="max-w-xl text-5xl font-black tracking-[-0.06em] text-slate-950 sm:text-6xl">
+            <h2 className="max-w-xl break-words text-3xl font-black text-slate-950 sm:text-5xl lg:text-6xl">
               Start your project with Growblic
             </h2>
 
-            <p className="mt-5 max-w-xl text-lg font-medium leading-8 text-slate-600">
+            <p className="mt-5 max-w-xl text-base font-medium leading-7 text-slate-600 sm:text-lg sm:leading-8">
               Tell us what you want to build. We&apos;ll help you plan the right
               website, app, SaaS, or automation system with a clear next step.
             </p>
@@ -93,7 +93,7 @@ export default function ContactSection() {
               return (
                 <div
                   key={item.title}
-                  className="rounded-[1.5rem] border border-blue-100 bg-white/88 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]"
+                  className="min-w-0 rounded-[1.5rem] border border-blue-100 bg-white/88 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]"
                 >
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-600">
                     <Icon className="h-5 w-5" />
@@ -107,20 +107,20 @@ export default function ContactSection() {
             })}
           </div>
 
-          <div className="rounded-[1.8rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
-            <p className="mb-4 text-xs font-black uppercase tracking-[0.32em] text-blue-600">
+          <div className="min-w-0 rounded-[1.8rem] border border-blue-100 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.07)]">
+            <p className="mb-4 text-xs font-black uppercase tracking-[0.2em] text-blue-600 sm:tracking-[0.32em]">
               Direct contact
             </p>
 
             <a
               href="mailto:hello@growblic.com"
-              className="flex items-center gap-4 rounded-2xl border border-blue-100 bg-slate-50/80 p-4 transition hover:border-blue-200 hover:bg-blue-50/70"
+              className="flex min-w-0 flex-col gap-3 rounded-2xl border border-blue-100 bg-slate-50/80 p-4 transition hover:border-blue-200 hover:bg-blue-50/70 min-[380px]:flex-row min-[380px]:items-center min-[380px]:gap-4"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm">
                 <Mail className="h-5 w-5" />
               </div>
-              <div>
-                <p className="text-lg font-black text-slate-950">hello@growblic.com</p>
+              <div className="min-w-0">
+                <p className="break-all text-base font-black text-slate-950 sm:text-lg">hello@growblic.com</p>
                 <p className="text-sm font-medium text-slate-600">
                   For projects, partnerships, and support enquiries.
                 </p>
@@ -129,7 +129,7 @@ export default function ContactSection() {
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative min-w-0">
           <div className="pointer-events-none absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-blue-200/35 via-cyan-200/20 to-transparent blur-2xl" />
 
           <form
@@ -140,10 +140,10 @@ export default function ContactSection() {
               <div>
                 <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-black uppercase tracking-[0.24em] text-blue-600">
                   <ShieldCheck className="h-4 w-4" />
-                  Secure enquiry
+                  <span className="min-w-0 break-words">Secure enquiry</span>
                 </div>
 
-                <h3 className="text-3xl font-black tracking-[-0.04em] text-slate-950">
+                <h3 className="break-words text-2xl font-black text-slate-950 sm:text-3xl">
                   Project request
                 </h3>
 
@@ -152,13 +152,13 @@ export default function ContactSection() {
                 </p>
               </div>
 
-              <div className="inline-flex w-fit rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-700">
+              <div className="inline-flex w-fit max-w-full rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-cyan-700 sm:tracking-[0.22em]">
                 Free consultation
               </div>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
-              <label className="space-y-2">
+              <label className="min-w-0 space-y-2">
                 <span className="text-sm font-black text-slate-700">Name</span>
                 <input
                   required
@@ -167,7 +167,7 @@ export default function ContactSection() {
                 />
               </label>
 
-              <label className="space-y-2">
+              <label className="min-w-0 space-y-2">
                 <span className="text-sm font-black text-slate-700">Phone</span>
                 <input
                   name="phone"
@@ -176,7 +176,7 @@ export default function ContactSection() {
                 />
               </label>
 
-              <label className="space-y-2 sm:col-span-2">
+              <label className="min-w-0 space-y-2 sm:col-span-2">
                 <span className="text-sm font-black text-slate-700">Email</span>
                 <input
                   name="email"
@@ -185,7 +185,7 @@ export default function ContactSection() {
                 />
               </label>
 
-              <label className="space-y-2">
+              <label className="min-w-0 space-y-2">
                 <span className="text-sm font-black text-slate-700">Project Type</span>
                 <select
                   name="projectType"
@@ -204,7 +204,7 @@ export default function ContactSection() {
                 </select>
               </label>
 
-              <label className="space-y-2">
+              <label className="min-w-0 space-y-2">
                 <span className="text-sm font-black text-slate-700">Budget Range</span>
                 <select
                   name="budgetRange"
@@ -222,7 +222,7 @@ export default function ContactSection() {
                 </select>
               </label>
 
-              <label className="space-y-2 sm:col-span-2">
+              <label className="min-w-0 space-y-2 sm:col-span-2">
                 <span className="text-sm font-black text-slate-700">Message</span>
                 <textarea
                   required
@@ -250,7 +250,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="group inline-flex h-14 items-center justify-center gap-3 rounded-full bg-slate-950 px-8 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+                className="group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
               >
                 {status === "loading" ? "Sending..." : "Request Free Consultation"}
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />

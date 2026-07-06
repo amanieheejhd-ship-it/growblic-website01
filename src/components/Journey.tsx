@@ -24,7 +24,7 @@ const milestones = [
 
 export default function Journey() {
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-20 sm:py-24">
+    <section className="relative overflow-hidden bg-white px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(239,246,255,0.62),rgba(255,255,255,0)_34%),radial-gradient(circle_at_50%_12%,rgba(6,182,212,0.10),transparent_30%)]" />
 
       <div className="relative mx-auto max-w-7xl">

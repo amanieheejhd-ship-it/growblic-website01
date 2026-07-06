@@ -88,7 +88,7 @@ export default function Process() {
           </p>
         </motion.div>
 
-        <div className="relative mt-16 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+        <div className="relative mt-10 grid min-w-0 gap-5 sm:mt-16 sm:grid-cols-2 xl:grid-cols-5">
           <div className="pointer-events-none absolute left-0 right-0 top-[5.25rem] hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent xl:block" />
 
           {steps.map((step, index) => {

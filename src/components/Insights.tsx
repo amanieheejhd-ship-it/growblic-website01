@@ -60,7 +60,7 @@ const insights = [
 
 export default function Insights() {
   return (
-    <section className="relative overflow-hidden bg-[#fbfdff] px-6 py-20 sm:py-24">
+    <section className="relative overflow-hidden bg-[#fbfdff] px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(37,99,235,0.10),transparent_28%),radial-gradient(circle_at_86%_16%,rgba(124,58,237,0.09),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0),rgba(239,246,255,0.38))]" />
 
       <div className="relative mx-auto max-w-7xl">

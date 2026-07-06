@@ -34,7 +34,23 @@ export default function FeaturedProducts() {
     slider.scrollLeft += amount;
   };
 
+  const clickMove = (amount: number) => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    resetLoop();
+    slider.scrollBy({ left: amount, behavior: "smooth" });
+
+    window.setTimeout(() => {
+      resetLoop();
+    }, 380);
+  };
+
   const startFastMove = (direction: "left" | "right") => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      return;
+    }
+
     stopFastMove();
 
     hoverTimerRef.current = window.setInterval(() => {

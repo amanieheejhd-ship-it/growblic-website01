@@ -33,7 +33,7 @@ export default function StartProjectPage() {
                 Start a Project
               </p>
 
-              <h1 className="mt-5 text-5xl font-black leading-[0.94] tracking-tight text-slate-950 sm:text-6xl md:text-8xl">
+              <h1 className="mt-5 break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl md:text-6xl lg:text-7xl">
                 Tell us what you want to build.
               </h1>
 
