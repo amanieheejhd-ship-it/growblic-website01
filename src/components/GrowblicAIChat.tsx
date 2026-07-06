@@ -17,6 +17,48 @@ type ChatMessage = {
   content: string;
 };
 
+type SpeechRecognitionResultItem = {
+  transcript: string;
+};
+
+type SpeechRecognitionResult = {
+  isFinal: boolean;
+  [index: number]: SpeechRecognitionResultItem;
+};
+
+type SpeechRecognitionResultList = {
+  length: number;
+  [index: number]: SpeechRecognitionResult;
+};
+
+type SpeechRecognitionEvent = Event & {
+  resultIndex: number;
+  results: SpeechRecognitionResultList;
+};
+
+type SpeechRecognitionErrorEvent = Event & {
+  error: string;
+};
+
+type SpeechRecognitionInstance = {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+};
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance;
+
+type SpeechWindow = Window & {
+  SpeechRecognition?: SpeechRecognitionConstructor;
+  webkitSpeechRecognition?: SpeechRecognitionConstructor;
+};
+
 const API_URL =
   process.env.NEXT_PUBLIC_GROWBLIC_API_URL || "https://growblic-api.onrender.com";
 const FETCH_TIMEOUT_MS = 7000;
@@ -41,10 +83,27 @@ export default function GrowblicAIChat() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+  const [isListening, setIsListening] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const [voiceStatus, setVoiceStatus] = useState("");
   const hasUserMessage = messages.some((item) => item.role === "user");
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const requestControllerRef = useRef<AbortController | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
+  const speechBaseMessageRef = useRef("");
+
+  useEffect(() => {
+    const speechWindow = window as SpeechWindow;
+    setSpeechSupported(
+      Boolean(speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition),
+    );
+
+    return () => {
+      recognitionRef.current?.abort();
+      recognitionRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -65,10 +124,103 @@ export default function GrowblicAIChat() {
   function resetChat() {
     requestControllerRef.current?.abort();
     requestControllerRef.current = null;
+    recognitionRef.current?.abort();
+    recognitionRef.current = null;
     setOpen(false);
     setMessage("");
     setLoading(false);
+    setIsListening(false);
+    setVoiceStatus("");
     setMessages(initialMessages);
+  }
+
+  function addAssistantNotice(content: string) {
+    setMessages((items) => [...items, { role: "assistant", content }]);
+  }
+
+  function getSpeechRecognition() {
+    const speechWindow = window as SpeechWindow;
+    return speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
+  }
+
+  function stopListening() {
+    recognitionRef.current?.stop();
+    setIsListening(false);
+    setVoiceStatus("");
+  }
+
+  function handleVoiceInput() {
+    const SpeechRecognition = getSpeechRecognition();
+
+    if (!SpeechRecognition) {
+      setSpeechSupported(false);
+      setVoiceStatus("");
+      addAssistantNotice(
+        "Voice input is not supported in this browser. Please type your message.",
+      );
+      return;
+    }
+
+    setSpeechSupported(true);
+
+    if (isListening) {
+      stopListening();
+      return;
+    }
+
+    recognitionRef.current?.abort();
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognitionRef.current = recognition;
+    speechBaseMessageRef.current = message.trim() ? `${message.trim()} ` : "";
+
+    recognition.onresult = (event) => {
+      let transcript = "";
+
+      for (let index = 0; index < event.results.length; index += 1) {
+        transcript += event.results[index][0]?.transcript || "";
+      }
+
+      setMessage(`${speechBaseMessageRef.current}${transcript}`.trimStart());
+      setVoiceStatus(transcript.trim() ? "Listening..." : "Waiting for speech...");
+    };
+
+    recognition.onerror = (event) => {
+      setIsListening(false);
+      setVoiceStatus("");
+
+      if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+        addAssistantNotice(
+          "Microphone permission was denied. Please allow microphone access or type your message.",
+        );
+        return;
+      }
+
+      if (event.error === "no-speech") {
+        addAssistantNotice("I couldn't hear anything. Please try again or type your message.");
+        return;
+      }
+
+      addAssistantNotice("Voice input stopped unexpectedly. Please try again or type your message.");
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+      setVoiceStatus("");
+    };
+
+    try {
+      recognition.start();
+      setIsListening(true);
+      setVoiceStatus("Listening...");
+    } catch {
+      setIsListening(false);
+      setVoiceStatus("");
+      addAssistantNotice("Voice input could not start. Please try again or type your message.");
+    }
   }
 
   async function sendMessage(customMessage?: string) {
@@ -267,16 +419,23 @@ export default function GrowblicAIChat() {
               >
                 <button
                   type="button"
-                  aria-label="Voice input unavailable"
-                  disabled
-                  className="grid h-9 w-9 shrink-0 cursor-not-allowed place-items-center rounded-full text-slate-300 sm:h-10 sm:w-10"
+                  aria-label={isListening ? "Stop voice input" : "Start voice input"}
+                  aria-pressed={isListening}
+                  onClick={handleVoiceInput}
+                  className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border transition duration-200 sm:h-10 sm:w-10 ${
+                    isListening
+                      ? "border-blue-300 bg-blue-50 text-blue-700 shadow-[0_0_0_4px_rgba(59,130,246,0.16),0_12px_28px_rgba(37,99,235,0.22)] ring-1 ring-blue-200"
+                      : speechSupported
+                        ? "border-slate-200 bg-white text-slate-500 shadow-sm hover:-translate-y-0.5 hover:border-sky-200 hover:text-blue-600 hover:shadow-[0_12px_26px_rgba(14,165,233,0.14)]"
+                        : "border-slate-200 bg-slate-50 text-slate-400 hover:border-slate-300 hover:text-slate-500"
+                  }`}
                 >
                   <Mic className="h-4 w-4" />
                 </button>
                 <input
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  placeholder="Ask Growblic Assistant…"
+                  placeholder={isListening ? "Listening..." : "Ask Growblic Assistant…"}
                   className="min-w-0 flex-1 bg-transparent px-1 text-sm font-semibold text-slate-800 outline-none placeholder:text-slate-400"
                 />
                 <button
@@ -293,8 +452,13 @@ export default function GrowblicAIChat() {
                 </button>
               </form>
 
-              <p className="mt-3 text-center text-[11px] font-semibold leading-5 text-slate-400">
-                Growblic Assistant helps with Growblic services and project guidance.
+              <p
+                className={`mt-3 text-center text-[11px] font-semibold leading-5 ${
+                  isListening ? "text-blue-600" : "text-slate-400"
+                }`}
+              >
+                {voiceStatus ||
+                  "Growblic Assistant helps with Growblic services and project guidance."}
               </p>
             </div>
           </section>
