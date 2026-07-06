@@ -254,7 +254,7 @@ export default function GrowblicAIChat() {
                 <div className="flex justify-start">
                   <div className="inline-flex animate-[growblicMessageIn_190ms_ease-out_both] items-center gap-2 rounded-[20px] rounded-bl-md border border-slate-200/80 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-[0_10px_30px_rgba(15,23,42,0.06)] ring-1 ring-white/80">
                     <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                    Typing…
+                    • Thinking...
                   </div>
                 </div>
               ) : null}
