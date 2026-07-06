@@ -1,169 +1,159 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Humans of Growblic | Growblic Careers",
-  description:
-    "Meet the people behind Growblic culture, product building, software delivery, and digital execution.",
-};
+import { useState } from "react";
 
-const teamMembers = [
+const people = [
   {
     name: "Bintu Malik",
     role: "Founder",
+    badge: "Founder",
     image: "/growblic-website01/images/team/bintu-malik.jpg",
-    alt: "Bintu Malik, Founder of Growblic",
-    line: "Leading Growblic's product, software, and digital growth vision.",
+    text: "Leading Growblic's product, software, and digital growth vision.",
   },
   {
     name: "Jaspreet Singh Thind",
     role: "Backend Developer",
+    badge: "Backend Developer",
     image: "/growblic-website01/images/team/jaspreet-singh-thind-v01.jpg",
-    alt: "Jaspreet Singh Thind, Backend Developer at Growblic",
-    line: "Building reliable backend systems, APIs, and scalable product foundations.",
+    text: "Building reliable backend systems, APIs, and scalable product foundations.",
   },
   {
     name: "Gautam",
     role: "Frontend Developer",
+    badge: "Frontend Developer",
     image: "/growblic-website01/images/team/gautam-frontend-developer.jpg",
-    alt: "Gautam, Frontend Developer at Growblic",
-    line: "Building clean frontend interfaces, responsive layouts, and smooth user experiences.",
+    text: "Building clean frontend interfaces, responsive layouts, and smooth user experiences.",
   },
   {
-    name: "Madhu Bala",
+    name: "Human Resources",
     role: "HR",
+    badge: "HR",
     image: "/growblic-website01/images/team/madhu-bala-hr.jpg",
-    alt: "Madhu Bala, HR at Growblic",
-    line: "Supporting team culture, hiring coordination, and people operations at Growblic.",
+    text: "Supporting people operations, team coordination, and hiring workflows.",
   },
   {
-    name: "Deepak",
+    name: "Business Analyst",
     role: "Business Analyst",
+    badge: "Business Analyst",
     image: "/growblic-website01/images/team/deepak-business-analyst.jpg",
-    alt: "Deepak, Business Analyst at Growblic",
-    line: "Turning business needs into clear product requirements, workflow insights, and practical solutions.",
+    text: "Understanding client needs, product flows, and practical business requirements.",
   },
   {
-    name: "Bhumit Sharma",
+    name: "Growth Partner",
     role: "Business Analyst",
+    badge: "Business Analyst",
     image: "/growblic-website01/images/team/bhumit-sharma-business-analyst.jpg",
-    alt: "Bhumit Sharma, Business Analyst at Growblic",
-    line: "Turning business needs into clear product requirements, workflow insights, and practical solutions.",
+    text: "Helping shape client communication, project planning, and digital growth direction.",
   },
- ];
+];
 
+export default function CareersHumansPage() {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
-export default function HumansPage() {
   return (
-    <main className="relative overflow-hidden bg-[#f5f9ff] text-slate-950">
-      <section className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-200/50 blur-3xl" />
-          <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-blue-200/50 blur-3xl" />
-          <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
-        </div>
-
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/70 p-5 shadow-[0_24px_90px_rgba(15,23,42,0.10)] backdrop-blur-xl sm:p-8 lg:p-10">
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.055)_1px,transparent_1px)] bg-[size:34px_34px]" />
-          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyan-200/60 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-blue-200/60 blur-3xl" />
-
-          <div className="relative">
-            <div className="mb-12 overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.13)] backdrop-blur-xl sm:p-8 lg:p-10">
-              <div className="relative">
-                <div className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 animate-pulse rounded-full bg-cyan-200/70 blur-3xl" />
-                <div className="pointer-events-none absolute -right-16 -bottom-16 h-44 w-44 animate-pulse rounded-full bg-blue-200/70 blur-3xl" />
-
-                <div className="relative">
-                  <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-blue-100 bg-blue-50/80 px-4 py-2 shadow-sm">
-                    <span className="h-2 w-2 animate-ping rounded-full bg-blue-600" />
-                    <span className="text-xs font-black uppercase tracking-[0.35em] text-blue-600">
-                      Growblic Team
-                    </span>
-                  </div>
-
-                  <h1 className="max-w-5xl text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl lg:text-7xl">
-                    People who build the future of{" "}
-                    <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 bg-clip-text text-transparent">
-                      Growblic.
-                    </span>
-                  </h1>
-
-                  <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-                    A focused team of builders, analysts, developers, and operators working together to create premium digital products.
-                  </p>
-                </div>
-              </div>
+    <main className="min-h-screen overflow-hidden bg-[#f8fbff] text-slate-950">
+      <section className="relative border-b border-blue-100/70 px-4 py-5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5">
+          <div className="flex items-center gap-4">
+            <div className="grid h-11 w-11 place-items-center rounded-full bg-black text-white shadow-xl shadow-blue-100">
+              <span className="text-xl">◒</span>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {teamMembers.map((person, index) => (
-                <article
-                  id={person.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
-                  key={person.name}
-                  style={{ animationDelay: `${index * 90}ms` }}
-                  className="team-card-animate group relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white shadow-[0_18px_60px_rgba(15,23,42,0.11)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_90px_rgba(37,99,235,0.22)]"
-                >
-                  <div className="relative aspect-[4/4.15] overflow-hidden">
-                    <img
-                      src={person.image}
-                      alt={person.alt}
-                      className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105"
-                    />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent opacity-70 transition duration-500 group-hover:opacity-85" />
-
-                    <div className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-4 py-2 shadow-xl backdrop-blur-md">
-                      <p className="text-[10px] font-black uppercase tracking-[0.32em] text-blue-600">
-                        {person.role}
-                      </p>
-                    </div>
-
-                    <div className="absolute inset-x-4 bottom-4 rounded-[1.35rem] border border-white/70 bg-white/92 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.22)] backdrop-blur-xl transition duration-500 sm:translate-y-5 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
-                      <h2 className="text-2xl font-black tracking-[-0.04em] text-slate-950">
-                        {person.name}
-                      </h2>
-                      <p className="mt-2 text-xs font-black uppercase tracking-[0.28em] text-slate-500">
-                        {person.role}
-                      </p>
-                      <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
-                        {person.line}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-8 rounded-[1.5rem] border border-blue-100 bg-white/75 p-5 text-center shadow-[0_18px_60px_rgba(15,23,42,0.08)]">
-              <p className="text-sm font-bold leading-7 text-slate-600">
-                Growblic is built by people who care about clean design, strong software, clear communication, and practical business outcomes.
+            <div className="min-w-0">
+              <p className="text-lg font-black uppercase tracking-[0.32em] sm:text-2xl">
+                Growblic Careers
+              </p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-[0.22em] text-blue-600 sm:hidden">
+                Tap a photo to view info
               </p>
             </div>
+          </div>
+
+          <div className="flex gap-3 overflow-x-auto pb-1">
+            {["Careers Home", "Perks", "Values", "Openings"].map((item) => (
+              <span
+                key={item}
+                className="shrink-0 rounded-full border border-blue-100 bg-white px-6 py-3 text-xs font-black uppercase tracking-[0.24em] text-slate-700 shadow-sm"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      <style>{`
-        html {
-          scroll-behavior: smooth;
-        }
+      <section className="relative px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(37,99,235,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.08)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
-        @keyframes teamCardEnter {
-          from {
-            opacity: 0;
-            transform: translateY(28px) scale(0.97);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-8 max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600">
+              Humans of Growblic
+            </p>
+            <h1 className="mt-3 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+              The people building Growblic.
+            </h1>
+            <p className="mt-4 text-base font-semibold leading-7 text-slate-600 sm:text-lg">
+              Meet the people behind Growblic&apos;s products, software systems, and digital growth work.
+            </p>
+          </div>
 
-        .team-card-animate {
-          opacity: 0;
-          animation: teamCardEnter 0.75s ease forwards;
-        }
-      `}</style>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {people.map((person, index) => {
+              const isActive = activeCard === index;
+
+              return (
+                <button
+                  type="button"
+                  key={person.name}
+                  onClick={() => setActiveCard(isActive ? null : index)}
+                  className="group relative block min-h-[390px] overflow-hidden rounded-[2rem] border border-blue-100 bg-white text-left shadow-xl shadow-blue-100/50 outline-none transition duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-200/60 focus-visible:ring-4 focus-visible:ring-blue-200 sm:min-h-[470px] lg:min-h-[520px]"
+                >
+                  <img
+                    src={person.image}
+                    alt={person.name}
+                    onError={(event) => {
+                      event.currentTarget.src =
+                        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1100' viewBox='0 0 900 1100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23dbeafe'/%3E%3Cstop offset='1' stop-color='%23f8fafc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='900' height='1100' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%230f172a' font-size='54' font-family='Arial' font-weight='800'%3EGrowblic%3C/text%3E%3C/svg%3E";
+                    }}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-white/10" />
+
+                  <span className="absolute left-4 top-4 z-10 rounded-full bg-white/95 px-5 py-3 text-[0.62rem] font-black uppercase tracking-[0.34em] text-blue-600 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
+                    {person.badge}
+                  </span>
+
+                  <span className="absolute bottom-4 right-4 z-10 rounded-full bg-white/90 px-4 py-2 text-[0.65rem] font-black uppercase tracking-[0.22em] text-slate-700 shadow-lg backdrop-blur-xl sm:hidden">
+                    Tap
+                  </span>
+
+                  <div
+                    className={`absolute inset-x-4 bottom-4 z-20 rounded-[1.5rem] bg-white/92 p-5 shadow-2xl shadow-slate-950/15 backdrop-blur-2xl transition duration-500 sm:translate-y-0 sm:opacity-100 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 ${
+                      isActive
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-8 opacity-0 sm:opacity-100"
+                    }`}
+                  >
+                    <h2 className="break-words text-2xl font-black leading-tight tracking-tight text-slate-950 sm:text-3xl">
+                      {person.name}
+                    </h2>
+
+                    <p className="mt-3 text-xs font-black uppercase tracking-[0.32em] text-slate-500">
+                      {person.role}
+                    </p>
+
+                    <p className="mt-5 text-sm font-semibold leading-7 text-slate-600 sm:text-base">
+                      {person.text}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
