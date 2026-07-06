@@ -59,9 +59,18 @@ type SpeechWindow = Window & {
   webkitSpeechRecognition?: SpeechRecognitionConstructor;
 };
 
+type ChatRequestError = Error & {
+  status?: number;
+  retryable: boolean;
+  aborted?: boolean;
+};
+
 const API_URL =
   process.env.NEXT_PUBLIC_GROWBLIC_API_URL || "https://growblic-api.onrender.com";
-const FETCH_TIMEOUT_MS = 7000;
+const FETCH_TIMEOUT_MS = 60000;
+const RETRY_DELAY_MS = 900;
+const ASSISTANT_CONNECTION_ERROR =
+  "Growblic Assistant could not connect right now. Please try again in a moment.";
 
 const initialMessages: ChatMessage[] = [
   {
@@ -90,6 +99,10 @@ export default function GrowblicAIChat() {
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const requestControllerRef = useRef<AbortController | null>(null);
+  const warmupControllerRef = useRef<AbortController | null>(null);
+  const requestTimeoutRef = useRef<number | null>(null);
+  const retryTimeoutRef = useRef<number | null>(null);
+  const requestRunRef = useRef(0);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const speechBaseMessageRef = useRef("");
 
@@ -100,7 +113,14 @@ export default function GrowblicAIChat() {
     );
 
     return () => {
+      requestRunRef.current += 1;
+      requestControllerRef.current?.abort();
+      warmupControllerRef.current?.abort();
+      clearRequestTimeout();
+      clearRetryTimeout();
       recognitionRef.current?.abort();
+      requestControllerRef.current = null;
+      warmupControllerRef.current = null;
       recognitionRef.current = null;
     };
   }, []);
@@ -113,17 +133,49 @@ export default function GrowblicAIChat() {
   }, [messages, loading, open]);
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") resetChat();
-    };
+    if (!open) return;
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+    const controller = new AbortController();
+    warmupControllerRef.current?.abort();
+    warmupControllerRef.current = controller;
+
+    fetch(API_URL, {
+      method: "GET",
+      signal: controller.signal,
+    }).catch(() => {
+      // Warm-up is best-effort only; user-visible chat requests handle their own errors.
+    });
+
+    return () => {
+      controller.abort();
+      if (warmupControllerRef.current === controller) {
+        warmupControllerRef.current = null;
+      }
+    };
+  }, [open]);
+
+  function clearRequestTimeout() {
+    if (requestTimeoutRef.current !== null) {
+      window.clearTimeout(requestTimeoutRef.current);
+      requestTimeoutRef.current = null;
+    }
+  }
+
+  function clearRetryTimeout() {
+    if (retryTimeoutRef.current !== null) {
+      window.clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = null;
+    }
+  }
 
   function resetChat() {
+    requestRunRef.current += 1;
     requestControllerRef.current?.abort();
+    warmupControllerRef.current?.abort();
     requestControllerRef.current = null;
+    warmupControllerRef.current = null;
+    clearRequestTimeout();
+    clearRetryTimeout();
     recognitionRef.current?.abort();
     recognitionRef.current = null;
     setOpen(false);
@@ -136,6 +188,44 @@ export default function GrowblicAIChat() {
 
   function addAssistantNotice(content: string) {
     setMessages((items) => [...items, { role: "assistant", content }]);
+  }
+
+  function createChatRequestError(
+    messageText: string,
+    retryable: boolean,
+    status?: number,
+    aborted = false,
+  ): ChatRequestError {
+    const error = new Error(messageText) as ChatRequestError;
+    error.retryable = retryable;
+    error.status = status;
+    error.aborted = aborted;
+    return error;
+  }
+
+  function isRetryableStatus(status: number) {
+    return status >= 500 || status === 408 || status === 429;
+  }
+
+  function logChatRequestError(attempt: number, error: unknown, status?: number) {
+    const messageText = error instanceof Error ? error.message : "Unknown chat request error";
+
+    console.error("Growblic Assistant request failed", {
+      attempt,
+      status,
+      message: messageText,
+    });
+  }
+
+  function waitForRetry() {
+    clearRetryTimeout();
+
+    return new Promise<void>((resolve) => {
+      retryTimeoutRef.current = window.setTimeout(() => {
+        retryTimeoutRef.current = null;
+        resolve();
+      }, RETRY_DELAY_MS);
+    });
   }
 
   function getSpeechRecognition() {
@@ -223,23 +313,20 @@ export default function GrowblicAIChat() {
     }
   }
 
-  async function sendMessage(customMessage?: string) {
-    const finalMessage = (customMessage || message).trim();
-    if (!finalMessage || loading) return;
-
-    setMessage("");
-    setLoading(true);
+  async function fetchChatReply(
+    finalMessage: string,
+    history: ChatMessage[],
+    attempt: number,
+  ) {
     const controller = new AbortController();
-
     let timedOut = false;
-    requestControllerRef.current?.abort();
+
     requestControllerRef.current = controller;
-    const timeout = window.setTimeout(() => {
+    clearRequestTimeout();
+    requestTimeoutRef.current = window.setTimeout(() => {
       timedOut = true;
       controller.abort();
     }, FETCH_TIMEOUT_MS);
-
-    setMessages((items) => [...items, { role: "user", content: finalMessage }]);
 
     try {
       const response = await fetch(`${API_URL}/ai/chat`, {
@@ -249,25 +336,135 @@ export default function GrowblicAIChat() {
         },
         body: JSON.stringify({
           message: finalMessage,
-          history: messages.slice(-10),
+          originalMessage: finalMessage,
+          language: "en",
+          history,
         }),
         signal: controller.signal,
       });
 
       if (!response.ok) {
-        throw new Error("AI request failed");
+        throw createChatRequestError(
+          `Chat request returned HTTP ${response.status}`,
+          isRetryableStatus(response.status),
+          response.status,
+        );
       }
 
-      const data = (await response.json()) as { reply?: string };
-      if (data.reply) {
-        setMessages((items) => [...items, { role: "assistant", content: data.reply || "" }]);
+      let data: { reply?: unknown };
+
+      try {
+        data = (await response.json()) as { reply?: unknown };
+      } catch {
+        throw createChatRequestError("Chat response was not valid JSON", true, response.status);
       }
-    } catch {
-      if (controller.signal.aborted && !timedOut) return;
+
+      if (typeof data.reply !== "string" || !data.reply.trim()) {
+        throw createChatRequestError("Chat response did not include a reply", true, response.status);
+      }
+
+      return data.reply.trim();
+    } catch (error) {
+      const status = error instanceof Error && "status" in error
+        ? (error as ChatRequestError).status
+        : undefined;
+
+      if (controller.signal.aborted && timedOut) {
+        const timeoutError = createChatRequestError("Chat request timed out", true, status);
+        logChatRequestError(attempt, timeoutError, timeoutError.status);
+        throw timeoutError;
+      }
+
+      if (controller.signal.aborted) {
+        const abortError = createChatRequestError(
+          "Chat request was aborted",
+          false,
+          status,
+          true,
+        );
+        logChatRequestError(attempt, abortError, abortError.status);
+        throw abortError;
+      }
+
+      const chatError =
+        error instanceof Error && "retryable" in error
+          ? (error as ChatRequestError)
+          : createChatRequestError(
+              error instanceof Error ? error.message : "Network request failed",
+              true,
+              status,
+            );
+
+      logChatRequestError(attempt, chatError, chatError.status);
+      throw chatError;
     } finally {
-      window.clearTimeout(timeout);
+      clearRequestTimeout();
       if (requestControllerRef.current === controller) {
         requestControllerRef.current = null;
+      }
+    }
+  }
+
+  async function sendMessage(customMessage?: string) {
+    const finalMessage = (customMessage || message).trim();
+    if (!finalMessage || loading) return;
+
+    if (isListening) {
+      stopListening();
+    }
+
+    setMessage("");
+    setLoading(true);
+    requestControllerRef.current?.abort();
+    clearRequestTimeout();
+    clearRetryTimeout();
+    const requestRun = requestRunRef.current + 1;
+    requestRunRef.current = requestRun;
+    const history = messages.slice(-10);
+    setMessages((items) => [...items, { role: "user", content: finalMessage }]);
+
+    try {
+      let reply: string;
+
+      try {
+        reply = await fetchChatReply(finalMessage, history, 1);
+      } catch (firstError) {
+        const retryable =
+          firstError instanceof Error &&
+          "retryable" in firstError &&
+          (firstError as ChatRequestError).retryable;
+
+        if (!retryable) {
+          throw firstError;
+        }
+
+        await waitForRetry();
+
+        if (requestRunRef.current !== requestRun) {
+          throw createChatRequestError("Chat request was aborted", false, undefined, true);
+        }
+
+        reply = await fetchChatReply(finalMessage, history, 2);
+      }
+
+      if (requestRunRef.current !== requestRun) return;
+
+      setMessages((items) => [...items, { role: "assistant", content: reply }]);
+    } catch (error) {
+      const aborted =
+        error instanceof Error && "aborted" in error && (error as ChatRequestError).aborted;
+
+      if (aborted || requestRunRef.current !== requestRun) return;
+
+      setMessages((items) => [
+        ...items,
+        { role: "assistant", content: ASSISTANT_CONNECTION_ERROR },
+      ]);
+    } finally {
+      if (requestRunRef.current === requestRun) {
+        requestControllerRef.current = null;
+        clearRequestTimeout();
+        clearRetryTimeout();
         setLoading(false);
       }
     }
