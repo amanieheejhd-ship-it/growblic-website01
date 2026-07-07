@@ -33,10 +33,10 @@ function SectionHeader({
 }) {
  return (
   <div className="max-w-4xl">
-   <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">
+   <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:text-sm sm:tracking-[0.28em]">
     {eyebrow}
    </p>
-   <h2 className="mt-4 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
+   <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
     {title}
    </h2>
    <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600">
@@ -56,7 +56,7 @@ function ProductDownloadCard({
  const image = product.imageSlides[0] ?? "/growblic-website01/images/products/client-login.svg";
 
  return (
-  <article className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
+  <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">
    <div className="relative h-52 bg-blue-50">
     <Image
      src={image}
@@ -66,17 +66,17 @@ function ProductDownloadCard({
      className="object-cover"
      unoptimized
     />
-    <span className="absolute left-5 top-5 rounded-full border border-white/70 bg-white/95 px-3 py-1.5 text-xs font-black text-blue-700 shadow-lg backdrop-blur">
+    <span className="absolute left-4 right-4 top-4 max-w-[calc(100%-2rem)] rounded-full border border-white/70 bg-white/95 px-3 py-1.5 text-xs font-black text-blue-700 shadow-lg backdrop-blur sm:left-5 sm:right-auto sm:top-5">
      {product.category}
     </span>
    </div>
 
    <div className="flex flex-1 flex-col p-6">
-    <div className="flex justify-between gap-4">
-     <h3 className="text-2xl font-black leading-tight text-slate-950">
+    <div className="flex min-w-0 flex-col gap-3 min-[420px]:flex-row min-[420px]:justify-between">
+     <h3 className="min-w-0 break-words text-2xl font-black leading-tight text-slate-950">
       {product.title}
      </h3>
-     <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">
+     <span className="w-fit rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">
       {product.status}
      </span>
     </div>
@@ -107,13 +107,13 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
  const hasDownload = isRealPlayStoreLink(app.playStore);
 
  return (
-  <article className="group relative isolate flex h-full min-h-[26rem] overflow-hidden rounded-[2rem] border border-white/75 bg-white/62 p-6 shadow-[0_24px_70px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl transition duration-300 before:absolute before:inset-0 before:-z-10 before:bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(239,246,255,0.72)_42%,rgba(219,234,254,0.58))] after:absolute after:-left-24 after:top-0 after:h-full after:w-20 after:-skew-x-12 after:bg-white/45 after:opacity-0 after:blur-sm after:transition-all after:duration-700 hover:-translate-y-1.5 hover:scale-[1.01] hover:border-blue-200/90 hover:shadow-[0_32px_90px_rgba(37,99,235,0.24)] hover:after:left-[118%] hover:after:opacity-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100">
+  <article className="group relative isolate flex h-full min-h-[26rem] min-w-0 overflow-hidden rounded-[2rem] border border-white/75 bg-white/62 p-5 shadow-[0_24px_70px_rgba(37,99,235,0.16)] ring-1 ring-blue-100/70 backdrop-blur-2xl transition duration-300 before:absolute before:inset-0 before:-z-10 before:bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(239,246,255,0.72)_42%,rgba(219,234,254,0.58))] after:absolute after:-left-24 after:top-0 after:h-full after:w-20 after:-skew-x-12 after:bg-white/45 after:opacity-0 after:blur-sm after:transition-all after:duration-700 hover:-translate-y-1.5 hover:scale-[1.01] hover:border-blue-200/90 hover:shadow-[0_32px_90px_rgba(37,99,235,0.24)] hover:after:left-[118%] hover:after:opacity-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100 sm:p-6">
    <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-90" />
    <div className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-blue-300/24 blur-3xl transition duration-500 group-hover:bg-cyan-300/30" />
    <div className="pointer-events-none absolute -bottom-16 left-8 h-40 w-40 rounded-full bg-sky-100/70 blur-3xl" />
 
    <div className="relative flex h-full flex-col">
-    <div className="flex gap-4">
+    <div className="flex min-w-0 gap-4">
      <span className="relative grid h-20 w-20 shrink-0 place-items-stretch overflow-hidden rounded-[1.5rem] border border-white/80 bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_18px_40px_rgba(37,99,235,0.18)] ring-1 ring-blue-100/80 backdrop-blur-xl">
       <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,0.95),transparent_34%),linear-gradient(135deg,rgba(219,234,254,0.42),transparent)]" />
       <Image
@@ -125,11 +125,11 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
        unoptimized
       />
      </span>
-     <div>
-      <span className="inline-flex rounded-full border border-white/80 bg-white/55 px-3 py-1.5 text-xs font-black text-blue-700 shadow-sm shadow-blue-100/60 backdrop-blur-xl">
+     <div className="min-w-0">
+      <span className="inline-flex max-w-full break-words rounded-full border border-white/80 bg-white/55 px-3 py-1.5 text-xs font-black text-blue-700 shadow-sm shadow-blue-100/60 backdrop-blur-xl">
        {app.category}
       </span>
-      <h3 className="mt-3 text-2xl font-black leading-tight text-slate-950">
+      <h3 className="mt-3 break-words text-2xl font-black leading-tight text-slate-950">
        {app.name}
       </h3>
      </div>
@@ -176,13 +176,13 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
 
 export default function DownloadsPage() {
  return (
-  <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+  <main className="min-h-screen bg-[#fbfdff]">
    <section className="relative px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
     <div className="relative mx-auto max-w-7xl min-w-0">
      <BackButton />
 
      <div className="mt-8 grid min-w-0 gap-8 sm:mt-10 lg:gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
-      <div>
+      <div className="min-w-0">
        <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:text-sm sm:tracking-[0.28em]">
         Growblic Downloads
        </p>
@@ -212,10 +212,10 @@ export default function DownloadsPage() {
           className="group flex min-w-0 items-center justify-between gap-5 px-5 py-4 transition hover:bg-blue-50/70"
          >
           <span className="min-w-0">
-           <span className="block text-base font-black text-slate-950">
+           <span className="block break-words text-base font-black text-slate-950">
             {item.label}
            </span>
-           <span className="mt-1 block text-sm font-bold text-slate-500">
+           <span className="mt-1 block break-words text-sm font-bold text-slate-500">
             {item.detail}
            </span>
           </span>

@@ -171,7 +171,7 @@ export function DatacenterCoverage() {
   useEffect(() => {
     const updateSize = () => {
       const width = wrapRef.current?.clientWidth || 520;
-      setGlobeSize(Math.max(320, Math.min(width - 24, 560)));
+      setGlobeSize(Math.max(260, Math.min(width - 16, 560)));
     };
 
     updateSize();
@@ -236,14 +236,14 @@ export function DatacenterCoverage() {
     : activeRegion.focus;
 
   return (
-    <section className="mx-auto mt-16 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="rounded-[2.25rem] border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/70 p-5 shadow-[0_30px_100px_rgba(37,99,235,0.10)] backdrop-blur-2xl sm:p-8">
+    <section className="mx-auto mt-16 w-full max-w-7xl px-0 sm:px-6 lg:px-8">
+      <div className="min-w-0 rounded-[2.25rem] border border-blue-100 bg-white/85 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.10)] backdrop-blur-2xl sm:p-8">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.45em] text-blue-600">
+          <div className="min-w-0">
+            <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:tracking-[0.45em]">
               Growblic Global Deployment Coverage
             </p>
-            <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-slate-950 lg:text-5xl">
+            <h2 className="mt-4 max-w-3xl break-words text-3xl font-bold tracking-tight text-slate-950 lg:text-5xl">
               Plan launches across cloud regions without overcomplicating the stack.
             </h2>
             <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-slate-600">
@@ -252,15 +252,15 @@ export function DatacenterCoverage() {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="rounded-[2rem] border border-blue-100/80 bg-white/75 p-5 shadow-[0_22px_75px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:p-6">
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+          <div className="min-w-0 rounded-[2rem] border border-blue-100/80 bg-white/75 p-4 shadow-[0_22px_75px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:p-6">
             <div className="flex flex-wrap gap-2">
               {deploymentRegions.map((region) => (
                 <button
                   key={region.name}
                   type="button"
                   onClick={() => setActiveRegion(region)}
-                  className={`rounded-full border px-4 py-2 text-sm font-black transition ${
+                  className={`max-w-full break-words rounded-full border px-4 py-2 text-sm font-black transition ${
                     activeRegion.name === region.name
                       ? "border-transparent bg-gradient-to-r from-blue-600 to-cyan-400 text-white shadow-[0_18px_45px_rgba(37,99,235,0.24)]"
                       : "border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 text-slate-600 hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
@@ -272,21 +272,21 @@ export function DatacenterCoverage() {
             </div>
 
             <div className="mt-6 rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-white to-blue-50/60 p-5 shadow-inner">
-              <div className="flex items-start gap-4">
+              <div className="flex min-w-0 items-start gap-3 sm:gap-4">
                 <div className="rounded-2xl bg-blue-600 p-3 text-white shadow-[0_16px_35px_rgba(37,99,235,0.25)]">
                   <MapPin className="h-5 w-5" />
                 </div>
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.35em] text-blue-600">
+                <div className="min-w-0">
+                  <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-600 sm:tracking-[0.35em]">
                     Deployment planning region
                   </p>
-                  <h3 className="mt-2 text-2xl font-bold tracking-tight text-slate-950">
+                  <h3 className="mt-2 break-words text-2xl font-bold tracking-tight text-slate-950">
                     {activeRegion.name}
                   </h3>
-                  <p className="mt-3 text-sm font-semibold leading-7 text-slate-600">
+                  <p className="mt-3 break-words text-sm font-semibold leading-7 text-slate-600">
                     {activeRegion.summary}
                   </p>
-                  <div className="mt-4 rounded-2xl border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 bg-blue-50/70">
+                  <div className="mt-4 break-words rounded-2xl border border-blue-100 bg-blue-50/70 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-slate-500 shadow-sm backdrop-blur-xl/80 sm:tracking-[0.22em]">
                     {activeRegion.points.length} planning locations • {selectedRegionLabel}
                   </div>
                 </div>
@@ -302,10 +302,10 @@ export function DatacenterCoverage() {
                     {activeRegion.setupPaths.map((item) => (
                       <div
                         key={item}
-                        className="flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 px-4 py-2 text-sm font-black text-slate-700"
+                        className="flex min-w-0 items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-sm font-black text-slate-700 shadow-sm backdrop-blur-xl/80"
                       >
                         <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                        {item}
+                        <span className="min-w-0 break-words">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -320,10 +320,10 @@ export function DatacenterCoverage() {
                     {activeRegion.stackOptions.map((item) => (
                       <div
                         key={item}
-                        className="flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/80 px-4 py-2 text-sm font-black text-slate-700"
+                        className="flex min-w-0 items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-sm font-black text-slate-700 shadow-sm backdrop-blur-xl/80"
                       >
                         <Server className="h-4 w-4 text-cyan-600" />
-                        {item}
+                        <span className="min-w-0 break-words">{item}</span>
                       </div>
                     ))}
                   </div>
@@ -332,30 +332,30 @@ export function DatacenterCoverage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-blue-100/80 bg-white/75 p-4 shadow-[0_22px_75px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:p-5">
+          <div className="min-w-0 rounded-[2rem] border border-blue-100/80 bg-white/75 p-4 shadow-[0_22px_75px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:p-5">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.35em] text-blue-600">
+              <div className="min-w-0">
+                <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-600 sm:tracking-[0.35em]">
                   Deployment coverage globe
                 </p>
                 <p className="mt-1 text-sm font-bold text-slate-500">
                   Drag to explore. Hover a location for details.
                 </p>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 shadow-sm backdrop-blur-xl/90 px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
+              <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-sm font-black text-slate-700 shadow-sm backdrop-blur-xl/90">
                 <Radar className="h-4 w-4 text-blue-600" />
-                Active view: {activeRegion.name}
+                <span className="min-w-0 break-words">Active view: {activeRegion.name}</span>
               </div>
             </div>
 
             <div
               ref={wrapRef}
-              className="relative min-h-[430px] overflow-hidden rounded-[1.7rem] border border-blue-100 bg-[radial-gradient(circle_at_50%_45%,rgba(219,234,254,0.95),rgba(240,249,255,0.85)_42%,rgba(255,255,255,0.92)_70%)] shadow-inner"
+              className="relative min-h-[320px] overflow-hidden rounded-[1.7rem] border border-blue-100 bg-[radial-gradient(circle_at_50%_45%,rgba(219,234,254,0.95),rgba(240,249,255,0.85)_42%,rgba(255,255,255,0.92)_70%)] shadow-inner sm:min-h-[430px]"
             >
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.05)_1px,transparent_1px)] bg-[size:44px_44px]" />
               <div className="pointer-events-none absolute left-1/2 top-1/2 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-200/25 blur-3xl" />
 
-              <div className="relative z-10 flex min-h-[430px] items-center justify-center">
+              <div className="relative z-10 flex min-h-[320px] items-center justify-center sm:min-h-[430px]">
                 <Globe
                   ref={globeRef}
                   width={globeSize}
@@ -481,14 +481,14 @@ export function DatacenterCoverage() {
                 />
               </div>
 
-              <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-wrap items-center justify-center gap-4 rounded-2xl border border-white/70 bg-white/85 px-4 py-3 text-xs font-black text-slate-600 shadow-sm backdrop-blur-xl">
+              <div className="absolute bottom-3 left-3 right-3 z-20 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/70 bg-white/85 px-3 py-3 text-[11px] font-black text-slate-600 shadow-sm backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:gap-4 sm:px-4 sm:text-xs">
                 {Object.entries(pointColors).map(([label, color]) => (
-                  <div key={label} className="flex items-center gap-2">
+                  <div key={label} className="flex min-w-0 items-center gap-2">
                     <span
                       className="h-3 w-3 rounded-full"
                       style={{ backgroundColor: color }}
                     />
-                    {label}
+                    <span className="min-w-0 break-words">{label}</span>
                   </div>
                 ))}
               </div>

@@ -133,7 +133,7 @@ export default function DatacenterIndustries() {
 
   return (
     <section className="mx-auto mt-16 w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="rounded-[2.25rem] border border-blue-100 bg-white/72 p-5 shadow-[0_30px_100px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8">
+      <div className="min-w-0 rounded-[2.25rem] border border-blue-100 bg-white/72 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.10)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-8">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">

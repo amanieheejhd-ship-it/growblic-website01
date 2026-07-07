@@ -19,7 +19,7 @@ const supportItems = [
 
 export default function SupportPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen bg-[#fbfdff]">
       <section className="relative px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_0%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_84%_80%,rgba(6,182,212,0.10),transparent_30%)]" />
 
@@ -42,7 +42,7 @@ export default function SupportPage() {
 
             <a
               href="mailto:hello@growblic.com?subject=Growblic Support Request"
-              className="mt-8 inline-flex min-h-12 w-full items-center justify-center rounded-full text-center sm:mt-9 sm:w-auto bg-gradient-to-r from-slate-950 to-blue-950 px-8 py-4 text-sm font-black text-white shadow-xl shadow-blue-100/70 transition-all duration-500 ease-out hover:-translate-y-1.5"
+              className="mt-8 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-gradient-to-r from-slate-950 to-blue-950 px-8 py-4 text-center text-sm font-black text-white shadow-xl shadow-blue-100/70 transition-all duration-500 ease-out hover:-translate-y-1.5 sm:mt-9 sm:w-auto"
             >
               Email Support →
             </a>
@@ -52,7 +52,7 @@ export default function SupportPage() {
             {supportItems.map((item, index) => (
               <div
                 key={item}
-                className="min-w-0 rounded-[1.5rem] border border-blue-100/70 bg-white p-5 sm:rounded-[2rem] sm:p-7 shadow-xl shadow-blue-100/50 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-blue-200"
+                className="min-w-0 rounded-[1.5rem] border border-blue-100/70 bg-white p-5 shadow-xl shadow-blue-100/50 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-blue-200 sm:rounded-[2rem] sm:p-7"
               >
                 <span className="text-sm font-black text-blue-600">
                   0{index + 1}

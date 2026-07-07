@@ -74,14 +74,14 @@ const process = ["Understand", "Design", "Build", "Launch", "Improve"];
 
 export default function AboutPage() {
   return (
-    <main className="relative overflow-hidden bg-white">
+    <main className="relative bg-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_6%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_94%_60%,rgba(6,182,212,0.12),transparent_30%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.55),#ffffff)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
       <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_0.92fr] lg:items-center">
           <div className="min-w-0">
-            <p className="inline-flex max-w-full rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)] sm:px-5 sm:tracking-[0.32em]">
+            <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)] sm:px-5 sm:tracking-[0.32em]">
               About Growblic
             </p>
 
@@ -89,7 +89,7 @@ export default function AboutPage() {
               Building software products that help businesses grow.
             </h1>
 
-            <p className="mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
+            <p className="mt-7 max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-lg sm:leading-9">
               Growblic is a software development company that builds websites, mobile apps, SaaS products, dashboards, automation systems, and business software for teams that want to move from idea to launch with clarity.
             </p>
 
@@ -119,7 +119,7 @@ export default function AboutPage() {
                   <img src="https://play-lh.googleusercontent.com/g0grr8jGzVcS1_uUzh05Ht2a7w7PcavodUBDgK7XOel8DwYKNSVtNZaF6HmqUFPK37xlr4WafEddfvWeyeDSKA=w240-h480-rw" alt="Growblic" className="h-11 w-11 rounded-xl object-contain" />
                 </div>
 
-                <p className="relative mt-10 text-xs font-black uppercase tracking-[0.34em] text-cyan-200">
+                <p className="relative mt-10 break-words text-xs font-black uppercase tracking-[0.18em] text-cyan-200 sm:tracking-[0.34em]">
                   Company Story
                 </p>
 
@@ -215,10 +215,10 @@ export default function AboutPage() {
         <section className="mt-12 overflow-hidden rounded-[2rem] border border-blue-100 bg-white/82 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] backdrop-blur-2xl sm:p-7">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-blue-700">
+              <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.32em]">
                 Growblic Process
               </p>
-              <h2 className="mt-3 text-3xl font-black tracking-[-0.05em] text-slate-950">
+              <h2 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950">
                 A smooth path from idea to product.
               </h2>
             </div>
@@ -244,7 +244,7 @@ export default function AboutPage() {
         <section className="mt-12 overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-7 shadow-[0_25px_85px_rgba(37,99,235,0.10)] sm:p-9">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-blue-700">
+              <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.32em]">
                 Start with Growblic
               </p>
               <h2 className="mt-4 max-w-3xl break-words text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
@@ -252,17 +252,17 @@ export default function AboutPage() {
               </h2>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 href="/start-project"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
                 Start Project <ArrowRight className="h-4 w-4" />
               </Link>
 
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
+                className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full bg-white px-7 py-4 text-center text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition hover:-translate-y-0.5 hover:text-blue-700"
               >
                 Explore Services <ArrowRight className="h-4 w-4" />
               </Link>

@@ -204,17 +204,17 @@ function MisusePreview({ variant }: { variant: string }) {
 
 export default function BrandPage() {
   return (
-    <main className="relative overflow-hidden bg-white">
+    <main className="relative bg-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_6%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_92%_70%,rgba(6,182,212,0.12),transparent_30%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.62),#ffffff)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-      <section className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
+      <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)]">
+          <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)] sm:px-5 sm:tracking-[0.34em]">
             Growblic Brand
           </p>
 
-          <h1 className="mt-7 text-5xl font-black leading-[0.95] tracking-[-0.075em] text-slate-950 sm:text-6xl lg:text-7xl">
+          <h1 className="mt-7 break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl sm:leading-[0.95] lg:text-7xl">
             Brand and trademark guidelines for Growblic.
           </h1>
 
@@ -222,28 +222,28 @@ export default function BrandPage() {
             A clean system for using the Growblic name, logo, colors, icon, and brand assets across websites, apps, documents, and partnerships.
           </p>
 
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href="#usage"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+              className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
             >
               Read guidelines <ArrowRight className="h-4 w-4" />
             </a>
             <a
               href="mailto:hello@growblic.com"
-              className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white/90 px-7 py-4 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/55 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+              className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full border border-blue-100 bg-white/90 px-7 py-4 text-center text-sm font-black text-slate-950 shadow-xl shadow-blue-100/55 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
             >
               Request assets <Download className="h-4 w-4" />
             </a>
           </div>
         </div>
 
-        <nav className="sticky top-4 z-20 mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-2 rounded-full border border-blue-100 bg-white/84 p-2 shadow-[0_18px_60px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
+        <nav className="sticky top-4 z-20 mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-2 rounded-[1.5rem] border border-blue-100 bg-white/84 p-2 shadow-[0_18px_60px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:rounded-full">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="rounded-full px-5 py-3 text-xs font-black uppercase tracking-[0.22em] text-slate-600 transition hover:bg-blue-600 hover:text-white"
+              className="max-w-full break-words rounded-full px-4 py-3 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:bg-blue-600 hover:text-white sm:px-5 sm:tracking-[0.22em]"
             >
               {item.label}
             </a>
@@ -253,8 +253,8 @@ export default function BrandPage() {
         <section id="logos" className="mt-16 scroll-mt-28">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Logos</p>
-              <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+              <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Logos</p>
+              <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
                 Essential brand assets.
               </h2>
             </div>
@@ -282,8 +282,8 @@ export default function BrandPage() {
         </section>
 
         <section id="colors" className="mt-16 scroll-mt-28">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Colors</p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+          <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Colors</p>
+          <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
             Brand color system.
           </h2>
 
@@ -306,9 +306,9 @@ export default function BrandPage() {
         </section>
 
         <section id="icon" className="mt-16 grid gap-8 scroll-mt-28 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Icon</p>
-            <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+          <div className="min-w-0">
+            <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Icon</p>
+            <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
               App icon and product mark.
             </h2>
             <p className="mt-5 max-w-xl text-base font-semibold leading-8 text-slate-600">
@@ -318,7 +318,7 @@ export default function BrandPage() {
 
           <div className="relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white/80 p-8 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(6,182,212,0.16),transparent_36%)]" />
-            <div className="relative mx-auto grid h-72 max-w-xl place-items-center rounded-[1.8rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+            <div className="relative mx-auto grid h-56 max-w-xl place-items-center rounded-[1.8rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50 sm:h-72">
               <div className="grid h-36 w-36 place-items-center rounded-[2rem] border border-blue-100 bg-white shadow-[0_30px_80px_rgba(37,99,235,0.18)]">
                 <img src={logoUrl} alt="Growblic icon" className="h-24 w-24 rounded-2xl object-cover" />
               </div>
@@ -327,8 +327,8 @@ export default function BrandPage() {
         </section>
 
         <section id="partnerships" className="mt-16 scroll-mt-28">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Partnerships</p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+          <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Partnerships</p>
+          <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
             Co-branding examples.
           </h2>
           <p className="mt-5 max-w-2xl text-base font-semibold leading-8 text-slate-600">
@@ -341,10 +341,10 @@ export default function BrandPage() {
                 key={item}
                 className="rounded-[1.8rem] border border-blue-100 bg-white/80 p-6 shadow-[0_24px_80px_rgba(37,99,235,0.09)] backdrop-blur-xl"
               >
-                <div className="flex items-center justify-center gap-5 rounded-[1.4rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50 px-6 py-10">
-                  <span className="rounded-2xl bg-white px-6 py-4 text-xl font-black text-slate-950 shadow-md">Growblic</span>
+                <div className="flex flex-col items-center justify-center gap-3 rounded-[1.4rem] bg-gradient-to-br from-blue-50 via-white to-cyan-50 px-4 py-10 min-[420px]:flex-row min-[420px]:gap-5 sm:px-6">
+                  <span className="max-w-full break-words rounded-2xl bg-white px-5 py-4 text-xl font-black text-slate-950 shadow-md">Growblic</span>
                   <span className="text-2xl font-black text-blue-600">×</span>
-                  <span className="rounded-2xl bg-white px-6 py-4 text-xl font-black text-slate-500 shadow-md">{item}</span>
+                  <span className="max-w-full break-words rounded-2xl bg-white px-5 py-4 text-xl font-black text-slate-500 shadow-md">{item}</span>
                 </div>
               </div>
             ))}
@@ -352,15 +352,15 @@ export default function BrandPage() {
         </section>
 
         <section id="pairing" className="mt-16 scroll-mt-28">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Pairing logos</p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+          <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Pairing logos</p>
+          <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
             Correct logo pairings.
           </h2>
           <div className="mt-8 grid gap-5 lg:grid-cols-3">
             {["Growblic | Partner", "Partner | Growblic", "Growblic + Product"].map((item) => (
               <div
                 key={item}
-                className="rounded-[1.5rem] border border-blue-100 bg-white/86 px-8 py-8 text-center text-2xl font-black tracking-[-0.04em] text-slate-950 shadow-[0_20px_60px_rgba(37,99,235,0.08)]"
+                className="min-w-0 break-words rounded-[1.5rem] border border-blue-100 bg-white/86 px-5 py-8 text-center text-xl font-black tracking-tight text-slate-950 shadow-[0_20px_60px_rgba(37,99,235,0.08)] sm:px-8 sm:text-2xl"
               >
                 {item}
               </div>
@@ -369,8 +369,8 @@ export default function BrandPage() {
         </section>
 
         <section id="usage" className="mt-16 scroll-mt-28">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Usage</p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+          <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Usage</p>
+          <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
             Use the Growblic brand correctly.
           </h2>
 
@@ -404,7 +404,7 @@ export default function BrandPage() {
                   <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-red-500 text-white shadow-[0_10px_28px_rgba(239,68,68,0.25)]">
                     <Ban className="h-3.5 w-3.5" />
                   </span>
-                  <p className="text-sm font-black leading-7 text-slate-750">
+                  <p className="text-sm font-black leading-7 text-slate-700">
                     {item.title}
                   </p>
                 </div>
@@ -416,12 +416,12 @@ export default function BrandPage() {
         <section className="mt-16 overflow-hidden rounded-[2rem] border border-blue-100 bg-white/84 p-8 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.55fr] lg:items-center">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">Trademark and permissions</p>
-              <h2 className="mt-4 text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+              <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">Trademark and permissions</p>
+              <h2 className="mt-4 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl">
                 Using Growblic brand assets.
               </h2>
               <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600">
-                Growblic name, logo, and brand assets should not be misused. Permission for partnerships, press, or co-branding can be requested at hello@growblic.com. Abuse or impersonation can be reported at abuse@growblic.com.
+                Growblic name, logo, and brand assets should not be misused. Permission for partnerships, press, or co-branding can be requested at <span className="break-all">hello@growblic.com</span>. Abuse or impersonation can be reported at <span className="break-all">abuse@growblic.com</span>.
               </p>
             </div>
 

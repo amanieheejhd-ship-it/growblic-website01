@@ -118,21 +118,21 @@ const securityItems = [
 
 export default function DatacenterPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff] datacenter-responsive-page">
-      <section className="relative px-5 py-14 sm:px-6 sm:py-20">
+    <main className="min-h-screen bg-[#fbfdff] datacenter-responsive-page">
+      <section className="relative px-4 py-14 sm:px-6 sm:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_86%_18%,rgba(6,182,212,0.10),transparent_30%),linear-gradient(180deg,#ffffff_0%,#f8fbff_50%,#ffffff_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.032)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(180deg,black,transparent_82%)]" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl min-w-0">
           <BackButton />
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
-            <div>
-              <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-extrabold uppercase tracking-[0.26em] text-blue-700 shadow-[0_14px_34px_rgba(37,99,235,0.08)]">
+          <div className="mt-10 grid min-w-0 gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
+            <div className="min-w-0">
+              <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700 shadow-[0_14px_34px_rgba(37,99,235,0.08)] sm:px-5 sm:tracking-[0.26em]">
                 GROWBLIC DATACENTER
               </p>
 
-              <h1 className="mt-7 max-w-4xl text-5xl font-extrabold leading-[1.04] tracking-tight text-slate-950 lg:text-6xl">
+              <h1 className="mt-7 max-w-4xl break-words text-4xl font-extrabold leading-[1.04] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
                 Cloud-ready infrastructure for modern digital products.
               </h1>
 
@@ -141,31 +141,31 @@ export default function DatacenterPage() {
                 backend APIs, databases, security workflows, and launch-ready cloud setups.
               </p>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
                   href="/start-project"
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-blue-600 px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950"
+                  className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full bg-blue-600 px-7 py-4 text-center text-sm font-extrabold text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950"
                 >
                   Start Project <ArrowRight className="h-4 w-4" />
                 </Link>
 
                 <Link
                   href="/services"
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white/86 px-7 py-4 text-sm font-extrabold text-slate-800 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+                  className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full border border-blue-100 bg-white/86 px-7 py-4 text-center text-sm font-extrabold text-slate-800 shadow-xl shadow-blue-100/45 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
                 >
                   Explore Services <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/78 p-5 shadow-[0_28px_90px_rgba(37,99,235,0.13)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-6">
+            <div className="relative min-w-0 overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/78 p-5 shadow-[0_28px_90px_rgba(37,99,235,0.13)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-6">
               <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-blue-100/75 blur-3xl" />
               <div className="pointer-events-none absolute -bottom-24 left-4 h-56 w-56 rounded-full bg-cyan-100/60 blur-3xl" />
 
               <div className="relative rounded-[1.45rem] border border-blue-100 bg-slate-950/[0.03] p-4">
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-blue-700">
+                <div className="mb-4 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
+                  <div className="min-w-0">
+                    <p className="break-words text-xs font-extrabold uppercase tracking-[0.16em] text-blue-700 sm:tracking-[0.22em]">
                       Cloud Console
                     </p>
                     <p className="mt-1 text-sm font-semibold text-slate-500">
@@ -184,16 +184,16 @@ export default function DatacenterPage() {
                     return (
                       <div
                         key={item.label}
-                        className="group flex items-center gap-4 rounded-2xl border border-blue-100/80 bg-white/88 p-4 shadow-[0_12px_36px_rgba(37,99,235,0.07)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(37,99,235,0.12)]"
+                        className="group flex min-w-0 items-center gap-4 rounded-2xl border border-blue-100/80 bg-white/88 p-4 shadow-[0_12px_36px_rgba(37,99,235,0.07)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_18px_48px_rgba(37,99,235,0.12)]"
                       >
                         <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-700 ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
                           <Icon className="h-5 w-5" strokeWidth={1.9} />
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="block text-base font-bold text-slate-900">
-                            {item.label}
+                            <span className="break-words">{item.label}</span>
                           </span>
-                          <span className="mt-1 block text-sm font-medium text-slate-500">
+                          <span className="mt-1 block break-words text-sm font-medium text-slate-500">
                             {item.status}
                           </span>
                         </span>
@@ -207,11 +207,11 @@ export default function DatacenterPage() {
           </div>
 
           <section className="mt-16 sm:mt-20">
-            <div className="max-w-3xl">
-              <p className="text-xs font-extrabold uppercase tracking-[0.26em] text-blue-700">
+            <div className="max-w-3xl min-w-0">
+              <p className="break-words text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.26em]">
                 Cloud capabilities
               </p>
-              <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
+              <h2 className="mt-4 break-words text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
                 Practical infrastructure services for launch-ready products.
               </h2>
               <p className="mt-4 text-base font-medium leading-8 text-slate-600">
@@ -227,7 +227,7 @@ export default function DatacenterPage() {
                 return (
                   <article
                       key={card.title}
-                      className="group relative flex h-full min-h-[18rem] flex-col overflow-hidden rounded-[1.9rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.99),rgba(246,251,255,0.95)_45%,rgba(232,247,255,0.82))] p-7 shadow-[0_26px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/90 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_38px_110px_rgba(37,99,235,0.18)]"
+                      className="group relative flex h-full min-h-[18rem] min-w-0 flex-col overflow-hidden rounded-[1.9rem] border border-blue-100/80 bg-[linear-gradient(145deg,rgba(255,255,255,0.99),rgba(246,251,255,0.95)_45%,rgba(232,247,255,0.82))] p-5 shadow-[0_26px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/90 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_38px_110px_rgba(37,99,235,0.18)] sm:p-7"
                     >
                       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/75 to-transparent" />
                       <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-cyan-200/35 blur-3xl transition duration-300 group-hover:bg-blue-300/40" />
@@ -238,11 +238,11 @@ export default function DatacenterPage() {
                           <Icon className="h-6 w-6" strokeWidth={1.9} />
                         </span>
 
-                        <h3 className="mt-7 text-2xl font-extrabold tracking-tight text-slate-950">
+                        <h3 className="mt-7 break-words text-2xl font-extrabold tracking-tight text-slate-950">
                           {card.title}
                         </h3>
 
-                        <p className="mt-4 min-h-[5.25rem] text-sm font-semibold leading-7 text-slate-600">
+                        <p className="mt-4 min-h-[5.25rem] break-words text-sm font-semibold leading-7 text-slate-600">
                           {card.text}
                         </p>
                       </div>
@@ -265,17 +265,17 @@ export default function DatacenterPage() {
 
           
             <DatacenterIndustries />
-<section className="relative mt-16 overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(241,248,255,0.94)_48%,rgba(224,251,255,0.82))] p-6 shadow-[0_34px_120px_rgba(37,99,235,0.13)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
+            <section className="relative mt-16 min-w-0 overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(241,248,255,0.94)_48%,rgba(224,251,255,0.82))] p-5 shadow-[0_34px_120px_rgba(37,99,235,0.13)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9 lg:grid lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
               <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl" />
               <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-200/45 blur-3xl" />
               <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
 
               <div className="relative">
-                <span className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_36px_rgba(37,99,235,0.10)]">
+                <span className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-blue-700 shadow-[0_14px_36px_rgba(37,99,235,0.10)] sm:px-5 sm:tracking-[0.34em]">
                   Product foundation
                 </span>
 
-                <h2 className="mt-7 max-w-lg text-4xl font-black leading-[1.05] tracking-tight text-slate-950 lg:text-5xl">
+                <h2 className="mt-7 max-w-lg break-words text-3xl font-black leading-[1.05] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
                   Build on the right foundation.
                 </h2>
 
@@ -285,9 +285,9 @@ export default function DatacenterPage() {
                   needs, traffic expectations, and maintenance reality.
                 </p>
 
-                <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-extrabold text-slate-700 shadow-sm">
+                <div className="mt-8 inline-flex max-w-full items-center gap-3 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-sm font-extrabold text-slate-700 shadow-sm">
                   <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_18px_rgba(16,185,129,0.55)]" />
-                  Launch-ready planning
+                  <span className="min-w-0 break-words">Launch-ready planning</span>
                 </div>
               </div>
 
@@ -295,12 +295,12 @@ export default function DatacenterPage() {
                 {foundationItems.map((item, index) => (
                   <div
                     key={item}
-                    className="group flex items-center gap-5 rounded-[1.35rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_18px_60px_rgba(37,99,235,0.09)] ring-1 ring-white/90 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_28px_82px_rgba(37,99,235,0.15)]"
+                    className="group flex min-w-0 items-center gap-4 rounded-[1.35rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_18px_60px_rgba(37,99,235,0.09)] ring-1 ring-white/90 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_28px_82px_rgba(37,99,235,0.15)] sm:gap-5"
                   >
                     <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-sm font-black text-blue-700 shadow-sm transition group-hover:bg-blue-600 group-hover:text-white">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="flex-1 text-base font-black text-slate-950">
+                    <span className="min-w-0 flex-1 break-words text-base font-black text-slate-950">
                       {item}
                     </span>
                     <CheckCircle2 className="h-5 w-5 text-blue-600 transition group-hover:scale-110" />
@@ -309,15 +309,15 @@ export default function DatacenterPage() {
               </div>
             </section>
 
-          <section className="relative mt-20 overflow-hidden rounded-[2.3rem] border border-blue-100/80 bg-white/72 p-6 shadow-[0_34px_110px_rgba(37,99,235,0.10)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9">
+          <section className="relative mt-20 min-w-0 overflow-hidden rounded-[2.3rem] border border-blue-100/80 bg-white/72 p-5 shadow-[0_34px_110px_rgba(37,99,235,0.10)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9">
               <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-100/70 blur-3xl" />
               <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-cyan-100/70 blur-3xl" />
 
               <div className="relative max-w-3xl">
-                <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">
+                <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:tracking-[0.42em]">
                   Infrastructure workflow
                 </p>
-                <h2 className="mt-5 text-4xl font-black leading-[1.06] tracking-tight text-slate-950 lg:text-5xl">
+                <h2 className="mt-5 break-words text-3xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
                   From cloud plan to monitored launch.
                 </h2>
                 <p className="mt-5 text-base font-semibold leading-8 text-slate-600">
@@ -330,17 +330,17 @@ export default function DatacenterPage() {
                 {workflowSteps.map((step, index) => (
                   <article
                     key={step.title}
-                    className="group relative overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-white/85 p-6 shadow-[0_24px_78px_rgba(37,99,235,0.10)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_34px_100px_rgba(37,99,235,0.17)]"
+                    className="group relative min-w-0 overflow-hidden rounded-[1.75rem] border border-blue-100/80 bg-white/85 p-5 shadow-[0_24px_78px_rgba(37,99,235,0.10)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-[0_34px_100px_rgba(37,99,235,0.17)] sm:p-6"
                   >
                     <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-blue-200/35 blur-3xl transition group-hover:bg-cyan-200/45" />
                     <div className="relative">
                       <span className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600 text-base font-black text-white shadow-[0_16px_34px_rgba(37,99,235,0.35)]">
                         {index + 1}
                       </span>
-                      <h3 className="mt-7 text-xl font-black tracking-tight text-slate-950">
+                      <h3 className="mt-7 break-words text-xl font-black tracking-tight text-slate-950">
                         {step.title}
                       </h3>
-                      <p className="mt-4 text-sm font-semibold leading-7 text-slate-600">
+                      <p className="mt-4 break-words text-sm font-semibold leading-7 text-slate-600">
                         {step.text}
                       </p>
                     </div>
@@ -349,16 +349,16 @@ export default function DatacenterPage() {
               </div>
             </section>
 
-          <section className="relative mt-20 overflow-hidden rounded-[2.3rem] border border-blue-100/80 bg-[linear-gradient(145deg,#ffffff,rgba(248,251,255,0.96)_48%,rgba(236,254,255,0.72))] p-6 shadow-[0_34px_115px_rgba(37,99,235,0.11)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9">
+          <section className="relative mt-20 min-w-0 overflow-hidden rounded-[2.3rem] border border-blue-100/80 bg-[linear-gradient(145deg,#ffffff,rgba(248,251,255,0.96)_48%,rgba(236,254,255,0.72))] p-5 shadow-[0_34px_115px_rgba(37,99,235,0.11)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9">
               <div className="pointer-events-none absolute -right-28 top-0 h-80 w-80 rounded-full bg-cyan-100/70 blur-3xl" />
               <div className="pointer-events-none absolute -left-28 bottom-0 h-80 w-80 rounded-full bg-blue-100/70 blur-3xl" />
 
               <div className="relative grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">
+                <div className="min-w-0">
+                  <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:tracking-[0.42em]">
                     Deployment paths
                   </p>
-                  <h2 className="mt-5 max-w-2xl text-4xl font-black leading-[1.06] tracking-tight text-slate-950 lg:text-5xl">
+                  <h2 className="mt-5 max-w-2xl break-words text-3xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
                     Support for popular deployment paths.
                   </h2>
                 </div>
@@ -375,16 +375,16 @@ export default function DatacenterPage() {
                   return (
                     <article
                       key={item.title}
-                      className="group flex min-h-[8.5rem] items-start gap-5 rounded-[1.55rem] border border-blue-100/80 bg-white/86 p-5 shadow-[0_22px_72px_rgba(37,99,235,0.09)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-1.5 hover:border-blue-300 hover:shadow-[0_32px_95px_rgba(37,99,235,0.16)]"
+                      className="group flex min-h-[8.5rem] min-w-0 items-start gap-4 rounded-[1.55rem] border border-blue-100/80 bg-white/86 p-5 shadow-[0_22px_72px_rgba(37,99,235,0.09)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-1.5 hover:border-blue-300 hover:shadow-[0_32px_95px_rgba(37,99,235,0.16)] sm:gap-5"
                     >
                       <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm transition group-hover:bg-blue-600 group-hover:text-white">
                         <Icon className="h-5 w-5" strokeWidth={1.9} />
                       </span>
-                      <span>
-                        <h3 className="text-lg font-black text-slate-950">
+                      <span className="min-w-0">
+                        <h3 className="break-words text-lg font-black text-slate-950">
                           {item.title}
                         </h3>
-                        <p className="mt-2 text-sm font-semibold leading-7 text-slate-600">
+                        <p className="mt-2 break-words text-sm font-semibold leading-7 text-slate-600">
                           {item.text}
                         </p>
                       </span>
@@ -394,16 +394,16 @@ export default function DatacenterPage() {
               </div>
             </section>
 
-          <section className="relative mt-16 overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(241,248,255,0.95)_48%,rgba(224,251,255,0.82))] p-6 shadow-[0_36px_125px_rgba(37,99,235,0.13)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9 lg:grid lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
+          <section className="relative mt-16 min-w-0 overflow-hidden rounded-[2.4rem] border border-blue-100/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(241,248,255,0.95)_48%,rgba(224,251,255,0.82))] p-5 shadow-[0_36px_125px_rgba(37,99,235,0.13)] ring-1 ring-white/90 backdrop-blur-2xl sm:p-9 lg:grid lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
               <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-blue-200/45 blur-3xl" />
               <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-cyan-200/45 blur-3xl" />
               <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
 
               <div className="relative">
-                <p className="text-xs font-black uppercase tracking-[0.42em] text-blue-600">
+                <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-600 sm:tracking-[0.42em]">
                   Reliability planning
                 </p>
-                <h2 className="mt-5 max-w-xl text-4xl font-black leading-[1.06] tracking-tight text-slate-950 lg:text-5xl">
+                <h2 className="mt-5 max-w-xl break-words text-3xl font-black leading-[1.06] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
                   Security, backup, and reliability.
                 </h2>
                 <p className="mt-6 max-w-xl text-base font-semibold leading-8 text-slate-600">
@@ -413,7 +413,7 @@ export default function DatacenterPage() {
 
                 <Link
                   href="/security"
-                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-blue-600 px-6 py-3 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950"
+                  className="mt-8 inline-flex min-w-0 items-center justify-center gap-3 rounded-full bg-blue-600 px-6 py-3 text-center text-sm font-black text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-slate-950"
                 >
                   View security approach <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -423,12 +423,12 @@ export default function DatacenterPage() {
                 {securityItems.map((item) => (
                   <div
                     key={item}
-                    className="group flex items-center gap-4 rounded-[1.35rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_20px_68px_rgba(37,99,235,0.10)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_30px_92px_rgba(37,99,235,0.16)]"
+                    className="group flex min-w-0 items-center gap-4 rounded-[1.35rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_20px_68px_rgba(37,99,235,0.10)] ring-1 ring-white/90 transition duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-[0_30px_92px_rgba(37,99,235,0.16)]"
                   >
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 transition group-hover:bg-blue-600 group-hover:text-white">
                       <ShieldCheck className="h-5 w-5" strokeWidth={1.9} />
                     </span>
-                    <span className="text-sm font-black text-slate-800">
+                    <span className="min-w-0 break-words text-sm font-black text-slate-800">
                       {item}
                     </span>
                   </div>
@@ -436,13 +436,13 @@ export default function DatacenterPage() {
               </div>
             </section>
 
-          <section className="mt-16 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(239,246,255,0.90),rgba(219,234,254,0.76))] p-8 shadow-[0_24px_80px_rgba(37,99,235,0.12)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-10">
+          <section className="mt-16 min-w-0 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.94),rgba(239,246,255,0.90),rgba(219,234,254,0.76))] p-6 shadow-[0_24px_80px_rgba(37,99,235,0.12)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-10">
             <div className="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
                   <Workflow className="h-5 w-5" strokeWidth={1.9} />
                 </div>
-                <h2 className="max-w-3xl text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
+                <h2 className="max-w-3xl break-words text-3xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
                   Ready to launch your product on a reliable setup?
                 </h2>
                 <p className="mt-4 max-w-2xl text-sm font-medium leading-7 text-slate-600">
@@ -453,7 +453,7 @@ export default function DatacenterPage() {
 
               <Link
                 href="/start-project"
-                className="inline-flex shrink-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-extrabold text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                className="inline-flex min-w-0 shrink-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-center text-sm font-extrabold text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
                 Start Project <ArrowRight className="h-4 w-4" />
               </Link>

@@ -89,23 +89,23 @@ const upcomingMeetups = [
 
 export default function MeetupPage() {
   return (
-    <main className="relative overflow-hidden bg-white">
+    <main className="relative bg-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(37,99,235,0.14),transparent_30%),radial-gradient(circle_at_88%_55%,rgba(6,182,212,0.12),transparent_32%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.66),#ffffff)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-      <section className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-10">
-        <div className="overflow-hidden rounded-[2.9rem] border border-blue-100/90 bg-white/86 p-6 shadow-[0_38px_130px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-8 lg:p-11">
+      <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-20 lg:px-10">
+        <div className="min-w-0 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-white/86 p-5 shadow-[0_38px_130px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:rounded-[2.9rem] sm:p-8 lg:p-11">
           <div className="grid gap-12 lg:grid-cols-[0.98fr_0.92fr] lg:items-center">
-            <div>
-              <p className="inline-flex rounded-full border border-blue-100 bg-white/95 px-5 py-2.5 text-xs font-extrabold uppercase tracking-[0.34em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.08)]">
+            <div className="min-w-0">
+              <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/95 px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.08)] sm:px-5 sm:tracking-[0.34em]">
                 Growblic Meetup
               </p>
 
-              <h1 className="mt-7 max-w-3xl text-[clamp(3.25rem,6vw,5.9rem)] font-extrabold leading-[1.01] tracking-[-0.06em] text-slate-950">
+              <h1 className="mt-7 max-w-3xl break-words text-4xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-[clamp(3.25rem,6vw,5.9rem)] sm:leading-[1.01] sm:tracking-[-0.06em]">
                 Build a premium digital community in your city.
               </h1>
 
-              <p className="mt-7 max-w-2xl text-[1.18rem] font-semibold leading-[2.1rem] text-slate-600">
+              <p className="mt-7 max-w-2xl text-base font-semibold leading-8 text-slate-600 sm:text-[1.18rem] sm:leading-[2.1rem]">
                 Host meetups for founders, creators, developers, marketers, and business owners who want to learn websites, apps, SaaS, AI workflows, and digital growth.
               </p>
 
@@ -113,44 +113,44 @@ export default function MeetupPage() {
                 {heroPoints.map((point) => (
                   <div
                     key={point}
-                    className="flex items-center gap-3 rounded-[1.25rem] border border-blue-100 bg-white/90 px-5 py-4 text-sm font-extrabold text-slate-700 shadow-[0_12px_30px_rgba(37,99,235,0.06)] backdrop-blur-xl"
+                    className="flex min-w-0 items-start gap-3 rounded-[1.25rem] border border-blue-100 bg-white/90 px-5 py-4 text-sm font-extrabold text-slate-700 shadow-[0_12px_30px_rgba(37,99,235,0.06)] backdrop-blur-xl sm:items-center"
                   >
                     <CheckCircle2 className="h-5 w-5 shrink-0 text-blue-600" />
-                    {point}
+                    <span className="min-w-0 break-words">{point}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-10 flex flex-col gap-3.5 sm:flex-row">
+              <div className="mt-10 flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
                 <a
                   href="#meetup-interest"
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-slate-950 px-8 py-4 text-sm font-extrabold text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
+                  className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full bg-slate-950 px-8 py-4 text-center text-sm font-extrabold text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
                 >
                   Become a host <ArrowRight className="h-4 w-4" />
                 </a>
 
                 <a
                   href="#calendar"
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-blue-100 bg-white px-8 py-4 text-sm font-extrabold text-slate-950 shadow-[0_16px_35px_rgba(37,99,235,0.08)] transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+                  className="inline-flex min-w-0 items-center justify-center gap-3 rounded-full border border-blue-100 bg-white px-8 py-4 text-center text-sm font-extrabold text-slate-950 shadow-[0_16px_35px_rgba(37,99,235,0.08)] transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
                 >
                   Meetup calendar <CalendarDays className="h-4 w-4" />
                 </a>
               </div>
             </div>
 
-            <div className="relative min-h-[690px] overflow-hidden rounded-[2.5rem] border border-blue-100 bg-[linear-gradient(135deg,rgba(239,246,255,0.95),rgba(255,255,255,0.97),rgba(236,254,255,0.92))] p-5 shadow-[0_32px_110px_rgba(37,99,235,0.12)]">
+            <div className="relative min-h-[540px] overflow-hidden rounded-[2rem] border border-blue-100 bg-[linear-gradient(135deg,rgba(239,246,255,0.95),rgba(255,255,255,0.97),rgba(236,254,255,0.92))] p-4 shadow-[0_32px_110px_rgba(37,99,235,0.12)] sm:min-h-[690px] sm:rounded-[2.5rem] sm:p-5">
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-200/55 blur-3xl" />
               <div className="absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-cyan-200/45 blur-3xl" />
 
-              <div className="absolute left-6 top-7 w-[50%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(37,99,235,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:-translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_35px_100px_rgba(37,99,235,0.20)]">
+              <div className="absolute left-4 top-5 w-[56%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(37,99,235,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:-translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_35px_100px_rgba(37,99,235,0.20)] sm:left-6 sm:top-7 sm:w-[50%]">
                 <img src="/growblic-website01/images/business/mobile-3.jpg" alt="Growblic meetup session" className="h-[13rem] w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Community</p>
-                  <h3 className="mt-2 text-[1.9rem] font-extrabold leading-[1.05] tracking-[-0.045em] text-slate-950">Founder circle</h3>
+                  <h3 className="mt-2 break-words text-2xl font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:text-[1.9rem] sm:tracking-[-0.045em]">Founder circle</h3>
                 </div>
               </div>
 
-              <div className="absolute right-6 top-14 w-[40%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(6,182,212,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:-translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(6,182,212,0.20)]">
+              <div className="absolute right-4 top-12 w-[40%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(6,182,212,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:-translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(6,182,212,0.20)] sm:right-6 sm:top-14">
                 <img src="/growblic-website01/images/business/ai-1.svg" alt="Workshop night" className="h-40 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-700">Workshop</p>
@@ -158,7 +158,7 @@ export default function MeetupPage() {
                 </div>
               </div>
 
-              <div className="absolute bottom-8 left-8 w-[44%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.13)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(15,23,42,0.16)]">
+              <div className="absolute bottom-6 left-4 w-[50%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.13)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(15,23,42,0.16)] sm:bottom-8 sm:left-8 sm:w-[44%]">
                 <img src="/growblic-website01/images/business/mobile-2.jpg" alt="AI automation demo" className="h-44 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Demo</p>
@@ -166,22 +166,22 @@ export default function MeetupPage() {
                 </div>
               </div>
 
-              <div className="absolute bottom-12 right-6 w-[38%] rounded-[1.8rem] border border-blue-100 bg-white/92 p-5 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_36px_110px_rgba(37,99,235,0.16)]">
+              <div className="absolute bottom-10 right-4 w-[40%] rounded-[1.8rem] border border-blue-100 bg-white/92 p-4 shadow-[0_28px_90px_rgba(37,99,235,0.12)] backdrop-blur-2xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_36px_110px_rgba(37,99,235,0.16)] sm:bottom-12 sm:right-6 sm:w-[38%] sm:p-5">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl bg-blue-600 text-white shadow-xl shadow-blue-600/20">
                   <Users className="h-5 w-5" />
                 </div>
                 <p className="mt-5 text-sm font-black uppercase tracking-[0.22em] text-blue-700">Local hosts</p>
-                <p className="mt-2 text-2xl font-black tracking-[-0.05em] text-slate-950">Sessions that feel premium.</p>
+                <p className="mt-2 break-words text-xl font-black tracking-tight text-slate-950 sm:text-2xl sm:tracking-[-0.05em]">Sessions that feel premium.</p>
               </div>
             </div>
           </div>
         </div>
 
         <section className="mt-20">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-700">
+          <p className="break-words text-xs font-black uppercase tracking-[0.18em] text-blue-700 sm:tracking-[0.34em]">
             Meetup formats
           </p>
-          <h2 className="mt-4 max-w-4xl text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-5xl">
+          <h2 className="mt-4 max-w-4xl break-words text-3xl font-black tracking-tight text-slate-950 sm:text-5xl sm:tracking-[-0.06em]">
             Ways to run a Growblic meetup.
           </h2>
 

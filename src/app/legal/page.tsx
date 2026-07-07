@@ -176,42 +176,42 @@ const policySections = [
 ];
 
 const cardClass =
-  "group scroll-mt-24 rounded-[2rem] border border-blue-100/80 bg-white/86 p-6 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
+  "group min-w-0 scroll-mt-24 rounded-[2rem] border border-blue-100/80 bg-white/86 p-5 shadow-[0_25px_80px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white hover:shadow-[0_35px_110px_rgba(37,99,235,0.15)] sm:p-8";
 
 export default function LegalPage() {
   return (
     <main className="min-h-screen bg-[#fbfdff] legal-responsive-page">
-      <section className="relative px-6 py-16 sm:py-20">
+      <section className="relative px-4 py-16 sm:px-6 sm:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_88%_24%,rgba(6,182,212,0.11),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.88),rgba(239,246,255,0.58),rgba(255,255,255,0.96))]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45 [mask-image:radial-gradient(circle_at_50%_12%,black,transparent_72%)]" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl min-w-0">
           <BackButton />
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
-            <div className="">
-              <p className="inline-flex rounded-full border border-blue-100 bg-white/86 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-blue-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl">
+          <div className="mt-10 grid min-w-0 gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">
+            <div className="min-w-0">
+              <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/86 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-700 shadow-lg shadow-blue-100/45 backdrop-blur-xl sm:px-5 sm:tracking-[0.24em]">
                 Growblic Legal Hub
               </p>
-              <h1 className="mt-6 max-w-4xl text-5xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+              <h1 className="mt-6 max-w-4xl break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
                 Policies for responsible digital work.
               </h1>
               <p className="mt-6 max-w-3xl text-lg font-semibold leading-9 text-slate-600">
                 This page is informational and not legal advice. Formal legal documents
-                can be requested at hello@growblic.com.
+                can be requested at <span className="break-all">hello@growblic.com</span>.
               </p>
             </div>
 
-            <div className="rounded-[2rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.14)] ring-1 ring-white/70 backdrop-blur-2xl [animation-delay:120ms]">
+            <div className="min-w-0 rounded-[2rem] border border-blue-100/80 bg-white/82 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.14)] ring-1 ring-white/70 backdrop-blur-2xl [animation-delay:120ms]">
               <div className="relative overflow-hidden rounded-[1.65rem] border border-blue-100 bg-[#fbfdff] p-6">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_90%_20%,rgba(6,182,212,0.13),transparent_30%)]" />
                 <div className="relative">
-                  <div className="flex items-start justify-between gap-5">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">
+                  <div className="flex min-w-0 items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-700 sm:tracking-[0.22em]">
                         Legal & policy center
                       </p>
-                      <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950">
+                      <h2 className="mt-3 break-words text-2xl font-black tracking-tight text-slate-950">
                         Clear policies, careful communication, practical review paths.
                       </h2>
                     </div>
@@ -228,19 +228,19 @@ export default function LegalPage() {
                         <a
                           key={row.label}
                           href={row.href}
-                          className="group flex items-center justify-between gap-4 rounded-2xl border border-blue-100 bg-white/86 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 hover:shadow-lg hover:shadow-blue-100/70 focus:outline-none focus:ring-4 focus:ring-blue-100"
+                          className="group flex min-w-0 items-center justify-between gap-3 rounded-2xl border border-blue-100 bg-white/86 px-4 py-3 text-sm font-black text-slate-700 shadow-sm shadow-blue-100/40 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 hover:shadow-lg hover:shadow-blue-100/70 focus:outline-none focus:ring-4 focus:ring-blue-100"
                         >
                           <span className="flex min-w-0 items-center gap-3">
                             <Icon className="h-4 w-4 text-blue-600" aria-hidden="true" />
                             <span className="min-w-0">
-                              <span className="block truncate">{row.label}</span>
-                              <span className="mt-0.5 block text-[0.68rem] font-black uppercase tracking-[0.14em] text-slate-600 transition group-hover:text-blue-500">
+                              <span className="block break-words">{row.label}</span>
+                              <span className="mt-0.5 block break-words text-[0.68rem] font-black uppercase tracking-[0.1em] text-slate-600 transition group-hover:text-blue-500 sm:tracking-[0.14em]">
                                 {row.detail}
                               </span>
                             </span>
                           </span>
                           <span className="flex shrink-0 items-center gap-2">
-                            <span className="rounded-full bg-blue-50 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-blue-700 ring-1 ring-blue-100">
+                            <span className="hidden rounded-full bg-blue-50 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-blue-700 ring-1 ring-blue-100 min-[420px]:inline">
                               Available
                             </span>
                             <ArrowRight className="h-4 w-4 text-blue-500 transition group-hover:translate-x-0.5" aria-hidden="true" />
@@ -254,11 +254,11 @@ export default function LegalPage() {
             </div>
           </div>
 
-          <div className="legal-sticky-grid mt-14 grid items-start gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
+          <div className="legal-sticky-grid mt-14 grid min-w-0 items-start gap-8 lg:grid-cols-[300px_1fr] lg:items-start">
             <aside className="legal-sections-sidebar h-fit lg:sticky lg:top-24 lg:self-start">
               <div className="legal-sidebar-card rounded-[2rem] border border-blue-100/80 bg-white/86 p-4 shadow-[0_25px_80px_rgba(37,99,235,0.11)] ring-1 ring-white/70 backdrop-blur-xl">
                 <div className="legal-sidebar-head px-3">
-                    <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">
+                    <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-700 sm:tracking-[0.22em]">
                       Policy sections
                     </p>
                     <span aria-hidden="true" />
@@ -273,9 +273,9 @@ export default function LegalPage() {
                         href={link.href}
                         className="legal-sidebar-link group flex shrink-0 items-center justify-between gap-3 whitespace-nowrap rounded-full border border-blue-100 bg-white/84 px-4 py-2.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/35 transition hover:border-blue-200 hover:bg-blue-600 hover:text-white lg:whitespace-normal lg:rounded-2xl lg:px-4 lg:py-3"
                       >
-                        <span className="flex items-center gap-2">
+                        <span className="flex min-w-0 items-center gap-2">
                           <Icon className="h-4 w-4 text-blue-600 transition group-hover:text-white" aria-hidden="true" />
-                          {link.label}
+                          <span className="min-w-0 break-words">{link.label}</span>
                         </span>
                         <ChevronRight className="hidden h-4 w-4 opacity-55 transition group-hover:translate-x-0.5 lg:block" aria-hidden="true" />
                       </a>
@@ -285,20 +285,20 @@ export default function LegalPage() {
               </div>
             </aside>
 
-            <div className="grid gap-5">
+            <div className="grid min-w-0 gap-5">
               <article className="rounded-[2rem] border border-blue-100/80 bg-blue-50/62 p-6 shadow-[0_20px_70px_rgba(37,99,235,0.10)] ring-1 ring-white/70 backdrop-blur-xl sm:p-7">
-                <div className="flex items-start gap-4">
+                <div className="flex min-w-0 items-start gap-4">
                   <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-white text-blue-700 shadow-sm shadow-blue-100/60">
                     <Gavel className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+                  <div className="min-w-0">
+                    <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-700 sm:tracking-[0.2em]">
                       Important note
                     </p>
                     <p className="mt-3 text-base font-semibold leading-8 text-slate-600">
                       These policies are concise, Growblic-friendly placeholders for website
                       transparency. Formal project agreements, privacy terms, data processing
-                      documents, and legal documents can be requested at hello@growblic.com.
+                      documents, and legal documents can be requested at <span className="break-all">hello@growblic.com</span>.
                     </p>
                   </div>
                 </div>
@@ -314,16 +314,16 @@ export default function LegalPage() {
                     className={cardClass}
                     style={{ animationDelay: `${(index + 1) * 70}ms` }}
                   >
-                    <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex items-start gap-4">
+                    <div className="flex min-w-0 flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex min-w-0 items-start gap-4">
                         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-blue-100 bg-blue-50 text-blue-700 shadow-sm shadow-blue-100/60">
                           <Icon className="h-5 w-5" aria-hidden="true" />
                         </span>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+                        <div className="min-w-0">
+                          <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-700 sm:tracking-[0.2em]">
                             {section.eyebrow}
                           </p>
-                          <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+                          <h2 className="mt-2 break-words text-3xl font-black tracking-tight text-slate-950">
                             {section.title}
                           </h2>
                         </div>
@@ -332,7 +332,7 @@ export default function LegalPage() {
                         <span className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-black text-blue-700">
                           {String(index + 1).padStart(2, "0")}
                         </span>
-                        <span className="rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-blue-700 shadow-sm shadow-blue-100/40">
+                        <span className="max-w-full break-words rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.1em] text-blue-700 shadow-sm shadow-blue-100/40 sm:tracking-[0.12em]">
                           {section.badge}
                         </span>
                       </div>
@@ -342,10 +342,10 @@ export default function LegalPage() {
                       {section.paragraphs.map((paragraph) => (
                         <div
                           key={paragraph}
-                          className="flex gap-3 rounded-2xl border border-blue-100 bg-blue-50/40 px-4 py-3 shadow-sm shadow-blue-100/30"
+                          className="flex min-w-0 gap-3 rounded-2xl border border-blue-100 bg-blue-50/40 px-4 py-3 shadow-sm shadow-blue-100/30"
                         >
                           <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-blue-600" aria-hidden="true" />
-                          <p>{paragraph}</p>
+                          <p className="min-w-0 break-words">{paragraph}</p>
                         </div>
                       ))}
                     </div>
@@ -368,25 +368,25 @@ export default function LegalPage() {
                     <p className="mt-5 text-xs font-black uppercase tracking-[0.2em] text-blue-700">
                       Report Abuse
                     </p>
-                    <h2 className="mt-3 max-w-4xl text-3xl font-black tracking-tight text-slate-950">
-                      Send abuse concerns to abuse@growblic.com.
+                    <h2 className="mt-3 max-w-4xl break-words text-3xl font-black tracking-tight text-slate-950">
+                      Send abuse concerns to <span className="break-all">abuse@growblic.com</span>.
                     </h2>
                     <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-slate-600">
                       Include the affected URL, message, account, screenshot, technical
                       detail, or any useful context so Growblic can review the concern
                       responsibly.
                     </p>
-                    <div className="mt-7 flex flex-wrap gap-3">
+                    <div className="mt-7 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
                       <a
                         href="mailto:abuse@growblic.com?subject=Growblic Abuse Report"
-                        className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-blue-600 px-7 py-3.5 text-sm font-black text-white shadow-xl shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
+                        className="inline-flex min-h-12 min-w-0 items-center justify-center gap-3 rounded-full bg-blue-600 px-7 py-3.5 text-center text-sm font-black text-white shadow-xl shadow-blue-500/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
                       >
                         Report Abuse
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </a>
                       <a
                         href="/start-project"
-                        className="inline-flex min-h-12 items-center justify-center rounded-full border border-blue-100 bg-white/90 px-7 py-3.5 text-sm font-black text-slate-950 shadow-lg shadow-blue-100/60 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                        className="inline-flex min-h-12 min-w-0 items-center justify-center rounded-full border border-blue-100 bg-white/90 px-7 py-3.5 text-center text-sm font-black text-slate-950 shadow-lg shadow-blue-100/60 backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
                       >
                         Contact Growblic
                       </a>

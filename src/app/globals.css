@@ -114,12 +114,6 @@ body {
   box-sizing: border-box;
 }
 
-html,
-body {
-  max-width: 100%;
-  overflow-x: clip;
-}
-
 main,
 section,
 article,
@@ -495,16 +489,6 @@ button {
     width: 2rem !important;
     height: 2rem !important;
     font-size: 0.95rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: clamp(2rem, 11vw, 3rem) !important;
-  }
-
-  h2 {
-    font-size: clamp(1.7rem, 9vw, 2.35rem) !important;
   }
 }
 

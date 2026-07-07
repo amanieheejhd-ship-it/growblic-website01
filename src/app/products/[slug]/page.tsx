@@ -15,13 +15,26 @@ type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const productSlugAliases: Record<string, string> = {
+  "crm-platform": "crm-automation-platform",
+  "school-software": "school-management-software",
+  "hr-payroll": "hr-payroll-system",
+};
+
+function resolveProductSlug(slug: string) {
+  return productSlugAliases[slug] ?? slug;
+}
+
 export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
+  return [
+    ...products.map((product) => ({ slug: product.slug })),
+    ...Object.keys(productSlugAliases).map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = getProductBySlug(resolveProductSlug(slug));
 
   if (!product) {
     return {
@@ -42,7 +55,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = getProductBySlug(resolveProductSlug(slug));
 
   if (!product) notFound();
 

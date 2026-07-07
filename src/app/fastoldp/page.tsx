@@ -346,7 +346,7 @@ function SectionHeader({
   return (
     <div className="mx-auto max-w-3xl text-center">
       {eyebrow ? (
-        <p className="text-xs font-black uppercase tracking-[0.26em] text-blue-600">
+        <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-600 sm:tracking-[0.26em]">
           {eyebrow}
         </p>
       ) : null}
@@ -417,13 +417,13 @@ export default function FastoldpPage() {
   return (
     <>
       <Navbar />
-      <main className="overflow-hidden bg-[#fbfdff] pt-24 text-slate-950">
+      <main className="bg-[#fbfdff] pt-24 text-slate-950">
         <section className="relative px-5 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_4%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_86%_10%,rgba(6,182,212,0.13),transparent_28%),linear-gradient(180deg,rgba(239,246,255,0.88),rgba(255,255,255,0.98)_42%,rgba(248,252,255,0.96))]" />
           <div className="relative mx-auto max-w-7xl">
-            <div className="grid gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
-              <div>
-                <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-xs font-black uppercase tracking-[0.24em] text-blue-700 shadow-lg shadow-blue-100/60">
+            <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
+              <div className="min-w-0">
+                <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-700 shadow-lg shadow-blue-100/60 sm:px-5 sm:tracking-[0.24em]">
                   Fastoldp by Growblic
                 </p>
                 <h1 className="mt-6 max-w-4xl text-4xl font-black leading-tight tracking-normal text-slate-950 sm:text-6xl lg:text-7xl">
@@ -433,7 +433,7 @@ export default function FastoldpPage() {
                   Choose what you want to build and quickly reach pricing,
                   support, services, products, or project guidance.
                 </p>
-                <p className="mt-4 inline-flex rounded-full border border-cyan-100 bg-white/86 px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
+                <p className="mt-4 inline-flex max-w-full break-words rounded-full border border-cyan-100 bg-white/86 px-4 py-2 text-sm font-black text-slate-700 shadow-sm">
                   Fastoldp — Fast Online Direction Page
                 </p>
 
@@ -464,20 +464,20 @@ export default function FastoldpPage() {
                 </div>
               </div>
 
-              <div className="relative">
+              <div className="relative min-w-0">
                 <div className="absolute -inset-5 rounded-[3rem] bg-gradient-to-br from-blue-200/45 via-cyan-200/35 to-transparent blur-2xl" />
                 <div className="relative overflow-hidden rounded-[2rem] border border-white/90 bg-white/82 p-5 shadow-[0_32px_100px_rgba(37,99,235,0.15)] ring-1 ring-blue-100/70 backdrop-blur-2xl sm:p-6">
                   <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
                   <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-cyan-100/70 blur-3xl" />
-                  <div className="flex items-start gap-4">
+                  <div className="flex min-w-0 items-start gap-4">
                     <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-xl shadow-blue-200/80">
                       <Zap className="h-6 w-6" />
                     </span>
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">
+                    <div className="min-w-0">
+                      <p className="break-words text-xs font-black uppercase tracking-[0.14em] text-blue-600 sm:tracking-[0.2em]">
                         Growblic Quick Access
                       </p>
-                      <h2 className="mt-1 text-2xl font-black leading-tight text-slate-950">
+                      <h2 className="mt-1 break-words text-2xl font-black leading-tight text-slate-950">
                         One clean page for the next right click.
                       </h2>
                     </div>
@@ -487,10 +487,10 @@ export default function FastoldpPage() {
                     {["Plan", "Price", "Support"].map((item) => (
                       <div
                         key={item}
-                        className="rounded-2xl border border-blue-100/80 bg-[#fbfdff]/90 p-4 text-center shadow-lg shadow-blue-100/35"
+                        className="min-w-0 rounded-2xl border border-blue-100/80 bg-[#fbfdff]/90 p-4 text-center shadow-lg shadow-blue-100/35"
                       >
-                        <p className="text-sm font-black text-slate-950">{item}</p>
-                        <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-slate-400">
+                        <p className="break-words text-sm font-black text-slate-950">{item}</p>
+                        <p className="mt-1 break-words text-xs font-bold uppercase tracking-[0.1em] text-slate-400 sm:tracking-[0.14em]">
                           Fast access
                         </p>
                       </div>
@@ -609,7 +609,7 @@ export default function FastoldpPage() {
         <section className="px-5 py-16 sm:px-6">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.26em] text-blue-600">
+              <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-600 sm:tracking-[0.26em]">
                 Products
               </p>
               <h2 className="mt-3 text-3xl font-black leading-tight tracking-normal text-slate-950 sm:text-5xl">
@@ -658,12 +658,12 @@ export default function FastoldpPage() {
                   <Link
                     key={item.title}
                     href="/support"
-                    className="group flex min-h-24 items-center gap-4 rounded-[1.5rem] border border-blue-100/80 bg-white/90 p-5 shadow-[0_18px_55px_rgba(37,99,235,0.10)] ring-1 ring-white/80 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white"
+                    className="group flex min-h-24 min-w-0 items-center gap-4 rounded-[1.5rem] border border-blue-100/80 bg-white/90 p-5 shadow-[0_18px_55px_rgba(37,99,235,0.10)] ring-1 ring-white/80 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:bg-white"
                   >
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-blue-50 text-blue-600 ring-1 ring-blue-100 transition group-hover:bg-blue-600 group-hover:text-white">
                       <Icon className="h-5 w-5" />
                     </span>
-                    <span className="min-w-0 flex-1 text-base font-black text-slate-800">
+                    <span className="min-w-0 flex-1 break-words text-base font-black text-slate-800">
                       {item.title}
                     </span>
                     <ArrowRight className="h-4 w-4 shrink-0 text-blue-500 transition group-hover:translate-x-1" />

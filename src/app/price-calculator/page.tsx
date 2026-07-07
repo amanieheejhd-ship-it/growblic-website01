@@ -14,7 +14,7 @@ export default function PriceCalculatorPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+      <main className="min-h-screen bg-[#fbfdff]">
         <section className="relative px-5 py-16 sm:px-6 sm:py-20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_84%_20%,rgba(6,182,212,0.11),transparent_30%),linear-gradient(180deg,rgba(239,246,255,0.75),rgba(255,255,255,0.96)_48%,rgba(239,246,255,0.45))]" />
 
