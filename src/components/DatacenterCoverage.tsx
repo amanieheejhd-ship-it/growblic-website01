@@ -441,14 +441,27 @@ export function DatacenterCoverage() {
                     const globe = globeRef.current;
                     if (!globe) return;
 
-                    const material = globe.globeMaterial() as THREE.MeshPhongMaterial;
-                    material.color = new THREE.Color("#ffffff");
-                    material.emissive = new THREE.Color("#c7f9ff");
-                    material.emissiveIntensity = 0.42;
-                    material.shininess = 18;
-                    material.transparent = true;
-                    material.opacity = 1;
-                    material.needsUpdate = true;
+                    const globeApi = globe as unknown as {
+                      globeMaterial?: () => THREE.Material | THREE.Material[] | null;
+                    };
+
+                    const materialResult = globeApi.globeMaterial?.();
+
+                    if (materialResult) {
+                      const material = Array.isArray(materialResult)
+                        ? materialResult[0]
+                        : materialResult;
+
+                      if (material instanceof THREE.MeshPhongMaterial) {
+                        material.color = new THREE.Color("#ffffff");
+                        material.emissive = new THREE.Color("#c7f9ff");
+                        material.emissiveIntensity = 0.42;
+                        material.shininess = 18;
+                        material.transparent = true;
+                        material.opacity = 1;
+                        material.needsUpdate = true;
+                      }
+                    }
 
                     const controls = globe.controls();
                     controls.autoRotate = true;

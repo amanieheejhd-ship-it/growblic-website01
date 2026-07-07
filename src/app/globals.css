@@ -1529,3 +1529,176 @@ html {
     max-width: 100%;
   }
 }
+
+
+/* Mobile-only responsive fixes for Datacenter page.
+   Desktop layout stays same. */
+@media (max-width: 640px) {
+  .datacenter-responsive-page {
+    overflow-x: hidden;
+  }
+
+  .datacenter-responsive-page section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .datacenter-responsive-page .grid,
+  .datacenter-responsive-page [class*="grid-cols-"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .datacenter-responsive-page .flex {
+    flex-wrap: wrap;
+  }
+
+  .datacenter-responsive-page h1 {
+    font-size: clamp(2.2rem, 11vw, 3.5rem) !important;
+    line-height: 1.05 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .datacenter-responsive-page h2 {
+    font-size: clamp(1.75rem, 8vw, 2.4rem) !important;
+    line-height: 1.1 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .datacenter-responsive-page h3 {
+    font-size: clamp(1.25rem, 6vw, 1.7rem) !important;
+    line-height: 1.15 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .datacenter-responsive-page p,
+  .datacenter-responsive-page li,
+  .datacenter-responsive-page a,
+  .datacenter-responsive-page span {
+    overflow-wrap: anywhere;
+  }
+
+  .datacenter-responsive-page article,
+  .datacenter-responsive-page div {
+    max-width: 100%;
+  }
+
+  .datacenter-responsive-page [class*="rounded"] {
+    max-width: 100%;
+  }
+
+  .datacenter-responsive-page [class*="min-w-"] {
+    min-width: 0 !important;
+  }
+
+  .datacenter-responsive-page [class*="w-["] {
+    max-width: 100% !important;
+  }
+
+  .datacenter-responsive-page [class*="translate-x"],
+  .datacenter-responsive-page [class*="-translate-x"] {
+    transform: none !important;
+  }
+}
+
+
+
+
+/* Safe mobile responsive fixes for Datacenter page */
+@media (max-width: 640px) {
+  .datacenter-responsive-page {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip;
+  }
+
+  .datacenter-responsive-page section {
+    width: 100%;
+    max-width: 100vw;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .datacenter-responsive-page section > div {
+    width: 100%;
+    max-width: calc(100vw - 2rem) !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .datacenter-responsive-page .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .datacenter-responsive-page [class*="grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .datacenter-responsive-page [class*="lg:grid-cols-"],
+  .datacenter-responsive-page [class*="md:grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .datacenter-responsive-page [class*="max-w-"] {
+    max-width: calc(100vw - 2rem) !important;
+  }
+
+  .datacenter-responsive-page [class*="min-w-"] {
+    min-width: 0 !important;
+  }
+
+  .datacenter-responsive-page article,
+  .datacenter-responsive-page aside {
+    width: 100% !important;
+    max-width: calc(100vw - 2rem) !important;
+    min-width: 0 !important;
+  }
+
+  .datacenter-responsive-page canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .datacenter-responsive-page h1 {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+    line-height: 1.05 !important;
+  }
+
+  .datacenter-responsive-page h2 {
+    font-size: clamp(1.7rem, 8vw, 2.25rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .datacenter-responsive-page h3 {
+    font-size: clamp(1.2rem, 6vw, 1.55rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  .datacenter-responsive-page p,
+  .datacenter-responsive-page li,
+  .datacenter-responsive-page a,
+  .datacenter-responsive-page span,
+  .datacenter-responsive-page button {
+    overflow-wrap: anywhere;
+    max-width: 100%;
+  }
+
+  .datacenter-responsive-page button {
+    white-space: normal !important;
+  }
+
+  .datacenter-responsive-page [class*="p-10"],
+  .datacenter-responsive-page [class*="p-12"] {
+    padding: 1.25rem !important;
+  }
+
+  .datacenter-responsive-page [class*="px-10"],
+  .datacenter-responsive-page [class*="px-12"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .datacenter-responsive-page [class*="gap-10"],
+  .datacenter-responsive-page [class*="gap-12"] {
+    gap: 1rem !important;
+  }
+}

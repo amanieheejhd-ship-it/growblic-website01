@@ -118,7 +118,7 @@ const securityItems = [
 
 export default function DatacenterPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden bg-[#fbfdff] datacenter-responsive-page">
       <section className="relative px-5 py-14 sm:px-6 sm:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_86%_18%,rgba(6,182,212,0.10),transparent_30%),linear-gradient(180deg,#ffffff_0%,#f8fbff_50%,#ffffff_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.032)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.032)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(180deg,black,transparent_82%)]" />
