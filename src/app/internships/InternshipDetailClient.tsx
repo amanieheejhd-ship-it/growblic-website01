@@ -395,13 +395,25 @@ export default function InternshipDetailClient({
 
                     <label className="text-sm font-black text-slate-800">
                       Passing year *
-                      <input
+                      <select
                         name="passingYear"
                         required
-                        inputMode="numeric"
-                        placeholder="Example: 2026"
+                        defaultValue=""
                         className={inputClass}
-                      />
+                      >
+                        <option value="" disabled>
+                          Select passing year
+                        </option>
+
+                        {Array.from(
+                          { length: 22 },
+                          (_, index) => 2026 - index,
+                        ).map((year) => (
+                          <option key={year} value={year}>
+                            {year}
+                          </option>
+                        ))}
+                      </select>
                     </label>
                   </div>
                 </div>
