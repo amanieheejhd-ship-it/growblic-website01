@@ -6,7 +6,7 @@ import CareersOpeningsList from "./CareersOpeningsList";
 export const metadata: Metadata = {
   title: "Openings | Growblic Careers",
   description:
-    "Explore current jobs and internship opportunities at Growblic for developers, designers, and digital growth roles.",
+    "Explore current job opportunities at Growblic for developers, designers, and digital growth roles.",
 };
 
 const openings = [
@@ -46,42 +46,6 @@ const openings = [
     experience: "Growth-minded",
     desc: "Work on SEO, Google Ads, Meta Ads, content, lead generation, and growth campaigns.",
   },
-  {
-    title: "Frontend Developer Internship",
-    slug: "frontend-developer-internship",
-    type: "Internship",
-    area: "Engineering",
-    location: "Remote / India",
-    experience: "Beginner friendly",
-    desc: "Learn React, Next.js, Tailwind CSS, responsive design, and premium website development on real projects.",
-  },
-  {
-    title: "Backend Developer Internship",
-    slug: "backend-developer-internship",
-    type: "Internship",
-    area: "Engineering",
-    location: "Remote / India",
-    experience: "Beginner friendly",
-    desc: "Learn APIs, databases, authentication, admin panels, dashboards, and backend systems.",
-  },
-  {
-    title: "UI/UX Design Internship",
-    slug: "ui-ux-design-internship",
-    type: "Internship",
-    area: "Design",
-    location: "Remote / India",
-    experience: "Beginner friendly",
-    desc: "Learn Figma, wireframes, landing pages, mobile app screens, and clean design systems.",
-  },
-  {
-    title: "Digital Marketing Internship",
-    slug: "digital-marketing-internship",
-    type: "Internship",
-    area: "Marketing",
-    location: "Remote / India",
-    experience: "Beginner friendly",
-    desc: "Learn SEO basics, content planning, Google Ads, Meta Ads, and lead-generation strategy.",
-  },
 ];
 
 export default function OpeningsPage() {
@@ -96,12 +60,12 @@ export default function OpeningsPage() {
           </p>
 
           <h1 className="mt-7 max-w-5xl text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-            Choose your next role or internship at Growblic.
+            Choose your next role at Growblic.
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
-            Explore current jobs and internship opportunities for developers,
-            designers, and growth-focused people.
+            Explore current job opportunities for developers, designers, and
+            growth-focused people who want to build real products with Growblic.
           </p>
 
           <CareersOpeningsList openings={openings} />

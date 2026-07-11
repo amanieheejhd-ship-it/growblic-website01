@@ -48,6 +48,7 @@ const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
   { label: "Careers", href: "/careers" },
+  { label: "Internships", href: "/internships" },
   { label: "Contact", href: "/#contact" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Services", href: "/services" }

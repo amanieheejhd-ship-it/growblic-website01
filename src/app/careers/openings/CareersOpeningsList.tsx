@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Briefcase, GraduationCap } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import Scroll3DSection from "../../../components/Scroll3DSection";
 
 type Opening = {
@@ -17,7 +17,6 @@ type Opening = {
 type FilterKey =
   | "All Roles"
   | "Jobs"
-  | "Internships"
   | "Remote"
   | "Design"
   | "Engineering"
@@ -26,7 +25,6 @@ type FilterKey =
 const filters: FilterKey[] = [
   "All Roles",
   "Jobs",
-  "Internships",
   "Remote",
   "Design",
   "Engineering",
@@ -51,7 +49,6 @@ function matchesFilter(opening: Opening, filter: FilterKey) {
 
   if (filter === "All Roles") return true;
   if (filter === "Jobs") return opening.type.toLowerCase() === "job";
-  if (filter === "Internships") return opening.type.toLowerCase() === "internship";
   if (filter === "Remote") {
     return text.includes("remote") || text.includes("hybrid") || text.includes("remote-first");
   }
@@ -119,9 +116,6 @@ export default function CareersOpeningsList({ openings }: { openings: Opening[] 
       {filteredOpenings.length > 0 ? (
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           {filteredOpenings.map((item, index) => {
-            const isInternship = item.type === "Internship";
-            const Icon = isInternship ? GraduationCap : Briefcase;
-
             return (
               <Scroll3DSection key={item.title} delay={index * 0.035}>
                 <article className="group relative flex h-full min-h-96 flex-col overflow-hidden rounded-[2rem] border border-white/85 bg-white/74 shadow-[0_24px_80px_rgba(37,99,235,0.14)] ring-1 ring-blue-100/75 backdrop-blur-2xl transition duration-200 ease-out hover:border-blue-200 hover:shadow-[0_32px_100px_rgba(37,99,235,0.2)] focus-within:border-blue-300 focus-within:shadow-[0_32px_100px_rgba(37,99,235,0.2)] motion-reduce:transition-none">
@@ -134,19 +128,13 @@ export default function CareersOpeningsList({ openings }: { openings: Opening[] 
                   <div className="relative flex h-full flex-col p-7">
                     <div className="flex items-start justify-between gap-4">
                       <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-white/90 bg-white/78 text-blue-700 shadow-[0_18px_45px_rgba(37,99,235,0.18)] ring-1 ring-blue-100/80 backdrop-blur-xl transition duration-200 group-hover:bg-blue-50 group-focus-within:bg-blue-50 motion-reduce:transition-none">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
+                        <Briefcase className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <div className="flex flex-wrap justify-end gap-2">
                         <span className="rounded-full border border-blue-100/90 bg-white/68 px-3 py-1.5 text-xs font-black text-blue-700 shadow-sm shadow-blue-100/50 backdrop-blur-xl">
                           {item.area}
                         </span>
-                        <span
-                          className={`rounded-full border px-3 py-1.5 text-xs font-black shadow-sm backdrop-blur-xl ${
-                            isInternship
-                              ? "border-cyan-100/90 bg-cyan-50/72 text-cyan-700 shadow-cyan-100/50"
-                              : "border-slate-200/80 bg-white/68 text-slate-700 shadow-blue-100/40"
-                          }`}
-                        >
+                        <span className="rounded-full border border-slate-200/80 bg-white/68 px-3 py-1.5 text-xs font-black text-slate-700 shadow-sm shadow-blue-100/40 backdrop-blur-xl">
                           {item.type}
                         </span>
                       </div>
