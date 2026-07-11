@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   internshipTitle: string;
@@ -10,13 +10,6 @@ type FeePlan = {
   days: number;
   amount: number;
   label: string;
-};
-
-type ExchangeRateResponse = {
-  date: string;
-  base: string;
-  quote: string;
-  rate: number;
 };
 
 const feePlans: FeePlan[] = [
@@ -33,67 +26,14 @@ const inrFormatter = new Intl.NumberFormat("en-IN", {
   maximumFractionDigits: 0,
 });
 
-const usdFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
-
 export default function InternshipFeePanel({
   internshipTitle,
 }: Props) {
   const [selectedDays, setSelectedDays] = useState<number | null>(null);
-  const [usdRate, setUsdRate] = useState<number | null>(null);
-  const [rateDate, setRateDate] = useState("");
-  const [rateLoading, setRateLoading] = useState(true);
-  const [rateError, setRateError] = useState(false);
   const [paymentStepOpen, setPaymentStepOpen] = useState(false);
 
   const selectedPlan =
     feePlans.find((plan) => plan.days === selectedDays) ?? null;
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadExchangeRate() {
-      try {
-        setRateLoading(true);
-        setRateError(false);
-
-        const response = await fetch(
-          "https://api.frankfurter.dev/v2/rate/INR/USD",
-          {
-            signal: controller.signal,
-            cache: "no-store",
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error("Exchange-rate request failed");
-        }
-
-        const data = (await response.json()) as ExchangeRateResponse;
-
-        if (!Number.isFinite(data.rate) || data.rate <= 0) {
-          throw new Error("Invalid exchange rate");
-        }
-
-        setUsdRate(data.rate);
-        setRateDate(data.date);
-      } catch (error) {
-        if ((error as Error).name !== "AbortError") {
-          setRateError(true);
-        }
-      } finally {
-        setRateLoading(false);
-      }
-    }
-
-    loadExchangeRate();
-
-    return () => controller.abort();
-  }, []);
 
   function selectPlan(days: number) {
     setSelectedDays(days);
@@ -108,11 +48,11 @@ export default function InternshipFeePanel({
     setPaymentStepOpen(true);
 
     window.setTimeout(() => {
-      document.getElementById("payment-setup-placeholder")?.scrollIntoView({
+      document.getElementById("internship-payment-qr")?.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
-    }, 100);
+    }, 120);
   }
 
   return (
@@ -130,33 +70,15 @@ export default function InternshipFeePanel({
         </h2>
 
         <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600 sm:text-base">
-          Choose the duration that suits you. The final payment will always be
-          charged in Indian Rupees.
+          Choose your preferred duration. All payments will be charged in
+          Indian Rupees.
         </p>
-
-        <div className="mt-5 inline-flex flex-wrap items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-bold text-slate-600 shadow-sm">
-          <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-
-          {rateLoading && "Loading current USD reference rate..."}
-
-          {!rateLoading && !rateError && rateDate && (
-            <>
-              USD reference rate updated: {rateDate}
-            </>
-          )}
-
-          {!rateLoading && rateError && (
-            <>USD conversion temporarily unavailable</>
-          )}
-        </div>
       </div>
 
       <div className="p-5 sm:p-8 lg:p-10">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {feePlans.map((plan) => {
             const selected = selectedDays === plan.days;
-            const usdAmount =
-              usdRate !== null ? plan.amount * usdRate : null;
 
             return (
               <button
@@ -190,26 +112,8 @@ export default function InternshipFeePanel({
                   {plan.days} days
                 </h3>
 
-                <p className="mt-5 text-2xl font-black">
+                <p className="mt-6 text-2xl font-black">
                   {inrFormatter.format(plan.amount)}
-                </p>
-
-                <p
-                  className={
-                    selected
-                      ? "mt-2 text-sm font-bold text-blue-100"
-                      : "mt-2 text-sm font-bold text-slate-500"
-                  }
-                >
-                  {rateLoading && "Calculating USD..."}
-
-                  {!rateLoading && usdAmount !== null && (
-                    <>Approximately {usdFormatter.format(usdAmount)}</>
-                  )}
-
-                  {!rateLoading && usdAmount === null && (
-                    <>USD currently unavailable</>
-                  )}
                 </p>
               </button>
             );
@@ -226,15 +130,6 @@ export default function InternshipFeePanel({
 
                 <p className="mt-1 text-sm font-semibold text-slate-500">
                   Payable amount: {inrFormatter.format(selectedPlan.amount)}
-                  {usdRate !== null && (
-                    <>
-                      {" "}
-                      · Approximately{" "}
-                      {usdFormatter.format(
-                        selectedPlan.amount * usdRate,
-                      )}
-                    </>
-                  )}
                 </p>
               </>
             ) : (
@@ -244,7 +139,7 @@ export default function InternshipFeePanel({
                 </p>
 
                 <p className="mt-1 text-sm font-semibold text-slate-500">
-                  Select one duration to continue.
+                  Select one internship plan to continue.
                 </p>
               </>
             )}
@@ -262,37 +157,78 @@ export default function InternshipFeePanel({
 
         {paymentStepOpen && selectedPlan && (
           <section
-            id="payment-setup-placeholder"
-            className="mt-7 scroll-mt-8 overflow-hidden rounded-[30px] border border-dashed border-blue-300 bg-gradient-to-br from-blue-50 to-cyan-50 p-6 sm:p-8"
+            id="internship-payment-qr"
+            className="mt-8 scroll-mt-8 overflow-hidden rounded-[32px] border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-cyan-50 shadow-[0_24px_70px_rgba(37,99,235,0.13)]"
           >
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="grid gap-8 p-6 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
-                  Payment setup
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-600">
+                  Scan and pay
                 </p>
 
-                <h3 className="mt-3 text-2xl font-black text-slate-950">
-                  QR payment will appear here
+                <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-950">
+                  Complete your payment
                 </h3>
 
-                <p className="mt-3 max-w-2xl text-sm font-semibold leading-7 text-slate-600">
-                  Selected plan: {selectedPlan.days} days for{" "}
-                  {inrFormatter.format(selectedPlan.amount)}. The payment QR,
-                  backend verification and invoice will be connected later.
-                  No payment is being charged right now.
-                </p>
+                <div className="mt-6 space-y-3 rounded-[24px] border border-blue-100 bg-white p-5 shadow-sm">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-slate-500">
+                      Internship
+                    </span>
 
-                <p className="mt-3 text-sm font-bold text-slate-500">
-                  Internship: {internshipTitle}
-                </p>
+                    <span className="text-right text-sm font-black text-slate-950">
+                      Internship
+                    </span>
+                  </div>
+
+                  <div className="h-px bg-slate-100" />
+
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-slate-500">
+                      Duration
+                    </span>
+
+                    <span className="text-sm font-black text-slate-950">
+                      {selectedPlan.days} days
+                    </span>
+                  </div>
+
+                  <div className="h-px bg-slate-100" />
+
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-sm font-semibold text-slate-500">
+                      Amount
+                    </span>
+
+                    <span className="text-xl font-black text-blue-600">
+                      {inrFormatter.format(selectedPlan.amount)}
+                    </span>
+                  </div>
+                </div>
+
+                
               </div>
 
-              <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-[24px] border border-blue-200 bg-white text-center text-xs font-black leading-5 text-blue-600 shadow-sm">
-                QR
-                <br />
-                Coming
-                <br />
-                Later
+              <div className="mx-auto w-full max-w-[300px] rounded-[30px] border border-blue-200 bg-white p-5 shadow-[0_20px_60px_rgba(37,99,235,0.18)]">
+                <div className="flex aspect-square w-full items-center justify-center rounded-[22px] border-2 border-dashed border-blue-300 bg-[linear-gradient(135deg,#eff6ff,#ecfeff)] p-6 text-center">
+                  <div>
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-950 text-2xl text-white shadow-lg">
+                      ▦
+                    </div>
+
+                    <p className="mt-5 text-lg font-black text-slate-950">
+                      Payment QR
+                    </p>
+
+                    <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">
+                      Your QR scanner will appear here.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-center text-xs font-bold text-slate-500">
+                  Scan using any supported UPI application
+                </p>
               </div>
             </div>
           </section>
