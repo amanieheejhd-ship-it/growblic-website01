@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 const openings = [
   {
     title: "Frontend Developer",
+    slug: "frontend-developer",
     type: "Job",
     area: "Engineering",
     location: "Remote / India",
@@ -20,6 +21,7 @@ const openings = [
   },
   {
     title: "Backend Developer",
+    slug: "backend-developer",
     type: "Job",
     area: "Engineering",
     location: "Remote / India",
@@ -28,6 +30,7 @@ const openings = [
   },
   {
     title: "UI/UX Designer",
+    slug: "ui-ux-designer",
     type: "Job",
     area: "Design",
     location: "Remote / India",
@@ -36,6 +39,7 @@ const openings = [
   },
   {
     title: "Digital Marketing Executive",
+    slug: "digital-marketing-executive",
     type: "Job",
     area: "Marketing",
     location: "Remote / India",
@@ -44,6 +48,7 @@ const openings = [
   },
   {
     title: "Frontend Developer Internship",
+    slug: "frontend-developer-internship",
     type: "Internship",
     area: "Engineering",
     location: "Remote / India",
@@ -52,6 +57,7 @@ const openings = [
   },
   {
     title: "Backend Developer Internship",
+    slug: "backend-developer-internship",
     type: "Internship",
     area: "Engineering",
     location: "Remote / India",
@@ -60,6 +66,7 @@ const openings = [
   },
   {
     title: "UI/UX Design Internship",
+    slug: "ui-ux-design-internship",
     type: "Internship",
     area: "Design",
     location: "Remote / India",
@@ -68,6 +75,7 @@ const openings = [
   },
   {
     title: "Digital Marketing Internship",
+    slug: "digital-marketing-internship",
     type: "Internship",
     area: "Marketing",
     location: "Remote / India",

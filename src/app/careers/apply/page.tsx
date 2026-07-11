@@ -24,7 +24,7 @@ export default function CareersApplyPage() {
           </h1>
 
           <p className="mt-7 max-w-2xl text-lg font-semibold leading-9 text-slate-600">
-            Share your details, preferred role, and best work link. We review
+            Share your details, preferred role, and best work links. We review
             every application with care and reach out when there is a strong fit.
           </p>
 
