@@ -1,11 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  FormEvent,
-  useRef,
-  useState,
-} from "react";
+import type { FormEvent } from "react";
 import type { Internship } from "./internship-data";
 
 type Props = {
@@ -13,28 +9,40 @@ type Props = {
   internships: Internship[];
 };
 
-function DetailList({
+const inputClass =
+  "mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-sm font-semibold text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-blue-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-100";
+
+function PremiumDetailCard({
+  number,
   title,
   items,
 }: {
+  number: string;
   title: string;
   items: string[];
 }) {
   return (
-    <section className="rounded-[28px] border border-blue-100 bg-white/80 p-6 shadow-sm backdrop-blur-sm sm:p-8">
-      <h2 className="text-xl font-black tracking-tight text-slate-950">
-        {title}
-      </h2>
+    <section className="group overflow-hidden rounded-[30px] border border-blue-100 bg-white/90 shadow-[0_18px_55px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_75px_rgba(37,99,235,0.13)]">
+      <div className="flex items-center gap-4 border-b border-blue-100 bg-gradient-to-r from-blue-50 via-white to-cyan-50 px-6 py-5 sm:px-8">
+        <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-xs font-black text-white shadow-lg shadow-blue-200">
+          {number}
+        </span>
 
-      <ul className="mt-6 space-y-4">
+        <h2 className="text-xl font-black tracking-tight text-slate-950">
+          {title}
+        </h2>
+      </div>
+
+      <ul className="space-y-4 p-6 sm:p-8">
         {items.map((item) => (
           <li
             key={item}
-            className="flex items-start gap-3 text-sm font-semibold leading-6 text-slate-600 sm:text-base"
+            className="flex items-start gap-3 text-sm font-semibold leading-7 text-slate-600 sm:text-[15px]"
           >
-            <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-blue-500 text-xs font-black text-blue-600">
+            <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-black text-blue-600 ring-1 ring-blue-200">
               ✓
             </span>
+
             <span>{item}</span>
           </li>
         ))}
@@ -47,24 +55,13 @@ export default function InternshipDetailClient({
   internship,
   internships,
 }: Props) {
-  const [formOpen, setFormOpen] = useState(false);
-  const formRef = useRef<HTMLElement | null>(null);
-
-  function openApplicationForm() {
-    setFormOpen(true);
-
-    window.setTimeout(() => {
-      formRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 100);
-  }
-
   function submitApplication(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+
+    const value = (name: string) =>
+      String(formData.get(name) || "").trim();
 
     const subject = encodeURIComponent(
       `Growblic Internship Application - ${internship.title}`,
@@ -72,23 +69,32 @@ export default function InternshipDetailClient({
 
     const body = encodeURIComponent(
       [
-        `Internship role: ${internship.title}`,
+        "GROWBLIC INTERNSHIP APPLICATION",
+        "--------------------------------",
+        `Selected role: ${internship.title}`,
         "",
-        `Full name: ${String(formData.get("fullName") || "")}`,
-        `Email: ${String(formData.get("email") || "")}`,
-        `Phone: ${String(formData.get("phone") || "")}`,
-        `City: ${String(formData.get("city") || "")}`,
-        `College or institute: ${String(formData.get("college") || "")}`,
-        `Current course: ${String(formData.get("course") || "")}`,
-        `Current year or semester: ${String(formData.get("year") || "")}`,
+        "PERSONAL DETAILS",
+        `Full name: ${value("fullName")}`,
+        `Email: ${value("email")}`,
+        `Phone: ${value("phone")}`,
+        `City: ${value("city") || "Not provided"}`,
         "",
-        `Skills:`,
-        String(formData.get("skills") || ""),
+        "EDUCATION",
+        `College or institute: ${value("college") || "Not provided"}`,
+        `Current course: ${value("course")}`,
+        `Current year or semester: ${value("year") || "Not provided"}`,
         "",
-        `Portfolio/GitHub/LinkedIn: ${String(formData.get("portfolio") || "")}`,
+        "SKILLS",
+        value("skills") || "Not provided",
         "",
-        `Why I want this internship:`,
-        String(formData.get("reason") || ""),
+        "PROFILE LINKS",
+        `Portfolio: ${value("portfolio") || "Not provided"}`,
+        `GitHub: ${value("github") || "Not provided"}`,
+        `LinkedIn: ${value("linkedin") || "Not provided"}`,
+        `Other link: ${value("otherLink") || "Not provided"}`,
+        "",
+        "WHY I WANT THIS INTERNSHIP",
+        value("reason"),
       ].join("\n"),
     );
 
@@ -97,9 +103,9 @@ export default function InternshipDetailClient({
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.13),transparent_38%),linear-gradient(135deg,#f7f9ff_0%,#ffffff_55%,#eef8ff_100%)] px-5 py-14 sm:px-8 sm:py-20 lg:px-12">
+    <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_36%),linear-gradient(135deg,#f7f9ff_0%,#ffffff_55%,#eff9ff_100%)] px-4 py-12 sm:px-8 sm:py-16 lg:px-12">
       <div className="mx-auto max-w-7xl">
-        <p className="inline-flex rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-black uppercase tracking-[0.28em] text-blue-700 shadow-sm">
+        <p className="w-fit rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-[11px] font-black uppercase tracking-[0.28em] text-blue-700 shadow-sm">
           Growblic Careers / Internships
         </p>
 
@@ -109,6 +115,7 @@ export default function InternshipDetailClient({
         >
           {internships.map((role) => {
             const active = role.slug === internship.slug;
+
             const href =
               role.slug === "frontend-developer"
                 ? "/internships"
@@ -121,8 +128,8 @@ export default function InternshipDetailClient({
                 aria-current={active ? "page" : undefined}
                 className={
                   active
-                    ? "rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-blue-200 transition"
-                    : "rounded-full border border-blue-100 bg-white/90 px-4 py-2.5 text-xs font-black text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+                    ? "rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-3 text-xs font-black text-white shadow-lg shadow-blue-200"
+                    : "rounded-full border border-blue-100 bg-white px-5 py-3 text-xs font-black text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
                 }
               >
                 {role.shortTitle}
@@ -131,244 +138,325 @@ export default function InternshipDetailClient({
           })}
         </nav>
 
-        <section className="mt-10 grid gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:items-start">
-          <div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                internship.category,
-                "Internship",
-                "Remote / India",
-                "Beginner friendly",
-              ].map((badge) => (
-                <span
-                  key={badge}
-                  className="rounded-full border border-blue-100 bg-white px-3 py-2 text-xs font-black text-slate-600 shadow-sm"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
+        <section className="relative mt-10 overflow-hidden rounded-[36px] border border-blue-100 bg-white/85 p-7 shadow-[0_28px_90px_rgba(37,99,235,0.13)] backdrop-blur-sm sm:p-10 lg:p-14">
+          <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-blue-100/70 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-cyan-100/70 blur-3xl" />
 
-            <h1 className="mt-7 max-w-4xl text-5xl font-black leading-[0.96] tracking-[-0.055em] text-slate-950 sm:text-6xl lg:text-7xl">
+          <div className="relative max-w-5xl">
+            <p className="text-xs font-black uppercase tracking-[0.25em] text-blue-600">
+              Learn • Build • Grow
+            </p>
+
+            <h1 className="mt-6 text-5xl font-black leading-[0.95] tracking-[-0.055em] text-slate-950 sm:text-6xl lg:text-7xl">
               {internship.title}
             </h1>
 
-            <p className="mt-7 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+            <p className="mt-7 max-w-4xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
               {internship.overview}
             </p>
-          </div>
 
-          <aside className="overflow-hidden rounded-[30px] border border-blue-100 bg-white/80 shadow-[0_24px_70px_rgba(37,99,235,0.12)] backdrop-blur-sm">
-            <div className="bg-[linear-gradient(135deg,rgba(219,234,254,0.95),rgba(207,250,254,0.7))] p-7">
-              <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">
-                🎓
+            <div className="mt-8 flex flex-wrap gap-3">
+              <span className="rounded-full bg-slate-950 px-4 py-2 text-xs font-black text-white">
+                Real project exposure
+              </span>
+
+              <span className="rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black text-slate-600 shadow-sm">
+                Guided learning
+              </span>
+
+              <span className="rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black text-slate-600 shadow-sm">
+                Beginner focused
               </span>
             </div>
-
-            <div className="p-7">
-              <h2 className="text-2xl font-black tracking-tight text-slate-950">
-                Internship mode
-              </h2>
-
-              <p className="mt-4 text-base font-semibold leading-8 text-slate-600">
-                {internship.mode}
-              </p>
-            </div>
-          </aside>
+          </div>
         </section>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <DetailList
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <PremiumDetailCard
+            number="01"
             title="What the intern will learn"
             items={internship.learn}
           />
 
-          <DetailList
+          <PremiumDetailCard
+            number="02"
             title="Basic responsibilities"
             items={internship.responsibilities}
           />
 
-          <section className="rounded-[28px] border border-blue-100 bg-white/80 p-6 shadow-sm backdrop-blur-sm sm:p-8">
-            <h2 className="text-xl font-black tracking-tight text-slate-950">
-              Suitable education/course eligibility
-            </h2>
+          <section className="group overflow-hidden rounded-[30px] border border-blue-100 bg-white/90 shadow-[0_18px_55px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_75px_rgba(37,99,235,0.13)]">
+            <div className="flex items-center gap-4 border-b border-blue-100 bg-gradient-to-r from-blue-50 via-white to-cyan-50 px-6 py-5 sm:px-8">
+              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-xs font-black text-white shadow-lg shadow-blue-200">
+                03
+              </span>
 
-            <p className="mt-6 text-sm font-semibold leading-8 text-slate-600 sm:text-base">
-              {internship.eligibility}
-            </p>
+              <h2 className="text-xl font-black tracking-tight text-slate-950">
+                Education and eligibility
+              </h2>
+            </div>
+
+            <div className="p-6 sm:p-8">
+              <p className="text-sm font-semibold leading-8 text-slate-600 sm:text-[15px]">
+                {internship.eligibility}
+              </p>
+
+              <div className="mt-6 rounded-2xl border border-cyan-100 bg-gradient-to-r from-blue-50/80 to-cyan-50/80 p-4">
+                <p className="text-sm font-bold leading-7 text-slate-700">
+                  Professional experience is not compulsory. Interested
+                  students and serious self-taught beginners may also apply.
+                </p>
+              </div>
+            </div>
           </section>
 
-          <DetailList
-            title="Skills required"
+          <PremiumDetailCard
+            number="04"
+            title="Skills you can bring"
             items={internship.skills}
           />
         </div>
 
-        <section className="mt-6 rounded-[28px] border border-cyan-100 bg-cyan-50/70 p-6 sm:p-8">
-          <h2 className="text-xl font-black text-slate-950">
-            Beginners are welcome
-          </h2>
+        <section className="mt-10 overflow-hidden rounded-[36px] border border-blue-100 bg-white shadow-[0_30px_100px_rgba(37,99,235,0.14)]">
+          <div className="border-b border-blue-100 bg-gradient-to-r from-blue-50 via-white to-cyan-50 px-6 py-8 sm:px-10">
+            <p className="text-xs font-black uppercase tracking-[0.26em] text-blue-600">
+              Internship application
+            </p>
 
-          <p className="mt-3 max-w-4xl text-sm font-semibold leading-7 text-slate-600 sm:text-base">
-            Professional experience is not compulsory. Students from related
-            fields and serious self-taught beginners may apply. Basic knowledge,
-            willingness to learn, and consistent participation are important.
-          </p>
-        </section>
-
-        <section className="mt-10 rounded-[28px] border border-blue-100 bg-white/70 p-6 text-center shadow-sm sm:p-8">
-          <h2 className="text-2xl font-black tracking-tight text-slate-950">
-            Ready to apply?
-          </h2>
-
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold leading-7 text-slate-600 sm:text-base">
-            Read the role details carefully, then open the application form.
-          </p>
-
-          <button
-            type="button"
-            onClick={openApplicationForm}
-            disabled={formOpen}
-            className="mt-6 inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-default disabled:bg-slate-500"
-          >
-            {formOpen ? "Application form opened" : "Apply now →"}
-          </button>
-        </section>
-
-        {formOpen && (
-          <section
-            ref={formRef}
-            className="scroll-mt-8 mt-8 rounded-[30px] border border-blue-100 bg-white p-6 shadow-[0_24px_80px_rgba(37,99,235,0.12)] sm:p-9"
-          >
-            <h2 className="text-3xl font-black tracking-tight text-slate-950">
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
               Apply for {internship.title}
             </h2>
 
-            <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-slate-600 sm:text-base">
-              This static website will prepare an email to Growblic containing
-              your application details. It will not show a fake successful
-              submission.
+            <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600 sm:text-base">
+              Fill the important details below. Profile links and some
+              education details are optional.
             </p>
+          </div>
 
-            <form
-              onSubmit={submitApplication}
-              className="mt-8 grid gap-6 md:grid-cols-2"
-            >
-              <label className="space-y-2 text-sm font-black text-slate-800">
-                Full name
-                <input
-                  name="fullName"
-                  required
-                  placeholder="Your full name"
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+          <form
+            onSubmit={submitApplication}
+            className="space-y-7 p-5 sm:p-8 lg:p-10"
+          >
+            <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
+              <div className="mb-6">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
+                  01 • Personal details
+                </p>
+              </div>
 
-              <label className="space-y-2 text-sm font-black text-slate-800">
-                Email address
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="you@example.com"
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="text-sm font-black text-slate-800">
+                  Full name *
+                  <input
+                    name="fullName"
+                    required
+                    autoComplete="name"
+                    placeholder="Enter your full name"
+                    className={inputClass}
+                  />
+                </label>
 
-              <label className="space-y-2 text-sm font-black text-slate-800">
-                Phone number
-                <input
-                  type="tel"
-                  name="phone"
-                  required
-                  placeholder="+91 98765 43210"
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+                <label className="text-sm font-black text-slate-800">
+                  Email address *
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    className={inputClass}
+                  />
+                </label>
 
-              <label className="space-y-2 text-sm font-black text-slate-800">
-                City
-                <input
-                  name="city"
-                  required
-                  placeholder="Your city"
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+                <label className="text-sm font-black text-slate-800">
+                  Phone number *
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    autoComplete="tel"
+                    placeholder="+91 98765 43210"
+                    className={inputClass}
+                  />
+                </label>
 
-              <label className="space-y-2 text-sm font-black text-slate-800 md:col-span-2">
-                College or institute name
-                <input
-                  name="college"
-                  required
-                  placeholder="College or institute"
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+                <label className="text-sm font-black text-slate-800">
+                  City
+                  <input
+                    name="city"
+                    autoComplete="address-level2"
+                    placeholder="Your city"
+                    className={inputClass}
+                  />
+                </label>
+              </div>
+            </section>
 
-              <label className="space-y-2 text-sm font-black text-slate-800">
-                Current course
-                <input
-                  name="course"
-                  required
-                  placeholder="BCA, B.Tech, BBA, diploma..."
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+            <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
+              <div className="mb-6">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
+                  02 • Education and skills
+                </p>
+              </div>
 
-              <label className="space-y-2 text-sm font-black text-slate-800">
-                Current year or semester
-                <input
-                  name="year"
-                  required
-                  placeholder="2nd year, semester 4..."
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="text-sm font-black text-slate-800 md:col-span-2">
+                  College or institute
+                  <input
+                    name="college"
+                    placeholder="College, university or institute"
+                    className={inputClass}
+                  />
+                </label>
 
-              <label className="space-y-2 text-sm font-black text-slate-800 md:col-span-2">
-                Skills
-                <textarea
-                  name="skills"
-                  required
-                  rows={4}
-                  placeholder="List your relevant skills, tools, or beginner-level experience."
-                  className="w-full resize-y rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+                <label className="text-sm font-black text-slate-800">
+                  Current course *
+                  <select
+                    name="course"
+                    required
+                    defaultValue=""
+                    className={inputClass}
+                  >
+                    <option value="" disabled>
+                      Select your course
+                    </option>
+                    <option>BCA</option>
+                    <option>MCA</option>
+                    <option>B.Tech / B.E.</option>
+                    <option>B.Sc Computer Science</option>
+                    <option>BBA</option>
+                    <option>B.Com</option>
+                    <option>BA</option>
+                    <option>MBA</option>
+                    <option>Diploma</option>
+                    <option>Certification course</option>
+                    <option>Self-taught learner</option>
+                    <option>Other</option>
+                  </select>
+                </label>
 
-              <label className="space-y-2 text-sm font-black text-slate-800 md:col-span-2">
-                Portfolio/GitHub/LinkedIn URL
-                <input
-                  type="url"
-                  name="portfolio"
-                  placeholder="https://..."
-                  className="w-full rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                />
-              </label>
+                <label className="text-sm font-black text-slate-800">
+                  Current year or semester
+                  <select
+                    name="year"
+                    defaultValue=""
+                    className={inputClass}
+                  >
+                    <option value="">Select year or semester</option>
+                    <option>1st year</option>
+                    <option>2nd year</option>
+                    <option>3rd year</option>
+                    <option>4th year</option>
+                    <option>Semester 1</option>
+                    <option>Semester 2</option>
+                    <option>Semester 3</option>
+                    <option>Semester 4</option>
+                    <option>Semester 5</option>
+                    <option>Semester 6</option>
+                    <option>Semester 7</option>
+                    <option>Semester 8</option>
+                    <option>Completed</option>
+                    <option>Other</option>
+                  </select>
+                </label>
 
-              <label className="space-y-2 text-sm font-black text-slate-800 md:col-span-2">
-                Why do you want this internship?
+                <label className="text-sm font-black text-slate-800 md:col-span-2">
+                  Skills
+                  <input
+                    name="skills"
+                    placeholder="Example: React, Node.js, Figma, SEO, communication"
+                    className={inputClass}
+                  />
+                </label>
+              </div>
+            </section>
+
+            <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
+              <div className="mb-6">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
+                  03 • Profile links
+                </p>
+
+                <p className="mt-2 text-sm font-semibold text-slate-500">
+                  Ye saare fields optional hain.
+                </p>
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="text-sm font-black text-slate-800">
+                  Portfolio
+                  <input
+                    type="url"
+                    name="portfolio"
+                    placeholder="https://yourportfolio.com"
+                    className={inputClass}
+                  />
+                </label>
+
+                <label className="text-sm font-black text-slate-800">
+                  GitHub
+                  <input
+                    type="url"
+                    name="github"
+                    placeholder="https://github.com/username"
+                    className={inputClass}
+                  />
+                </label>
+
+                <label className="text-sm font-black text-slate-800">
+                  LinkedIn
+                  <input
+                    type="url"
+                    name="linkedin"
+                    placeholder="https://linkedin.com/in/username"
+                    className={inputClass}
+                  />
+                </label>
+
+                <label className="text-sm font-black text-slate-800">
+                  Other useful link
+                  <input
+                    type="url"
+                    name="otherLink"
+                    placeholder="Behance, Dribbble or project link"
+                    className={inputClass}
+                  />
+                </label>
+              </div>
+            </section>
+
+            <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
+              <label className="text-sm font-black text-slate-800">
+                Why do you want this internship? *
                 <textarea
                   name="reason"
                   required
                   rows={5}
-                  placeholder="Tell us what you want to learn and why this internship fits you."
-                  className="w-full resize-y rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  placeholder="Write a few lines about what you want to learn and why this role interests you."
+                  className={`${inputClass} resize-y`}
                 />
               </label>
+            </section>
 
-              <div className="md:col-span-2">
-                <button
-                  type="submit"
-                  className="inline-flex rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5"
-                >
-                  Submit application →
-                </button>
+            <div className="flex flex-col gap-5 rounded-[28px] bg-slate-950 p-6 text-white sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-black">
+                  {internship.title}
+                </p>
+
+                <p className="mt-1 text-sm font-semibold text-slate-400">
+                  Submit karne ke baad Growblic ko email application open hogi.
+                </p>
               </div>
-            </form>
-          </section>
-        )}
+
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-7 py-3.5 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5"
+              >
+                Submit application →
+              </button>
+            </div>
+          </form>
+        </section>
       </div>
     </main>
   );
