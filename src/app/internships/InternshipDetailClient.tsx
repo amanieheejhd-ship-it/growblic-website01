@@ -69,19 +69,13 @@ export default function InternshipDetailClient({
         ? [
             "Enrollment status: Currently enrolled",
             `College name: ${value("instituteName")}`,
-            `University or board: ${value("university")}`,
             `Current course: ${value("course")}`,
-            `Current year or semester: ${value("currentYear")}`,
             `Enrollment number: ${value("enrollmentNo")}`,
           ]
         : [
             "Enrollment status: Not currently enrolled",
             `Highest qualification: ${value("highestQualification")}`,
-            `School or college name: ${value("previousInstitute")}`,
-            `Board or university: ${value("boardUniversity")}`,
             `Passing year: ${value("passingYear")}`,
-            `Stream: ${value("stream")}`,
-            `Percentage: ${value("result")}`,
           ];
 
     const subject = encodeURIComponent(
@@ -326,16 +320,6 @@ export default function InternshipDetailClient({
                       />
                     </label>
 
-                    <label className="text-sm font-black text-slate-800 md:col-span-2">
-                      University or affiliating board *
-                      <input
-                        name="university"
-                        required
-                        placeholder="University or board name"
-                        className={inputClass}
-                      />
-                    </label>
-
                     <label className="text-sm font-black text-slate-800">
                       Current course *
                       <select
@@ -357,33 +341,6 @@ export default function InternshipDetailClient({
                         <option>MBA</option>
                         <option>Diploma</option>
                         <option>Certification course</option>
-                        <option>Other</option>
-                      </select>
-                    </label>
-
-                    <label className="text-sm font-black text-slate-800">
-                      Current year or semester *
-                      <select
-                        name="currentYear"
-                        required
-                        defaultValue=""
-                        className={inputClass}
-                      >
-                        <option value="" disabled>
-                          Select year or semester
-                        </option>
-                        <option>1st year</option>
-                        <option>2nd year</option>
-                        <option>3rd year</option>
-                        <option>4th year</option>
-                        <option>Semester 1</option>
-                        <option>Semester 2</option>
-                        <option>Semester 3</option>
-                        <option>Semester 4</option>
-                        <option>Semester 5</option>
-                        <option>Semester 6</option>
-                        <option>Semester 7</option>
-                        <option>Semester 8</option>
                         <option>Other</option>
                       </select>
                     </label>
@@ -443,47 +400,6 @@ export default function InternshipDetailClient({
                         required
                         inputMode="numeric"
                         placeholder="Example: 2026"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="text-sm font-black text-slate-800 md:col-span-2">
-                      School or college name *
-                      <input
-                        name="previousInstitute"
-                        required
-                        placeholder="Where did you complete your education?"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="text-sm font-black text-slate-800 md:col-span-2">
-                      Board or university *
-                      <input
-                        name="boardUniversity"
-                        required
-                        placeholder="CBSE, ICSE, State Board or university name"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="text-sm font-black text-slate-800">
-                      Stream *
-                      <input
-                        name="stream"
-                        required
-                        placeholder="Science, Commerce, Arts or other"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="text-sm font-black text-slate-800">
-                      Percentage *
-                      <input
-                        name="result"
-                        required
-                        inputMode="decimal"
-                        placeholder="Example: 78%"
                         className={inputClass}
                       />
                     </label>
