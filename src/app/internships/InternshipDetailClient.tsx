@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import type { FormEvent } from "react";
 import type { Internship } from "./internship-data";
 
@@ -53,8 +53,9 @@ function PremiumDetailCard({
 
 export default function InternshipDetailClient({
   internship,
-  internships,
 }: Props) {
+  const [isEnrolled, setIsEnrolled] = useState("");
+
   function submitApplication(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -62,6 +63,26 @@ export default function InternshipDetailClient({
 
     const value = (name: string) =>
       String(formData.get(name) || "").trim();
+
+    const educationDetails =
+      value("instituteEnrollment") === "Yes"
+        ? [
+            "Enrollment status: Currently enrolled",
+            `College name: ${value("instituteName")}`,
+            `University or board: ${value("university")}`,
+            `Current course: ${value("course")}`,
+            `Current year or semester: ${value("currentYear")}`,
+            `Enrollment number: ${value("enrollmentNo")}`,
+          ]
+        : [
+            "Enrollment status: Not currently enrolled",
+            `Highest qualification: ${value("highestQualification")}`,
+            `School or college name: ${value("previousInstitute")}`,
+            `Board or university: ${value("boardUniversity")}`,
+            `Passing year: ${value("passingYear")}`,
+            `Stream: ${value("stream")}`,
+            `Percentage: ${value("result")}`,
+          ];
 
     const subject = encodeURIComponent(
       `Growblic Internship Application - ${internship.title}`,
@@ -77,24 +98,13 @@ export default function InternshipDetailClient({
         `Full name: ${value("fullName")}`,
         `Email: ${value("email")}`,
         `Phone: ${value("phone")}`,
-        `City: ${value("city") || "Not provided"}`,
+        `State: ${value("state") || "Not provided"}`,
         "",
-        "EDUCATION",
-        `College or institute: ${value("college") || "Not provided"}`,
-        `Current course: ${value("course")}`,
-        `Current year or semester: ${value("year") || "Not provided"}`,
+        "EDUCATION DETAILS",
+        ...educationDetails,
         "",
-        "SKILLS",
-        value("skills") || "Not provided",
-        "",
-        "PROFILE LINKS",
-        `Portfolio: ${value("portfolio") || "Not provided"}`,
-        `GitHub: ${value("github") || "Not provided"}`,
-        `LinkedIn: ${value("linkedin") || "Not provided"}`,
-        `Other link: ${value("otherLink") || "Not provided"}`,
-        "",
-        "WHY I WANT THIS INTERNSHIP",
-        value("reason"),
+        "ANY QUERY",
+        value("query") || "Not provided",
       ].join("\n"),
     );
 
@@ -106,37 +116,8 @@ export default function InternshipDetailClient({
     <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_36%),linear-gradient(135deg,#f7f9ff_0%,#ffffff_55%,#eff9ff_100%)] px-4 py-12 sm:px-8 sm:py-16 lg:px-12">
       <div className="mx-auto max-w-7xl">
         <p className="w-fit rounded-full border border-blue-100 bg-white/90 px-5 py-2 text-[11px] font-black uppercase tracking-[0.28em] text-blue-700 shadow-sm">
-          Growblic Careers / Internships
+          Growblic Internships
         </p>
-
-        <nav
-          aria-label="Internship roles"
-          className="mt-6 flex flex-wrap gap-2"
-        >
-          {internships.map((role) => {
-            const active = role.slug === internship.slug;
-
-            const href =
-              role.slug === "frontend-developer"
-                ? "/internships"
-                : `/internships/${role.slug}`;
-
-            return (
-              <Link
-                key={role.slug}
-                href={href}
-                aria-current={active ? "page" : undefined}
-                className={
-                  active
-                    ? "rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-3 text-xs font-black text-white shadow-lg shadow-blue-200"
-                    : "rounded-full border border-blue-100 bg-white px-5 py-3 text-xs font-black text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
-                }
-              >
-                {role.shortTitle}
-              </Link>
-            );
-          })}
-        </nav>
 
         <section className="relative mt-10 overflow-hidden rounded-[36px] border border-blue-100 bg-white/85 p-7 shadow-[0_28px_90px_rgba(37,99,235,0.13)] backdrop-blur-sm sm:p-10 lg:p-14">
           <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-blue-100/70 blur-3xl" />
@@ -148,7 +129,7 @@ export default function InternshipDetailClient({
             </p>
 
             <h1 className="mt-6 text-5xl font-black leading-[0.95] tracking-[-0.055em] text-slate-950 sm:text-6xl lg:text-7xl">
-              {internship.title}
+              Start Internship with Growblic
             </h1>
 
             <p className="mt-7 max-w-4xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
@@ -211,7 +192,7 @@ export default function InternshipDetailClient({
 
           <PremiumDetailCard
             number="04"
-            title="Skills you can bring"
+            title="Skills you will learn"
             items={internship.skills}
           />
         </div>
@@ -223,12 +204,12 @@ export default function InternshipDetailClient({
             </p>
 
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
-              Apply for {internship.title}
+              Apply for Internship
             </h2>
 
             <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600 sm:text-base">
-              Fill the important details below. Profile links and some
-              education details are optional.
+              Fill the basic personal and education details below. The form
+              is short, simple, and easy to complete.
             </p>
           </div>
 
@@ -280,90 +261,12 @@ export default function InternshipDetailClient({
                 </label>
 
                 <label className="text-sm font-black text-slate-800">
-                  City
+                  State *
                   <input
-                    name="city"
-                    autoComplete="address-level2"
-                    placeholder="Your city"
-                    className={inputClass}
-                  />
-                </label>
-              </div>
-            </section>
-
-            <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
-              <div className="mb-6">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
-                  02 • Education and skills
-                </p>
-              </div>
-
-              <div className="grid gap-5 md:grid-cols-2">
-                <label className="text-sm font-black text-slate-800 md:col-span-2">
-                  College or institute
-                  <input
-                    name="college"
-                    placeholder="College, university or institute"
-                    className={inputClass}
-                  />
-                </label>
-
-                <label className="text-sm font-black text-slate-800">
-                  Current course *
-                  <select
-                    name="course"
+                    name="state"
                     required
-                    defaultValue=""
-                    className={inputClass}
-                  >
-                    <option value="" disabled>
-                      Select your course
-                    </option>
-                    <option>BCA</option>
-                    <option>MCA</option>
-                    <option>B.Tech / B.E.</option>
-                    <option>B.Sc Computer Science</option>
-                    <option>BBA</option>
-                    <option>B.Com</option>
-                    <option>BA</option>
-                    <option>MBA</option>
-                    <option>Diploma</option>
-                    <option>Certification course</option>
-                    <option>Self-taught learner</option>
-                    <option>Other</option>
-                  </select>
-                </label>
-
-                <label className="text-sm font-black text-slate-800">
-                  Current year or semester
-                  <select
-                    name="year"
-                    defaultValue=""
-                    className={inputClass}
-                  >
-                    <option value="">Select year or semester</option>
-                    <option>1st year</option>
-                    <option>2nd year</option>
-                    <option>3rd year</option>
-                    <option>4th year</option>
-                    <option>Semester 1</option>
-                    <option>Semester 2</option>
-                    <option>Semester 3</option>
-                    <option>Semester 4</option>
-                    <option>Semester 5</option>
-                    <option>Semester 6</option>
-                    <option>Semester 7</option>
-                    <option>Semester 8</option>
-                    <option>Completed</option>
-                    <option>Other</option>
-                  </select>
-                </label>
-
-                <label className="text-sm font-black text-slate-800 md:col-span-2">
-                  Skills
-                  <input
-                    name="skills"
-                    placeholder="Example: React, Node.js, Figma, SEO, communication"
+                    autoComplete="address-level1"
+                    placeholder="Your state"
                     className={inputClass}
                   />
                 </label>
@@ -373,86 +276,242 @@ export default function InternshipDetailClient({
             <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
               <div className="mb-6">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
-                  03 • Profile links
+                  02 • Education details
                 </p>
 
-                <p className="mt-2 text-sm font-semibold text-slate-500">
-                  Ye saare fields optional hain.
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">
+                  Pehle apna current education status select karein. Uske
+                  according required fields open honge.
                 </p>
               </div>
 
-              <div className="grid gap-5 md:grid-cols-2">
-                <label className="text-sm font-black text-slate-800">
-                  Portfolio
-                  <input
-                    type="url"
-                    name="portfolio"
-                    placeholder="https://yourportfolio.com"
-                    className={inputClass}
-                  />
-                </label>
+              <label className="block text-sm font-black text-slate-800">
+                Are you enrolled in any institute? *
+                <select
+                  name="instituteEnrollment"
+                  required
+                  value={isEnrolled}
+                  onChange={(event) => setIsEnrolled(event.target.value)}
+                  className={inputClass}
+                >
+                  <option value="" disabled>
+                    Select Yes or No
+                  </option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </label>
 
-                <label className="text-sm font-black text-slate-800">
-                  GitHub
-                  <input
-                    type="url"
-                    name="github"
-                    placeholder="https://github.com/username"
-                    className={inputClass}
-                  />
-                </label>
+              {isEnrolled === "Yes" && (
+                <div className="mt-6 rounded-[24px] border border-blue-100 bg-white p-5 sm:p-6">
+                  <div className="mb-5">
+                    <h3 className="text-lg font-black text-slate-950">
+                      Current institute details
+                    </h3>
 
-                <label className="text-sm font-black text-slate-800">
-                  LinkedIn
-                  <input
-                    type="url"
-                    name="linkedin"
-                    placeholder="https://linkedin.com/in/username"
-                    className={inputClass}
-                  />
-                </label>
+                    <p className="mt-2 text-sm font-semibold text-slate-500">
+                      Apne current college, course aur enrollment ki details
+                      bharein.
+                    </p>
+                  </div>
 
-                <label className="text-sm font-black text-slate-800">
-                  Other useful link
-                  <input
-                    type="url"
-                    name="otherLink"
-                    placeholder="Behance, Dribbble or project link"
-                    className={inputClass}
-                  />
-                </label>
-              </div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <label className="text-sm font-black text-slate-800 md:col-span-2">
+                      College name *
+                      <input
+                        name="instituteName"
+                        required
+                        placeholder="Enter your college name"
+                        className={inputClass}
+                      />
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800 md:col-span-2">
+                      University or affiliating board *
+                      <input
+                        name="university"
+                        required
+                        placeholder="University or board name"
+                        className={inputClass}
+                      />
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800">
+                      Current course *
+                      <select
+                        name="course"
+                        required
+                        defaultValue=""
+                        className={inputClass}
+                      >
+                        <option value="" disabled>
+                          Select your course
+                        </option>
+                        <option>BCA</option>
+                        <option>MCA</option>
+                        <option>B.Tech / B.E.</option>
+                        <option>B.Sc Computer Science</option>
+                        <option>BBA</option>
+                        <option>B.Com</option>
+                        <option>BA</option>
+                        <option>MBA</option>
+                        <option>Diploma</option>
+                        <option>Certification course</option>
+                        <option>Other</option>
+                      </select>
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800">
+                      Current year or semester *
+                      <select
+                        name="currentYear"
+                        required
+                        defaultValue=""
+                        className={inputClass}
+                      >
+                        <option value="" disabled>
+                          Select year or semester
+                        </option>
+                        <option>1st year</option>
+                        <option>2nd year</option>
+                        <option>3rd year</option>
+                        <option>4th year</option>
+                        <option>Semester 1</option>
+                        <option>Semester 2</option>
+                        <option>Semester 3</option>
+                        <option>Semester 4</option>
+                        <option>Semester 5</option>
+                        <option>Semester 6</option>
+                        <option>Semester 7</option>
+                        <option>Semester 8</option>
+                        <option>Other</option>
+                      </select>
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800">
+                      Enrollment number *
+                      <input
+                        name="enrollmentNo"
+                        required
+                        placeholder="Enter your enrollment number"
+                        className={inputClass}
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {isEnrolled === "No" && (
+                <div className="mt-6 rounded-[24px] border border-blue-100 bg-white p-5 sm:p-6">
+                  <div className="mb-5">
+                    <h3 className="text-lg font-black text-slate-950">
+                      Previous education details
+                    </h3>
+
+                    <p className="mt-2 text-sm font-semibold text-slate-500">
+                      Aapne kahan tak aur kis board ya university se padhai ki
+                      hai, uski details bharein.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <label className="text-sm font-black text-slate-800">
+                      Highest qualification *
+                      <select
+                        name="highestQualification"
+                        required
+                        defaultValue=""
+                        className={inputClass}
+                      >
+                        <option value="" disabled>
+                          Select qualification
+                        </option>
+                        <option>10th passed</option>
+                        <option>12th passed</option>
+                        <option>Diploma completed</option>
+                        <option>Graduate</option>
+                        <option>Postgraduate</option>
+                        <option>Certification course</option>
+                        <option>Other</option>
+                      </select>
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800">
+                      Passing year *
+                      <input
+                        name="passingYear"
+                        required
+                        inputMode="numeric"
+                        placeholder="Example: 2026"
+                        className={inputClass}
+                      />
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800 md:col-span-2">
+                      School or college name *
+                      <input
+                        name="previousInstitute"
+                        required
+                        placeholder="Where did you complete your education?"
+                        className={inputClass}
+                      />
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800 md:col-span-2">
+                      Board or university *
+                      <input
+                        name="boardUniversity"
+                        required
+                        placeholder="CBSE, ICSE, State Board or university name"
+                        className={inputClass}
+                      />
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800">
+                      Stream *
+                      <input
+                        name="stream"
+                        required
+                        placeholder="Science, Commerce, Arts or other"
+                        className={inputClass}
+                      />
+                    </label>
+
+                    <label className="text-sm font-black text-slate-800">
+                      Percentage *
+                      <input
+                        name="result"
+                        required
+                        inputMode="decimal"
+                        placeholder="Example: 78%"
+                        className={inputClass}
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
             </section>
+
+
 
             <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
               <label className="text-sm font-black text-slate-800">
-                Why do you want this internship? *
+                Any query
                 <textarea
-                  name="reason"
-                  required
-                  rows={5}
-                  placeholder="Write a few lines about what you want to learn and why this role interests you."
+                  name="query"
+                  rows={4}
+                  placeholder="Write your question or message for Growblic."
                   className={`${inputClass} resize-y`}
                 />
               </label>
             </section>
 
-            <div className="flex flex-col gap-5 rounded-[28px] bg-slate-950 p-6 text-white sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-black">
-                  {internship.title}
-                </p>
-
-                <p className="mt-1 text-sm font-semibold text-slate-400">
-                  Submit karne ke baad Growblic ko email application open hogi.
-                </p>
-              </div>
-
+            <div className="flex justify-end">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-7 py-3.5 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
-                Submit application →
+                Apply now →
               </button>
             </div>
           </form>
