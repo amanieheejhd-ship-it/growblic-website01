@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import type { Internship } from "./internship-data";
+import InternshipFeePanel from "./InternshipFeePanel";
 
 type Props = {
   internship: Internship;
@@ -56,54 +57,26 @@ export default function InternshipDetailClient({
 }: Props) {
   const [isEnrolled, setIsEnrolled] = useState("");
 
-  function submitApplication(event: FormEvent<HTMLFormElement>) {
+  const [showFeePanel, setShowFeePanel] = useState(false);
+
+  function openFeePanel(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
 
-    const value = (name: string) =>
-      String(formData.get(name) || "").trim();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
-    const educationDetails =
-      value("instituteEnrollment") === "Yes"
-        ? [
-            "Enrollment status: Currently enrolled",
-            `College name: ${value("instituteName")}`,
-            `Current course: ${value("course")}`,
-            `Enrollment number: ${value("enrollmentNo")}`,
-          ]
-        : [
-            "Enrollment status: Not currently enrolled",
-            `Highest qualification: ${value("highestQualification")}`,
-            `Passing year: ${value("passingYear")}`,
-          ];
+    setShowFeePanel(true);
 
-    const subject = encodeURIComponent(
-      `Growblic Internship Application - ${internship.title}`,
-    );
-
-    const body = encodeURIComponent(
-      [
-        "GROWBLIC INTERNSHIP APPLICATION",
-        "--------------------------------",
-        `Selected role: ${internship.title}`,
-        "",
-        "PERSONAL DETAILS",
-        `Full name: ${value("fullName")}`,
-        `Email: ${value("email")}`,
-        `Phone: ${value("phone")}`,
-        `State: ${value("state") || "Not provided"}`,
-        "",
-        "EDUCATION DETAILS",
-        ...educationDetails,
-        "",
-        "ANY QUERY",
-        value("query") || "Not provided",
-      ].join("\n"),
-    );
-
-    window.location.href =
-      `mailto:hello@growblic.com?subject=${subject}&body=${body}`;
+    window.setTimeout(() => {
+      document.getElementById("internship-fee-panel")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 120);
   }
 
   return (
@@ -208,7 +181,7 @@ export default function InternshipDetailClient({
           </div>
 
           <form
-            onSubmit={submitApplication}
+            onSubmit={openFeePanel}
             className="space-y-7 p-5 sm:p-8 lg:p-10"
           >
             <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
@@ -273,10 +246,7 @@ export default function InternshipDetailClient({
                   02 • Education details
                 </p>
 
-                <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">
-                  Pehle apna current education status select karein. Uske
-                  according required fields open honge.
-                </p>
+                
               </div>
 
               <label className="block text-sm font-black text-slate-800">
@@ -303,10 +273,7 @@ export default function InternshipDetailClient({
                       Current institute details
                     </h3>
 
-                    <p className="mt-2 text-sm font-semibold text-slate-500">
-                      Apne current college, course aur enrollment ki details
-                      bharein.
-                    </p>
+                    
                   </div>
 
                   <div className="grid gap-5 md:grid-cols-2">
@@ -366,8 +333,7 @@ export default function InternshipDetailClient({
                     </h3>
 
                     <p className="mt-2 text-sm font-semibold text-slate-500">
-                      Aapne kahan tak aur kis board ya university se padhai ki
-                      hai, uski details bharein.
+                      
                     </p>
                   </div>
 
@@ -439,11 +405,15 @@ export default function InternshipDetailClient({
                 type="submit"
                 className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
-                Apply now →
+                {showFeePanel ? "Fee plans opened" : "Apply now →"}
               </button>
             </div>
           </form>
         </section>
+
+        {showFeePanel && (
+          <InternshipFeePanel internshipTitle={internship.title} />
+        )}
       </div>
     </main>
   );
