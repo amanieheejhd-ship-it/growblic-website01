@@ -308,6 +308,12 @@ export default function InternshipDetailClient({
                         <option>MBA</option>
                         <option>Diploma</option>
                         <option>Certification course</option>
+                        <option>M.Tech / M.E.</option>
+                        <option>M.Com</option>
+                        <option>M.Sc.</option>
+                        <option>MA</option>
+                        <option>ITI</option>
+                        <option>Polytechnic</option>
                         <option>Other</option>
                       </select>
                     </label>
