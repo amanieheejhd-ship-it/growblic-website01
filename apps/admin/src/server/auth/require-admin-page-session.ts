@@ -22,7 +22,7 @@ export async function requireAdminPageSession() {
   }
 
   if (unauthenticated || !session) {
-    redirect("/admin/login/");
+    redirect("/login/");
   }
 
   if (session.user.roles.length === 0) {

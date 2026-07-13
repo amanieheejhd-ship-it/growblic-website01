@@ -6,7 +6,7 @@ export default async function AdminLoginPage() {
   const session = await getOptionalAdminSession();
 
   if (session) {
-    redirect("/admin/");
+    redirect("/");
   }
 
   return (

@@ -2,9 +2,11 @@
 
 ## Scope and threat model
 
-This foundation protects future private administration features against password disclosure, credential enumeration, stolen database session rows, basic credential guessing, and accidental client-side exposure. It does not create an admin interface, public signup, password-reset flow, OAuth login, or MFA.
+This foundation protects the private `apps/admin` login and shell against password disclosure, credential enumeration, stolen database session rows, basic credential guessing, and accidental client-side exposure. It does not create public signup, password-reset flow, OAuth login, MFA, or CMS CRUD.
 
 The public frontend remains frozen and does not link to or depend on the private authentication endpoints.
+
+`apps/admin` is intended for `admin.growblic.com`. Its browser calls same-origin `/api/auth/*` handlers, and its root layout does not import public navigation, marketing effects, sounds, smooth scrolling, or chat. The public app exposes no `/admin` route.
 
 ## Opaque session design
 
@@ -30,6 +32,7 @@ The admin session cookie is:
 - expired at the same fixed time as the database session
 
 Cookie access uses the asynchronous Next.js `cookies()` API exclusively in server code and route handlers.
+The cookie omits `Domain`, so it remains host-only and is not shared with `growblic.com` or sibling subdomains.
 
 ## Login throttling
 
@@ -75,7 +78,7 @@ The apply command is idempotent: it creates or updates one normalized-email admi
 
 ## Logout and session validation
 
-`POST /api/admin/auth/logout` is idempotent for missing or already-revoked sessions and clears the cookie. `GET /api/admin/auth/session` returns HTTP 401 for absent, invalid, expired, revoked, inactive, or deleted-user sessions. All authentication responses disable caching.
+`POST /api/auth/logout/` is idempotent for missing or already-revoked sessions and clears the cookie. `GET /api/auth/session/` returns HTTP 401 for absent, invalid, expired, revoked, inactive, or deleted-user sessions. Login is `POST /api/auth/login/`. All authentication responses disable caching.
 
 ## Expired-session cleanup
 
@@ -83,7 +86,7 @@ The apply command is idempotent: it creates or updates one normalized-email admi
 
 ## Current limitations and production recommendations
 
-- There is no public signup, password-reset flow, admin UI, OAuth, or social login.
+- There is no public signup, password-reset flow, CMS CRUD, OAuth, or social login.
 - Add MFA before broad production administration access.
 - Add edge-level throttling and alerting in addition to database throttling.
 - Use a long random pepper and restrict access to Vercel environment settings.
@@ -94,4 +97,8 @@ The apply command is idempotent: it creates or updates one normalized-email admi
 
 ## Frontend freeze policy
 
-No existing public page, component, layout, styling, content, animation, sound, asset, SEO output, route, or navigation behavior is modified or connected to this foundation. The new endpoints exist only under `/api/admin/auth/*`, and no visible admin route or link is present.
+No existing public page, component, layout, styling, content, animation, sound, asset, SEO output, route, or navigation behavior is connected to the private admin application. Authentication endpoints exist only in `apps/admin` under `/api/auth/*`; the public application contains no admin route or link.
+
+## Temporary Prisma ownership
+
+The root Prisma schema remains the single migration source. During Phase 2C, `apps/admin` imports the server-only Prisma singleton and generated client through a documented temporary bridge to `apps/web`. Phase 2D will replace this bridge with the dedicated `packages/database` workspace package. No second schema, migration history, or client generator exists.

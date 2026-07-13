@@ -1,4 +1,4 @@
-const baseUrl = (process.env.ADMIN_AUTH_BASE_URL || "http://localhost:3000").replace(
+const baseUrl = (process.env.ADMIN_AUTH_BASE_URL || "http://localhost:3001").replace(
   /\/$/,
   "",
 );
@@ -17,7 +17,7 @@ async function request(path) {
 }
 
 async function main() {
-  const loginResponse = await request("/admin/login/");
+  const loginResponse = await request("/login/");
   assert(loginResponse.status === 200, "Admin login page did not return 200.");
   const loginHtml = await loginResponse.text();
   console.log("PASS admin login page: 200");
@@ -47,7 +47,7 @@ async function main() {
   );
   console.log("PASS admin login page: noindex and nofollow");
 
-  const adminResponse = await request("/admin/");
+  const adminResponse = await request("/");
   assert(
     adminResponse.status >= 300 && adminResponse.status < 400,
     "Unauthenticated admin page did not redirect.",
@@ -57,7 +57,7 @@ async function main() {
   assert(location, "Unauthenticated admin redirect had no destination.");
   const destination = new URL(location, baseUrl);
   assert(
-    destination.pathname === "/admin/login/",
+    destination.pathname === "/login/",
     "Unauthenticated admin page redirected unexpectedly.",
   );
   console.log("PASS unauthenticated admin page: protected redirect");

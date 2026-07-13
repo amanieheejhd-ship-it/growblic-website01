@@ -6,23 +6,32 @@ Use this checklist after the server-backed contact form has been reviewed locall
 
 Push the repository to the correct Growblic-owned GitHub account or organization. Before continuing, confirm that the repository owner, administrators, and Vercel integration belong to Growblic. Review all pending changes before creating the commit and do not commit `.env` or `.env.local`.
 
-## 2. Import the project into Vercel
+## 2. Import the projects into Vercel
 
 1. Sign in to the Growblic Vercel account.
 2. Choose **Add New → Project** and import the Growblic GitHub repository.
 3. Select **Next.js** as the framework preset. Vercel normally detects this automatically.
-4. Set **Root Directory** to `apps/web`.
+4. Create the public project with **Root Directory** set to `apps/web`.
+5. Create a separate private-admin project with **Root Directory** set to `apps/admin`; do not assign `admin.growblic.com` until its preview security checks pass.
 
-Use the repository's pinned pnpm toolchain and frozen lockfile. The web project build command is `pnpm build`; Vercel's monorepo install must run from the repository workspace so the root `postinstall` generates Prisma Client from the root schema. The build does not run database migrations.
+Use the repository's pinned pnpm toolchain and frozen lockfile. Vercel's monorepo install must run from the repository workspace so the root `postinstall` generates Prisma Client from the root schema. Each project builds its selected workspace. Builds do not run database migrations.
 
 ## 3. Configure environment variables
 
-Add both variables in **Project Settings → Environment Variables**:
+The public web project receives:
 
 - `DATABASE_URL`: the application runtime/pooler connection.
+
+The private admin project receives:
+
+- `DATABASE_URL`: the application runtime/pooler connection.
+- `ADMIN_AUTH_PEPPER`: the private authentication pepper.
+
+Controlled migration tooling receives:
+
 - `DIRECT_URL`: the migration-safe connection used by `prisma.config.ts`.
 
-Copy their real values from the approved password manager or Supabase project settings. Never paste them into source files, documentation, tickets, or logs. Never prefix either variable with `NEXT_PUBLIC_`; that prefix makes values available to browser code.
+Copy real values from the approved password manager or Supabase project settings. Never paste them into source files, documentation, tickets, or logs. Never prefix these variables with `NEXT_PUBLIC_`; that prefix makes values available to browser code. Do not give `ADMIN_AUTH_PEPPER` to the public web project after admin extraction.
 
 Enable the variables for **Production** and **Preview**. Preview deployments can use the same database only if Growblic accepts test submissions entering production data; otherwise use a separate preview database. For local **Development**, keep values only in an ignored local environment file or configure them through `vercel env pull` after reviewing the destination file.
 

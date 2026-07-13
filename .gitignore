@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /apps/web/node_modules/
+/apps/admin/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -19,6 +20,9 @@
 /out/
 /apps/web/.next/
 /apps/web/out/
+/apps/admin/.next/
+/apps/admin/out/
+.turbo/
 
 # production
 /build

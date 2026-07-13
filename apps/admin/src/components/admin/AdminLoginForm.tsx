@@ -22,7 +22,7 @@ export default function AdminLoginForm() {
     setSubmitState("submitting");
 
     try {
-      const response = await fetch("/api/admin/auth/login/", {
+      const response = await fetch("/api/auth/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "same-origin",
@@ -35,7 +35,7 @@ export default function AdminLoginForm() {
       }
 
       setSubmitState("success");
-      router.replace("/admin");
+      router.replace("/");
       router.refresh();
     } catch {
       setSubmitState("error");

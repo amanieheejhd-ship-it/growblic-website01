@@ -53,6 +53,8 @@ for (const path of [
   "apps/web/package.json",
   "apps/web/src",
   "apps/web/public",
+  "apps/admin/package.json",
+  "apps/admin/src/app",
   "packages/README.md",
   "prisma",
 ]) {
@@ -84,13 +86,15 @@ if (/^pnpm@\d+\.\d+\.\d+$/.test(packageJson.packageManager ?? "")) {
   fail("packageManager is not an exact pnpm version.");
 }
 
-if (implementationFiles("apps/web").length > 0) {
-  pass("apps/web contains the Next.js application.");
-} else {
-  fail("apps/web has no implementation files.");
+for (const path of ["apps/web", "apps/admin"]) {
+  if (implementationFiles(path).length > 0) {
+    pass(`${path} contains an application.`);
+  } else {
+    fail(`${path} has no implementation files.`);
+  }
 }
 
-for (const path of ["apps/admin", "packages/database"]) {
+for (const path of ["packages/database"]) {
   if (implementationFiles(path).length === 0) {
     pass(`${path} has no implementation files.`);
   } else {

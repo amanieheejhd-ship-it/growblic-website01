@@ -4,7 +4,7 @@ import { prisma } from "../apps/web/src/lib/prisma";
 import {
   hashLoginIdentifier,
   normalizeAdminEmail,
-} from "../apps/web/src/server/auth/admin-auth.crypto";
+} from "../apps/admin/src/server/auth/admin-auth.crypto";
 
 const TEST_USER_AGENT = "Growblic-Admin-Auth-Integration-Test";
 const RECENT_ATTEMPT_WINDOW_MS = 15 * 60 * 1_000;

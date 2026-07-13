@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Growblic Admin",
@@ -15,11 +16,13 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <div
-      data-admin-root
-      className="fixed inset-0 z-[10000] overflow-y-auto bg-slate-100 font-sans text-slate-950"
-    >
-      {children}
-    </div>
+    <html lang="en">
+      <body
+        data-admin-root
+        className="min-h-screen bg-slate-100 font-sans text-slate-950"
+      >
+        {children}
+      </body>
+    </html>
   );
 }

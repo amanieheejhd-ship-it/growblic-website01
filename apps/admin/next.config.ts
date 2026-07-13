@@ -7,9 +7,7 @@ const monorepoRoot = join(appRoot, "../..");
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
+  outputFileTracingRoot: monorepoRoot,
   turbopack: {
     root: monorepoRoot,
   },

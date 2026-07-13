@@ -1,11 +1,11 @@
 import "dotenv/config";
 
 import { prisma } from "../apps/web/src/lib/prisma";
-import { ADMIN_PASSWORD_MIN_LENGTH } from "../apps/web/src/server/auth/admin-auth.constants";
+import { ADMIN_PASSWORD_MIN_LENGTH } from "../apps/admin/src/server/auth/admin-auth.constants";
 import {
   hashPassword,
   normalizeAdminEmail,
-} from "../apps/web/src/server/auth/admin-auth.crypto";
+} from "../apps/admin/src/server/auth/admin-auth.crypto";
 
 const SUPER_ADMIN_ROLE = "SUPER_ADMIN";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

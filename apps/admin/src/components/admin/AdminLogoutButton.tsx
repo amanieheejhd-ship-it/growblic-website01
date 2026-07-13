@@ -17,7 +17,7 @@ export default function AdminLogoutButton() {
     setHasError(false);
 
     try {
-      const response = await fetch("/api/admin/auth/logout/", {
+      const response = await fetch("/api/auth/logout/", {
         method: "POST",
         credentials: "same-origin",
       });
@@ -28,7 +28,7 @@ export default function AdminLogoutButton() {
         return;
       }
 
-      router.replace("/admin/login");
+      router.replace("/login/");
       router.refresh();
     } catch {
       setHasError(true);

@@ -1,14 +1,14 @@
 # Growblic Monorepo Migration Plan
 
-Status: Phase 2B complete locally
+Status: Phase 2C complete locally
 Audit date: 2026-07-13
-Migration implementation: Phase 2A and Phase 2B complete; Phase 2C not started
+Migration implementation: Phase 2A, Phase 2B, and Phase 2C complete; Phase 2D not started
 
-Checkpoint note: the pre-Phase-2B local rollback commit is `b80f525`. During Phase 2B, public pages, private admin pages, and API routes remain together under `apps/web`; admin extraction is Phase 2C. Prisma schema and migrations remain at the repository root, and `packages/database` is not implemented yet.
+Checkpoint note: the pre-Phase-2C local rollback commit is `8419554`. The frozen public website remains under `apps/web`; the private admin pages and same-origin auth APIs are isolated under `apps/admin`. Prisma schema and migrations remain at the repository root, and `packages/database` is not implemented yet.
 
 ## 1. Executive recommendation
 
-The toolchain foundation and unchanged application move to `apps/web` are now complete locally. The next structural checkpoint is private-admin extraction in Phase 2C, but repository ownership and access must still be verified before any local migration commits are pushed or tagged.
+The toolchain foundation, public application move, and private-admin extraction are complete locally. The next structural checkpoint is database ownership in Phase 2D, but repository ownership and access must still be verified before any local migration commits are pushed or tagged.
 
 The safest first migration is deliberately small:
 

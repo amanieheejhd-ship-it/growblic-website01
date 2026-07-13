@@ -1,4 +1,4 @@
-const baseUrl = (process.env.ADMIN_AUTH_BASE_URL || "http://localhost:3000").replace(
+const baseUrl = (process.env.ADMIN_AUTH_BASE_URL || "http://localhost:3001").replace(
   /\/$/,
   "",
 );
@@ -124,11 +124,11 @@ async function main() {
     throw new Error("ADMIN_AUTH_TEST_PASSWORD is required.");
   }
 
-  const unauthenticated = await request("/api/admin/auth/session/");
+  const unauthenticated = await request("/api/auth/session/");
   assert(unauthenticated.response.status === 401, "Unauthenticated session check did not return 401.");
   console.log("PASS unauthenticated session: 401");
 
-  const malformed = await request("/api/admin/auth/login/", {
+  const malformed = await request("/api/auth/login/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: "{",
@@ -136,7 +136,7 @@ async function main() {
   assert(malformed.response.status === 400, "Malformed login did not return 400.");
   console.log("PASS malformed login: 400");
 
-  const wrongPassword = await request("/api/admin/auth/login/", {
+  const wrongPassword = await request("/api/auth/login/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -149,7 +149,7 @@ async function main() {
   assertNoSensitiveFields(wrongPassword.data, "Incorrect-password response");
   console.log("PASS incorrect-password login: 401");
 
-  const login = await request("/api/admin/auth/login/", {
+  const login = await request("/api/auth/login/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: adminEmail, password: adminPassword }),
@@ -167,7 +167,7 @@ async function main() {
   const { cookieHeader } = extractSessionCookie(login.response);
   console.log("PASS correct login: 200 with safe user and secure cookie attributes");
 
-  const authenticated = await request("/api/admin/auth/session/", {
+  const authenticated = await request("/api/auth/session/", {
     headers: { Cookie: cookieHeader },
   });
   assert(authenticated.response.status === 200, "Authenticated session check did not return 200.");
@@ -179,7 +179,7 @@ async function main() {
   assert(authenticated.data.user.roles.includes("SUPER_ADMIN"), "Session response did not include SUPER_ADMIN.");
   console.log("PASS authenticated session: 200 with matching SUPER_ADMIN identity");
 
-  const logout = await request("/api/admin/auth/logout/", {
+  const logout = await request("/api/auth/logout/", {
     method: "POST",
     headers: { Cookie: cookieHeader },
   });
@@ -188,13 +188,13 @@ async function main() {
   assertCookieCleared(getSetCookieHeaders(logout.response));
   console.log("PASS logout: 200 with cookie clear");
 
-  const revoked = await request("/api/admin/auth/session/", {
+  const revoked = await request("/api/auth/session/", {
     headers: { Cookie: cookieHeader },
   });
   assert(revoked.response.status === 401, "Revoked cookie remained authenticated.");
   console.log("PASS revoked cookie session: 401");
 
-  const idempotentLogout = await request("/api/admin/auth/logout/", {
+  const idempotentLogout = await request("/api/auth/logout/", {
     method: "POST",
     headers: { Cookie: cookieHeader },
   });

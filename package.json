@@ -7,11 +7,21 @@
     "node": ">=22 <23"
   },
   "scripts": {
-    "dev": "pnpm --filter @growblic/web dev",
-    "build": "pnpm --filter @growblic/web build",
+    "dev": "turbo run dev",
+    "dev:web": "pnpm --filter @growblic/web dev",
+    "dev:admin": "pnpm --filter @growblic/admin dev",
+    "build": "turbo run build",
+    "build:web": "pnpm --filter @growblic/web build",
+    "build:admin": "pnpm --filter @growblic/admin build",
     "start": "pnpm --filter @growblic/web start",
-    "lint": "pnpm --filter @growblic/web lint",
-    "typecheck": "pnpm --filter @growblic/web typecheck",
+    "start:web": "pnpm --filter @growblic/web start",
+    "start:admin": "pnpm --filter @growblic/admin start",
+    "lint": "turbo run lint",
+    "lint:web": "pnpm --filter @growblic/web lint",
+    "lint:admin": "pnpm --filter @growblic/admin lint",
+    "typecheck": "turbo run typecheck",
+    "typecheck:web": "pnpm --filter @growblic/web typecheck",
+    "typecheck:admin": "pnpm --filter @growblic/admin typecheck",
     "postinstall": "prisma generate",
     "db:verify-cms": "tsx --tsconfig apps/web/tsconfig.json scripts/verify-cms-schema.ts",
     "admin:bootstrap": "tsx --tsconfig apps/web/tsconfig.json scripts/bootstrap-admin.ts",
@@ -55,6 +65,7 @@
     "prisma": "^7.8.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",
+    "turbo": "2.10.4",
     "typescript": "^5"
   }
 }
