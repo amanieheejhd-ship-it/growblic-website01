@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { prisma } from "../src/lib/prisma";
+import { prisma } from "../apps/web/src/lib/prisma";
 
 async function main() {
   const counts = await Promise.all([

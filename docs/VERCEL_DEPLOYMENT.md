@@ -11,9 +11,9 @@ Push the repository to the correct Growblic-owned GitHub account or organization
 1. Sign in to the Growblic Vercel account.
 2. Choose **Add New → Project** and import the Growblic GitHub repository.
 3. Select **Next.js** as the framework preset. Vercel normally detects this automatically.
-4. Keep **Root Directory** set to the project root (`.`).
+4. Set **Root Directory** to `apps/web`.
 
-The default install command (`npm install`) and build command (`npm run build`) are sufficient. The `postinstall` script generates Prisma Client after dependencies are installed. The build does not run database migrations.
+Use the repository's pinned pnpm toolchain and frozen lockfile. The web project build command is `pnpm build`; Vercel's monorepo install must run from the repository workspace so the root `postinstall` generates Prisma Client from the root schema. The build does not run database migrations.
 
 ## 3. Configure environment variables
 

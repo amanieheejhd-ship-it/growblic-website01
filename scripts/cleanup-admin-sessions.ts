@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { prisma } from "../src/lib/prisma";
+import { prisma } from "../apps/web/src/lib/prisma";
 
 const RETENTION_DAYS = 30;
 

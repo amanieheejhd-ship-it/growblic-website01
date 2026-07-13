@@ -1,8 +1,11 @@
-# Future applications
+# Applications
 
-No application has been moved into this directory yet.
+- `web` contains the existing Next.js application, moved intact from the repository root in Phase 2B.
+- Public pages, private admin pages, and API routes remain together in `web` temporarily.
+- Private-admin extraction into `apps/admin` is deferred to Phase 2C.
+- No NestJS application or microservice exists.
 
-- The existing public Next.js frontend remains at the repository root temporarily.
-- `apps/web` is reserved for the unchanged public application in a future Phase 2 checkpoint.
-- `apps/admin` is reserved for private-admin extraction in a later Phase 2 checkpoint.
-- No NestJS application or microservice exists yet.
+Run the application from the repository root with `pnpm dev` or `pnpm build`.
+For local development only, ignored links under `apps/web` may point to the ignored root environment files. Deployment environments must inject variables directly.
+
+The rollback checkpoint before the structural move is `b80f525`.

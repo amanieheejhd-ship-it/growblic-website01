@@ -50,12 +50,21 @@ for (const path of [
   "pnpm-workspace.yaml",
   "turbo.json",
   "apps/README.md",
+  "apps/web/package.json",
+  "apps/web/src",
+  "apps/web/public",
   "packages/README.md",
-  "src",
-  "public",
   "prisma",
 ]) {
   requirePath(path);
+}
+
+for (const path of ["src", "public"]) {
+  if (existsSync(join(root, path))) {
+    fail(`${path} must move into apps/web.`);
+  } else {
+    pass(`Root ${path} is absent.`);
+  }
 }
 
 const workspace = readFileSync(join(root, "pnpm-workspace.yaml"), "utf8");
@@ -75,7 +84,13 @@ if (/^pnpm@\d+\.\d+\.\d+$/.test(packageJson.packageManager ?? "")) {
   fail("packageManager is not an exact pnpm version.");
 }
 
-for (const path of ["apps/web", "apps/admin", "packages/database"]) {
+if (implementationFiles("apps/web").length > 0) {
+  pass("apps/web contains the Next.js application.");
+} else {
+  fail("apps/web has no implementation files.");
+}
+
+for (const path of ["apps/admin", "packages/database"]) {
   if (implementationFiles(path).length === 0) {
     pass(`${path} has no implementation files.`);
   } else {
