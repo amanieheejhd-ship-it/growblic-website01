@@ -1,5 +1,7 @@
 import "server-only";
 
+import type { AdminSafeUser } from "@growblic/contracts";
+import { validateAdminLogin } from "@growblic/validation";
 import {
   ADMIN_LOGIN_WINDOW_MS,
   ADMIN_MAX_FAILED_LOGIN_ATTEMPTS,
@@ -11,7 +13,6 @@ import {
   generateSessionToken,
   hashLoginIdentifier,
   hashSessionToken,
-  normalizeAdminEmail,
   verifyPassword,
 } from "./admin-auth.crypto";
 import {
@@ -28,16 +29,10 @@ import {
 const DUMMY_PASSWORD_HASH =
   "$argon2id$v=19$m=19456,t=2,p=1$zPM/05TcoihZ66IvE3Ietg$YlMJq6EfEeyn+bKwGwLKeoA0jfz/F7eUv9oE116O+/M";
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const INVALID_CREDENTIALS_MESSAGE = "Invalid email or password.";
 const RATE_LIMIT_MESSAGE = "Too many login attempts. Please try again later.";
 
-export type SafeAdminUser = {
-  id: string;
-  email: string;
-  name: string;
-  roles: string[];
-};
+export type SafeAdminUser = AdminSafeUser;
 
 export type SafeAdminSession = {
   sessionId: string;
@@ -70,21 +65,17 @@ export async function loginAdmin(input: {
   ipAddress?: string | null;
   userAgent?: string | null;
 }): Promise<LoginAdminResult> {
-  const email = normalizeAdminEmail(input.email);
+  const validation = validateAdminLogin(input, ADMIN_PASSWORD_MIN_LENGTH);
 
-  if (
-    email.length === 0 ||
-    email.length > 254 ||
-    !EMAIL_PATTERN.test(email) ||
-    input.password.length < ADMIN_PASSWORD_MIN_LENGTH ||
-    input.password.length > 1_024
-  ) {
+  if (!validation.success) {
     return {
       ok: false,
       reason: "INVALID_REQUEST",
       message: "Please submit a valid login request.",
     };
   }
+
+  const { email } = validation.data;
 
   const emailHash = hashLoginIdentifier(`email:${email}`);
   const ipAddressHash = input.ipAddress

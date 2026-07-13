@@ -1,6 +1,6 @@
 import "server-only";
 
-import { FormValidationError } from "./form-validation";
+import { FormValidationError } from "@growblic/validation";
 
 const MAX_BODY_BYTES = 65_536;
 const NO_STORE_HEADERS = { "Cache-Control": "no-store, max-age=0" };

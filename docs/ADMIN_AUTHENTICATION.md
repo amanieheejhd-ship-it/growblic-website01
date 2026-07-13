@@ -44,6 +44,8 @@ Login is blocked for the current request when either identifier has five failed 
 
 Role names are loaded through `AdminUserRole` and `AdminRole` only after a valid server-side session check. `getOptionalAdminSession`, `requireAdminSession`, and `requireAdminRole` provide controlled server authorization primitives without redirects or client imports. API responses contain only administrator ID, email, name, role names, and session expiry; `passwordHash` and `tokenHash` are never returned.
 
+The safe login/session/logout response types are defined in browser-safe `@growblic/contracts`. Email normalization and login-shape validation are pure functions in `@growblic/validation`. Password hashing, pepper access, rate limiting, database lookups, session creation/revocation, cookies, and audit logging remain server-only in `apps/admin`.
+
 ## Audit events
 
 - `ADMIN_LOGIN_SUCCESS` is written atomically with session creation.

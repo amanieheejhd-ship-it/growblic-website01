@@ -1,3 +1,4 @@
+import type { AdminLogoutResponse } from "@growblic/contracts";
 import {
   clearAdminSessionCookie,
   getAdminSessionCookie,
@@ -21,14 +22,14 @@ export async function POST() {
     await clearAdminSessionCookie();
 
     return Response.json(
-      { success: true },
+      { success: true } satisfies AdminLogoutResponse,
       { status: 200, headers: NO_STORE_HEADERS },
     );
   } catch {
     await clearAdminSessionCookie().catch(() => undefined);
     console.error("Admin logout could not revoke the server session.");
     return Response.json(
-      { success: false, message: "Unable to complete logout." },
+      { success: false, message: "Unable to complete logout." } satisfies AdminLogoutResponse,
       { status: 500, headers: NO_STORE_HEADERS },
     );
   }

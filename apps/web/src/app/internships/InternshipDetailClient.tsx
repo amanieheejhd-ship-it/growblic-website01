@@ -1,5 +1,7 @@
 "use client";
 
+import type { InternshipApplicationRequest } from "@growblic/contracts";
+
 import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Internship } from "./internship-data";
@@ -108,7 +110,7 @@ export default function InternshipDetailClient({
           passingYear: String(formData.get("passingYear") || "").trim(),
           message: String(formData.get("query") || "").trim(),
           website: String(formData.get("website") || "").trim(),
-        }),
+        } satisfies InternshipApplicationRequest),
       });
 
       if (!response.ok) {

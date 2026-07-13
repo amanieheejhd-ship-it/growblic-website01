@@ -6,5 +6,7 @@
 - `DATABASE_URL` is runtime-only. `DIRECT_URL` is read only by controlled Prisma migration tooling.
 - Prisma migrations are never run by application builds or postinstall.
 
-- Shared contracts, validation, configuration, logging, and security packages will be added only when they have real consumers.
+- `contracts` contains browser-safe, framework-neutral API request and response types. It contains no runtime, database, framework, or secret access.
+- `validation` contains pure normalization and validation used by the existing web and admin server boundaries. Request-size enforcement, honeypots, persistence, cookies, hashing, rate limits, and audit work remain in their owning applications.
+- Shared configuration, logging, and security packages will be added only when they have real consumers.
 - No microservice exists yet.

@@ -19,6 +19,8 @@ Runtime processes provide `DATABASE_URL`. Controlled Prisma migration tooling pr
 - `pnpm prisma:migrate:deploy`
 - `pnpm prisma:studio`
 
+Framework-neutral request/response types live in browser-safe `@growblic/contracts`, while deterministic input normalization and validation live in `@growblic/validation`. Neither package imports Prisma or accesses environment variables. Prisma writes and database-specific JSON conversion remain in application server code using `@growblic/database`.
+
 ## Models
 
 ### Administration

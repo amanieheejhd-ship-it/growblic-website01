@@ -1,5 +1,7 @@
 "use client";
 
+import type { CareerApplicationRequest } from "@growblic/contracts";
+
 import {
   useEffect,
   useRef,
@@ -207,7 +209,7 @@ export default function CareersApplyForm() {
           workLinks: submittedLinks,
           message,
           website,
-        }),
+        } satisfies CareerApplicationRequest),
       });
 
       if (!databaseResponse.ok) {

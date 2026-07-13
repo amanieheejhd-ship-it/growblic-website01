@@ -1,5 +1,6 @@
 "use client";
 
+import type { AdminLoginRequest } from "@growblic/contracts";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +27,7 @@ export default function AdminLoginForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "same-origin",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password } satisfies AdminLoginRequest),
       });
 
       if (!response.ok) {

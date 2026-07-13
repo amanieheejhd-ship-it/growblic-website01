@@ -1,3 +1,9 @@
+import type {
+  FormSubmissionResponse,
+  MeetingRequest,
+  QuoteRequest,
+} from "@growblic/contracts";
+
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com";
 
@@ -39,13 +45,14 @@ export async function submitLead(
   return data;
 }
 
-type WebsiteFormPath =
-  | "/api/meeting-requests/"
-  | "/api/quote-requests/";
+type WebsiteFormRequestMap = {
+  "/api/meeting-requests/": MeetingRequest;
+  "/api/quote-requests/": QuoteRequest;
+};
 
-export async function persistWebsiteForm(
-  path: WebsiteFormPath,
-  payload: Record<string, unknown>,
+export async function persistWebsiteForm<Path extends keyof WebsiteFormRequestMap>(
+  path: Path,
+  payload: WebsiteFormRequestMap[Path],
 ) {
   const response = await fetch(path, {
     method: "POST",
@@ -56,7 +63,7 @@ export async function persistWebsiteForm(
     body: JSON.stringify(payload),
   });
 
-  const data = (await response.json().catch(() => null)) as LeadResponse | null;
+  const data = (await response.json().catch(() => null)) as FormSubmissionResponse | null;
 
   if (!response.ok || !data?.success) {
     throw new Error(data?.message || "Form request failed.");

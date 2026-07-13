@@ -1,4 +1,5 @@
 import { prisma } from "@growblic/database";
+import { validateContact } from "@growblic/validation";
 
 export const runtime = "nodejs";
 
@@ -8,103 +9,11 @@ const NO_STORE_HEADERS = {
   "Cache-Control": "no-store, max-age=0",
 };
 
-type FieldName =
-  | "name"
-  | "email"
-  | "phone"
-  | "company"
-  | "service"
-  | "budget"
-  | "message";
-
-type NormalizedContact = Record<FieldName, string | undefined> & {
-  name: string;
-  email: string;
-  message: string;
-};
-
-type FieldErrors = Partial<Record<FieldName, string>>;
-
 function json(body: object, status: number) {
   return Response.json(body, {
     status,
     headers: NO_STORE_HEADERS,
   });
-}
-
-function getTrimmedString(
-  input: Record<string, unknown>,
-  field: FieldName,
-  fieldErrors: FieldErrors,
-  options: { required?: boolean; min?: number; max: number },
-) {
-  const value = input[field];
-
-  if (value === undefined || value === null || value === "") {
-    if (options.required) {
-      fieldErrors[field] = `${field[0].toUpperCase()}${field.slice(1)} is required.`;
-    }
-    return undefined;
-  }
-
-  if (typeof value !== "string") {
-    fieldErrors[field] = `${field[0].toUpperCase()}${field.slice(1)} must be text.`;
-    return undefined;
-  }
-
-  const normalized = value.trim();
-
-  if (!normalized && options.required) {
-    fieldErrors[field] = `${field[0].toUpperCase()}${field.slice(1)} is required.`;
-  } else if (options.min && normalized.length < options.min) {
-    fieldErrors[field] = `${field[0].toUpperCase()}${field.slice(1)} must be at least ${options.min} characters.`;
-  } else if (normalized.length > options.max) {
-    fieldErrors[field] = `${field[0].toUpperCase()}${field.slice(1)} must be at most ${options.max} characters.`;
-  }
-
-  return normalized || undefined;
-}
-
-function validateContact(input: Record<string, unknown>) {
-  const fieldErrors: FieldErrors = {};
-  const name = getTrimmedString(input, "name", fieldErrors, {
-    required: true,
-    min: 2,
-    max: 100,
-  });
-  const email = getTrimmedString(input, "email", fieldErrors, {
-    required: true,
-    max: 254,
-  })?.toLowerCase();
-  const phone = getTrimmedString(input, "phone", fieldErrors, { max: 30 });
-  const company = getTrimmedString(input, "company", fieldErrors, { max: 120 });
-  const service = getTrimmedString(input, "service", fieldErrors, { max: 120 });
-  const budget = getTrimmedString(input, "budget", fieldErrors, { max: 100 });
-  const message = getTrimmedString(input, "message", fieldErrors, {
-    required: true,
-    min: 10,
-    max: 3000,
-  });
-
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    fieldErrors.email = "Please enter a valid email address.";
-  }
-
-  if (Object.keys(fieldErrors).length > 0 || !name || !email || !message) {
-    return { fieldErrors };
-  }
-
-  const data: NormalizedContact = {
-    name,
-    email,
-    phone,
-    company,
-    service,
-    budget,
-    message,
-  };
-
-  return { data };
 }
 
 export async function POST(request: Request) {
@@ -144,7 +53,7 @@ export async function POST(request: Request) {
 
   const result = validateContact(input);
 
-  if (!result.data) {
+  if (!result.success) {
     return json(
       {
         success: false,

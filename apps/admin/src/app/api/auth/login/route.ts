@@ -1,3 +1,4 @@
+import type { AdminLoginRequest, AdminLoginResponse } from "@growblic/contracts";
 import {
   loginAdmin,
   logoutAdmin,
@@ -11,7 +12,7 @@ const NO_STORE_HEADERS = {
   "Cache-Control": "no-store, max-age=0",
 };
 
-function json(body: object, status: number) {
+function json(body: AdminLoginResponse, status: number) {
   return Response.json(body, {
     status,
     headers: NO_STORE_HEADERS,
@@ -70,7 +71,7 @@ export async function POST(request: Request) {
     return json({ success: false, message: "Please submit a valid login request." }, 400);
   }
 
-  const input = body as Record<string, unknown>;
+  const input = body as Partial<AdminLoginRequest>;
 
   if (typeof input.email !== "string" || typeof input.password !== "string") {
     return json({ success: false, message: "Please submit a valid login request." }, 400);

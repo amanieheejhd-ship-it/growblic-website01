@@ -1,6 +1,6 @@
 # Growblic workspace
 
-The public Growblic Next.js application lives in `apps/web`; the private administration application lives independently in `apps/admin`. The server-only `packages/database` workspace package owns the Prisma schema, migrations, generated client, and runtime singleton.
+The public Growblic Next.js application lives in `apps/web`; the private administration application lives independently in `apps/admin`. Browser-safe API types and pure validation live in `packages/contracts` and `packages/validation`. The server-only `packages/database` workspace package owns the Prisma schema, migrations, generated client, and runtime singleton.
 
 ## Development
 
@@ -22,4 +22,4 @@ Prisma commands are available as `pnpm prisma:format`, `pnpm prisma:validate`, `
 
 For local development, applications and the database package can use ignored links to the ignored root `.env` files. Do not stage those links or copy secrets into tracked files. Deployment platforms must inject environment variables directly.
 
-The local rollback checkpoint before Phase 2D is `d465f51`.
+The local rollback checkpoint before Phase 2E is `d91e9fc`.

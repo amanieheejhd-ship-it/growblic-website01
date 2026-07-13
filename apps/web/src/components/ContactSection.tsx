@@ -1,5 +1,6 @@
 "use client";
 
+import type { ContactRequest, ContactResponse } from "@growblic/contracts";
 import { useRef, useState } from "react";
 import {
   ArrowRight,
@@ -11,11 +12,6 @@ import {
 } from "lucide-react";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
-
-type ContactResponse = {
-  success?: boolean;
-  message?: string;
-};
 
 const highlights = [
   {
@@ -67,7 +63,7 @@ export default function ContactSection() {
           budget: String(formData.get("budgetRange") || "").trim() || undefined,
           message: String(formData.get("message") || "").trim(),
           website: String(formData.get("website") || "").trim(),
-        }),
+        } satisfies ContactRequest),
       });
 
       const data = (await response.json().catch(() => null)) as ContactResponse | null;

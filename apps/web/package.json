@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@growblic/contracts": "workspace:*",
     "@growblic/database": "workspace:*",
+    "@growblic/validation": "workspace:*",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.40.0",
     "lenis": "^1.3.23",

@@ -1,45 +1,17 @@
 import "server-only";
 
 import { Prisma, prisma } from "@growblic/database";
-import {
-  readEmail,
-  readOptionalJsonObject,
-  readString,
-  readSubmissionKey,
-} from "./form-validation";
+import { validateQuoteRequest } from "@growblic/validation";
 
 export async function saveQuoteRequest(input: Record<string, unknown>) {
-  const submissionKey = readSubmissionKey(input);
-  const name = readString(input, "name", { min: 2, max: 120, required: true });
-  const email = readEmail(input, "email");
-  const phone = readString(input, "phone", { max: 30 });
-  const company = readString(input, "company", { max: 160 });
-  const location = readString(input, "location", { max: 160 });
-  const service = readString(input, "service", { max: 160 });
-  const budget = readString(input, "budget", { max: 120 });
-  const requirements = readString(input, "requirements", {
-    min: 3,
-    max: 10_000,
-    required: true,
-  });
-  const calculatorData = readOptionalJsonObject(input, "calculatorData");
-  const source = readString(input, "source", { max: 100 });
+  const data = validateQuoteRequest(input);
 
   await prisma.quoteRequest.upsert({
-    where: { submissionKey },
-    update: { submissionKey },
+    where: { submissionKey: data.submissionKey },
+    update: { submissionKey: data.submissionKey },
     create: {
-      submissionKey,
-      name: name!,
-      email,
-      phone,
-      company,
-      location,
-      service,
-      budget,
-      requirements: requirements!,
-      calculatorData: calculatorData as Prisma.InputJsonValue | undefined,
-      source,
+      ...data,
+      calculatorData: data.calculatorData as Prisma.InputJsonValue | undefined,
     },
     select: { id: true },
   });

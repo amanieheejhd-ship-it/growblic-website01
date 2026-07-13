@@ -11,7 +11,11 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  transpilePackages: ["@growblic/database"],
+  transpilePackages: [
+    "@growblic/contracts",
+    "@growblic/database",
+    "@growblic/validation",
+  ],
   turbopack: {
     root: monorepoRoot,
   },

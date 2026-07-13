@@ -1,3 +1,4 @@
+import type { AdminSessionResponse } from "@growblic/contracts";
 import { getAdminSessionCookie } from "@/server/auth/admin-auth.cookies";
 import { getAdminSession } from "@/server/auth/admin-auth.service";
 
@@ -14,7 +15,7 @@ export async function GET() {
 
     if (!session) {
       return Response.json(
-        { success: false, message: "Admin authentication required." },
+        { success: false, message: "Admin authentication required." } satisfies AdminSessionResponse,
         { status: 401, headers: NO_STORE_HEADERS },
       );
     }
@@ -23,16 +24,16 @@ export async function GET() {
       {
         success: true,
         session: {
-          expiresAt: session.expiresAt,
+          expiresAt: session.expiresAt.toISOString(),
         },
         user: session.user,
-      },
+      } satisfies AdminSessionResponse,
       { status: 200, headers: NO_STORE_HEADERS },
     );
   } catch {
     console.error("Admin session validation could not be completed.");
     return Response.json(
-      { success: false, message: "Unable to validate admin session." },
+      { success: false, message: "Unable to validate admin session." } satisfies AdminSessionResponse,
       { status: 500, headers: NO_STORE_HEADERS },
     );
   }

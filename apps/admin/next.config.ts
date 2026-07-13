@@ -8,7 +8,11 @@ const monorepoRoot = join(appRoot, "../..");
 const nextConfig: NextConfig = {
   trailingSlash: true,
   outputFileTracingRoot: monorepoRoot,
-  transpilePackages: ["@growblic/database"],
+  transpilePackages: [
+    "@growblic/contracts",
+    "@growblic/database",
+    "@growblic/validation",
+  ],
   turbopack: {
     root: monorepoRoot,
   },

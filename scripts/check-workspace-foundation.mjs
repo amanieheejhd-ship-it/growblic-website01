@@ -68,6 +68,10 @@ for (const path of [
   "packages/database/prisma.config.ts",
   "packages/database/prisma/schema.prisma",
   "packages/database/prisma/migrations/migration_lock.toml",
+  "packages/contracts/package.json",
+  "packages/contracts/src/index.ts",
+  "packages/validation/package.json",
+  "packages/validation/src/index.ts",
 ]) {
   requirePath(path);
 }
@@ -101,7 +105,13 @@ if (/^pnpm@\d+\.\d+\.\d+$/.test(packageJson.packageManager ?? "")) {
   fail("packageManager is not an exact pnpm version.");
 }
 
-for (const path of ["apps/web", "apps/admin", "packages/database"]) {
+for (const path of [
+  "apps/web",
+  "apps/admin",
+  "packages/database",
+  "packages/contracts",
+  "packages/validation",
+]) {
   if (implementationFiles(path).length > 0) {
     pass(`${path} contains an application.`);
   } else {
@@ -125,6 +135,26 @@ if (adminSource.includes("web/src/lib/prisma")) {
   fail("apps/admin still contains a cross-app Prisma bridge.");
 } else {
   pass("apps/admin has no cross-app Prisma bridge.");
+}
+
+const contractsSource = implementationFiles("packages/contracts/src")
+  .map((path) => readFileSync(path, "utf8"))
+  .join("\n");
+
+if (/from\s+["'](?:next|@prisma|@growblic\/database)/.test(contractsSource)) {
+  fail("packages/contracts imports framework or database code.");
+} else {
+  pass("packages/contracts is framework-neutral and database-free.");
+}
+
+const validationSource = implementationFiles("packages/validation/src")
+  .map((path) => readFileSync(path, "utf8"))
+  .join("\n");
+
+if (/from\s+["'](?:next|@prisma|@growblic\/database)/.test(validationSource)) {
+  fail("packages/validation imports framework or database code.");
+} else {
+  pass("packages/validation is framework-neutral and database-free.");
 }
 
 if (failed) {

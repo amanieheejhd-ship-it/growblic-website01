@@ -1,0 +1,20 @@
+{
+  "name": "@growblic/validation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@growblic/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

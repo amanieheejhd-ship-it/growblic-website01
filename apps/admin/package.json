@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@growblic/contracts": "workspace:*",
     "@growblic/database": "workspace:*",
+    "@growblic/validation": "workspace:*",
     "argon2": "^0.44.0",
     "next": "16.2.9",
     "react": "19.2.4",
