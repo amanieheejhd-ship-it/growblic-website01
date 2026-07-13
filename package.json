@@ -38,6 +38,8 @@
     "auth:test-api": "node scripts/test-admin-auth-api.mjs",
     "auth:verify-db": "tsx --tsconfig apps/web/tsconfig.json scripts/verify-admin-auth-db.ts",
     "admin:test-pages": "node scripts/test-admin-pages.mjs",
+    "admin:submissions:test-api": "node scripts/test-admin-submissions-api.mjs",
+    "admin:submissions:verify-db": "tsx --tsconfig apps/admin/tsconfig.json scripts/verify-admin-submissions-db.ts",
     "forms:test-api": "node scripts/test-website-form-apis.mjs",
     "forms:verify-db": "tsx --tsconfig apps/web/tsconfig.json scripts/verify-website-form-db.ts",
     "toolchain:check": "node scripts/check-toolchain.mjs",

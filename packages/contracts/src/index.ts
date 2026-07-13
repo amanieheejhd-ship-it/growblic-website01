@@ -1,4 +1,5 @@
 export type * from "./admin-auth";
+export type * from "./admin-submissions";
 export type * from "./careers";
 export type * from "./common";
 export type * from "./contact";
