@@ -258,7 +258,7 @@ export default function InternshipDetailClient({
                     name="state"
                     required
                     autoComplete="address-level1"
-                    placeholder="Your state"
+                    placeholder="Enter your state"
                     className={inputClass}
                   />
                 </label>
