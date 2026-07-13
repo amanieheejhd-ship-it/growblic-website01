@@ -127,7 +127,7 @@ export default function Hero() {
             <div className="hero-mobile-card-inner">
               <div className="hero-mobile-logo relative overflow-hidden">
                 <Image
-                  src="/growblic-website01/images/brand/growblic-logo.png"
+                  src="/images/brand/growblic-logo.png"
                   alt="Growblic"
                   fill
                   sizes="64px"
@@ -204,7 +204,7 @@ export default function Hero() {
               <div className="relative">
                 <div className="hero-engine-logo relative mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border border-blue-100/70 bg-[#fbfdff] p-2 shadow-xl shadow-slate-200">
                   <Image
-                    src="/growblic-website01/images/brand/growblic-logo.png"
+                    src="/images/brand/growblic-logo.png"
                     alt="Growblic"
                     fill
                     sizes="80px"

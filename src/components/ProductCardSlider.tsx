@@ -15,10 +15,10 @@ type Slide =
     };
 
 const defaultImages = [
-  "/growblic-website01/images/products/school-1.jpg",
-  "/growblic-website01/images/products/crm-1.jpg",
-  "/growblic-website01/images/products/hr-1.jpg",
-  "/growblic-website01/images/products/analytics-1.jpg",
+  "/images/products/school-1.jpg",
+  "/images/products/crm-1.jpg",
+  "/images/products/hr-1.jpg",
+  "/images/products/analytics-1.jpg",
 ];
 
 function getSlideImage(slide: Slide | undefined) {

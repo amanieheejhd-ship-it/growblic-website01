@@ -1,9 +1,9 @@
-name: Deploy Next.js to GitHub Pages
+name: Legacy GitHub Pages deployment (manual only)
 
+# Automatic publishing is disabled while the server-backed application moves to Vercel.
+# Keep this workflow for deployment history and temporary fallback reference only.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: read

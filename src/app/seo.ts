@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const siteUrl = "https://amanieheejhd-ship-it.github.io/growblic-website01";
+export const siteUrl = "https://growblic.com";
 
 export const defaultSeo = {
   title: "Growblic - Software Development Company",
@@ -23,11 +23,7 @@ export function absoluteUrl(path = "/") {
     return path;
   }
 
-  const cleanPath = path.startsWith("/growblic-website01/")
-    ? path.replace("/growblic-website01", "")
-    : path;
-
-  return `${siteUrl}${cleanPath.startsWith("/") ? cleanPath : `/${cleanPath}`}`;
+  return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 export function createPageMetadata({

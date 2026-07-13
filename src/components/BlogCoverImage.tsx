@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { type SyntheticEvent } from "react";
 
-const withBasePath = (path: string) => `/growblic-website01${path}`;
+const withBasePath = (path: string) => path;
 const fallbackCoverImage = "/images/blog/custom-software.svg";
 
 type BlogCoverImageProps = {

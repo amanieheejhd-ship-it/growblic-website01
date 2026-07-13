@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://amanieheejhd-ship-it.github.io/growblic-website01/sitemap.xml
+Sitemap: https://growblic.com/sitemap.xml

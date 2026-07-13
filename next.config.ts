@@ -1,11 +1,6 @@
 import type { NextConfig } from "next";
 
-const repoName = "growblic-website01";
-
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath: `/${repoName}`,
-  assetPrefix: `/${repoName}/`,
   trailingSlash: true,
   images: {
     unoptimized: true,

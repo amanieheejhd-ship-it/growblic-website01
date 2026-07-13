@@ -25,19 +25,19 @@ const meetupWays = [
   {
     title: "Founder networking",
     text: "Casual meetups where founders, local businesses, and builders discuss websites, apps, SaaS, and automation.",
-    image: "/growblic-website01/images/business/saas-3.jpg",
+    image: "/images/business/saas-3.jpg",
     icon: Handshake,
   },
   {
     title: "Workshop night",
     text: "Hands-on sessions for websites, mobile apps, AI tools, dashboards, and marketing automation.",
-    image: "/growblic-website01/images/business/ai-2.svg",
+    image: "/images/business/ai-2.svg",
     icon: Workflow,
   },
   {
     title: "Demo day",
     text: "Community sessions where builders present products, case studies, business tools, and real workflows.",
-    image: "/growblic-website01/images/business/ai-3.svg",
+    image: "/images/business/ai-3.svg",
     icon: Mic2,
   },
 ];
@@ -143,7 +143,7 @@ export default function MeetupPage() {
               <div className="absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-cyan-200/45 blur-3xl" />
 
               <div className="absolute left-4 top-5 w-[56%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(37,99,235,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:-translate-y-3 hover:rotate-[-1deg] hover:shadow-[0_35px_100px_rgba(37,99,235,0.20)] sm:left-6 sm:top-7 sm:w-[50%]">
-                <img src="/growblic-website01/images/business/mobile-3.jpg" alt="Growblic meetup session" className="h-[13rem] w-full rounded-[1.35rem] object-cover" />
+                <img src="/images/business/mobile-3.jpg" alt="Growblic meetup session" className="h-[13rem] w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Community</p>
                   <h3 className="mt-2 break-words text-2xl font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:text-[1.9rem] sm:tracking-[-0.045em]">Founder circle</h3>
@@ -151,7 +151,7 @@ export default function MeetupPage() {
               </div>
 
               <div className="absolute right-4 top-12 w-[40%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(6,182,212,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-3 hover:-translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(6,182,212,0.20)] sm:right-6 sm:top-14">
-                <img src="/growblic-website01/images/business/ai-1.svg" alt="Workshop night" className="h-40 w-full rounded-[1.35rem] object-cover" />
+                <img src="/images/business/ai-1.svg" alt="Workshop night" className="h-40 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-cyan-700">Workshop</p>
                   <h3 className="mt-2 text-xl font-black tracking-[-0.05em] text-slate-950">Build night</h3>
@@ -159,7 +159,7 @@ export default function MeetupPage() {
               </div>
 
               <div className="absolute bottom-6 left-4 w-[50%] overflow-hidden rounded-[1.7rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.13)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-x-3 hover:translate-y-3 hover:rotate-[1deg] hover:shadow-[0_35px_100px_rgba(15,23,42,0.16)] sm:bottom-8 sm:left-8 sm:w-[44%]">
-                <img src="/growblic-website01/images/business/mobile-2.jpg" alt="AI automation demo" className="h-44 w-full rounded-[1.35rem] object-cover" />
+                <img src="/images/business/mobile-2.jpg" alt="AI automation demo" className="h-44 w-full rounded-[1.35rem] object-cover" />
                 <div className="px-2 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">Demo</p>
                   <h3 className="mt-2 text-xl font-black tracking-[-0.05em] text-slate-950">AI workflow</h3>
@@ -231,7 +231,7 @@ export default function MeetupPage() {
                 Approved events may receive promotional support, digital assets, topic guidance, and practical planning help from Growblic.
               </p>
               <div className="mt-8 overflow-hidden rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-3 shadow-[0_22px_75px_rgba(37,99,235,0.12)]">
-                <img src="/growblic-website01/images/business/saas-1.jpg" alt="Growblic host support" className="h-72 w-full rounded-[1.55rem] object-cover saturate-110" />
+                <img src="/images/business/saas-1.jpg" alt="Growblic host support" className="h-72 w-full rounded-[1.55rem] object-cover saturate-110" />
               </div>
             </div>
 

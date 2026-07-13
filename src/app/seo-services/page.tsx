@@ -12,7 +12,7 @@ export default function SeoServicesPage() {
       eyebrow="SEO Services"
       title="SEO systems that help your business get discovered."
       description="Growblic improves website structure, content clarity, metadata, and search visibility so your business can attract better organic traffic over time."
-      image="/growblic-website01/images/products/analytics-1.jpg"
+      image="/images/products/analytics-1.jpg"
       points={[
         "Technical SEO",
         "On-page optimization",

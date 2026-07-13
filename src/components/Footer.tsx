@@ -175,7 +175,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3">
               <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70">
                 <Image
-                  src="/growblic-website01/images/brand/growblic-logo.png"
+                  src="/images/brand/growblic-logo.png"
                   alt="Growblic"
                   fill
                   sizes="40px"

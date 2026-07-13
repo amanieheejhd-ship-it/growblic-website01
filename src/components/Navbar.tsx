@@ -243,7 +243,7 @@ export default function Navbar() {
         >
           <span className="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full border border-blue-100 bg-white shadow-md shadow-blue-100/70 sm:h-11 sm:w-11">
             <Image
-              src="/growblic-website01/images/brand/growblic-logo.png"
+              src="/images/brand/growblic-logo.png"
               alt="Growblic"
               fill
               sizes="44px"

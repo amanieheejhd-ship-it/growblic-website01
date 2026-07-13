@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowRight,
   Clock3,
@@ -9,9 +9,13 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { submitLead } from "@/lib/api";
 
-type FormStatus = "idle" | "loading" | "success" | "error";
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+type ContactResponse = {
+  success?: boolean;
+  message?: string;
+};
 
 const highlights = [
   {
@@ -30,35 +34,60 @@ const highlights = [
 export default function ContactSection() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
+  const submittingRef = useRef(false);
+  const isSubmitting = status === "submitting";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const email = String(formData.get("email") || "").trim();
-    const phone = String(formData.get("phone") || "").trim();
+    if (submittingRef.current) {
+      return;
+    }
+
+    submittingRef.current = true;
 
     try {
-      setStatus("loading");
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+
+      setStatus("submitting");
       setMessage("");
 
-      await submitLead("/leads/contact", {
-        name: String(formData.get("name") || "").trim(),
-        email: email || undefined,
-        phone: phone || undefined,
-        service: String(formData.get("projectType") || "").trim() || undefined,
-        budget: String(formData.get("budgetRange") || "").trim() || undefined,
-        message: String(formData.get("message") || "").trim(),
-        source: "contact-form",
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: String(formData.get("name") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          phone: String(formData.get("phone") || "").trim() || undefined,
+          service: String(formData.get("projectType") || "").trim() || undefined,
+          budget: String(formData.get("budgetRange") || "").trim() || undefined,
+          message: String(formData.get("message") || "").trim(),
+          website: String(formData.get("website") || "").trim(),
+        }),
       });
 
+      const data = (await response.json().catch(() => null)) as ContactResponse | null;
+
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || "Something went wrong. Please try again.");
+      }
+
       setStatus("success");
-      setMessage("Thanks, our team will contact you soon.");
+      setMessage(data.message || "Thank you. Your enquiry has been received.");
       form.reset();
-    } catch {
+    } catch (error) {
       setStatus("error");
-      setMessage("Something went wrong. Please try again.");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      submittingRef.current = false;
     }
   }
 
@@ -163,6 +192,8 @@ export default function ContactSection() {
                 <input
                   required
                   name="name"
+                  minLength={2}
+                  maxLength={100}
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
                 />
               </label>
@@ -172,6 +203,7 @@ export default function ContactSection() {
                 <input
                   name="phone"
                   type="tel"
+                  maxLength={30}
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
                 />
               </label>
@@ -179,8 +211,10 @@ export default function ContactSection() {
               <label className="min-w-0 space-y-2 sm:col-span-2">
                 <span className="text-sm font-black text-slate-700">Email</span>
                 <input
+                  required
                   name="email"
                   type="email"
+                  maxLength={254}
                   className="h-14 w-full rounded-2xl border border-blue-100 bg-white px-4 font-semibold text-slate-900 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
                 />
               </label>
@@ -227,15 +261,33 @@ export default function ContactSection() {
                 <textarea
                   required
                   name="message"
+                  minLength={10}
+                  maxLength={3000}
                   rows={5}
                   className="w-full resize-y rounded-2xl border border-blue-100 bg-white px-4 py-4 font-semibold text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
                   placeholder="Tell us what you want to build..."
                 />
               </label>
+
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-[10000px] h-px w-px overflow-hidden"
+              >
+                <label htmlFor="contact-website">Website</label>
+                <input
+                  id="contact-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
             </div>
 
             {message ? (
               <div
+                aria-live="polite"
+                role={status === "error" ? "alert" : "status"}
                 className={`mt-5 rounded-2xl border px-4 py-3 text-sm font-bold ${
                   status === "success"
                     ? "border-emerald-200 bg-emerald-50 text-emerald-700"
@@ -249,10 +301,10 @@ export default function ContactSection() {
             <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="submit"
-                disabled={status === "loading"}
+                disabled={isSubmitting}
                 className="group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full bg-slate-950 px-6 py-3 text-center text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
               >
-                {status === "loading" ? "Sending..." : "Request Free Consultation"}
+                {isSubmitting ? "Sending..." : "Request Free Consultation"}
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </button>
 

@@ -6,7 +6,7 @@ export default function FinTechAppPage() {
       eyebrow="FinTech App"
       title="Finance apps with clean and trusted UI."
       description="Growblic designs finance and wallet-style interfaces with clear transaction flows, dashboards, reports, and secure-looking product experiences."
-      image="/growblic-website01/images/products/fintech-1.jpg"
+      image="/images/products/fintech-1.jpg"
       points={[
         "Wallet UI",
         "Transaction screens",

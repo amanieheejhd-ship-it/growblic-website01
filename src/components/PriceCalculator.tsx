@@ -1092,7 +1092,7 @@ export default function PriceCalculator() {
               <div className="relative flex items-center gap-4">
                 <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white p-2 shadow-lg shadow-blue-950/10 print:border print:border-blue-100">
                   <Image
-                    src="/growblic-website01/images/brand/growblic-logo.png"
+                    src="/images/brand/growblic-logo.png"
                     alt="Growblic"
                     fill
                     sizes="56px"

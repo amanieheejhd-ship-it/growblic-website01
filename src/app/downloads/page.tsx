@@ -53,7 +53,7 @@ function ProductDownloadCard({
  product: (typeof products)[number];
  primaryLabel?: string;
 }) {
- const image = product.imageSlides[0] ?? "/growblic-website01/images/products/client-login.svg";
+ const image = product.imageSlides[0] ?? "/images/products/client-login.svg";
 
  return (
   <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white shadow-xl shadow-blue-100/45 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/70">

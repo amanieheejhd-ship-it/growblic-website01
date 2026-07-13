@@ -4,7 +4,7 @@ export const companyApps = [
     slug: "bill-vault",
     category: "Warranty & Bill Manager App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/bill-vault.png",
+    logo: "/images/apps/bill-vault.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.earningfish.billvault&pcampaignid=web_share",
     short:
@@ -32,7 +32,7 @@ export const companyApps = [
     slug: "chess-offline",
     category: "Board Game",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/chess-offline.png",
+    logo: "/images/apps/chess-offline.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.chess_offline.chess_game",
     short:
@@ -60,7 +60,7 @@ export const companyApps = [
     slug: "classta",
     category: "Learning Management System",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/classta.png",
+    logo: "/images/apps/classta.png",
     playStore:
       "https://play.google.com/store/apps/details?id=app.classta.learn&pcampaignid=web_share",
     short:
@@ -88,7 +88,7 @@ export const companyApps = [
     slug: "classta-admin",
     category: "E-Learning Admin Panel",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/classta-admin.png",
+    logo: "/images/apps/classta-admin.png",
     playStore:
       "https://play.google.com/store/apps/details?id=app.classta.admin&pcampaignid=web_share",
     short:
@@ -116,7 +116,7 @@ export const companyApps = [
     slug: "classta-mentor",
     category: "E-Learning Mentor App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/classta-mentor.png",
+    logo: "/images/apps/classta-mentor.png",
     playStore:
       "https://play.google.com/store/apps/details?id=app.classta.tutor&pcampaignid=web_share",
     short:
@@ -144,7 +144,7 @@ export const companyApps = [
     slug: "colorcraft-asmr",
     category: "Coloring Game",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/colorcraft-asmr.png",
+    logo: "/images/apps/colorcraft-asmr.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.colorcraft.coloring_app&pcampaignid=web_share",
     short:
@@ -172,7 +172,7 @@ export const companyApps = [
     slug: "dexa-sheet",
     category: "Spreadsheet & Planner App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/dexa-sheet.png",
+    logo: "/images/apps/dexa-sheet.png",
     playStore:
       "https://play-lh.googleusercontent.com/O3Nw7jZqeeVEI2IyhmQ4MBMz8g0iyRRc7mq77xk9hYEnGyvnaZ12jq8UM5JYclz_56EqZONGKNfyuu_qcJ2XNXE=w240-h480-rw",
     short:
@@ -200,7 +200,7 @@ export const companyApps = [
     slug: "docura",
     category: "Document Editor App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/docura.png",
+    logo: "/images/apps/docura.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.docura.docura&pcampaignid=web_share",
     short:
@@ -228,7 +228,7 @@ export const companyApps = [
     slug: "event-sync",
     category: "Event Booking App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/event-sync.png",
+    logo: "/images/apps/event-sync.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.application.eventsync_user&pcampaignid=web_share",
     short:
@@ -256,7 +256,7 @@ export const companyApps = [
     slug: "eventsync-organizer",
     category: "Event Organizer App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/eventsync-organizer.png",
+    logo: "/images/apps/eventsync-organizer.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.application.eventsync_organizer&pcampaignid=web_share",
     short:
@@ -284,7 +284,7 @@ export const companyApps = [
     slug: "fresh-fade",
     category: "Barber Booking App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/fresh-fade.png",
+    logo: "/images/apps/fresh-fade.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.freshfade.client&pcampaignid=web_share",
     short:
@@ -312,7 +312,7 @@ export const companyApps = [
     slug: "fresh-fade-business",
     category: "Barber Business Management App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/fresh-fade-business.png",
+    logo: "/images/apps/fresh-fade-business.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.freshfade.barberpannel&pcampaignid=web_share",
     short:
@@ -340,7 +340,7 @@ export const companyApps = [
     slug: "fresh-fade-in",
     category: "Barber Booking Admin App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/fresh-fade-in.png",
+    logo: "/images/apps/fresh-fade-in.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.freshfade.admin&pcampaignid=web_share",
     short:
@@ -368,7 +368,7 @@ export const companyApps = [
     slug: "fresh-fold",
     category: "Laundry Pickup & Delivery App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/fresh-fold.png",
+    logo: "/images/apps/fresh-fold.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.earningfish.freshfold&pcampaignid=web_share",
     short:
@@ -396,7 +396,7 @@ export const companyApps = [
     slug: "fresh-fold-vendor",
     category: "Laundry Vendor Management App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/fresh-fold-vendor.png",
+    logo: "/images/apps/fresh-fold-vendor.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.fresh_fold.vendor&pcampaignid=web_share",
     short:
@@ -424,7 +424,7 @@ export const companyApps = [
     slug: "growblic-captain",
     category: "Laundry Delivery Driver App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/growblic-captain.png",
+    logo: "/images/apps/growblic-captain.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.fresh_fold.pickup&pcampaignid=web_share",
     short:
@@ -452,7 +452,7 @@ export const companyApps = [
     slug: "growblic-earn-money-online",
     category: "Rewards & Earning App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/growblic-earn-money-online.png",
+    logo: "/images/apps/growblic-earn-money-online.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.EarningFish.EarningFish",
     short:
@@ -480,7 +480,7 @@ export const companyApps = [
     slug: "gst-billing-management",
     category: "Billing & Business Management",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/gst-billing-management.png",
+    logo: "/images/apps/gst-billing-management.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.growblic.billing_management",
     short:
@@ -508,7 +508,7 @@ export const companyApps = [
     slug: "ins-petro",
     category: "PDI Report Management App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/ins-petro.png",
+    logo: "/images/apps/ins-petro.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.earning.fish&pcampaignid=web_share",
     short:
@@ -536,7 +536,7 @@ export const companyApps = [
     slug: "jeev-setu",
     category: "Farm & Dairy Management App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/jeev-setu.png",
+    logo: "/images/apps/jeev-setu.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.jeevsetu.jeevsetu&pcampaignid=web_share",
     short:
@@ -564,7 +564,7 @@ export const companyApps = [
     slug: "kheti-hub",
     category: "Smart Farming App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/kheti-hub.png",
+    logo: "/images/apps/kheti-hub.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.application.kheti_hub&pcampaignid=web_share",
     short:
@@ -592,7 +592,7 @@ export const companyApps = [
     slug: "kumbha",
     category: "Private Web Browser",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/kumbha.png",
+    logo: "/images/apps/kumbha.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.kumbha.browser_app&pcampaignid=web_share",
     short:
@@ -620,7 +620,7 @@ export const companyApps = [
     slug: "lockvault",
     category: "Password Manager App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/lockvault.png",
+    logo: "/images/apps/lockvault.png",
     playStore:
       "https://play.google.com/store/apps/details?id=app.secure_password_manager&pcampaignid=web_share",
     short:
@@ -648,7 +648,7 @@ export const companyApps = [
     slug: "myniq",
     category: "Fashion E-commerce App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/myniq.png",
+    logo: "/images/apps/myniq.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.ecommerce.myniq&pcampaignid=web_share",
     short:
@@ -676,7 +676,7 @@ export const companyApps = [
     slug: "myniq-admin",
     category: "E-commerce Admin App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/myniq-admin.png",
+    logo: "/images/apps/myniq-admin.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.myniq.admin&pcampaignid=web_share",
     short:
@@ -704,7 +704,7 @@ export const companyApps = [
     slug: "nil",
     category: "Video Streaming Platform",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/nil.png",
+    logo: "/images/apps/nil.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.nil.streamapp&pcampaignid=web_share",
     short:
@@ -732,7 +732,7 @@ export const companyApps = [
     slug: "pairup-meet",
     category: "Social Matchmaking App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/pairup-meet.png",
+    logo: "/images/apps/pairup-meet.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.earning.lovematch&pcampaignid=web_share",
     short:
@@ -760,7 +760,7 @@ export const companyApps = [
     slug: "payroll-hr",
     category: "Payroll & HR Management App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/payroll-hr.png",
+    logo: "/images/apps/payroll-hr.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.payroll.hr_app&pcampaignid=web_share",
     short:
@@ -788,7 +788,7 @@ export const companyApps = [
     slug: "pivotos-minimalist-launcher",
     category: "Android Launcher App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/pivotos-minimalist-launcher.png",
+    logo: "/images/apps/pivotos-minimalist-launcher.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.boeko.minilauncher&pcampaignid=web_share",
     short:
@@ -816,7 +816,7 @@ export const companyApps = [
     slug: "presenta",
     category: "Presentation Design App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/presenta.png",
+    logo: "/images/apps/presenta.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.presenta.presenta&pcampaignid=web_share",
     short:
@@ -844,7 +844,7 @@ export const companyApps = [
     slug: "project-pipeline",
     category: "Task & Project Management",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/project-pipeline.png",
+    logo: "/images/apps/project-pipeline.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.application.project_pipeline",
     short:
@@ -872,7 +872,7 @@ export const companyApps = [
     slug: "property-dost",
     category: "Real Estate App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/property-dost.png",
+    logo: "/images/apps/property-dost.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.property.dost&pcampaignid=web_share",
     short:
@@ -900,7 +900,7 @@ export const companyApps = [
     slug: "qmail",
     category: "Email Client App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/qmail.png",
+    logo: "/images/apps/qmail.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.qmail.email_app&pcampaignid=web_share",
     short:
@@ -928,7 +928,7 @@ export const companyApps = [
     slug: "socioconnect",
     category: "Society & Community Management App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/socioconnect.png",
+    logo: "/images/apps/socioconnect.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.socioconnect.socioconnect&pcampaignid=web_share",
     short:
@@ -956,7 +956,7 @@ export const companyApps = [
     slug: "sociva",
     category: "Social Networking & Jobs App",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/sociva.png",
+    logo: "/images/apps/sociva.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.sociva.social_media&pcampaignid=web_share",
     short:
@@ -984,7 +984,7 @@ export const companyApps = [
     slug: "tapmystic",
     category: "Music Rhythm Game",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/tapmystic.png",
+    logo: "/images/apps/tapmystic.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.tapmystic.magic_tile&pcampaignid=web_share",
     short:
@@ -1012,7 +1012,7 @@ export const companyApps = [
     slug: "true-auth",
     category: "Authenticator & Password Manager",
     status: "Live on Play Store",
-    logo: "/growblic-website01/images/apps/true-auth.png",
+    logo: "/images/apps/true-auth.png",
     playStore:
       "https://play.google.com/store/apps/details?id=com.browblic.authenticator&pcampaignid=web_share",
     short:

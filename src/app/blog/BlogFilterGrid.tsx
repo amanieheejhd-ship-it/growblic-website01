@@ -32,7 +32,7 @@ const categoryOptions: CategoryOption[] = [
   { label: "Admin Panels", slug: "admin-panels", match: "Admin Panels" },
 ];
 
-const withBasePath = (path: string) => `/growblic-website01${path}`;
+const withBasePath = (path: string) => path;
 const fallbackCoverImage = "/images/blog/custom-software.svg";
 
 function handleImageError(event: SyntheticEvent<HTMLImageElement>) {

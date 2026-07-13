@@ -62,8 +62,8 @@ export const metadata: Metadata = {
     images: [absoluteUrl(defaultSeo.image)],
   },
   icons: {
-    icon: "/growblic-website01/images/brand/growblic-logo.png",
-    apple: "/growblic-website01/images/brand/growblic-logo.png",
+    icon: "/images/brand/growblic-logo.png",
+    apple: "/images/brand/growblic-logo.png",
   },
 };
 

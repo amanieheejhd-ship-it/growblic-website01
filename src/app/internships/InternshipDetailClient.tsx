@@ -91,13 +91,7 @@ export default function InternshipDetailClient({
                 return;
               }
 
-              const basePath = window.location.pathname.includes(
-                "/growblic-website01",
-              )
-                ? "/growblic-website01"
-                : "";
-
-              window.location.href = `${basePath}/`;
+              window.location.href = "/";
             }}
             className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700 hover:shadow-md"
             aria-label="Go back"

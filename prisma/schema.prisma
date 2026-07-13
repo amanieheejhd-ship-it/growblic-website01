@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  CLOSED
+  SPAM
+}
+
+model ContactEnquiry {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  service   String?
+  budget    String?
+  message   String
+  status    EnquiryStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("contact_enquiries")
+}

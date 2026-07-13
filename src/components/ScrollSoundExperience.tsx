@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const AUDIO_SRC = "/growblic-website01/sounds/growblic-ambient.mp3";
+const AUDIO_SRC = "/sounds/growblic-ambient.mp3";
 const CALM_VOLUME = 0.18;
 const SLOW_VOLUME = 0.26;
 const FAST_VOLUME = 0.38;

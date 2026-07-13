@@ -19,11 +19,7 @@ export default function ScrollSound() {
   const fadeFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const basePath = window.location.pathname.startsWith("/growblic-website01")
-      ? "/growblic-website01"
-      : "";
-
-    const audio = new Audio(`${basePath}${AMBIENT_SOUND}`);
+    const audio = new Audio(AMBIENT_SOUND);
     audio.loop = true;
     audio.preload = "auto";
     audio.volume = 0;

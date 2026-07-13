@@ -91,7 +91,7 @@ export default function OpeningSplash() {
 
             <div className="relative mx-auto grid h-28 w-28 place-items-center overflow-hidden rounded-[2.2rem] bg-white p-2 shadow-2xl shadow-cyan-400/25">
               <Image
-                src="/growblic-website01/images/brand/growblic-logo.png"
+                src="/images/brand/growblic-logo.png"
                 alt="Growblic"
                 fill
                 sizes="112px"

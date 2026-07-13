@@ -63,7 +63,7 @@ export default function CustomSoftwarePage() {
 
           <div className="relative min-w-0 rounded-[2rem] sm:rounded-[3rem] border border-blue-100/70 bg-[#fbfdff] p-4 shadow-2xl shadow-blue-100/60">
             <div className="relative h-[340px] sm:h-[460px] lg:h-[560px] overflow-hidden rounded-[2.4rem]">
-              <Image src="/growblic-website01/images/business/web-1.jpg" alt="Custom software" fill className="will-change-transform object-cover" priority unoptimized />
+              <Image src="/images/business/web-1.jpg" alt="Custom software" fill className="will-change-transform object-cover" priority unoptimized />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 rounded-[1.5rem] border border-white/20 bg-[#fbfdff]/15 p-4 text-white backdrop-blur-xl sm:bottom-6 sm:left-6 sm:right-6 sm:rounded-[2rem] sm:p-6">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-white/70 sm:tracking-[0.28em]">Growblic build</p>
