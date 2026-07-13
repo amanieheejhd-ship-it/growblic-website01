@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { useState, type FormEvent } from "react";
-import { submitLead } from "@/lib/api";
+import { useRef, useState, type FormEvent } from "react";
+import { persistWebsiteForm, submitLead } from "@/lib/api";
 
 const projectTypes = [
   "Website Development",
@@ -31,30 +31,59 @@ type FormStatus =
 export default function StartProjectForm() {
   const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const submittingRef = useRef(false);
+  const submissionKeyRef = useRef("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (submittingRef.current) {
+      return;
+    }
 
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
     const email = String(form.get("email") || "").trim();
     const phone = String(form.get("phone") || "").trim();
+    const website = String(form.get("website") || "").trim();
+    const name = String(form.get("name") || "").trim();
+    const service = String(form.get("projectType") || "").trim() || undefined;
+    const budget = String(form.get("budgetRange") || "").trim() || undefined;
+    const message = String(form.get("message") || "").trim();
 
+    submittingRef.current = true;
     setIsSubmitting(true);
     setStatus({ type: "idle", message: "" });
 
     try {
-      await submitLead("/leads/start-project", {
-        name: String(form.get("name") || "").trim(),
+      submissionKeyRef.current ||= crypto.randomUUID();
+
+      await persistWebsiteForm("/api/quote-requests/", {
+        submissionKey: submissionKeyRef.current,
+        name,
         email: email || undefined,
         phone: phone || undefined,
-        service: String(form.get("projectType") || "").trim() || undefined,
-        budget: String(form.get("budgetRange") || "").trim() || undefined,
-        message: String(form.get("message") || "").trim(),
+        service,
+        budget,
+        requirements: message,
         source: "start-project-page",
+        website,
       });
 
+      if (!website) {
+        await submitLead("/leads/start-project", {
+          name,
+          email: email || undefined,
+          phone: phone || undefined,
+          service,
+          budget,
+          message,
+          source: "start-project-page",
+        });
+      }
+
       formElement.reset();
+      submissionKeyRef.current = "";
       setStatus({
         type: "success",
         message: "Thanks, our team will contact you soon.",
@@ -65,6 +94,7 @@ export default function StartProjectForm() {
         message: "Something went wrong. Please try again.",
       });
     } finally {
+      submittingRef.current = false;
       setIsSubmitting(false);
     }
   }
@@ -76,6 +106,19 @@ export default function StartProjectForm() {
     >
       <input type="hidden" name="source" value="Growblic Website" />
       <input type="hidden" name="page" value="Start Project" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[10000px] h-px w-px overflow-hidden"
+      >
+        <label htmlFor="start-project-website">Website</label>
+        <input
+          id="start-project-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
 
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-700">
@@ -152,6 +195,8 @@ export default function StartProjectForm() {
 
         {status.message && (
           <p
+            aria-live="polite"
+            role={status.type === "error" ? "alert" : "status"}
             className={`rounded-2xl border p-4 text-sm font-bold leading-6 sm:col-span-2 ${
               status.type === "success"
                 ? "border-emerald-100 bg-emerald-50 text-emerald-800"

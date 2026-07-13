@@ -259,6 +259,94 @@ model JobApplication {
   @@map("job_applications")
 }
 
+model CareerApplication {
+  id            String               @id @default(cuid())
+  submissionKey String               @unique @map("submission_key")
+  candidateName String               @map("candidate_name")
+  email         String
+  phone         String
+  role          String
+  experience    String
+  workLinks     String[]             @map("work_links")
+  message       String
+  status        JobApplicationStatus @default(NEW)
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
+
+  @@index([email])
+  @@index([role])
+  @@index([status])
+  @@index([createdAt])
+  @@map("career_applications")
+}
+
+model InternshipApplication {
+  id                   String               @id @default(cuid())
+  submissionKey        String               @unique @map("submission_key")
+  internshipSlug       String               @map("internship_slug")
+  candidateName        String               @map("candidate_name")
+  email                String
+  phone                String
+  state                String
+  instituteEnrollment  String               @map("institute_enrollment")
+  instituteName        String?              @map("institute_name")
+  course               String?
+  enrollmentNumber     String?              @map("enrollment_number")
+  highestQualification String?              @map("highest_qualification")
+  passingYear          String?              @map("passing_year")
+  message              String?
+  status               JobApplicationStatus @default(NEW)
+  createdAt            DateTime             @default(now()) @map("created_at")
+  updatedAt            DateTime             @updatedAt @map("updated_at")
+
+  @@index([email])
+  @@index([internshipSlug])
+  @@index([status])
+  @@index([createdAt])
+  @@map("internship_applications")
+}
+
+model MeetingRequest {
+  id            String        @id @default(cuid())
+  submissionKey String        @unique @map("submission_key")
+  name          String
+  email         String?
+  phone         String?
+  message       String
+  source        String?
+  status        EnquiryStatus @default(NEW)
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("meeting_requests")
+}
+
+model QuoteRequest {
+  id             String        @id @default(cuid())
+  submissionKey  String        @unique @map("submission_key")
+  name           String
+  email          String?
+  phone          String?
+  company        String?
+  location       String?
+  service        String?
+  budget         String?
+  requirements   String
+  calculatorData Json?         @map("calculator_data")
+  source         String?
+  status         EnquiryStatus @default(NEW)
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("quote_requests")
+}
+
 model SiteSetting {
   id          String           @id @default(cuid())
   key         String           @unique

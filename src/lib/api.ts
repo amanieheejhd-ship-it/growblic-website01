@@ -38,3 +38,29 @@ export async function submitLead(
 
   return data;
 }
+
+type WebsiteFormPath =
+  | "/api/meeting-requests/"
+  | "/api/quote-requests/";
+
+export async function persistWebsiteForm(
+  path: WebsiteFormPath,
+  payload: Record<string, unknown>,
+) {
+  const response = await fetch(path, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = (await response.json().catch(() => null)) as LeadResponse | null;
+
+  if (!response.ok || !data?.success) {
+    throw new Error(data?.message || "Form request failed.");
+  }
+
+  return data;
+}

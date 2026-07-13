@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { submitLead } from "@/lib/api";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { persistWebsiteForm, submitLead } from "@/lib/api";
 
 type SelectOption = {
   label: string;
@@ -544,6 +544,9 @@ export default function PriceCalculator() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState("");
   const [estimate, setEstimate] = useState<Estimate | null>(null);
+  const submittingRef = useRef(false);
+  const submissionKeyRef = useRef("");
+  const honeypotRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let isActive = true;
@@ -719,6 +722,7 @@ export default function PriceCalculator() {
     }
 
     const date = new Date();
+    submissionKeyRef.current = "";
     setValidationMessage("");
     setSubmitStatus("idle");
     setSubmitMessage("");
@@ -734,10 +738,11 @@ export default function PriceCalculator() {
   }
 
   async function sendEstimateRequest() {
-    if (!estimate) {
+    if (!estimate || submittingRef.current) {
       return;
     }
 
+    submittingRef.current = true;
     setSubmitStatus("loading");
     setSubmitMessage("");
 
@@ -745,44 +750,94 @@ export default function PriceCalculator() {
     const breakdownText = result.breakdownItems
       .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price, currency, usdInrRate)}`)
       .join("\n");
+    const website = honeypotRef.current?.value.trim() || "";
+    const requirements = [
+      customerDetails.notes.trim(),
+      `Estimate ID: ${estimate.id}`,
+      `Company: ${customerDetails.company || ""}`,
+      `Location: ${customerDetails.location || ""}`,
+      `Currency: ${currency}`,
+      `Conversion rate: 1 USD = Rs ${usdInrRate.toFixed(2)}`,
+      `Selected options:\n${selectedOptionsText}`,
+      `Pricing breakdown:\n${breakdownText}`,
+      `Base price: ${formatMoney(selectedCategory.basePrice, currency, usdInrRate)}`,
+      `Subtotal: ${formatMoney(result.subtotal, currency, usdInrRate)}`,
+      `Multiplier: ${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
+      `Estimated total: ${formatMoney(result.total, currency, usdInrRate)}`,
+      `Estimated total INR: ${formatMoney(result.total, "INR", usdInrRate)}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n");
 
     try {
-      await submitLead("/leads/contact", {
+      submissionKeyRef.current ||= crypto.randomUUID();
+
+      await persistWebsiteForm("/api/quote-requests/", {
+        submissionKey: submissionKeyRef.current,
         name: customerDetails.fullName.trim(),
         email: customerDetails.email.trim() || undefined,
         phone: customerDetails.phone.trim() || undefined,
+        company: customerDetails.company.trim() || undefined,
+        location: customerDetails.location.trim() || undefined,
         service: selectedCategory.label,
         budget: formatMoney(result.total, currency, usdInrRate),
-        message: [
-          customerDetails.notes.trim(),
-          `Estimate ID: ${estimate.id}`,
-          `Company: ${customerDetails.company || ""}`,
-          `Location: ${customerDetails.location || ""}`,
-          `Currency: ${currency}`,
-          `Conversion rate: 1 USD = Rs ${usdInrRate.toFixed(2)}`,
-          `Selected options:\n${selectedOptionsText}`,
-          `Pricing breakdown:\n${breakdownText}`,
-          `Base price: ${formatMoney(selectedCategory.basePrice, currency, usdInrRate)}`,
-          `Subtotal: ${formatMoney(result.subtotal, currency, usdInrRate)}`,
-          `Multiplier: ${result.multiplier.toFixed(2)}x (${result.multiplierLabel})`,
-          `Estimated total: ${formatMoney(result.total, currency, usdInrRate)}`,
-          `Estimated total INR: ${formatMoney(result.total, "INR", usdInrRate)}`,
-        ]
-          .filter(Boolean)
-          .join("\n\n"),
+        requirements,
+        calculatorData: {
+          estimateId: estimate.id,
+          submittedAt: estimate.submittedAt,
+          category: selectedCategory.label,
+          currency,
+          conversionRate: usdInrRate,
+          selectedOptions: result.selectedOptions,
+          breakdownItems: result.breakdownItems,
+          basePrice: selectedCategory.basePrice,
+          subtotal: result.subtotal,
+          multiplier: result.multiplier,
+          multiplierLabel: result.multiplierLabel,
+          total: result.total,
+        },
         source: "price-calculator",
+        website,
       });
+
+      if (!website) {
+        await submitLead("/leads/contact", {
+          name: customerDetails.fullName.trim(),
+          email: customerDetails.email.trim() || undefined,
+          phone: customerDetails.phone.trim() || undefined,
+          service: selectedCategory.label,
+          budget: formatMoney(result.total, currency, usdInrRate),
+          message: requirements,
+          source: "price-calculator",
+        });
+      }
 
       setSubmitStatus("success");
       setSubmitMessage("Thanks, our team will contact you soon.");
     } catch {
       setSubmitStatus("error");
       setSubmitMessage("Something went wrong. Please try again.");
+    } finally {
+      submittingRef.current = false;
     }
   }
 
   return (
     <div className="relative">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[10000px] h-px w-px overflow-hidden"
+      >
+        <label htmlFor="calculator-website">Website</label>
+        <input
+          ref={honeypotRef}
+          id="calculator-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <div className="pointer-events-none absolute inset-0 -z-10 rounded-[2.5rem] bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:54px_54px] opacity-50 [mask-image:radial-gradient(circle_at_50%_15%,black,transparent_72%)]" />
       <div className="grid gap-6 lg:grid-cols-[0.95fr_0.72fr] lg:items-start">
         <section className={`${primaryPanelClass} p-4 sm:p-6`}>
@@ -1223,6 +1278,8 @@ export default function PriceCalculator() {
 
               {submitMessage ? (
                 <p
+                  aria-live="polite"
+                  role={submitStatus === "error" ? "alert" : "status"}
                   className={`rounded-2xl border px-4 py-3 text-sm font-bold print:hidden ${
                     submitStatus === "success"
                       ? "border-emerald-100 bg-emerald-50 text-emerald-700"

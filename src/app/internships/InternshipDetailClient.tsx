@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Internship } from "./internship-data";
 import InternshipFeePanel from "./InternshipFeePanel";
@@ -56,11 +56,18 @@ export default function InternshipDetailClient({
   internship,
 }: Props) {
   const [isEnrolled, setIsEnrolled] = useState("");
-
   const [showFeePanel, setShowFeePanel] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const submittingRef = useRef(false);
+  const submissionKeyRef = useRef("");
 
-  function openFeePanel(event: FormEvent<HTMLFormElement>) {
+  async function openFeePanel(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (submittingRef.current) {
+      return;
+    }
 
     const form = event.currentTarget;
 
@@ -69,14 +76,60 @@ export default function InternshipDetailClient({
       return;
     }
 
-    setShowFeePanel(true);
+    const formData = new FormData(form);
+    submissionKeyRef.current ||= crypto.randomUUID();
+    submittingRef.current = true;
+    setIsSubmitting(true);
+    setSubmitError("");
 
-    window.setTimeout(() => {
-      document.getElementById("internship-fee-panel")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+    try {
+      const response = await fetch("/api/internships/applications/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          submissionKey: submissionKeyRef.current,
+          internshipSlug: internship.slug,
+          fullName: String(formData.get("fullName") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          phone: String(formData.get("phone") || "").trim(),
+          state: String(formData.get("state") || "").trim(),
+          instituteEnrollment: String(
+            formData.get("instituteEnrollment") || "",
+          ).trim(),
+          instituteName: String(formData.get("instituteName") || "").trim(),
+          course: String(formData.get("course") || "").trim(),
+          enrollmentNumber: String(formData.get("enrollmentNo") || "").trim(),
+          highestQualification: String(
+            formData.get("highestQualification") || "",
+          ).trim(),
+          passingYear: String(formData.get("passingYear") || "").trim(),
+          message: String(formData.get("query") || "").trim(),
+          website: String(formData.get("website") || "").trim(),
+        }),
       });
-    }, 120);
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      setShowFeePanel(true);
+      submissionKeyRef.current = "";
+
+      window.setTimeout(() => {
+        document.getElementById("internship-fee-panel")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 120);
+    } catch {
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      submittingRef.current = false;
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -203,6 +256,19 @@ export default function InternshipDetailClient({
             onSubmit={openFeePanel}
             className="space-y-7 p-5 sm:p-8 lg:p-10"
           >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-[10000px] h-px w-px overflow-hidden"
+            >
+              <label htmlFor="internship-website">Website</label>
+              <input
+                id="internship-website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
             <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
               <div className="mb-6">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
@@ -428,11 +494,25 @@ export default function InternshipDetailClient({
             <div className="flex justify-end">
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
-                {showFeePanel ? "Fee plans opened" : "Apply now →"}
+                {isSubmitting
+                  ? "Submitting..."
+                  : showFeePanel
+                    ? "Fee plans opened"
+                    : "Apply now →"}
               </button>
             </div>
+            {submitError ? (
+              <p
+                aria-live="polite"
+                role="alert"
+                className="rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-bold leading-6 text-red-700"
+              >
+                {submitError}
+              </p>
+            ) : null}
           </form>
         </section>
 

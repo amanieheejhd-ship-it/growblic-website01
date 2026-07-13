@@ -2,6 +2,7 @@
 
 import {
   useEffect,
+  useRef,
   useState,
   type ClipboardEvent,
   type FocusEvent,
@@ -69,9 +70,13 @@ export default function CareersApplyForm() {
   const [linkInput, setLinkInput] = useState("");
   const [links, setLinks] = useState<string[]>([]);
   const [linkError, setLinkError] = useState("");
+  const submittingRef = useRef(false);
+  const submissionKeyRef = useRef("");
 
   useEffect(() => {
     const roleSlug = new URLSearchParams(window.location.search).get("role");
+    // The initial role is intentionally derived from the browser query string.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedRole(getRoleTitle(roleSlug ?? undefined));
   }, []);
 
@@ -122,12 +127,17 @@ export default function CareersApplyForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if (submittingRef.current) {
+      return;
+    }
+
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
     const fullName = String(form.get("fullName") ?? "").trim();
     const email = String(form.get("email") ?? "").trim();
     const phone = String(form.get("phone") ?? "").trim();
     const message = String(form.get("message") ?? "").trim();
+    const website = String(form.get("website") ?? "").trim();
     const submittedLinks = Array.from(new Set([...links, ...parseLinkTokens(linkInput)]));
 
     if (submittedLinks.length === 0) {
@@ -160,6 +170,7 @@ export default function CareersApplyForm() {
 
     const timestamp = new Date().toISOString();
 
+    submittingRef.current = true;
     setSubmittedAt(timestamp);
     setIsSubmitting(true);
     setStatus({ type: "idle", message: "" });
@@ -178,6 +189,31 @@ export default function CareersApplyForm() {
     );
 
     try {
+      submissionKeyRef.current ||= crypto.randomUUID();
+
+      const databaseResponse = await fetch("/api/careers/applications/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          submissionKey: submissionKeyRef.current,
+          fullName,
+          email,
+          phone,
+          role: selectedRole,
+          experience: selectedExperience,
+          workLinks: submittedLinks,
+          message,
+          website,
+        }),
+      });
+
+      if (!databaseResponse.ok) {
+        throw new Error("Unable to submit the application right now.");
+      }
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: form,
@@ -198,6 +234,7 @@ export default function CareersApplyForm() {
       setSelectedRole("");
       setSelectedExperience("");
       setSubmittedAt("");
+      submissionKeyRef.current = "";
       setStatus({
         type: "success",
         message:
@@ -212,6 +249,7 @@ export default function CareersApplyForm() {
             : "Something went wrong. Please email hello@growblic.com.",
       });
     } finally {
+      submittingRef.current = false;
       setIsSubmitting(false);
     }
   }
@@ -223,6 +261,19 @@ export default function CareersApplyForm() {
         <input type="hidden" name="page" value="Careers Apply" />
         <input type="hidden" name="submittedAt" value={submittedAt} />
         <input type="hidden" name="workLinks" value={links.join("\n")} />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-[10000px] h-px w-px overflow-hidden"
+        >
+          <label htmlFor="careers-website">Website</label>
+          <input
+            id="careers-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className={labelClass}>
@@ -379,6 +430,8 @@ export default function CareersApplyForm() {
 
         {status.message && (
           <p
+            aria-live="polite"
+            role={status.type === "error" ? "alert" : "status"}
             className={`rounded-2xl border px-5 py-4 text-sm font-semibold leading-6 ${
               status.type === "success"
                 ? "border-emerald-100 bg-emerald-50 text-emerald-800"
