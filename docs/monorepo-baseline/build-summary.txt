@@ -1,0 +1,10 @@
+Baseline production build: PASS
+Compiler: Next.js 16.2.9 with Turbopack
+Compilation: PASS
+TypeScript: PASS
+Static pages generated: 127
+Filesystem page routes: 98
+Filesystem API routes: 9
+Public asset files: 168
+Known full-lint baseline: 6 errors and 9 warnings in frozen public frontend files
+Environment values: not recorded

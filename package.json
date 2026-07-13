@@ -2,6 +2,10 @@
   "name": "growblic-website01",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,7 +22,9 @@
     "auth:verify-db": "tsx scripts/verify-admin-auth-db.ts",
     "admin:test-pages": "node scripts/test-admin-pages.mjs",
     "forms:test-api": "node scripts/test-website-form-apis.mjs",
-    "forms:verify-db": "tsx scripts/verify-website-form-db.ts"
+    "forms:verify-db": "tsx scripts/verify-website-form-db.ts",
+    "toolchain:check": "node scripts/check-toolchain.mjs",
+    "workspace:check": "node scripts/check-workspace-foundation.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
