@@ -8,11 +8,17 @@
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
-    "db:verify-cms": "tsx scripts/verify-cms-schema.ts"
+    "db:verify-cms": "tsx scripts/verify-cms-schema.ts",
+    "admin:bootstrap": "tsx scripts/bootstrap-admin.ts",
+    "admin:bootstrap:apply": "tsx scripts/bootstrap-admin.ts --apply",
+    "admin:sessions:cleanup": "tsx scripts/cleanup-admin-sessions.ts",
+    "admin:sessions:cleanup:apply": "tsx scripts/cleanup-admin-sessions.ts --apply",
+    "auth:verify": "tsx scripts/verify-admin-auth.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "argon2": "^0.44.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.40.0",
     "lenis": "^1.3.23",
