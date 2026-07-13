@@ -15,6 +15,50 @@ enum EnquiryStatus {
   SPAM
 }
 
+enum AdminUserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  TEMPORARY
+}
+
+enum JobOpeningStatus {
+  DRAFT
+  OPEN
+  CLOSED
+  ARCHIVED
+}
+
+enum JobApplicationStatus {
+  NEW
+  REVIEWING
+  SHORTLISTED
+  INTERVIEW
+  REJECTED
+  HIRED
+  WITHDRAWN
+}
+
+enum SettingValueType {
+  STRING
+  NUMBER
+  BOOLEAN
+  JSON
+}
+
 model ContactEnquiry {
   id        String        @id @default(cuid())
   name      String
@@ -32,4 +76,245 @@ model ContactEnquiry {
   @@index([status])
   @@index([createdAt])
   @@map("contact_enquiries")
+}
+
+model AdminUser {
+  id           String          @id @default(cuid())
+  email        String          @unique
+  name         String
+  passwordHash String?         @map("password_hash")
+  status       AdminUserStatus @default(ACTIVE)
+  lastLoginAt  DateTime?       @map("last_login_at")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+  deletedAt    DateTime?       @map("deleted_at")
+  roles        AdminUserRole[]
+  uploads      MediaAsset[]    @relation("MediaAssetUploader")
+  auditLogs    AuditLog[]
+
+  @@index([status, deletedAt])
+  @@index([createdAt])
+  @@map("admin_users")
+}
+
+model AdminRole {
+  id          String          @id @default(cuid())
+  name        String          @unique
+  description String?
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  users       AdminUserRole[]
+
+  @@index([createdAt])
+  @@map("admin_roles")
+}
+
+model AdminUserRole {
+  id          String    @id @default(cuid())
+  adminUserId String    @map("admin_user_id")
+  adminRoleId String    @map("admin_role_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+  adminRole   AdminRole @relation(fields: [adminRoleId], references: [id], onDelete: Cascade)
+
+  @@unique([adminUserId, adminRoleId])
+  @@index([adminRoleId])
+  @@map("admin_user_roles")
+}
+
+model Service {
+  id               String        @id @default(cuid())
+  title            String
+  slug             String        @unique
+  shortDescription String?       @map("short_description")
+  description      String?
+  status           ContentStatus @default(DRAFT)
+  displayOrder     Int           @default(0) @map("display_order")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  deletedAt        DateTime?     @map("deleted_at")
+
+  @@index([status, deletedAt])
+  @@index([displayOrder])
+  @@index([createdAt])
+  @@map("services")
+}
+
+model Product {
+  id               String        @id @default(cuid())
+  name             String
+  slug             String        @unique
+  shortDescription String?       @map("short_description")
+  description      String?
+  websiteUrl       String?       @map("website_url")
+  playStoreUrl     String?       @map("play_store_url")
+  appStoreUrl      String?       @map("app_store_url")
+  logoMediaId      String?       @map("logo_media_id")
+  status           ContentStatus @default(DRAFT)
+  displayOrder     Int           @default(0) @map("display_order")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  deletedAt        DateTime?     @map("deleted_at")
+  logoMedia        MediaAsset?   @relation("ProductLogo", fields: [logoMediaId], references: [id], onDelete: SetNull)
+
+  @@index([logoMediaId])
+  @@index([status, deletedAt])
+  @@index([displayOrder])
+  @@index([createdAt])
+  @@map("products")
+}
+
+model PortfolioProject {
+  id           String        @id @default(cuid())
+  title        String
+  slug         String        @unique
+  summary      String?
+  description  String?
+  clientName   String?       @map("client_name")
+  projectUrl   String?       @map("project_url")
+  coverMediaId String?       @map("cover_media_id")
+  status       ContentStatus @default(DRAFT)
+  displayOrder Int           @default(0) @map("display_order")
+  publishedAt  DateTime?     @map("published_at")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  deletedAt    DateTime?     @map("deleted_at")
+  coverMedia   MediaAsset?   @relation("PortfolioCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+
+  @@index([coverMediaId])
+  @@index([status, deletedAt])
+  @@index([displayOrder])
+  @@index([publishedAt])
+  @@index([createdAt])
+  @@map("portfolio_projects")
+}
+
+model Testimonial {
+  id            String        @id @default(cuid())
+  personName    String        @map("person_name")
+  companyName   String?       @map("company_name")
+  designation   String?
+  quote         String
+  rating        Int?
+  avatarMediaId String?       @map("avatar_media_id")
+  status        ContentStatus @default(DRAFT)
+  displayOrder  Int           @default(0) @map("display_order")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  deletedAt     DateTime?     @map("deleted_at")
+  avatarMedia   MediaAsset?   @relation("TestimonialAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
+
+  @@index([avatarMediaId])
+  @@index([status, deletedAt])
+  @@index([displayOrder])
+  @@index([createdAt])
+  @@map("testimonials")
+}
+
+model JobOpening {
+  id             String           @id @default(cuid())
+  title          String
+  slug           String           @unique
+  department     String?
+  location       String?
+  employmentType EmploymentType   @map("employment_type")
+  experience     String?
+  description    String
+  status         JobOpeningStatus @default(DRAFT)
+  publishedAt    DateTime?        @map("published_at")
+  closesAt       DateTime?        @map("closes_at")
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  deletedAt      DateTime?        @map("deleted_at")
+  applications   JobApplication[]
+
+  @@index([status, deletedAt])
+  @@index([publishedAt])
+  @@index([closesAt])
+  @@index([createdAt])
+  @@map("job_openings")
+}
+
+model JobApplication {
+  id            String               @id @default(cuid())
+  jobOpeningId  String               @map("job_opening_id")
+  candidateName String               @map("candidate_name")
+  email         String
+  phone         String?
+  experience    String?
+  resumeMediaId String?              @map("resume_media_id")
+  coverLetter   String?              @map("cover_letter")
+  status        JobApplicationStatus @default(NEW)
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
+  jobOpening    JobOpening           @relation(fields: [jobOpeningId], references: [id], onDelete: Restrict)
+  resumeMedia   MediaAsset?          @relation("JobApplicationResume", fields: [resumeMediaId], references: [id], onDelete: SetNull)
+
+  @@index([jobOpeningId])
+  @@index([resumeMediaId])
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("job_applications")
+}
+
+model SiteSetting {
+  id          String           @id @default(cuid())
+  key         String           @unique
+  value       String
+  valueType   SettingValueType @default(STRING) @map("value_type")
+  description String?
+  isPublic    Boolean          @default(false) @map("is_public")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  @@index([isPublic])
+  @@index([createdAt])
+  @@map("site_settings")
+}
+
+model MediaAsset {
+  id                    String             @id @default(cuid())
+  filename              String
+  originalName          String             @map("original_name")
+  mimeType              String             @map("mime_type")
+  sizeBytes             BigInt             @map("size_bytes")
+  storageProvider       String             @map("storage_provider")
+  storagePath           String             @map("storage_path")
+  publicUrl             String?            @map("public_url")
+  altText               String?            @map("alt_text")
+  uploadedByAdminUserId String?            @map("uploaded_by_admin_user_id")
+  createdAt             DateTime           @default(now()) @map("created_at")
+  updatedAt             DateTime           @updatedAt @map("updated_at")
+  deletedAt             DateTime?          @map("deleted_at")
+  uploadedByAdminUser   AdminUser?         @relation("MediaAssetUploader", fields: [uploadedByAdminUserId], references: [id], onDelete: SetNull)
+  productLogos          Product[]          @relation("ProductLogo")
+  portfolioCovers       PortfolioProject[] @relation("PortfolioCover")
+  testimonialAvatars    Testimonial[]      @relation("TestimonialAvatar")
+  jobApplicationResumes JobApplication[]   @relation("JobApplicationResume")
+
+  @@unique([storageProvider, storagePath])
+  @@index([uploadedByAdminUserId])
+  @@index([createdAt])
+  @@index([deletedAt])
+  @@map("media_assets")
+}
+
+model AuditLog {
+  id          String     @id @default(cuid())
+  adminUserId String?    @map("admin_user_id")
+  action      String
+  entityType  String     @map("entity_type")
+  entityId    String?    @map("entity_id")
+  metadata    Json?
+  ipAddress   String?    @map("ip_address")
+  userAgent   String?    @map("user_agent")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+
+  @@index([adminUserId])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
 }
