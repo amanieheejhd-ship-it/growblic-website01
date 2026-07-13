@@ -13,7 +13,9 @@
     "admin:bootstrap:apply": "tsx scripts/bootstrap-admin.ts --apply",
     "admin:sessions:cleanup": "tsx scripts/cleanup-admin-sessions.ts",
     "admin:sessions:cleanup:apply": "tsx scripts/cleanup-admin-sessions.ts --apply",
-    "auth:verify": "tsx scripts/verify-admin-auth.ts"
+    "auth:verify": "tsx scripts/verify-admin-auth.ts",
+    "auth:test-api": "node scripts/test-admin-auth-api.mjs",
+    "auth:verify-db": "tsx scripts/verify-admin-auth-db.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
