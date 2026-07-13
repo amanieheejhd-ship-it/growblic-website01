@@ -15,6 +15,7 @@
     "@growblic/contracts": "workspace:*"
   },
   "devDependencies": {
+    "@growblic/typescript-config": "workspace:*",
     "typescript": "^5"
   }
 }

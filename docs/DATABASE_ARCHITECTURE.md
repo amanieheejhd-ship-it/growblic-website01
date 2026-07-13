@@ -21,6 +21,8 @@ Runtime processes provide `DATABASE_URL`. Controlled Prisma migration tooling pr
 
 Framework-neutral request/response types live in browser-safe `@growblic/contracts`, while deterministic input normalization and validation live in `@growblic/validation`. Neither package imports Prisma or accesses environment variables. Prisma writes and database-specific JSON conversion remain in application server code using `@growblic/database`.
 
+`@growblic/typescript-config` supplies the database package's Node.js compiler preset, and the browser-safe libraries use its library preset. These presets contain no runtime code or values. Runtime database environment access remains exclusively in `@growblic/database`; it is not centralized into a browser-importable or generic configuration package.
+
 ## Models
 
 ### Administration

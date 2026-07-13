@@ -25,6 +25,8 @@
     "topojson-client": "^3.1.0"
   },
   "devDependencies": {
+    "@growblic/eslint-config": "workspace:*",
+    "@growblic/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

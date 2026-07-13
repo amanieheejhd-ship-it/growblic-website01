@@ -1,11 +1,19 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import { buildArtifactIgnores } from "@growblic/eslint-config/base";
+import { nextConfig } from "@growblic/eslint-config/next";
+
+const appRoot = dirname(fileURLToPath(import.meta.url));
 
 const eslintConfig = defineConfig([
-  ...nextVitals,
-  ...nextTs,
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  ...nextConfig,
+  {
+    settings: {
+      next: { rootDir: appRoot },
+    },
+  },
+  globalIgnores(buildArtifactIgnores),
 ]);
 
 export default eslintConfig;

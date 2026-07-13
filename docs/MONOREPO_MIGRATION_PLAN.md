@@ -1,14 +1,14 @@
 # Growblic Monorepo Migration Plan
 
-Status: Phase 2E complete locally
+Status: Phase 2F complete locally
 Audit date: 2026-07-13
-Migration implementation: Phase 2A through Phase 2E complete; Phase 2F not started
+Migration implementation: Phase 2A through Phase 2F complete; Phase 2G not started
 
-Checkpoint note: the pre-Phase-2E local rollback commit is `d91e9fc`. The frozen public website remains under `apps/web`; private admin pages and same-origin auth APIs remain under `apps/admin`; `packages/database` remains the sole server-only Prisma owner; `packages/contracts` and `packages/validation` contain browser-safe types and pure framework-neutral validation.
+Checkpoint note: the pre-Phase-2F local rollback commit is `d2ea2e8`. The frozen public website remains under `apps/web`; private admin pages and same-origin auth APIs remain under `apps/admin`; `packages/database` remains the sole server-only Prisma owner; shared TypeScript and ESLint presets are config-only packages with no runtime environment access.
 
 ## 1. Executive recommendation
 
-The toolchain foundation, public application move, private-admin extraction, database-package extraction, and shared contracts/validation extraction are complete locally. The next structural checkpoint is Phase 2F, limited to shared TypeScript, ESLint, and configuration packages where real consumers justify them. Repository ownership and access must still be verified before any local migration commits are pushed or tagged.
+The toolchain foundation, public application move, private-admin extraction, database-package extraction, shared contracts/validation extraction, and shared TypeScript/ESLint configuration extraction are complete locally. A runtime configuration package was deferred because no safe shared parser has two genuine consumers. Phase 2G begins with backend-boundary planning and one modular backend—not immediate microservice extraction. Repository ownership and access must still be verified before any local migration commits are pushed or tagged.
 
 The safest first migration is deliberately small:
 

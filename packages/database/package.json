@@ -25,6 +25,7 @@
     "server-only": "0.0.1"
   },
   "devDependencies": {
+    "@growblic/typescript-config": "workspace:*",
     "@types/node": "^20",
     "prisma": "^7.8.0",
     "typescript": "^5"

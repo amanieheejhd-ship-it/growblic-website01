@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -38,13 +38,25 @@ function implementationFiles(relativePath) {
   }
 
   const files = [];
+  const ignoredDirectories = new Set([
+    ".next",
+    ".turbo",
+    "coverage",
+    "generated",
+    "node_modules",
+    "out",
+  ]);
   const visit = (directory) => {
-    for (const entry of readdirSync(directory)) {
-      const entryPath = join(directory, entry);
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      if (entry.isDirectory() && ignoredDirectories.has(entry.name)) {
+        continue;
+      }
 
-      if (statSync(entryPath).isDirectory()) {
+      const entryPath = join(directory, entry.name);
+
+      if (entry.isDirectory()) {
         visit(entryPath);
-      } else if (entry !== "README.md") {
+      } else if (entry.name !== "README.md") {
         files.push(entryPath);
       }
     }
@@ -72,6 +84,10 @@ for (const path of [
   "packages/contracts/src/index.ts",
   "packages/validation/package.json",
   "packages/validation/src/index.ts",
+  "packages/typescript-config/package.json",
+  "packages/typescript-config/nextjs.json",
+  "packages/eslint-config/package.json",
+  "packages/eslint-config/next.mjs",
 ]) {
   requirePath(path);
 }
@@ -84,6 +100,7 @@ for (const path of [
   "apps/web/src/lib/prisma.ts",
   "apps/admin/src/lib/prisma.ts",
   "apps/web/src/generated/prisma",
+  "packages/config",
 ]) {
   requireAbsentPath(path);
 }
@@ -111,6 +128,8 @@ for (const path of [
   "packages/database",
   "packages/contracts",
   "packages/validation",
+  "packages/typescript-config",
+  "packages/eslint-config",
 ]) {
   if (implementationFiles(path).length > 0) {
     pass(`${path} contains an application.`);
@@ -155,6 +174,52 @@ if (/from\s+["'](?:next|@prisma|@growblic\/database)/.test(validationSource)) {
   fail("packages/validation imports framework or database code.");
 } else {
   pass("packages/validation is framework-neutral and database-free.");
+}
+
+for (const [path, preset] of [
+  ["apps/web/tsconfig.json", "@growblic/typescript-config/nextjs.json"],
+  ["apps/admin/tsconfig.json", "@growblic/typescript-config/nextjs.json"],
+  ["packages/database/tsconfig.json", "@growblic/typescript-config/node.json"],
+  ["packages/contracts/tsconfig.json", "@growblic/typescript-config/library.json"],
+  ["packages/validation/tsconfig.json", "@growblic/typescript-config/library.json"],
+]) {
+  const config = JSON.parse(readFileSync(join(root, path), "utf8"));
+
+  if (config.extends === preset) {
+    pass(`${path} extends ${preset}.`);
+  } else {
+    fail(`${path} does not extend ${preset}.`);
+  }
+}
+
+for (const path of [
+  "apps/web/eslint.config.mjs",
+  "apps/admin/eslint.config.mjs",
+]) {
+  const config = readFileSync(join(root, path), "utf8");
+
+  if (
+    config.includes("@growblic/eslint-config/base") &&
+    config.includes("@growblic/eslint-config/next")
+  ) {
+    pass(`${path} consumes the shared ESLint config.`);
+  } else {
+    fail(`${path} does not consume the shared ESLint config.`);
+  }
+}
+
+const eslintBase = readFileSync(
+  join(root, "packages/eslint-config/base.mjs"),
+  "utf8",
+);
+if (
+  [".next/**", "out/**", ".turbo/**", "node_modules/**", "src/generated/**"].every(
+    (path) => eslintBase.includes(`"${path}"`),
+  )
+) {
+  pass("The shared ESLint config ignores generated, build, and cache paths.");
+} else {
+  fail("The shared ESLint config has incomplete generated/build/cache ignores.");
 }
 
 if (failed) {

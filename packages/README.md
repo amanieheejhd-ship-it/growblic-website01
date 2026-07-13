@@ -8,5 +8,8 @@
 
 - `contracts` contains browser-safe, framework-neutral API request and response types. It contains no runtime, database, framework, or secret access.
 - `validation` contains pure normalization and validation used by the existing web and admin server boundaries. Request-size enforcement, honeypots, persistence, cookies, hashing, rate limits, and audit work remain in their owning applications.
-- Shared configuration, logging, and security packages will be added only when they have real consumers.
+- `typescript-config` contains strict Next.js, Node.js, and library presets while consumers retain aliases, includes, and generated paths.
+- `eslint-config` contains the existing Next.js/TypeScript rule sets and common artifact ignores without changing rule severity.
+- A runtime `config` package is intentionally deferred: environment parsing is currently owner-specific, and centralizing database or authentication variables would add coupling without a second genuine consumer.
+- Next.js, PostCSS, Turbopack roots, runtime environment access, logging, and security settings remain local to their owning applications or packages.
 - No microservice exists yet.

@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@growblic/typescript-config": "workspace:*",
     "typescript": "^5"
   }
 }

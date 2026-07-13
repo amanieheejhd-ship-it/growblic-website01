@@ -106,6 +106,12 @@ importers:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
     devDependencies:
+      '@growblic/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@growblic/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.1
@@ -173,6 +179,12 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
     devDependencies:
+      '@growblic/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@growblic/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.1
@@ -206,6 +218,9 @@ importers:
 
   packages/contracts:
     devDependencies:
+      '@growblic/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -228,6 +243,9 @@ importers:
         specifier: 0.0.1
         version: 0.0.1
     devDependencies:
+      '@growblic/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       '@types/node':
         specifier: ^20
         version: 20.19.43
@@ -238,12 +256,26 @@ importers:
         specifier: ^5
         version: 5.9.3
 
+  packages/eslint-config:
+    dependencies:
+      eslint:
+        specifier: ^9
+        version: 9.39.4(jiti@2.7.0)
+      eslint-config-next:
+        specifier: 16.2.9
+        version: 16.2.9(@typescript-eslint/parser@8.61.1(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.4(jiti@2.7.0))(typescript@5.9.3)
+
+  packages/typescript-config: {}
+
   packages/validation:
     dependencies:
       '@growblic/contracts':
         specifier: workspace:*
         version: link:../contracts
     devDependencies:
+      '@growblic/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       typescript:
         specifier: ^5
         version: 5.9.3
