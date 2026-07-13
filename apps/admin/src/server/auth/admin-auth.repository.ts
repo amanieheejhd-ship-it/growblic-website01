@@ -1,6 +1,6 @@
 import "server-only";
 
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@growblic/database";
 
 const safeAdminUserSelect = {
   id: true,

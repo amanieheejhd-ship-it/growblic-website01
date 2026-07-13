@@ -7,9 +7,11 @@ const monorepoRoot = join(appRoot, "../..");
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  outputFileTracingRoot: monorepoRoot,
   images: {
     unoptimized: true,
   },
+  transpilePackages: ["@growblic/database"],
   turbopack: {
     root: monorepoRoot,
   },

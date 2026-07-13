@@ -99,6 +99,6 @@ The apply command is idempotent: it creates or updates one normalized-email admi
 
 No existing public page, component, layout, styling, content, animation, sound, asset, SEO output, route, or navigation behavior is connected to the private admin application. Authentication endpoints exist only in `apps/admin` under `/api/auth/*`; the public application contains no admin route or link.
 
-## Temporary Prisma ownership
+## Prisma ownership
 
-The root Prisma schema remains the single migration source. During Phase 2C, `apps/admin` imports the server-only Prisma singleton and generated client through a documented temporary bridge to `apps/web`. Phase 2D will replace this bridge with the dedicated `packages/database` workspace package. No second schema, migration history, or client generator exists.
+`packages/database` is the single migration, generated-client, and Prisma-runtime owner. Admin server code imports `@growblic/database`; there is no admin-to-web bridge. The package remains server-only, and no authentication Client Component imports database code.

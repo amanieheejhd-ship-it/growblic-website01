@@ -1,14 +1,14 @@
 # Growblic Monorepo Migration Plan
 
-Status: Phase 2C complete locally
+Status: Phase 2D complete locally
 Audit date: 2026-07-13
-Migration implementation: Phase 2A, Phase 2B, and Phase 2C complete; Phase 2D not started
+Migration implementation: Phase 2A through Phase 2D complete; Phase 2E not started
 
-Checkpoint note: the pre-Phase-2C local rollback commit is `8419554`. The frozen public website remains under `apps/web`; the private admin pages and same-origin auth APIs are isolated under `apps/admin`. Prisma schema and migrations remain at the repository root, and `packages/database` is not implemented yet.
+Checkpoint note: the pre-Phase-2D local rollback commit is `d465f51`. The frozen public website remains under `apps/web`; private admin pages and same-origin auth APIs remain under `apps/admin`; `packages/database` is now the sole server-only owner of Prisma schema, migrations, generation, and runtime access.
 
 ## 1. Executive recommendation
 
-The toolchain foundation, public application move, and private-admin extraction are complete locally. The next structural checkpoint is database ownership in Phase 2D, but repository ownership and access must still be verified before any local migration commits are pushed or tagged.
+The toolchain foundation, public application move, private-admin extraction, and database-package extraction are complete locally. The next structural checkpoint is shared contracts and validation in Phase 2E, but repository ownership and access must still be verified before any local migration commits are pushed or tagged.
 
 The safest first migration is deliberately small:
 
@@ -86,10 +86,10 @@ Important root assumptions:
 
 - `next.config.ts` enables `trailingSlash` and unoptimized images. These settings are part of public behavior and must be preserved in `apps/web`.
 - `tsconfig.json` maps `@/*` to `./src/*`; 62 TypeScript/TSX files currently depend on this root-local alias.
-- `prisma.config.ts` points to `prisma/schema.prisma` and `prisma/migrations` relative to the repository root.
-- Prisma generates to `src/generated/prisma`.
-- Root scripts import `../src/lib/prisma` and server authentication modules by relative path.
-- The root `postinstall` runs Prisma generation and assumes the current schema/output locations.
+- `packages/database/prisma.config.ts` owns package-local schema and migration paths.
+- Prisma generates to ignored `packages/database/src/generated/prisma`.
+- Apps consume `@growblic/database`; root database scripts use its explicit client entry point.
+- Root `postinstall` delegates generation to the database workspace and never runs migrations.
 - `public` contains 168 files totaling approximately 13 MB.
 - The current Vercel documentation assumes project Root Directory `.` and npm install/build commands.
 - The manual GitHub Pages workflow uses npm and uploads `out`. It is an obsolete deployment path for a server-backed application, even though its trigger is currently manual.

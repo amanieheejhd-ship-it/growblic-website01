@@ -4,6 +4,7 @@
 /node_modules
 /apps/web/node_modules/
 /apps/admin/node_modules/
+/packages/database/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -50,4 +51,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/apps/web/src/generated/prisma
+/packages/database/src/generated/prisma

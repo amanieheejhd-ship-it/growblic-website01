@@ -22,6 +22,14 @@ function requirePath(relativePath) {
   }
 }
 
+function requireAbsentPath(relativePath) {
+  if (existsSync(join(root, relativePath))) {
+    fail(`${relativePath} must be absent.`);
+  } else {
+    pass(`${relativePath} is absent.`);
+  }
+}
+
 function implementationFiles(relativePath) {
   const absolutePath = join(root, relativePath);
 
@@ -56,17 +64,24 @@ for (const path of [
   "apps/admin/package.json",
   "apps/admin/src/app",
   "packages/README.md",
-  "prisma",
+  "packages/database/package.json",
+  "packages/database/prisma.config.ts",
+  "packages/database/prisma/schema.prisma",
+  "packages/database/prisma/migrations/migration_lock.toml",
 ]) {
   requirePath(path);
 }
 
-for (const path of ["src", "public"]) {
-  if (existsSync(join(root, path))) {
-    fail(`${path} must move into apps/web.`);
-  } else {
-    pass(`Root ${path} is absent.`);
-  }
+for (const path of [
+  "src",
+  "public",
+  "prisma",
+  "prisma.config.ts",
+  "apps/web/src/lib/prisma.ts",
+  "apps/admin/src/lib/prisma.ts",
+  "apps/web/src/generated/prisma",
+]) {
+  requireAbsentPath(path);
 }
 
 const workspace = readFileSync(join(root, "pnpm-workspace.yaml"), "utf8");
@@ -86,7 +101,7 @@ if (/^pnpm@\d+\.\d+\.\d+$/.test(packageJson.packageManager ?? "")) {
   fail("packageManager is not an exact pnpm version.");
 }
 
-for (const path of ["apps/web", "apps/admin"]) {
+for (const path of ["apps/web", "apps/admin", "packages/database"]) {
   if (implementationFiles(path).length > 0) {
     pass(`${path} contains an application.`);
   } else {
@@ -94,12 +109,22 @@ for (const path of ["apps/web", "apps/admin"]) {
   }
 }
 
-for (const path of ["packages/database"]) {
-  if (implementationFiles(path).length === 0) {
-    pass(`${path} has no implementation files.`);
-  } else {
-    fail(`${path} contains implementation files.`);
-  }
+const gitignore = readFileSync(join(root, ".gitignore"), "utf8");
+if (gitignore.includes("/packages/database/src/generated/prisma")) {
+  pass("The package-local generated Prisma client is ignored.");
+} else {
+  fail("The package-local generated Prisma client is not ignored.");
+}
+
+const adminSource = implementationFiles("apps/admin/src")
+  .filter((path) => /\.[cm]?[jt]sx?$/.test(path))
+  .map((path) => readFileSync(path, "utf8"))
+  .join("\n");
+
+if (adminSource.includes("web/src/lib/prisma")) {
+  fail("apps/admin still contains a cross-app Prisma bridge.");
+} else {
+  pass("apps/admin has no cross-app Prisma bridge.");
 }
 
 if (failed) {

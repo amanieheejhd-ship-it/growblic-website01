@@ -6,6 +6,6 @@
 - No NestJS application or microservice exists.
 
 Run both applications from the repository root with `pnpm dev` or `pnpm build`; scoped commands such as `pnpm dev:web` and `pnpm dev:admin` are also available.
-For local development only, ignored links under either app may point to the ignored root environment files. Deployment environments must inject variables directly. The admin project owns `ADMIN_AUTH_PEPPER`; both server apps temporarily use the root-owned Prisma schema/client arrangement until Phase 2D.
+For local development only, ignored links under either app may point to the ignored root environment files. Deployment environments must inject variables directly. The admin project owns `ADMIN_AUTH_PEPPER`; both server apps consume the server-only `@growblic/database` package and never import each other for database access.
 
-The rollback checkpoint before admin extraction is `8419554`.
+The rollback checkpoint before database-package extraction is `d465f51`.

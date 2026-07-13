@@ -1,6 +1,6 @@
 import "server-only";
 
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@growblic/database";
 import { readEmail, readString, readSubmissionKey } from "./form-validation";
 
 export async function saveMeetingRequest(input: Record<string, unknown>) {

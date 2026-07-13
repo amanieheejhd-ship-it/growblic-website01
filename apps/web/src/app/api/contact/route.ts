@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@growblic/database";
 
 export const runtime = "nodejs";
 

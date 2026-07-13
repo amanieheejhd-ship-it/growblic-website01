@@ -14,7 +14,7 @@ Push the repository to the correct Growblic-owned GitHub account or organization
 4. Create the public project with **Root Directory** set to `apps/web`.
 5. Create a separate private-admin project with **Root Directory** set to `apps/admin`; do not assign `admin.growblic.com` until its preview security checks pass.
 
-Use the repository's pinned pnpm toolchain and frozen lockfile. Vercel's monorepo install must run from the repository workspace so the root `postinstall` generates Prisma Client from the root schema. Each project builds its selected workspace. Builds do not run database migrations.
+Use the repository's pinned pnpm toolchain and frozen lockfile. Vercel's monorepo install must run from the repository workspace so root `postinstall` delegates Prisma Client generation to `packages/database`. Each project builds its selected workspace. Builds do not run database migrations.
 
 ## 3. Configure environment variables
 
@@ -29,7 +29,7 @@ The private admin project receives:
 
 Controlled migration tooling receives:
 
-- `DIRECT_URL`: the migration-safe connection used by `prisma.config.ts`.
+- `DIRECT_URL`: the migration-safe connection used only by `packages/database/prisma.config.ts`.
 
 Copy real values from the approved password manager or Supabase project settings. Never paste them into source files, documentation, tickets, or logs. Never prefix these variables with `NEXT_PUBLIC_`; that prefix makes values available to browser code. Do not give `ADMIN_AUTH_PEPPER` to the public web project after admin extraction.
 
@@ -40,7 +40,7 @@ Enable the variables for **Production** and **Preview**. Preview deployments can
 Review every production migration before execution. From a trusted environment with the approved migration-safe connection configuration, run:
 
 ```bash
-npx prisma migrate deploy
+pnpm prisma:migrate:deploy
 ```
 
 Do this as a separate controlled release step. Do not add `prisma migrate dev` or automatic migrations to the normal Vercel build command.

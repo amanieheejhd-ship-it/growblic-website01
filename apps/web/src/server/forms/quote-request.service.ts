@@ -1,7 +1,6 @@
 import "server-only";
 
-import { Prisma } from "@/generated/prisma/client";
-import { prisma } from "@/lib/prisma";
+import { Prisma, prisma } from "@growblic/database";
 import {
   readEmail,
   readOptionalJsonObject,

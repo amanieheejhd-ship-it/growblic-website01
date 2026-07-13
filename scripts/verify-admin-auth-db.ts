@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { prisma } from "../apps/web/src/lib/prisma";
+import { prisma } from "@growblic/database/client";
 import {
   hashLoginIdentifier,
   normalizeAdminEmail,

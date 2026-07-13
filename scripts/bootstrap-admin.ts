@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { prisma } from "../apps/web/src/lib/prisma";
+import { prisma } from "@growblic/database/client";
 import { ADMIN_PASSWORD_MIN_LENGTH } from "../apps/admin/src/server/auth/admin-auth.constants";
 import {
   hashPassword,

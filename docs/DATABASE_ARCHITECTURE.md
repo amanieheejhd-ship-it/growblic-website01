@@ -6,6 +6,19 @@ This document describes the first database foundation for a future Growblic admi
 
 The existing `ContactEnquiry` model and its submission flow remain independent and unchanged.
 
+## Prisma ownership
+
+`packages/database` is the sole Prisma owner. It contains the schema, unchanged migration history, package-local ignored generated client, PostgreSQL adapter, and development singleton. Server code in `apps/web` and `apps/admin` imports `@growblic/database`; browser code must never import the package.
+
+Runtime processes provide `DATABASE_URL`. Controlled Prisma migration tooling provides `DIRECT_URL`; neither value belongs in tracked files or client bundles. Root commands delegate explicitly to the database workspace:
+
+- `pnpm prisma:format`
+- `pnpm prisma:validate`
+- `pnpm prisma:generate`
+- `pnpm prisma:migrate:dev`
+- `pnpm prisma:migrate:deploy`
+- `pnpm prisma:studio`
+
 ## Models
 
 ### Administration
