@@ -16,6 +16,7 @@
     "auth:verify": "tsx scripts/verify-admin-auth.ts",
     "auth:test-api": "node scripts/test-admin-auth-api.mjs",
     "auth:verify-db": "tsx scripts/verify-admin-auth-db.ts",
+    "admin:test-pages": "node scripts/test-admin-pages.mjs",
     "forms:test-api": "node scripts/test-website-form-apis.mjs",
     "forms:verify-db": "tsx scripts/verify-website-form-db.ts"
   },
