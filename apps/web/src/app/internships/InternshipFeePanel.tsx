@@ -2,6 +2,7 @@
 
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
+import InternshipConfirmationFlow from "./InternshipConfirmationFlow";
 
 type Props = {
   internshipTitle: string;
@@ -160,10 +161,11 @@ export default function InternshipFeePanel({
         </div>
 
         {paymentStepOpen && selectedPlan && (
-          <section
-            id="internship-payment-qr"
-            className="mt-8 scroll-mt-8 overflow-hidden rounded-[32px] border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-cyan-50 shadow-[0_24px_70px_rgba(37,99,235,0.13)]"
-          >
+          <>
+            <section
+              id="internship-payment-qr"
+              className="mt-8 scroll-mt-8 overflow-hidden rounded-[32px] border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-cyan-50 shadow-[0_24px_70px_rgba(37,99,235,0.13)]"
+            >
             <div className="grid gap-8 p-6 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-600">
@@ -229,7 +231,10 @@ export default function InternshipFeePanel({
                 </p>
               </div>
             </div>
-          </section>
+            </section>
+
+            <InternshipConfirmationFlow durationDays={selectedPlan.days} />
+          </>
         )}
       </div>
     </section>
