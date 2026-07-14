@@ -42,20 +42,21 @@ export default function StartProjectForm() {
     }
 
     const formElement = event.currentTarget;
-    const form = new FormData(formElement);
-    const email = String(form.get("email") || "").trim();
-    const phone = String(form.get("phone") || "").trim();
-    const website = String(form.get("website") || "").trim();
-    const name = String(form.get("name") || "").trim();
-    const service = String(form.get("projectType") || "").trim() || undefined;
-    const budget = String(form.get("budgetRange") || "").trim() || undefined;
-    const message = String(form.get("message") || "").trim();
-
     submittingRef.current = true;
-    setIsSubmitting(true);
-    setStatus({ type: "idle", message: "" });
 
     try {
+      setIsSubmitting(true);
+      setStatus({ type: "idle", message: "" });
+
+      const form = new FormData(formElement);
+      const email = String(form.get("email") || "").trim();
+      const phone = String(form.get("phone") || "").trim();
+      const website = String(form.get("website") || "").trim();
+      const name = String(form.get("name") || "").trim();
+      const service = String(form.get("projectType") || "").trim() || undefined;
+      const budget = String(form.get("budgetRange") || "").trim() || undefined;
+      const message = String(form.get("message") || "").trim();
+
       submissionKeyRef.current ||= crypto.randomUUID();
 
       await persistWebsiteForm("/api/quote-requests/", {

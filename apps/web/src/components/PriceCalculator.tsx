@@ -766,10 +766,11 @@ export default function PriceCalculator() {
       .join("\n\n");
 
     submittingRef.current = true;
-    setSubmitStatus("loading");
-    setSubmitMessage("");
 
     try {
+      setSubmitStatus("loading");
+      setSubmitMessage("");
+
       submissionKeyRef.current ||= crypto.randomUUID();
 
       await persistWebsiteForm("/api/quote-requests/", {
