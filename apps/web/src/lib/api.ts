@@ -8,13 +8,9 @@ import type {
 } from "@growblic/contracts";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com";
+  (process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com").replace(/\/$/, "");
 const LEAD_REQUEST_TIMEOUT_MS = 10_000;
 const WEBSITE_FORM_REQUEST_TIMEOUT_MS = 15_000;
-
-function websiteSubmissionsUrl() {
-  return process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL?.trim() || "";
-}
 
 async function postJsonWithTimeout<T>(
   url: string,
@@ -83,23 +79,23 @@ type WebsiteFormRequestMap = {
   "/api/quote-requests/": QuoteRequest;
 };
 
-function submissionType<Path extends keyof WebsiteFormRequestMap>(
+function submissionEndpoint<Path extends keyof WebsiteFormRequestMap>(
   path: Path,
   payload: WebsiteFormRequestMap[Path],
 ) {
   switch (path) {
     case "/api/contact/":
-      return "contact";
+      return "/public-submissions/contact";
     case "/api/careers/applications/":
-      return "career-application";
+      return "/public-submissions/career-applications";
     case "/api/internships/applications/":
-      return "internship-application";
+      return "/public-submissions/internship-applications";
     case "/api/meeting-requests/":
-      return "meetup-request";
+      return "/public-submissions/meetups";
     case "/api/quote-requests/":
       return (payload as QuoteRequest).calculatorData
-        ? "price-calculator"
-        : "project-request";
+        ? "/public-submissions/price-calculator"
+        : "/public-submissions/project-requests";
   }
 }
 
@@ -107,13 +103,9 @@ export async function persistWebsiteForm<Path extends keyof WebsiteFormRequestMa
   path: Path,
   payload: WebsiteFormRequestMap[Path],
 ) {
-  const edgeFunctionUrl = websiteSubmissionsUrl();
-  const useEdgeFunction = edgeFunctionUrl.length > 0;
   const { response, data } = await postJsonWithTimeout<FormSubmissionResponse>(
-    useEdgeFunction ? edgeFunctionUrl : path,
-    useEdgeFunction
-      ? { type: submissionType(path, payload), payload }
-      : payload,
+    `${API_BASE_URL}${submissionEndpoint(path, payload)}`,
+    payload,
     WEBSITE_FORM_REQUEST_TIMEOUT_MS,
   );
 

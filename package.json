@@ -28,7 +28,7 @@
     "typecheck:admin": "pnpm --filter @growblic/admin typecheck",
     "typecheck:backend": "pnpm --filter @growblic/backend typecheck",
     "test:backend": "pnpm --filter @growblic/backend test",
-    "test:website-submissions": "tsx --test apps/web/src/lib/api.test.ts supabase/functions/website-submissions/core.test.ts",
+    "test:website-submissions": "tsx --test apps/web/src/lib/api.test.ts && pnpm --filter @growblic/backend test",
     "postinstall": "pnpm --filter @growblic/database prisma:generate",
     "prisma:format": "pnpm --filter @growblic/database prisma:format",
     "prisma:validate": "pnpm --filter @growblic/database prisma:validate",

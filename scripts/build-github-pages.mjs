@@ -1,10 +1,10 @@
 import { spawnSync } from "node:child_process";
 
-const endpoint = process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL?.trim();
+const endpoint = process.env.NEXT_PUBLIC_API_URL?.trim();
 
 if (!endpoint || !endpoint.startsWith("https://")) {
   throw new Error(
-    "NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL must be an HTTPS Supabase Edge Function URL.",
+    "NEXT_PUBLIC_API_URL must be an HTTPS NestJS backend URL.",
   );
 }
 

@@ -9,18 +9,35 @@ import { StructuredLogger } from "./common/logging/structured-logger.service";
 import { createRequestContextMiddleware } from "./common/request-context/request-context.middleware";
 import { RequestContextService } from "./common/request-context/request-context.service";
 
+export function isAllowedCorsOrigin(config: BackendConfig, origin: string | undefined) {
+  if (!origin) return true;
+  if (config.corsAllowedOrigins.includes(origin)) return true;
+  if (config.environment === "production") return false;
+
+  try {
+    const url = new URL(origin);
+    return (
+      url.protocol === "http:" &&
+      (url.hostname === "localhost" || url.hostname === "127.0.0.1") &&
+      url.username === "" &&
+      url.password === ""
+    );
+  } catch {
+    return false;
+  }
+}
+
 export function configureBackendApplication(app: INestApplication, config: BackendConfig) {
   const context = app.get(RequestContextService);
   const logger = app.get(StructuredLogger);
 
-  if (config.corsAllowedOrigins.length > 0) {
-    const allowed = new Set(config.corsAllowedOrigins);
+  if (config.corsAllowedOrigins.length > 0 || config.environment !== "production") {
     app.enableCors({
       credentials: false,
       origin: (
         origin: string | undefined,
         callback: (error: Error | null, allow?: boolean) => void,
-      ) => callback(null, !origin || allowed.has(origin)),
+      ) => callback(null, isAllowedCorsOrigin(config, origin)),
       methods: ["GET", "HEAD", "OPTIONS", "POST"],
       allowedHeaders: ["content-type", "x-payment-access-token", "x-razorpay-signature", "x-razorpay-event-id", "x-request-id"],
       exposedHeaders: ["content-disposition"],

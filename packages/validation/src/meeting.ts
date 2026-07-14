@@ -1,5 +1,5 @@
 import type { NormalizedMeetingRequest } from "@growblic/contracts";
-import { readEmail, readString, readSubmissionKey } from "./common";
+import { readEmail, readString, readSubmissionKey } from "./common.ts";
 
 export function validateMeetingRequest(input: Record<string, unknown>): NormalizedMeetingRequest {
   return {

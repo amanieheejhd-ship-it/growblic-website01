@@ -4,19 +4,18 @@ import { join } from "node:path";
 const outputDirectory = join(process.cwd(), "apps/web/out");
 const publicDirectory = join(process.cwd(), "apps/web/public");
 const basePath = "/growblic-website01";
-const endpoint = process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL?.trim();
+const endpoint = process.env.NEXT_PUBLIC_API_URL?.trim();
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".txt", ".xml"]);
 const forbiddenPublicMarkers = [
   "postgresql://",
   "DATABASE_URL",
   "DIRECT_URL",
-  "SUPABASE_SERVICE_ROLE_KEY",
   "ADMIN_AUTH_PEPPER",
   "ADMIN_BOOTSTRAP_PASSWORD",
 ];
 
 if (!endpoint || !endpoint.startsWith("https://")) {
-  throw new Error("The public Edge Function URL is missing from the static build.");
+  throw new Error("The public NestJS API URL is missing from the static build.");
 }
 
 async function filesUnder(directory) {
@@ -75,7 +74,7 @@ const bundleContainsEndpoint = await Promise.all(
     .map(async (file) => (await readFile(file, "utf8")).includes(endpoint)),
 );
 if (!bundleContainsEndpoint.some(Boolean)) {
-  throw new Error("The public Edge Function URL was not included in the static client bundle.");
+  throw new Error("The public NestJS API URL was not included in the static client bundle.");
 }
 
 if (!(await stat(join(outputDirectory, "sitemap.xml"))).isFile()) {

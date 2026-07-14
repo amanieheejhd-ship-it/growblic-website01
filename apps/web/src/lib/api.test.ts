@@ -3,16 +3,12 @@ import { afterEach, test } from "node:test";
 import { persistWebsiteForm, submitLead } from "./api";
 
 const originalFetch = globalThis.fetch;
-const originalWebsiteSubmissionsUrl =
-  process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL;
+const apiBaseUrl = (
+  process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com"
+).replace(/\/$/, "");
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
-  if (originalWebsiteSubmissionsUrl === undefined) {
-    delete process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL;
-  } else {
-    process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL = originalWebsiteSubmissionsUrl;
-  }
 });
 
 function installStalledFetch() {
@@ -67,11 +63,7 @@ test("website persistence aborts once instead of remaining locked", async (conte
   assert.equal(calls(), 1);
 });
 
-test("configured static builds send an explicit type envelope without privileged headers", async () => {
-  const endpoint =
-    "https://example.supabase.co/functions/v1/website-submissions";
-  process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL = endpoint;
-
+test("public forms send direct payloads to the configured NestJS endpoints", async () => {
   let requestedUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = (async (input, init) => {
@@ -91,11 +83,36 @@ test("configured static builds send an explicit type envelope without privileged
   });
 
   const headers = new Headers(requestInit?.headers);
-  const envelope = JSON.parse(String(requestInit?.body));
+  const payload = JSON.parse(String(requestInit?.body));
 
-  assert.equal(requestedUrl, endpoint);
-  assert.equal(envelope.type, "contact");
-  assert.equal(envelope.payload.submissionKey, "contact-static-test");
+  assert.equal(requestedUrl, `${apiBaseUrl}/public-submissions/contact`);
+  assert.equal(payload.submissionKey, "contact-static-test");
+  assert.equal(payload.type, undefined);
   assert.equal(headers.get("authorization"), null);
   assert.equal(headers.get("apikey"), null);
+});
+
+test("project and calculator requests use distinct backend endpoints", async () => {
+  const urls: string[] = [];
+  globalThis.fetch = (async (input) => {
+    urls.push(String(input));
+    return Response.json({ success: true }, { status: 201 });
+  }) as typeof fetch;
+
+  await persistWebsiteForm("/api/quote-requests/", {
+    submissionKey: "project-static-test",
+    name: "Synthetic Project",
+    requirements: "Synthetic project request",
+  });
+  await persistWebsiteForm("/api/quote-requests/", {
+    submissionKey: "calculator-static-test",
+    name: "Synthetic Calculator",
+    requirements: "Synthetic calculator request",
+    calculatorData: { category: "Synthetic" },
+  });
+
+  assert.deepEqual(urls, [
+    `${apiBaseUrl}/public-submissions/project-requests`,
+    `${apiBaseUrl}/public-submissions/price-calculator`,
+  ]);
 });

@@ -9,11 +9,12 @@
     "start:prod": "node dist/main.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "tsc -p tsconfig.test.json && node --test .test-dist/test/backend-foundation.test.js .test-dist/src/modules/internship-payments/internship-payment.core.test.js .test-dist/src/modules/internship-payments/internship-invoice.pdf.test.js .test-dist/src/modules/internship-payments/internship-payment.service.test.js",
+    "test": "tsc -p tsconfig.test.json && node --test .test-dist/test/backend-foundation.test.js .test-dist/src/modules/internship-payments/internship-payment.core.test.js .test-dist/src/modules/internship-payments/internship-invoice.pdf.test.js .test-dist/src/modules/internship-payments/internship-payment.service.test.js .test-dist/src/modules/public-submissions/public-submission.core.test.js .test-dist/src/modules/public-submissions/public-submission.store.test.js .test-dist/src/modules/public-submissions/public-submissions.http.test.js",
     "test:watch": "tsc -p tsconfig.test.json --watch --preserveWatchOutput"
   },
   "dependencies": {
     "@growblic/database": "workspace:*",
+    "@growblic/validation": "workspace:*",
     "@nestjs/common": "11.1.28",
     "@nestjs/core": "11.1.28",
     "@nestjs/platform-express": "11.1.28",
