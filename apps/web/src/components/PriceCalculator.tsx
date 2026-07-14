@@ -742,10 +742,6 @@ export default function PriceCalculator() {
       return;
     }
 
-    submittingRef.current = true;
-    setSubmitStatus("loading");
-    setSubmitMessage("");
-
     const selectedOptionsText = result.selectedOptions.join("\n");
     const breakdownText = result.breakdownItems
       .map((item) => `${item.label}: ${item.value} - ${formatMoney(item.price, currency, usdInrRate)}`)
@@ -768,6 +764,10 @@ export default function PriceCalculator() {
     ]
       .filter(Boolean)
       .join("\n\n");
+
+    submittingRef.current = true;
+    setSubmitStatus("loading");
+    setSubmitMessage("");
 
     try {
       submissionKeyRef.current ||= crypto.randomUUID();
@@ -801,7 +801,7 @@ export default function PriceCalculator() {
       });
 
       if (!website) {
-        await submitLead("/leads/contact", {
+        void submitLead("/leads/contact", {
           name: customerDetails.fullName.trim(),
           email: customerDetails.email.trim() || undefined,
           phone: customerDetails.phone.trim() || undefined,
@@ -809,7 +809,7 @@ export default function PriceCalculator() {
           budget: formatMoney(result.total, currency, usdInrRate),
           message: requirements,
           source: "price-calculator",
-        });
+        }).catch(() => undefined);
       }
 
       setSubmitStatus("success");

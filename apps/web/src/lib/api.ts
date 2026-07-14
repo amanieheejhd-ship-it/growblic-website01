@@ -6,6 +6,7 @@ import type {
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com";
+const LEAD_REQUEST_TIMEOUT_MS = 10_000;
 
 export type LeadPayload = {
   name: string;
@@ -27,14 +28,27 @@ export async function submitLead(
   path: "/leads/contact" | "/leads/start-project" | "/leads/meetup",
   payload: LeadPayload,
 ) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(
+    () => controller.abort(),
+    LEAD_REQUEST_TIMEOUT_MS,
+  );
+
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
 
   const data = (await response.json().catch(() => null)) as LeadResponse | null;
 

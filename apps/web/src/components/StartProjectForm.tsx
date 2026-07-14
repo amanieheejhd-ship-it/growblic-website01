@@ -71,7 +71,7 @@ export default function StartProjectForm() {
       });
 
       if (!website) {
-        await submitLead("/leads/start-project", {
+        void submitLead("/leads/start-project", {
           name,
           email: email || undefined,
           phone: phone || undefined,
@@ -79,7 +79,7 @@ export default function StartProjectForm() {
           budget,
           message,
           source: "start-project-page",
-        });
+        }).catch(() => undefined);
       }
 
       formElement.reset();
