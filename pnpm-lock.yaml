@@ -142,6 +142,9 @@ importers:
       '@growblic/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@growblic/validation':
+        specifier: workspace:*
+        version: link:../../packages/validation
       '@nestjs/common':
         specifier: 11.1.28
         version: 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
