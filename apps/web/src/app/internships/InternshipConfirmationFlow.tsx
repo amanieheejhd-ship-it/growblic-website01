@@ -30,7 +30,7 @@ async function loadAsset(url: string) {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error("The confirmation letter assets could not be loaded.");
+    throw new Error("The confirmation certificate assets could not be loaded.");
   }
 
   return response.arrayBuffer();
@@ -82,14 +82,16 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
 
       if (!context) {
         await document.cleanup();
-        throw new Error("The letter preview could not be rendered.");
+        throw new Error("The certificate preview could not be rendered.");
       }
 
       await page.render({ canvas, canvasContext: context, viewport }).promise;
       await document.cleanup();
     })().catch(() => {
       if (!cancelled) {
-        setError("The letter was generated, but its preview could not be rendered.");
+        setError(
+          "The certificate was generated, but its preview could not be rendered.",
+        );
       }
     });
 
@@ -130,10 +132,8 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
     try {
       const basePath = process.env.NEXT_PUBLIC_SITE_BASE_PATH || "";
       const assetRoot = `${basePath}/templates`;
-      const signature = await loadAsset(
-        `${assetRoot}/internship-letter-signature.png`,
-      );
-      const assets: ConfirmationLetterAssets = { signature };
+      const logo = await loadAsset(`${assetRoot}/growblic-official-logo.png`);
+      const assets: ConfirmationLetterAssets = { logo };
       const bytes = await generateConfirmationLetter(assets, input);
       const blobBytes = Uint8Array.from(bytes);
       const nextUrl = URL.createObjectURL(
@@ -159,7 +159,7 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
       setError(
         generationError instanceof Error
           ? generationError.message
-          : "The confirmation letter could not be generated.",
+          : "The confirmation certificate could not be generated.",
       );
     } finally {
       setIsGenerating(false);
@@ -230,7 +230,7 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
             disabled={isGenerating}
             className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-wait disabled:bg-blue-300"
           >
-            {isGenerating ? "Generating..." : "Generate Letter"}
+            {isGenerating ? "Generating..." : "Generate Certificate"}
           </button>
 
           {pdfUrl && (
@@ -250,10 +250,10 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
           id="internship-confirmation-preview"
           className="mt-6 scroll-mt-8 border-t border-blue-100 pt-6"
         >
-          <div className="mx-auto aspect-[595.5/842.25] w-full max-w-[760px] overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.14)]">
+          <div className="mx-auto aspect-[595.28/841.89] w-full max-w-[760px] overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.14)]">
             <canvas
               ref={canvasRef}
-              aria-label="Internship confirmation letter preview"
+              aria-label="Internship confirmation certificate preview"
               className="block h-auto w-full bg-white"
             />
           </div>

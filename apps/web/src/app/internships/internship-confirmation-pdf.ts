@@ -1,4 +1,4 @@
-import { PDFDocument, StandardFonts, rgb, type PDFFont } from "pdf-lib";
+import { generateInternshipCertificatePdf } from "./internship-certificate-renderer";
 
 export const internshipPrograms = [
   "Backend Developer",
@@ -19,18 +19,441 @@ export const internshipPrograms = [
 ] as const;
 
 export const confirmationLetterTypography = {
-  companyName: 30,
-  subtitle: 11.5,
+  companyName: 25,
+  subtitle: 11,
   reference: 10,
   title: 22,
-  body: 12,
-  studentName: 14.5,
-  detailLabel: 10,
-  detailValue: 12.5,
-  footer: 9.5,
+  body: 11.5,
+  studentName: 28,
+  program: 17,
+  sectionHeading: 11,
+  bullet: 9.5,
+  signatory: 16,
+  footer: 9,
 } as const;
 
 export type InternshipProgram = (typeof internshipPrograms)[number];
+
+export type ProgramCertificateContent = {
+  learning: readonly string[];
+  responsibilities: readonly string[];
+  skills: readonly string[];
+};
+
+export const internshipProgramContent: Record<
+  InternshipProgram,
+  ProgramCertificateContent
+> = {
+  "Frontend Developer": {
+    learning: [
+      "HTML, CSS, and JavaScript fundamentals",
+      "Responsive web layouts",
+      "React and Next.js component structure",
+      "API integration basics",
+      "Git and GitHub workflow",
+      "Accessibility and performance checks",
+    ],
+    responsibilities: [
+      "Build responsive frontend sections",
+      "Convert designs into reusable components",
+      "Test mobile, tablet, and desktop layouts",
+      "Fix UI issues and improve existing pages",
+      "Collaborate on frontend tasks and reviews",
+    ],
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "Responsive Design",
+      "Git and GitHub",
+    ],
+  },
+  "Backend Developer": {
+    learning: [
+      "REST API design",
+      "Node.js and NestJS fundamentals",
+      "Database and ORM basics",
+      "Authentication and authorization",
+      "Error handling and validation",
+      "API testing and documentation",
+    ],
+    responsibilities: [
+      "Build and test backend APIs",
+      "Validate incoming requests",
+      "Work with PostgreSQL and Prisma",
+      "Implement safe error handling",
+      "Document API behavior",
+      "Assist in backend debugging",
+    ],
+    skills: [
+      "Node.js",
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "REST APIs",
+      "Authentication",
+      "API Testing",
+    ],
+  },
+  "Full Stack Developer": {
+    learning: [
+      "Frontend and backend integration",
+      "React and Next.js fundamentals",
+      "REST APIs and database workflows",
+      "Authentication basics",
+      "Deployment fundamentals",
+      "Git-based collaboration",
+    ],
+    responsibilities: [
+      "Build full-stack features",
+      "Connect frontend forms to APIs",
+      "Work with databases",
+      "Test complete user flows",
+      "Fix integration issues",
+      "Maintain reusable code",
+    ],
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "NestJS",
+      "PostgreSQL",
+      "Prisma",
+      "Git",
+    ],
+  },
+  "Flutter Developer": {
+    learning: [
+      "Dart language fundamentals",
+      "Flutter widgets and layouts",
+      "State management basics",
+      "REST API integration",
+      "Navigation and local storage",
+      "Mobile testing and release basics",
+    ],
+    responsibilities: [
+      "Build reusable Flutter screens",
+      "Implement responsive mobile layouts",
+      "Connect applications to APIs",
+      "Debug device-specific UI issues",
+      "Test Android and iOS builds",
+    ],
+    skills: [
+      "Dart",
+      "Flutter",
+      "Widgets",
+      "State Management",
+      "REST APIs",
+      "Firebase",
+      "Git",
+      "Mobile Testing",
+    ],
+  },
+  "React Native Developer": {
+    learning: [
+      "React Native fundamentals",
+      "Reusable mobile components",
+      "Navigation and state management",
+      "Native device API basics",
+      "REST API integration",
+      "Cross-platform testing",
+    ],
+    responsibilities: [
+      "Build cross-platform mobile screens",
+      "Implement navigation flows",
+      "Integrate backend APIs",
+      "Resolve Android and iOS UI issues",
+      "Test and document mobile features",
+    ],
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "React Native",
+      "React Navigation",
+      "REST APIs",
+      "State Management",
+      "Git",
+      "Mobile Testing",
+    ],
+  },
+  "Android Developer": {
+    learning: [
+      "Kotlin language fundamentals",
+      "Android activity and lifecycle concepts",
+      "Modern layouts with Jetpack Compose",
+      "REST API and local data integration",
+      "Permissions and device services",
+      "Android testing and release basics",
+    ],
+    responsibilities: [
+      "Build Android application screens",
+      "Implement navigation and state flows",
+      "Connect applications to APIs",
+      "Debug device and lifecycle issues",
+      "Test features across Android devices",
+    ],
+    skills: [
+      "Kotlin",
+      "Android SDK",
+      "Jetpack Compose",
+      "Room",
+      "REST APIs",
+      "Firebase",
+      "Git",
+      "Android Testing",
+    ],
+  },
+  "iOS Developer": {
+    learning: [
+      "Swift language fundamentals",
+      "SwiftUI views and navigation",
+      "iOS application lifecycle",
+      "Networking and data persistence",
+      "Apple platform design guidelines",
+      "iOS testing and release basics",
+    ],
+    responsibilities: [
+      "Build reusable SwiftUI screens",
+      "Implement navigation and state flows",
+      "Integrate APIs and local storage",
+      "Debug simulator and device issues",
+      "Test features across iOS devices",
+    ],
+    skills: [
+      "Swift",
+      "SwiftUI",
+      "Xcode",
+      "URLSession",
+      "Core Data",
+      "REST APIs",
+      "Git",
+      "XCTest",
+    ],
+  },
+  "UI/UX Designer": {
+    learning: [
+      "User research fundamentals",
+      "Information architecture",
+      "Wireframing and prototyping",
+      "Visual hierarchy and typography",
+      "Design systems and components",
+      "Usability testing basics",
+    ],
+    responsibilities: [
+      "Create user flows and wireframes",
+      "Design responsive interface screens",
+      "Maintain reusable design components",
+      "Prepare developer-ready handoffs",
+      "Review feedback and improve usability",
+    ],
+    skills: [
+      "Figma",
+      "Wireframing",
+      "Prototyping",
+      "User Research",
+      "Design Systems",
+      "Typography",
+      "Responsive Design",
+      "Usability Testing",
+    ],
+  },
+  "DevOps Engineer": {
+    learning: [
+      "Linux and shell fundamentals",
+      "CI/CD pipeline concepts",
+      "Containerization with Docker",
+      "Cloud deployment basics",
+      "Monitoring and logging",
+      "Infrastructure security practices",
+    ],
+    responsibilities: [
+      "Maintain development pipelines",
+      "Build and review container images",
+      "Assist with cloud deployments",
+      "Monitor application health",
+      "Document operational procedures",
+    ],
+    skills: [
+      "Linux",
+      "Docker",
+      "GitHub Actions",
+      "CI/CD",
+      "Cloud Platforms",
+      "Nginx",
+      "Monitoring",
+      "Git",
+    ],
+  },
+  "QA Engineer": {
+    learning: [
+      "Software testing fundamentals",
+      "Test case and scenario design",
+      "Web and mobile testing",
+      "API testing basics",
+      "Defect reporting and tracking",
+      "Automation testing concepts",
+    ],
+    responsibilities: [
+      "Prepare and execute test cases",
+      "Verify web and mobile user flows",
+      "Report reproducible defects",
+      "Retest fixes and run regression checks",
+      "Maintain testing documentation",
+    ],
+    skills: [
+      "Manual Testing",
+      "Test Cases",
+      "API Testing",
+      "Postman",
+      "Bug Tracking",
+      "Regression Testing",
+      "Playwright",
+      "Git",
+    ],
+  },
+  "AI/ML Engineer": {
+    learning: [
+      "Python for data workflows",
+      "Data preparation and exploration",
+      "Machine learning fundamentals",
+      "Model training and evaluation",
+      "Feature engineering basics",
+      "Responsible AI practices",
+    ],
+    responsibilities: [
+      "Prepare and validate datasets",
+      "Build baseline machine learning models",
+      "Evaluate model performance",
+      "Document experiments and results",
+      "Assist with model integration tasks",
+    ],
+    skills: [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "scikit-learn",
+      "Jupyter",
+      "Data Visualization",
+      "Model Evaluation",
+      "Git",
+    ],
+  },
+  "Data Analyst": {
+    learning: [
+      "Data cleaning and validation",
+      "Spreadsheet analysis techniques",
+      "SQL querying fundamentals",
+      "Statistical analysis basics",
+      "Dashboard and report design",
+      "Business insight communication",
+    ],
+    responsibilities: [
+      "Clean and organize datasets",
+      "Write queries for business questions",
+      "Build reports and dashboards",
+      "Check data quality and consistency",
+      "Present concise analytical findings",
+    ],
+    skills: [
+      "Excel",
+      "SQL",
+      "Python",
+      "Pandas",
+      "Power BI",
+      "Data Cleaning",
+      "Visualization",
+      "Reporting",
+    ],
+  },
+  "Digital Marketing": {
+    learning: [
+      "Digital campaign fundamentals",
+      "Search and social media marketing",
+      "Content planning and copywriting",
+      "SEO and keyword research",
+      "Marketing analytics basics",
+      "Conversion optimization concepts",
+    ],
+    responsibilities: [
+      "Research audiences and competitors",
+      "Assist with campaign content",
+      "Schedule and monitor social posts",
+      "Track campaign performance",
+      "Prepare concise marketing reports",
+    ],
+    skills: [
+      "SEO",
+      "Google Ads",
+      "Meta Ads",
+      "Content Marketing",
+      "Social Media",
+      "Analytics",
+      "Copywriting",
+      "Reporting",
+    ],
+  },
+  "Human Resources": {
+    learning: [
+      "Recruitment workflow fundamentals",
+      "Candidate screening and coordination",
+      "Onboarding process basics",
+      "HR documentation practices",
+      "Employee engagement concepts",
+      "Workplace confidentiality standards",
+    ],
+    responsibilities: [
+      "Assist with candidate coordination",
+      "Maintain organized HR records",
+      "Support onboarding activities",
+      "Prepare routine HR communication",
+      "Track interviews and follow-ups",
+    ],
+    skills: [
+      "Recruitment",
+      "Screening",
+      "Onboarding",
+      "Documentation",
+      "Communication",
+      "Coordination",
+      "HR Operations",
+      "Confidentiality",
+    ],
+  },
+  "Business Development": {
+    learning: [
+      "Market and customer research",
+      "Lead generation fundamentals",
+      "Sales pipeline management",
+      "Business communication",
+      "Proposal preparation basics",
+      "Client relationship practices",
+    ],
+    responsibilities: [
+      "Research prospective clients",
+      "Maintain lead and follow-up records",
+      "Assist with outreach communication",
+      "Support proposals and presentations",
+      "Summarize pipeline activity",
+    ],
+    skills: [
+      "Market Research",
+      "Lead Generation",
+      "CRM",
+      "Sales Communication",
+      "Proposals",
+      "Presentations",
+      "Negotiation",
+      "Reporting",
+    ],
+  },
+};
 
 export type ConfirmationLetterInput = {
   fullName: string;
@@ -41,69 +464,11 @@ export type ConfirmationLetterInput = {
 };
 
 export type ConfirmationLetterAssets = {
-  signature: ArrayBuffer | Uint8Array;
+  logo: ArrayBuffer | Uint8Array;
 };
-
-const pageWidth = 595.28;
-const pageHeight = 841.89;
-const navy = rgb(0.055, 0.11, 0.2);
-const slate = rgb(0.28, 0.34, 0.43);
-const blue = rgb(0.15, 0.39, 0.92);
-const green = rgb(0.16, 0.62, 0.34);
-const paleBlue = rgb(0.95, 0.975, 1);
-const paleGreen = rgb(0.94, 0.985, 0.955);
-const line = rgb(0.84, 0.89, 0.96);
-const white = rgb(1, 1, 1);
 
 function cleanText(value: string) {
   return value.replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function fontSafeText(font: PDFFont, value: string) {
-  const supported = new Set(font.getCharacterSet());
-
-  return Array.from(cleanText(value), (character) =>
-    supported.has(character.codePointAt(0) ?? 0) ? character : "?",
-  ).join("");
-}
-
-function fitFontSize(
-  font: PDFFont,
-  text: string,
-  maximumWidth: number,
-  preferredSize: number,
-  minimumSize = 9.5,
-) {
-  let size = preferredSize;
-
-  while (size > minimumSize && font.widthOfTextAtSize(text, size) > maximumWidth) {
-    size -= 0.2;
-  }
-
-  return size;
-}
-
-function wrapText(font: PDFFont, value: string, size: number, width: number) {
-  const words = fontSafeText(font, value).split(" ");
-  const lines: string[] = [];
-  let currentLine = "";
-
-  for (const word of words) {
-    const candidate = currentLine ? `${currentLine} ${word}` : word;
-
-    if (font.widthOfTextAtSize(candidate, size) <= width || !currentLine) {
-      currentLine = candidate;
-    } else {
-      lines.push(currentLine);
-      currentLine = word;
-    }
-  }
-
-  if (currentLine) {
-    lines.push(currentLine);
-  }
-
-  return lines;
 }
 
 export function validateConfirmationInput(input: ConfirmationLetterInput) {
@@ -198,7 +563,7 @@ export function confirmationFilename(fullName: string) {
     .replace(/^-+|-+$/g, "")
     .replace(/-+/g, "-");
 
-  return `Growblic-Internship-Confirmation-${safeName || "Student"}.pdf`;
+  return `Growblic-Internship-Certificate-${safeName || "Student"}.pdf`;
 }
 
 export function replaceObjectUrl(
@@ -214,7 +579,7 @@ export function replaceObjectUrl(
 }
 
 export function highDpiPreviewScale(devicePixelRatio: number) {
-  return Math.max(2, Math.min(devicePixelRatio || 1, 3));
+  return Math.max(2.5, Math.min(devicePixelRatio || 1, 3));
 }
 
 export function confirmationDynamicText(
@@ -228,7 +593,7 @@ export function confirmationDynamicText(
     joiningDate,
     referenceNumber:
       input.referenceNumber ?? createConfirmationReference(),
-    statement: `This is to confirm that ${cleanText(input.fullName)} has been enrolled in a ${input.durationDays}-day internship program as a ${cleanText(input.program)}.`,
+    statement: `This is to certify that ${cleanText(input.fullName)} has been enrolled in the ${cleanText(input.program)} internship program for ${input.durationDays} days, commencing on ${joiningDate}.`,
   };
 }
 
@@ -239,278 +604,20 @@ export async function generateConfirmationLetter(
   const errors = validateConfirmationInput(input);
 
   if (errors.fullName || errors.program || errors.joiningDate) {
-    throw new Error(
-      errors.fullName ?? errors.program ?? errors.joiningDate,
-    );
+    throw new Error(errors.fullName ?? errors.program ?? errors.joiningDate);
   }
 
   if (![30, 45, 60, 90, 180].includes(input.durationDays)) {
     throw new Error("A valid internship duration is required.");
   }
 
-  const document = await PDFDocument.create();
-  const page = document.addPage([pageWidth, pageHeight]);
-  const regularFont = await document.embedFont(StandardFonts.Helvetica);
-  const boldFont = await document.embedFont(StandardFonts.HelveticaBold);
-  const watermarkFont = await document.embedFont(
-    StandardFonts.HelveticaBoldOblique,
+  const content =
+    internshipProgramContent[input.program as InternshipProgram];
+
+  return generateInternshipCertificatePdf(
+    assets,
+    input,
+    content,
+    confirmationDynamicText(input),
   );
-  const signature = await document.embedPng(assets.signature);
-  const text = confirmationDynamicText(input);
-  const safeName = fontSafeText(boldFont, input.fullName);
-  const safeProgram = fontSafeText(boldFont, input.program);
-
-  page.drawRectangle({
-    x: 0,
-    y: 0,
-    width: pageWidth,
-    height: pageHeight,
-    color: white,
-  });
-
-  page.drawRectangle({ x: 46, y: 748, width: 48, height: 48, color: navy });
-  page.drawText("G", {
-    x: 57,
-    y: 759,
-    size: 27,
-    font: boldFont,
-    color: white,
-  });
-  page.drawText("Growblic", {
-    x: 108,
-    y: 766,
-    size: confirmationLetterTypography.companyName,
-    font: boldFont,
-    color: navy,
-  });
-  page.drawText("Software Development Company", {
-    x: 110,
-    y: 748,
-    size: confirmationLetterTypography.subtitle,
-    font: regularFont,
-    color: green,
-  });
-
-  page.drawText(`Ref No: ${text.referenceNumber}`, {
-    x: 405,
-    y: 777,
-    size: fitFontSize(
-      regularFont,
-      `Ref No: ${text.referenceNumber}`,
-      145,
-      confirmationLetterTypography.reference,
-    ),
-    font: regularFont,
-    color: slate,
-  });
-  page.drawText(`Date: ${text.issueDate}`, {
-    x: 405,
-    y: 757,
-    size: confirmationLetterTypography.reference,
-    font: regularFont,
-    color: slate,
-  });
-  page.drawLine({
-    start: { x: 46, y: 724 },
-    end: { x: 549, y: 724 },
-    thickness: 1.2,
-    color: line,
-  });
-  page.drawLine({
-    start: { x: 46, y: 724 },
-    end: { x: 164, y: 724 },
-    thickness: 3,
-    color: green,
-  });
-
-  page.drawText("Internship Confirmation Letter", {
-    x: 46,
-    y: 672,
-    size: confirmationLetterTypography.title,
-    font: boldFont,
-    color: navy,
-  });
-  page.drawText("This is to confirm that", {
-    x: 46,
-    y: 632,
-    size: confirmationLetterTypography.body,
-    font: regularFont,
-    color: slate,
-  });
-  page.drawText(safeName, {
-    x: 46,
-    y: 606,
-    size: fitFontSize(
-      boldFont,
-      safeName,
-      503,
-      confirmationLetterTypography.studentName,
-      11.5,
-    ),
-    font: boldFont,
-    color: blue,
-  });
-  page.drawText(
-    `has been enrolled in a ${input.durationDays}-day internship program as a`,
-    {
-      x: 46,
-      y: 581,
-      size: confirmationLetterTypography.body,
-      font: regularFont,
-      color: slate,
-    },
-  );
-  page.drawText(safeProgram, {
-    x: 46,
-    y: 556,
-    size: fitFontSize(
-      boldFont,
-      safeProgram,
-      503,
-      13.5,
-      11.5,
-    ),
-    font: boldFont,
-    color: navy,
-  });
-
-  page.drawRectangle({
-    x: 46,
-    y: 392,
-    width: 503,
-    height: 132,
-    color: paleBlue,
-    borderColor: line,
-    borderWidth: 1,
-  });
-  page.drawRectangle({ x: 46, y: 518, width: 503, height: 6, color: green });
-  page.drawLine({
-    start: { x: 297.5, y: 406 },
-    end: { x: 297.5, y: 510 },
-    thickness: 1,
-    color: line,
-  });
-  page.drawLine({
-    start: { x: 60, y: 458 },
-    end: { x: 535, y: 458 },
-    thickness: 1,
-    color: line,
-  });
-
-  const drawDetail = (
-    label: string,
-    value: string,
-    x: number,
-    labelY: number,
-    maximumWidth = 220,
-  ) => {
-    page.drawText(label.toUpperCase(), {
-      x,
-      y: labelY,
-      size: confirmationLetterTypography.detailLabel,
-      font: boldFont,
-      color: green,
-    });
-    const safeValue = fontSafeText(boldFont, value);
-    page.drawText(safeValue, {
-      x,
-      y: labelY - 20,
-      size: fitFontSize(
-        boldFont,
-        safeValue,
-        maximumWidth,
-        confirmationLetterTypography.detailValue,
-      ),
-      font: boldFont,
-      color: navy,
-    });
-  };
-
-  drawDetail("Company", "Growblic Private Limited", 62, 488);
-  drawDetail("Program", input.program, 314, 488);
-  drawDetail("Duration", `${input.durationDays} days`, 62, 438);
-  drawDetail("Date of Joining", text.joiningDate, 314, 438);
-
-  const description =
-    "This internship program is designed to provide practical industry exposure, hands-on experience in modern software development technologies, and innovative learning opportunities. The program aims to enhance technical skills, problem-solving abilities, teamwork, and professional growth through real-world projects and sustainable digital solutions.";
-  const descriptionLines = wrapText(
-    regularFont,
-    description,
-    confirmationLetterTypography.body,
-    503,
-  );
-
-  descriptionLines.forEach((descriptionLine, index) => {
-    page.drawText(descriptionLine, {
-      x: 46,
-      y: 354 - index * 17,
-      size: confirmationLetterTypography.body,
-      font: regularFont,
-      color: slate,
-    });
-  });
-
-  page.drawText("G", {
-    x: 224,
-    y: 148,
-    size: 170,
-    font: watermarkFont,
-    color: green,
-    opacity: 0.045,
-  });
-
-  page.drawText("Authorized Signatory", {
-    x: 46,
-    y: 210,
-    size: 10.5,
-    font: boldFont,
-    color: navy,
-  });
-  page.drawImage(signature, {
-    x: 48,
-    y: 165,
-    width: 80,
-    height: 35,
-  });
-  page.drawLine({
-    start: { x: 46, y: 126 },
-    end: { x: 549, y: 126 },
-    thickness: 1,
-    color: line,
-  });
-
-  page.drawText("182/80, Goyal traders, Industrial Area Phase 1, Chandigarh 160002", {
-    x: 46,
-    y: 98,
-    size: confirmationLetterTypography.footer,
-    font: regularFont,
-    color: slate,
-  });
-  page.drawText("+91 8377001500  |  hello@growblic.com  |  www.growblic.com", {
-    x: 46,
-    y: 79,
-    size: confirmationLetterTypography.footer,
-    font: regularFont,
-    color: slate,
-  });
-  page.drawText("GSTIN: 06AAMCG3210D1Z4", {
-    x: 392,
-    y: 98,
-    size: confirmationLetterTypography.footer,
-    font: boldFont,
-    color: navy,
-  });
-  page.drawText("CIN: U63120HR2025PTC135768", {
-    x: 392,
-    y: 79,
-    size: confirmationLetterTypography.footer,
-    font: boldFont,
-    color: navy,
-  });
-
-  page.drawRectangle({ x: 0, y: 0, width: pageWidth, height: 9, color: blue });
-  page.drawRectangle({ x: 0, y: 9, width: pageWidth, height: 5, color: paleGreen });
-  page.drawRectangle({ x: 390, y: 0, width: 205.28, height: 9, color: green });
-
-  return document.save({ useObjectStreams: false });
 }

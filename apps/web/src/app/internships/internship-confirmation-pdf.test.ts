@@ -10,6 +10,7 @@ import {
   createConfirmationReference,
   generateConfirmationLetter,
   highDpiPreviewScale,
+  internshipProgramContent,
   localDateValue,
   replaceObjectUrl,
   validateConfirmationInput,
@@ -25,18 +26,16 @@ const assetRoot = resolve(process.cwd(), "apps/web/public/templates");
 
 const validInput: ConfirmationLetterInput = {
   fullName: "Gautam",
-  program: "Full Stack Developer",
-  durationDays: 60,
-  joiningDate: "2026-07-23",
+  program: "Frontend Developer",
+  durationDays: 180,
+  joiningDate: "2026-07-14",
   referenceNumber: "2026/07/000123",
 };
 
 async function fixedAssets(): Promise<ConfirmationLetterAssets> {
-  const signature = await readFile(
-    resolve(assetRoot, "internship-letter-signature.png"),
-  );
+  const logo = await readFile(resolve(assetRoot, "growblic-official-logo.png"));
 
-  return { signature };
+  return { logo };
 }
 
 test("full name is required", () => {
@@ -61,7 +60,7 @@ test("date of joining is required", () => {
 });
 
 test("selected duration is transferred into the confirmation text", () => {
-  assert.match(confirmationDynamicText(validInput).statement, /60-day/);
+  assert.match(confirmationDynamicText(validInput).statement, /180 days/);
 });
 
 test("current local date defaults from local date parts", () => {
@@ -78,7 +77,7 @@ test("reference number is generated without database identifiers", () => {
 test("download filename is sanitized", () => {
   assert.equal(
     confirmationFilename("  Aarav / Sharma  "),
-    "Growblic-Internship-Confirmation-Aarav-Sharma.pdf",
+    "Growblic-Internship-Certificate-Aarav-Sharma.pdf",
   );
 });
 
@@ -95,6 +94,24 @@ test("generated PDF is non-empty and remains one page", async () => {
   assert.equal(document.getPageCount(), 1);
 });
 
+test("primary developer program certificates all remain one page", async () => {
+  const assets = await fixedAssets();
+
+  for (const program of [
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+  ]) {
+    const bytes = await generateConfirmationLetter(assets, {
+      ...validInput,
+      program,
+    });
+    const document = await PDFDocument.load(bytes);
+
+    assert.equal(document.getPageCount(), 1, program);
+  }
+});
+
 test("dynamic student name appears in the generated text", () => {
   assert.match(confirmationDynamicText(validInput).statement, /Gautam/);
 });
@@ -102,15 +119,15 @@ test("dynamic student name appears in the generated text", () => {
 test("selected program appears in the generated statement", () => {
   const text = confirmationDynamicText(validInput);
 
-  assert.match(text.statement, /Full Stack Developer/);
+  assert.match(text.statement, /Frontend Developer/);
 });
 
 test("dynamic statement does not duplicate student values", () => {
   const { statement } = confirmationDynamicText(validInput);
 
   assert.equal(statement.match(/Gautam/g)?.length, 1);
-  assert.equal(statement.match(/Full Stack Developer/g)?.length, 1);
-  assert.equal(statement.match(/60-day/g)?.length, 1);
+  assert.equal(statement.match(/Frontend Developer/g)?.length, 1);
+  assert.equal(statement.match(/180 days/g)?.length, 1);
 });
 
 test("selected date is formatted for the letter", () => {
@@ -119,7 +136,7 @@ test("selected date is formatted for the letter", () => {
     new Date(2026, 6, 14, 23, 30),
   );
 
-  assert.equal(text.joiningDate, "23 July 2026");
+  assert.equal(text.joiningDate, "14 July 2026");
   assert.equal(text.issueDate, "14 July 2026");
 });
 
@@ -142,19 +159,36 @@ test("replacing an object URL revokes the old URL", () => {
 
 test("all configured letter typography remains readable", () => {
   assert.ok(
-    Object.values(confirmationLetterTypography).every((size) => size >= 9.5),
+    Object.values(confirmationLetterTypography).every((size) => size >= 9),
   );
-  assert.ok(confirmationLetterTypography.companyName >= 28);
-  assert.ok(confirmationLetterTypography.companyName <= 32);
+  assert.ok(confirmationLetterTypography.companyName >= 24);
+  assert.ok(confirmationLetterTypography.companyName <= 30);
   assert.ok(confirmationLetterTypography.title >= 20);
-  assert.ok(confirmationLetterTypography.title <= 24);
+  assert.ok(confirmationLetterTypography.title <= 28);
   assert.ok(confirmationLetterTypography.body >= 11.5);
+  assert.ok(confirmationLetterTypography.studentName >= 26);
+  assert.ok(confirmationLetterTypography.program >= 16);
 });
 
 test("preview renderer uses a bounded high-DPI scale", () => {
-  assert.equal(highDpiPreviewScale(1), 2);
-  assert.equal(highDpiPreviewScale(2.5), 2.5);
+  assert.equal(highDpiPreviewScale(1), 2.5);
+  assert.equal(highDpiPreviewScale(2), 2.5);
+  assert.equal(highDpiPreviewScale(2.75), 2.75);
   assert.equal(highDpiPreviewScale(4), 3);
+});
+
+test("every internship program has distinct certificate content", () => {
+  const contentSignatures = Object.values(internshipProgramContent).map(
+    (content) => JSON.stringify(content),
+  );
+
+  assert.equal(Object.keys(internshipProgramContent).length, 15);
+  assert.equal(new Set(contentSignatures).size, 15);
+  Object.values(internshipProgramContent).forEach((content) => {
+    assert.ok(content.learning.length >= 5);
+    assert.ok(content.responsibilities.length >= 5);
+    assert.ok(content.skills.length >= 8);
+  });
 });
 
 test("sample-specific reference values are never reused", () => {
