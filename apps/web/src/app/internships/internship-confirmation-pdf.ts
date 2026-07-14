@@ -18,6 +18,18 @@ export const internshipPrograms = [
   "Business Development",
 ] as const;
 
+export const confirmationLetterTypography = {
+  companyName: 30,
+  subtitle: 11.5,
+  reference: 10,
+  title: 22,
+  body: 12,
+  studentName: 14.5,
+  detailLabel: 10,
+  detailValue: 12.5,
+  footer: 9.5,
+} as const;
+
 export type InternshipProgram = (typeof internshipPrograms)[number];
 
 export type ConfirmationLetterInput = {
@@ -29,16 +41,19 @@ export type ConfirmationLetterInput = {
 };
 
 export type ConfirmationLetterAssets = {
-  header: ArrayBuffer | Uint8Array;
   signature: ArrayBuffer | Uint8Array;
-  footer: ArrayBuffer | Uint8Array;
 };
 
-const pageWidth = 595.5;
-const pageHeight = 842.25;
-const black = rgb(0.04, 0.04, 0.04);
+const pageWidth = 595.28;
+const pageHeight = 841.89;
+const navy = rgb(0.055, 0.11, 0.2);
+const slate = rgb(0.28, 0.34, 0.43);
+const blue = rgb(0.15, 0.39, 0.92);
+const green = rgb(0.16, 0.62, 0.34);
+const paleBlue = rgb(0.95, 0.975, 1);
+const paleGreen = rgb(0.94, 0.985, 0.955);
+const line = rgb(0.84, 0.89, 0.96);
 const white = rgb(1, 1, 1);
-const brandGreen = rgb(0.24, 0.62, 0.2);
 
 function cleanText(value: string) {
   return value.replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").trim();
@@ -57,7 +72,7 @@ function fitFontSize(
   text: string,
   maximumWidth: number,
   preferredSize: number,
-  minimumSize = 7,
+  minimumSize = 9.5,
 ) {
   let size = preferredSize;
 
@@ -71,21 +86,21 @@ function fitFontSize(
 function wrapText(font: PDFFont, value: string, size: number, width: number) {
   const words = fontSafeText(font, value).split(" ");
   const lines: string[] = [];
-  let line = "";
+  let currentLine = "";
 
   for (const word of words) {
-    const candidate = line ? `${line} ${word}` : word;
+    const candidate = currentLine ? `${currentLine} ${word}` : word;
 
-    if (font.widthOfTextAtSize(candidate, size) <= width || !line) {
-      line = candidate;
+    if (font.widthOfTextAtSize(candidate, size) <= width || !currentLine) {
+      currentLine = candidate;
     } else {
-      lines.push(line);
-      line = word;
+      lines.push(currentLine);
+      currentLine = word;
     }
   }
 
-  if (line) {
-    lines.push(line);
+  if (currentLine) {
+    lines.push(currentLine);
   }
 
   return lines;
@@ -198,16 +213,22 @@ export function replaceObjectUrl(
   return nextUrl;
 }
 
-export function confirmationDynamicText(input: ConfirmationLetterInput) {
-  const date = formatConfirmationDate(input.joiningDate);
+export function highDpiPreviewScale(devicePixelRatio: number) {
+  return Math.max(2, Math.min(devicePixelRatio || 1, 3));
+}
+
+export function confirmationDynamicText(
+  input: ConfirmationLetterInput,
+  issuedAt = new Date(),
+) {
+  const joiningDate = formatConfirmationDate(input.joiningDate);
 
   return {
-    date,
+    issueDate: formatConfirmationDate(localDateValue(issuedAt)),
+    joiningDate,
     referenceNumber:
       input.referenceNumber ?? createConfirmationReference(),
-    confirmationSentence: `This is to confirm that ${cleanText(input.fullName)} has been enrolled in a ${input.durationDays} day Internship program in ${cleanText(input.program)}.`,
-    programLine: `2. Program: ${cleanText(input.program)}`,
-    dateLine: `3. Date of Joining: ${date}`,
+    statement: `This is to confirm that ${cleanText(input.fullName)} has been enrolled in a ${input.durationDays}-day internship program as a ${cleanText(input.program)}.`,
   };
 }
 
@@ -234,10 +255,10 @@ export async function generateConfirmationLetter(
   const watermarkFont = await document.embedFont(
     StandardFonts.HelveticaBoldOblique,
   );
-  const header = await document.embedPng(assets.header);
   const signature = await document.embedPng(assets.signature);
-  const footer = await document.embedPng(assets.footer);
   const text = confirmationDynamicText(input);
+  const safeName = fontSafeText(boldFont, input.fullName);
+  const safeProgram = fontSafeText(boldFont, input.program);
 
   page.drawRectangle({
     x: 0,
@@ -247,129 +268,249 @@ export async function generateConfirmationLetter(
     color: white,
   });
 
-  page.drawImage(header, {
-    x: 32,
-    y: pageHeight - 68 - 72,
-    width: 245,
-    height: 72,
-  });
-
+  page.drawRectangle({ x: 46, y: 748, width: 48, height: 48, color: navy });
   page.drawText("G", {
-    x: 112,
-    y: 176,
-    size: 325,
-    font: watermarkFont,
-    color: brandGreen,
-    opacity: 0.11,
+    x: 57,
+    y: 759,
+    size: 27,
+    font: boldFont,
+    color: white,
+  });
+  page.drawText("Growblic", {
+    x: 108,
+    y: 766,
+    size: confirmationLetterTypography.companyName,
+    font: boldFont,
+    color: navy,
+  });
+  page.drawText("Software Development Company", {
+    x: 110,
+    y: 748,
+    size: confirmationLetterTypography.subtitle,
+    font: regularFont,
+    color: green,
   });
 
   page.drawText(`Ref No: ${text.referenceNumber}`, {
-    x: 412,
-    y: 690,
+    x: 405,
+    y: 777,
     size: fitFontSize(
       regularFont,
       `Ref No: ${text.referenceNumber}`,
-      160,
-      9.2,
+      145,
+      confirmationLetterTypography.reference,
     ),
     font: regularFont,
-    color: black,
+    color: slate,
   });
-  page.drawText(`Date: ${text.date}`, {
-    x: 412,
-    y: 666,
-    size: 9.2,
+  page.drawText(`Date: ${text.issueDate}`, {
+    x: 405,
+    y: 757,
+    size: confirmationLetterTypography.reference,
     font: regularFont,
-    color: black,
+    color: slate,
+  });
+  page.drawLine({
+    start: { x: 46, y: 724 },
+    end: { x: 549, y: 724 },
+    thickness: 1.2,
+    color: line,
+  });
+  page.drawLine({
+    start: { x: 46, y: 724 },
+    end: { x: 164, y: 724 },
+    thickness: 3,
+    color: green,
   });
 
   page.drawText("Internship Confirmation Letter", {
-    x: 49,
-    y: 582,
-    size: 11,
+    x: 46,
+    y: 672,
+    size: confirmationLetterTypography.title,
     font: boldFont,
-    color: black,
+    color: navy,
   });
-
-  const confirmationSize = fitFontSize(
-    regularFont,
-    fontSafeText(regularFont, text.confirmationSentence),
-    500,
-    9.2,
-    8.2,
-  );
-  const confirmationLines = wrapText(
-    regularFont,
-    text.confirmationSentence,
-    confirmationSize,
-    500,
-  );
-
-  confirmationLines.slice(0, 2).forEach((line, index) => {
-    page.drawText(line, {
-      x: 49,
-      y: 568 - index * 13,
-      size: confirmationSize,
+  page.drawText("This is to confirm that", {
+    x: 46,
+    y: 632,
+    size: confirmationLetterTypography.body,
+    font: regularFont,
+    color: slate,
+  });
+  page.drawText(safeName, {
+    x: 46,
+    y: 606,
+    size: fitFontSize(
+      boldFont,
+      safeName,
+      503,
+      confirmationLetterTypography.studentName,
+      11.5,
+    ),
+    font: boldFont,
+    color: blue,
+  });
+  page.drawText(
+    `has been enrolled in a ${input.durationDays}-day internship program as a`,
+    {
+      x: 46,
+      y: 581,
+      size: confirmationLetterTypography.body,
       font: regularFont,
-      color: black,
-    });
+      color: slate,
+    },
+  );
+  page.drawText(safeProgram, {
+    x: 46,
+    y: 556,
+    size: fitFontSize(
+      boldFont,
+      safeProgram,
+      503,
+      13.5,
+      11.5,
+    ),
+    font: boldFont,
+    color: navy,
   });
 
-  page.drawText("1. Name of Company: Growblic Private Limited", {
-    x: 50,
-    y: 520,
-    size: 9.2,
-    font: regularFont,
-    color: black,
+  page.drawRectangle({
+    x: 46,
+    y: 392,
+    width: 503,
+    height: 132,
+    color: paleBlue,
+    borderColor: line,
+    borderWidth: 1,
   });
-  page.drawText(fontSafeText(regularFont, text.programLine), {
-    x: 50,
-    y: 507,
-    size: 9.2,
-    font: regularFont,
-    color: black,
+  page.drawRectangle({ x: 46, y: 518, width: 503, height: 6, color: green });
+  page.drawLine({
+    start: { x: 297.5, y: 406 },
+    end: { x: 297.5, y: 510 },
+    thickness: 1,
+    color: line,
   });
-  page.drawText(text.dateLine, {
-    x: 50,
-    y: 494,
-    size: 9.2,
-    font: regularFont,
-    color: black,
+  page.drawLine({
+    start: { x: 60, y: 458 },
+    end: { x: 535, y: 458 },
+    thickness: 1,
+    color: line,
   });
+
+  const drawDetail = (
+    label: string,
+    value: string,
+    x: number,
+    labelY: number,
+    maximumWidth = 220,
+  ) => {
+    page.drawText(label.toUpperCase(), {
+      x,
+      y: labelY,
+      size: confirmationLetterTypography.detailLabel,
+      font: boldFont,
+      color: green,
+    });
+    const safeValue = fontSafeText(boldFont, value);
+    page.drawText(safeValue, {
+      x,
+      y: labelY - 20,
+      size: fitFontSize(
+        boldFont,
+        safeValue,
+        maximumWidth,
+        confirmationLetterTypography.detailValue,
+      ),
+      font: boldFont,
+      color: navy,
+    });
+  };
+
+  drawDetail("Company", "Growblic Private Limited", 62, 488);
+  drawDetail("Program", input.program, 314, 488);
+  drawDetail("Duration", `${input.durationDays} days`, 62, 438);
+  drawDetail("Date of Joining", text.joiningDate, 314, 438);
 
   const description =
     "This internship program is designed to provide practical industry exposure, hands-on experience in modern software development technologies, and innovative learning opportunities. The program aims to enhance technical skills, problem-solving abilities, teamwork, and professional growth through real-world projects and sustainable digital solutions.";
-  const descriptionLines = wrapText(regularFont, description, 9.2, 500);
+  const descriptionLines = wrapText(
+    regularFont,
+    description,
+    confirmationLetterTypography.body,
+    503,
+  );
 
-  descriptionLines.forEach((line, index) => {
-    page.drawText(line, {
-      x: 50,
-      y: 468 - index * 13,
-      size: 9.2,
+  descriptionLines.forEach((descriptionLine, index) => {
+    page.drawText(descriptionLine, {
+      x: 46,
+      y: 354 - index * 17,
+      size: confirmationLetterTypography.body,
       font: regularFont,
-      color: black,
+      color: slate,
     });
   });
 
+  page.drawText("G", {
+    x: 224,
+    y: 148,
+    size: 170,
+    font: watermarkFont,
+    color: green,
+    opacity: 0.045,
+  });
+
   page.drawText("Authorized Signatory", {
-    x: 38,
-    y: 321,
-    size: 9.2,
-    font: regularFont,
-    color: black,
+    x: 46,
+    y: 210,
+    size: 10.5,
+    font: boldFont,
+    color: navy,
   });
   page.drawImage(signature, {
     x: 48,
-    y: 275,
-    width: 85,
+    y: 165,
+    width: 80,
     height: 35,
   });
-  page.drawImage(footer, {
-    x: 1,
-    y: 0,
-    width: 594,
-    height: 160,
+  page.drawLine({
+    start: { x: 46, y: 126 },
+    end: { x: 549, y: 126 },
+    thickness: 1,
+    color: line,
   });
+
+  page.drawText("182/80, Goyal traders, Industrial Area Phase 1, Chandigarh 160002", {
+    x: 46,
+    y: 98,
+    size: confirmationLetterTypography.footer,
+    font: regularFont,
+    color: slate,
+  });
+  page.drawText("+91 8377001500  |  hello@growblic.com  |  www.growblic.com", {
+    x: 46,
+    y: 79,
+    size: confirmationLetterTypography.footer,
+    font: regularFont,
+    color: slate,
+  });
+  page.drawText("GSTIN: 06AAMCG3210D1Z4", {
+    x: 392,
+    y: 98,
+    size: confirmationLetterTypography.footer,
+    font: boldFont,
+    color: navy,
+  });
+  page.drawText("CIN: U63120HR2025PTC135768", {
+    x: 392,
+    y: 79,
+    size: confirmationLetterTypography.footer,
+    font: boldFont,
+    color: navy,
+  });
+
+  page.drawRectangle({ x: 0, y: 0, width: pageWidth, height: 9, color: blue });
+  page.drawRectangle({ x: 0, y: 9, width: pageWidth, height: 5, color: paleGreen });
+  page.drawRectangle({ x: 390, y: 0, width: 205.28, height: 9, color: green });
 
   return document.save({ useObjectStreams: false });
 }

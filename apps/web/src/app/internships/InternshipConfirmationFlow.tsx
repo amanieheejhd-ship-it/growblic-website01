@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   confirmationFilename,
   generateConfirmationLetter,
+  highDpiPreviewScale,
   internshipPrograms,
   localDateValue,
   replaceObjectUrl,
@@ -65,7 +66,9 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
       loadingTask = task;
       const document = await task.promise;
       const page = await document.getPage(1);
-      const viewport = page.getViewport({ scale: 2 });
+      const viewport = page.getViewport({
+        scale: highDpiPreviewScale(window.devicePixelRatio),
+      });
       const canvas = canvasRef.current;
 
       if (!canvas || cancelled) {
@@ -127,12 +130,10 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
     try {
       const basePath = process.env.NEXT_PUBLIC_SITE_BASE_PATH || "";
       const assetRoot = `${basePath}/templates`;
-      const [header, signature, footer] = await Promise.all([
-        loadAsset(`${assetRoot}/internship-letter-header.png`),
-        loadAsset(`${assetRoot}/internship-letter-signature.png`),
-        loadAsset(`${assetRoot}/internship-letter-footer.png`),
-      ]);
-      const assets: ConfirmationLetterAssets = { header, signature, footer };
+      const signature = await loadAsset(
+        `${assetRoot}/internship-letter-signature.png`,
+      );
+      const assets: ConfirmationLetterAssets = { signature };
       const bytes = await generateConfirmationLetter(assets, input);
       const blobBytes = Uint8Array.from(bytes);
       const nextUrl = URL.createObjectURL(
