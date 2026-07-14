@@ -59,6 +59,21 @@ enum SettingValueType {
   JSON
 }
 
+enum InternshipPaymentStatus {
+  CREATED
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum InvoiceDeliveryStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+}
+
 model ContactEnquiry {
   id        String        @id @default(cuid())
   name      String
@@ -298,12 +313,77 @@ model InternshipApplication {
   status               JobApplicationStatus @default(NEW)
   createdAt            DateTime             @default(now()) @map("created_at")
   updatedAt            DateTime             @updatedAt @map("updated_at")
+  payment              InternshipPayment?
 
   @@index([email])
   @@index([internshipSlug])
   @@index([status])
   @@index([createdAt])
   @@map("internship_applications")
+}
+
+model InternshipPayment {
+  id                      String                  @id @default(cuid())
+  internshipApplicationId String                  @unique @map("internship_application_id")
+  accessTokenHash         String                  @map("access_token_hash")
+  gateway                 String                  @default("RAZORPAY")
+  gatewayOrderId          String                  @unique @map("gateway_order_id")
+  gatewayPaymentId        String?                 @unique @map("gateway_payment_id")
+  selectedDuration        Int                     @map("selected_duration")
+  internshipProgram       String                  @map("internship_program")
+  amountPaise             Int                     @map("amount_paise")
+  currency                String                  @default("INR")
+  status                  InternshipPaymentStatus @default(CREATED)
+  customerName            String                  @map("customer_name")
+  customerEmail           String                  @map("customer_email")
+  customerPhone           String                  @map("customer_phone")
+  paymentMethod           String?                 @map("payment_method")
+  paidAt                  DateTime?               @map("paid_at")
+  createdAt               DateTime                @default(now()) @map("created_at")
+  updatedAt               DateTime                @updatedAt @map("updated_at")
+  internshipApplication   InternshipApplication   @relation(fields: [internshipApplicationId], references: [id], onDelete: Restrict)
+  invoice                 Invoice?
+
+  @@index([internshipApplicationId, status])
+  @@index([customerEmail])
+  @@index([status, createdAt])
+  @@map("internship_payments")
+}
+
+model Invoice {
+  id             String                @id @default(cuid())
+  paymentId      String                @unique @map("payment_id")
+  invoiceNumber  String                @unique @map("invoice_number")
+  issuedAt       DateTime              @map("issued_at")
+  customerName   String                @map("customer_name")
+  customerEmail  String                @map("customer_email")
+  customerPhone  String                @map("customer_phone")
+  description    String
+  amountPaise    Int                   @map("amount_paise")
+  totalPaise     Int                   @map("total_paise")
+  currency       String                @default("INR")
+  deliveryStatus InvoiceDeliveryStatus @default(PENDING) @map("delivery_status")
+  deliveryError  String?               @map("delivery_error")
+  deliveredAt    DateTime?             @map("delivered_at")
+  createdAt      DateTime              @default(now()) @map("created_at")
+  updatedAt      DateTime              @updatedAt @map("updated_at")
+  payment        InternshipPayment     @relation(fields: [paymentId], references: [id], onDelete: Restrict)
+
+  @@index([issuedAt])
+  @@index([deliveryStatus])
+  @@map("invoices")
+}
+
+model PaymentWebhookEvent {
+  id          String   @id @default(cuid())
+  eventId     String   @unique @map("event_id")
+  eventType   String   @map("event_type")
+  processedAt DateTime @default(now()) @map("processed_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([eventType])
+  @@index([createdAt])
+  @@map("payment_webhook_events")
 }
 
 model MeetingRequest {

@@ -2,7 +2,7 @@
 
 import type { InternshipApplicationRequest } from "@growblic/contracts";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { Internship } from "./internship-data";
 import InternshipFeePanel from "./InternshipFeePanel";
@@ -61,8 +61,21 @@ export default function InternshipDetailClient({
   const [showFeePanel, setShowFeePanel] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [applicationReference, setApplicationReference] = useState("");
   const submittingRef = useRef(false);
   const submissionKeyRef = useRef("");
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      const reference = window.localStorage.getItem(`growblic-internship-application:${internship.slug}`) ?? "";
+      if (reference) {
+        submissionKeyRef.current = reference;
+        setApplicationReference(reference);
+        setShowFeePanel(true);
+      }
+    }, 0);
+    return () => window.clearTimeout(timeout);
+  }, [internship.slug]);
 
   async function openFeePanel(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -79,7 +92,13 @@ export default function InternshipDetailClient({
     }
 
     const formData = new FormData(form);
-    submissionKeyRef.current ||= crypto.randomUUID();
+    if (showFeePanel) {
+      setShowFeePanel(false);
+      setApplicationReference("");
+      submissionKeyRef.current = crypto.randomUUID();
+    } else {
+      submissionKeyRef.current ||= crypto.randomUUID();
+    }
     submittingRef.current = true;
     setIsSubmitting(true);
     setSubmitError("");
@@ -118,7 +137,11 @@ export default function InternshipDetailClient({
       }
 
       setShowFeePanel(true);
-      submissionKeyRef.current = "";
+      setApplicationReference(submissionKeyRef.current);
+      window.localStorage.setItem(
+        `growblic-internship-application:${internship.slug}`,
+        submissionKeyRef.current,
+      );
 
       window.setTimeout(() => {
         document.getElementById("internship-fee-panel")?.scrollIntoView({
@@ -519,7 +542,10 @@ export default function InternshipDetailClient({
         </section>
 
         {showFeePanel && (
-          <InternshipFeePanel internshipTitle={internship.title} />
+          <InternshipFeePanel
+            internshipTitle={internship.title}
+            applicationReference={applicationReference}
+          />
         )}
       </div>
     </main>

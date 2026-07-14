@@ -14,17 +14,12 @@ import {
 
 type Props = {
   durationDays: number;
+  initialFullName: string;
+  initialProgram: string;
 };
 
 const fieldClass =
   "mt-2 min-h-12 w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm shadow-blue-100/40 outline-none transition placeholder:text-slate-400 focus:border-blue-300 focus:ring-4 focus:ring-blue-100";
-
-function applicationFullName() {
-  return (
-    document.querySelector<HTMLInputElement>('input[name="fullName"]')?.value ??
-    ""
-  ).trim();
-}
 
 async function loadAsset(url: string) {
   const response = await fetch(url);
@@ -36,11 +31,9 @@ async function loadAsset(url: string) {
   return response.arrayBuffer();
 }
 
-export default function InternshipConfirmationFlow({ durationDays }: Props) {
-  const [fullName, setFullName] = useState(() =>
-    typeof document === "undefined" ? "" : applicationFullName(),
-  );
-  const [program, setProgram] = useState("");
+export default function InternshipConfirmationFlow({ durationDays, initialFullName, initialProgram }: Props) {
+  const [fullName] = useState(initialFullName);
+  const [program] = useState(initialProgram);
   const [joiningDate, setJoiningDate] = useState(() => localDateValue());
   const [error, setError] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -175,7 +168,7 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
             <input
               name="confirmationFullName"
               value={fullName}
-              onChange={(event) => setFullName(event.target.value)}
+              readOnly
               className={fieldClass}
               autoComplete="name"
               required
@@ -187,7 +180,7 @@ export default function InternshipConfirmationFlow({ durationDays }: Props) {
             <select
               name="confirmationProgram"
               value={program}
-              onChange={(event) => setProgram(event.target.value)}
+              disabled
               className={fieldClass}
               required
             >

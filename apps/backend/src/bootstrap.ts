@@ -1,5 +1,5 @@
 import type { INestApplication } from "@nestjs/common";
-import { json, urlencoded } from "express";
+import { json, urlencoded, type Request } from "express";
 import helmet from "helmet";
 
 import type { BackendConfig } from "./common/config/backend-config";
@@ -21,7 +21,9 @@ export function configureBackendApplication(app: INestApplication, config: Backe
         origin: string | undefined,
         callback: (error: Error | null, allow?: boolean) => void,
       ) => callback(null, !origin || allowed.has(origin)),
-      methods: ["GET", "HEAD", "OPTIONS"],
+      methods: ["GET", "HEAD", "OPTIONS", "POST"],
+      allowedHeaders: ["content-type", "x-payment-access-token", "x-razorpay-signature", "x-razorpay-event-id", "x-request-id"],
+      exposedHeaders: ["content-disposition"],
     });
   }
 
@@ -33,7 +35,14 @@ export function configureBackendApplication(app: INestApplication, config: Backe
   app.use(helmet());
   app.use(createRequestContextMiddleware(context));
   app.use(createRequestLoggingMiddleware(logger, context));
-  app.use(json({ limit: config.requestBodyLimit }));
+  app.use(json({
+    limit: config.requestBodyLimit,
+    verify: (request: Request & { rawBody?: Buffer }, _response, body) => {
+      if (request.originalUrl === "/internship-payments/webhooks/razorpay") {
+        request.rawBody = Buffer.from(body);
+      }
+    },
+  }));
   app.use(urlencoded({ extended: false, limit: config.requestBodyLimit }));
   app.useGlobalFilters(new GlobalExceptionFilter(context, logger));
 }

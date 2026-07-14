@@ -157,6 +157,9 @@ importers:
       helmet:
         specifier: 8.3.0
         version: 8.3.0
+      pdf-lib:
+        specifier: ^1.17.1
+        version: 1.17.1
       pino:
         specifier: 10.3.1
         version: 10.3.1

@@ -6,6 +6,7 @@ import { Test } from "@nestjs/testing";
 import assert from "node:assert/strict";
 import { afterEach, describe, it } from "node:test";
 import request from "supertest";
+import { hmacSha256 } from "../src/modules/internship-payments/internship-payment.core";
 
 import { AppModule } from "../src/app.module";
 import { closeApplicationWithTimeout, configureBackendApplication } from "../src/bootstrap";
@@ -154,5 +155,25 @@ describe("backend foundation", () => {
     assert.equal(response.body.error.code, "PAYLOAD_TOO_LARGE");
     assert.equal(response.body.requestId, response.headers["x-request-id"]);
     assert.doesNotMatch(JSON.stringify(response.body), /entity too large|stack/i);
+  });
+});
+
+describe("raw Razorpay webhook body", () => {
+  it("rejects a webhook whose raw-body signature is invalid", async () => {
+    const app = await createApp({ check: async () => undefined });
+    const body = JSON.stringify({ event: "payment.captured", payload: {} });
+    const previous = process.env.RAZORPAY_WEBHOOK_SECRET;
+    process.env.RAZORPAY_WEBHOOK_SECRET = "test_webhook_secret";
+    try {
+      await request(app.getHttpServer())
+        .post("/internship-payments/webhooks/razorpay")
+        .set("content-type", "application/json")
+        .set("x-razorpay-signature", hmacSha256(`${body} `, "test_webhook_secret"))
+        .send(body)
+        .expect(401);
+    } finally {
+      if (previous === undefined) delete process.env.RAZORPAY_WEBHOOK_SECRET;
+      else process.env.RAZORPAY_WEBHOOK_SECRET = previous;
+    }
   });
 });

@@ -9,7 +9,7 @@
     "start:prod": "node dist/main.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "tsc -p tsconfig.test.json && node --test .test-dist/test/backend-foundation.test.js",
+    "test": "tsc -p tsconfig.test.json && node --test .test-dist/test/backend-foundation.test.js .test-dist/src/modules/internship-payments/internship-payment.core.test.js .test-dist/src/modules/internship-payments/internship-invoice.pdf.test.js .test-dist/src/modules/internship-payments/internship-payment.service.test.js",
     "test:watch": "tsc -p tsconfig.test.json --watch --preserveWatchOutput"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "@nestjs/platform-express": "11.1.28",
     "express": "5.2.1",
     "helmet": "8.3.0",
+    "pdf-lib": "^1.17.1",
     "pino": "10.3.1",
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2"

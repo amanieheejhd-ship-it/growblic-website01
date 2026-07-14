@@ -4,6 +4,7 @@ import { BackendConfigModule } from "./common/config/backend-config.module";
 import { LoggingModule } from "./common/logging/logging.module";
 import { RequestContextModule } from "./common/request-context/request-context.module";
 import { HealthModule } from "./modules/health/health.module";
+import { InternshipPaymentsModule } from "./modules/internship-payments/internship-payments.module";
 
 @Module({})
 export class AppModule {
@@ -15,6 +16,7 @@ export class AppModule {
         RequestContextModule,
         LoggingModule.register(config),
         HealthModule,
+        InternshipPaymentsModule,
       ],
     };
   }
