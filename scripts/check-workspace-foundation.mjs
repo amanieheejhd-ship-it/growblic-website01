@@ -75,6 +75,9 @@ for (const path of [
   "apps/web/public",
   "apps/admin/package.json",
   "apps/admin/src/app",
+  "apps/backend/package.json",
+  "apps/backend/src/main.ts",
+  "apps/backend/src/modules/health/health.module.ts",
   "packages/README.md",
   "packages/database/package.json",
   "packages/database/prisma.config.ts",
@@ -125,6 +128,7 @@ if (/^pnpm@\d+\.\d+\.\d+$/.test(packageJson.packageManager ?? "")) {
 for (const path of [
   "apps/web",
   "apps/admin",
+  "apps/backend",
   "packages/database",
   "packages/contracts",
   "packages/validation",
@@ -179,6 +183,7 @@ if (/from\s+["'](?:next|@prisma|@growblic\/database)/.test(validationSource)) {
 for (const [path, preset] of [
   ["apps/web/tsconfig.json", "@growblic/typescript-config/nextjs.json"],
   ["apps/admin/tsconfig.json", "@growblic/typescript-config/nextjs.json"],
+  ["apps/backend/tsconfig.json", "@growblic/typescript-config/node.json"],
   ["packages/database/tsconfig.json", "@growblic/typescript-config/node.json"],
   ["packages/contracts/tsconfig.json", "@growblic/typescript-config/library.json"],
   ["packages/validation/tsconfig.json", "@growblic/typescript-config/library.json"],
@@ -192,15 +197,16 @@ for (const [path, preset] of [
   }
 }
 
-for (const path of [
-  "apps/web/eslint.config.mjs",
-  "apps/admin/eslint.config.mjs",
+for (const [path, preset] of [
+  ["apps/web/eslint.config.mjs", "@growblic/eslint-config/next"],
+  ["apps/admin/eslint.config.mjs", "@growblic/eslint-config/next"],
+  ["apps/backend/eslint.config.mjs", "@growblic/eslint-config/node"],
 ]) {
   const config = readFileSync(join(root, path), "utf8");
 
   if (
     config.includes("@growblic/eslint-config/base") &&
-    config.includes("@growblic/eslint-config/next")
+    config.includes(preset)
   ) {
     pass(`${path} consumes the shared ESLint config.`);
   } else {

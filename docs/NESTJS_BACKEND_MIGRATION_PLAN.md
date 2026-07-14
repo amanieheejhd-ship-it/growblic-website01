@@ -1,6 +1,6 @@
 # NestJS backend migration plan
 
-Status: Phase 2G-A planning complete; implementation not started
+Status: Phase 2G-B backend foundation implemented locally; no business endpoint migrated
 Plan date: 2026-07-14
 Planning baseline: `6bfcc00c15347c673981498c86277d25549f1926`
 Rollback tag before backend work: `pre-nestjs-backend-2026-07-13`
@@ -19,7 +19,7 @@ The migration must be incremental:
 
 The browser-facing URLs and response contracts must remain stable throughout. `apps/web` and `apps/admin` should initially retain thin same-origin route handlers that forward to the backend. This avoids public-site changes, cross-origin browser requests, parent-domain cookies, and a high-risk all-at-once traffic switch.
 
-Phase 2G-A creates this document only. It does not install NestJS, scaffold `apps/backend`, change dependencies or lockfiles, add source code, change the database, deploy, push, or begin Phase 2G-B.
+Phase 2G-A created this document only. Phase 2G-B subsequently added the approved backend foundation without changing the database or migrating business behavior.
 
 ## 2. Baseline and invariants
 
@@ -191,7 +191,7 @@ Before auth cutover, threat-model and test cookie fixation, CSRF, origin validat
 
 Each stage requires a separate approval and reviewable commit series. Completing this plan does not authorize any stage below.
 
-### Phase 2G-B: backend foundation
+### Phase 2G-B: backend foundation (implemented locally)
 
 Create only the minimum `apps/backend` NestJS application and workspace integration:
 
@@ -206,6 +206,8 @@ Create only the minimum `apps/backend` NestJS application and workspace integrat
 - add no business endpoints and route no production traffic.
 
 Exit gate: frozen install, backend lint/typecheck/unit/build, root Turbo build, health tests, shutdown test, database readiness failure test, dependency/secret scan, and clean diff all pass. Neither existing Next app changes behavior.
+
+Implementation checkpoint: `apps/backend` now contains typed backend-only configuration, structured redacted logging, safe request context/error handling, Helmet and bounded server settings, graceful shutdown, and `/health/live` plus `/health/ready`. The foundation uses the existing database package for a lazy, bounded, read-only readiness probe. No leads, careers, internships, auth, content, media, settings, audit, API-gateway, or microservice implementation was added. Phase 2G-C remains separately gated.
 
 ### Phase 2G-C: public leads pilot
 

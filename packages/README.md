@@ -12,4 +12,4 @@
 - `eslint-config` contains the existing Next.js/TypeScript rule sets and common artifact ignores without changing rule severity.
 - A runtime `config` package is intentionally deferred: environment parsing is currently owner-specific, and centralizing database or authentication variables would add coupling without a second genuine consumer.
 - Next.js, PostCSS, Turbopack roots, runtime environment access, logging, and security settings remain local to their owning applications or packages.
-- No microservice exists yet.
+- The NestJS foundation consumes database access only through this package; it does not own Prisma schema or migration commands. No microservice exists.
