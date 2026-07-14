@@ -4,6 +4,7 @@ import type { InternshipApplicationRequest } from "@growblic/contracts";
 
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { persistWebsiteForm } from "@/lib/api";
 import type { Internship } from "./internship-data";
 import InternshipFeePanel from "./InternshipFeePanel";
 
@@ -104,13 +105,7 @@ export default function InternshipDetailClient({
     setSubmitError("");
 
     try {
-      const response = await fetch("/api/internships/applications/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
+      await persistWebsiteForm("/api/internships/applications/", {
           submissionKey: submissionKeyRef.current,
           internshipSlug: internship.slug,
           fullName: String(formData.get("fullName") || "").trim(),
@@ -129,12 +124,7 @@ export default function InternshipDetailClient({
           passingYear: String(formData.get("passingYear") || "").trim(),
           message: String(formData.get("query") || "").trim(),
           website: String(formData.get("website") || "").trim(),
-        } satisfies InternshipApplicationRequest),
-      });
-
-      if (!response.ok) {
-        throw new Error();
-      }
+        } satisfies InternshipApplicationRequest);
 
       setShowFeePanel(true);
       setApplicationReference(submissionKeyRef.current);
@@ -169,7 +159,7 @@ export default function InternshipDetailClient({
                 return;
               }
 
-              window.location.href = "/";
+              window.location.href = `${process.env.NEXT_PUBLIC_SITE_BASE_PATH || ""}/`;
             }}
             className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-black text-slate-600 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700 hover:shadow-md"
             aria-label="Go back"

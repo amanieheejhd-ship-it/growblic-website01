@@ -50,13 +50,13 @@ export default function MeetupInterestForm() {
       });
 
       if (!website) {
-        await submitLead("/leads/meetup", {
+        void submitLead("/leads/meetup", {
           name,
           email: email || undefined,
           phone: phone || undefined,
           message,
           source: "meetup-page",
-        });
+        }).catch(() => undefined);
       }
 
       form.reset();

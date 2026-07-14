@@ -12,6 +12,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { Link as LinkIcon, X } from "lucide-react";
+import { persistWebsiteForm } from "@/lib/api";
 
 const roles = [
   { title: "Frontend Developer", slug: "frontend-developer" },
@@ -161,15 +162,6 @@ export default function CareersApplyForm() {
       return;
     }
 
-    if (!web3FormsAccessKey) {
-      setStatus({
-        type: "error",
-        message:
-          "Careers application form is not configured yet. Please email hello@growblic.com.",
-      });
-      return;
-    }
-
     const timestamp = new Date().toISOString();
 
     submittingRef.current = true;
@@ -177,29 +169,26 @@ export default function CareersApplyForm() {
     setIsSubmitting(true);
     setStatus({ type: "idle", message: "" });
 
-    form.set("access_key", web3FormsAccessKey);
-    form.set("subject", "New careers application from Growblic Website");
-    form.set("from_name", "Growblic Careers");
-    form.set("source", "Growblic Website");
-    form.set("page", "Careers Apply");
-    form.set("submittedAt", timestamp);
-    form.set(
-      "workLinks",
-      ["Portfolio / GitHub / Resume links:", ...submittedLinks.map((link) => `- ${link}`)].join(
-        "\n",
-      ),
-    );
-
     try {
+      if (web3FormsAccessKey) {
+        form.set("access_key", web3FormsAccessKey);
+        form.set("subject", "New careers application from Growblic Website");
+        form.set("from_name", "Growblic Careers");
+        form.set("source", "Growblic Website");
+        form.set("page", "Careers Apply");
+        form.set("submittedAt", timestamp);
+        form.set(
+          "workLinks",
+          [
+            "Portfolio / GitHub / Resume links:",
+            ...submittedLinks.map((link) => `- ${link}`),
+          ].join("\n"),
+        );
+      }
+
       submissionKeyRef.current ||= crypto.randomUUID();
 
-      const databaseResponse = await fetch("/api/careers/applications/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
+      await persistWebsiteForm("/api/careers/applications/", {
           submissionKey: submissionKeyRef.current,
           fullName,
           email,
@@ -209,24 +198,23 @@ export default function CareersApplyForm() {
           workLinks: submittedLinks,
           message,
           website,
-        } satisfies CareerApplicationRequest),
-      });
+        } satisfies CareerApplicationRequest);
 
-      if (!databaseResponse.ok) {
-        throw new Error("Unable to submit the application right now.");
-      }
+      if (web3FormsAccessKey && !website) {
+        void fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: form,
+        })
+          .then(async (response) => {
+            const result = (await response.json().catch(() => null)) as {
+              success?: boolean;
+            } | null;
 
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: form,
-      });
-      const result = (await response.json()) as {
-        success?: boolean;
-        message?: string;
-      };
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Unable to submit the application right now.");
+            if (!response.ok || !result?.success) {
+              throw new Error("External careers delivery failed.");
+            }
+          })
+          .catch(() => undefined);
       }
 
       formElement.reset();

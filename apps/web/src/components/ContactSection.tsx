@@ -1,7 +1,8 @@
 "use client";
 
-import type { ContactRequest, ContactResponse } from "@growblic/contracts";
+import type { ContactRequest } from "@growblic/contracts";
 import { useRef, useState } from "react";
+import { persistWebsiteForm } from "@/lib/api";
 import {
   ArrowRight,
   Clock3,
@@ -31,6 +32,7 @@ export default function ContactSection() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
   const submittingRef = useRef(false);
+  const submissionKeyRef = useRef("");
   const isSubmitting = status === "submitting";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -49,13 +51,10 @@ export default function ContactSection() {
       setStatus("submitting");
       setMessage("");
 
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
+      submissionKeyRef.current ||= crypto.randomUUID();
+
+      const data = await persistWebsiteForm("/api/contact/", {
+          submissionKey: submissionKeyRef.current,
           name: String(formData.get("name") || "").trim(),
           email: String(formData.get("email") || "").trim(),
           phone: String(formData.get("phone") || "").trim() || undefined,
@@ -63,18 +62,12 @@ export default function ContactSection() {
           budget: String(formData.get("budgetRange") || "").trim() || undefined,
           message: String(formData.get("message") || "").trim(),
           website: String(formData.get("website") || "").trim(),
-        } satisfies ContactRequest),
-      });
-
-      const data = (await response.json().catch(() => null)) as ContactResponse | null;
-
-      if (!response.ok || !data?.success) {
-        throw new Error(data?.message || "Something went wrong. Please try again.");
-      }
+        } satisfies ContactRequest & { submissionKey: string });
 
       setStatus("success");
       setMessage(data.message || "Thank you. Your enquiry has been received.");
       form.reset();
+      submissionKeyRef.current = "";
     } catch (error) {
       setStatus("error");
       setMessage(

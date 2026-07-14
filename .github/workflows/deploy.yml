@@ -1,7 +1,6 @@
-name: Legacy GitHub Pages deployment (manual only)
+name: GitHub Pages deployment (manual only)
 
-# Automatic publishing is disabled while the server-backed application moves to Vercel.
-# Keep this workflow for deployment history and temporary fallback reference only.
+# Publishing remains manual until the Supabase Edge Function is deployed and verified.
 on:
   workflow_dispatch:
 
@@ -22,27 +21,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.4.0
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate submissions
+        run: |
+          pnpm --filter @growblic/web typecheck
+          pnpm test:website-submissions
 
       - name: Build static site
-        run: npm run build
+        run: pnpm build:pages
         env:
-          NEXT_PUBLIC_GROWBLIC_API_URL: https://growblic-api.onrender.com
+          NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL: ${{ vars.WEBSITE_SUBMISSIONS_URL }}
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./apps/web/out
 
   deploy:
     environment:

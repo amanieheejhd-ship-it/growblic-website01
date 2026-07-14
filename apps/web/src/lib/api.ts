@@ -1,5 +1,8 @@
 import type {
+  CareerApplicationRequest,
+  ContactRequest,
   FormSubmissionResponse,
+  InternshipApplicationRequest,
   MeetingRequest,
   QuoteRequest,
 } from "@growblic/contracts";
@@ -8,6 +11,10 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com";
 const LEAD_REQUEST_TIMEOUT_MS = 10_000;
 const WEBSITE_FORM_REQUEST_TIMEOUT_MS = 15_000;
+
+function websiteSubmissionsUrl() {
+  return process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL?.trim() || "";
+}
 
 async function postJsonWithTimeout<T>(
   url: string,
@@ -69,17 +76,44 @@ export async function submitLead(
 }
 
 type WebsiteFormRequestMap = {
+  "/api/contact/": ContactRequest & { submissionKey: string };
+  "/api/careers/applications/": CareerApplicationRequest;
+  "/api/internships/applications/": InternshipApplicationRequest;
   "/api/meeting-requests/": MeetingRequest;
   "/api/quote-requests/": QuoteRequest;
 };
+
+function submissionType<Path extends keyof WebsiteFormRequestMap>(
+  path: Path,
+  payload: WebsiteFormRequestMap[Path],
+) {
+  switch (path) {
+    case "/api/contact/":
+      return "contact";
+    case "/api/careers/applications/":
+      return "career-application";
+    case "/api/internships/applications/":
+      return "internship-application";
+    case "/api/meeting-requests/":
+      return "meetup-request";
+    case "/api/quote-requests/":
+      return (payload as QuoteRequest).calculatorData
+        ? "price-calculator"
+        : "project-request";
+  }
+}
 
 export async function persistWebsiteForm<Path extends keyof WebsiteFormRequestMap>(
   path: Path,
   payload: WebsiteFormRequestMap[Path],
 ) {
+  const edgeFunctionUrl = websiteSubmissionsUrl();
+  const useEdgeFunction = edgeFunctionUrl.length > 0;
   const { response, data } = await postJsonWithTimeout<FormSubmissionResponse>(
-    path,
-    payload,
+    useEdgeFunction ? edgeFunctionUrl : path,
+    useEdgeFunction
+      ? { type: submissionType(path, payload), payload }
+      : payload,
     WEBSITE_FORM_REQUEST_TIMEOUT_MS,
   );
 

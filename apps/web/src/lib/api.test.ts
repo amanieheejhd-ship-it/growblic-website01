@@ -3,9 +3,16 @@ import { afterEach, test } from "node:test";
 import { persistWebsiteForm, submitLead } from "./api";
 
 const originalFetch = globalThis.fetch;
+const originalWebsiteSubmissionsUrl =
+  process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL;
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
+  if (originalWebsiteSubmissionsUrl === undefined) {
+    delete process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL;
+  } else {
+    process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL = originalWebsiteSubmissionsUrl;
+  }
 });
 
 function installStalledFetch() {
@@ -58,4 +65,37 @@ test("website persistence aborts once instead of remaining locked", async (conte
 
   await assert.rejects(request, { name: "AbortError" });
   assert.equal(calls(), 1);
+});
+
+test("configured static builds send an explicit type envelope without privileged headers", async () => {
+  const endpoint =
+    "https://example.supabase.co/functions/v1/website-submissions";
+  process.env.NEXT_PUBLIC_WEBSITE_SUBMISSIONS_URL = endpoint;
+
+  let requestedUrl = "";
+  let requestInit: RequestInit | undefined;
+  globalThis.fetch = (async (input, init) => {
+    requestedUrl = String(input);
+    requestInit = init;
+    return Response.json(
+      { success: true, message: "Thank you. Your request has been received." },
+      { status: 201 },
+    );
+  }) as typeof fetch;
+
+  await persistWebsiteForm("/api/contact/", {
+    submissionKey: "contact-static-test",
+    name: "Synthetic Contact",
+    email: "contact@example.com",
+    message: "Synthetic static adapter request",
+  });
+
+  const headers = new Headers(requestInit?.headers);
+  const envelope = JSON.parse(String(requestInit?.body));
+
+  assert.equal(requestedUrl, endpoint);
+  assert.equal(envelope.type, "contact");
+  assert.equal(envelope.payload.submissionKey, "contact-static-test");
+  assert.equal(headers.get("authorization"), null);
+  assert.equal(headers.get("apikey"), null);
 });
