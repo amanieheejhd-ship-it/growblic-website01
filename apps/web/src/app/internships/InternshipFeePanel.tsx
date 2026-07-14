@@ -1,5 +1,6 @@
 "use client";
 
+import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
 
 type Props = {
@@ -25,6 +26,9 @@ const inrFormatter = new Intl.NumberFormat("en-IN", {
   currency: "INR",
   maximumFractionDigits: 0,
 });
+
+const internshipPaymentUri =
+  "upi://pay?pa=6284613537@fam&pn=Gautam&am=1.00&cu=INR&tn=Growblic%20Internship%20Test%20Payment";
 
 export default function InternshipFeePanel({
   internshipTitle,
@@ -211,19 +215,13 @@ export default function InternshipFeePanel({
 
               <div className="mx-auto w-full max-w-[300px] rounded-[30px] border border-blue-200 bg-white p-5 shadow-[0_20px_60px_rgba(37,99,235,0.18)]">
                 <div className="flex aspect-square w-full items-center justify-center rounded-[22px] border-2 border-dashed border-blue-300 bg-[linear-gradient(135deg,#eff6ff,#ecfeff)] p-6 text-center">
-                  <div>
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-950 text-2xl text-white shadow-lg">
-                      ▦
-                    </div>
-
-                    <p className="mt-5 text-lg font-black text-slate-950">
-                      Payment QR
-                    </p>
-
-                    <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">
-                      Your QR scanner will appear here.
-                    </p>
-                  </div>
+                  <QRCodeSVG
+                    value={internshipPaymentUri}
+                    aria-label="Growblic internship test payment QR code"
+                    className="h-auto w-full"
+                    level="M"
+                    marginSize={2}
+                  />
                 </div>
 
                 <p className="mt-4 text-center text-xs font-bold text-slate-500">
