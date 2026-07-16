@@ -5,15 +5,15 @@ import { describe, it } from "node:test";
 
 const schema = readFileSync(
   resolve(
-    __dirname,
-    "../../../../../packages/database/prisma/schema.prisma",
+    process.cwd(),
+    "../../packages/database/prisma/schema.prisma",
   ),
   "utf8",
 );
 const migration = readFileSync(
   resolve(
-    __dirname,
-    "../../../../../packages/database/prisma/migrations/20260715193000_add_internship_confirmation_sequence/migration.sql",
+    process.cwd(),
+    "../../packages/database/prisma/migrations/20260715193000_add_internship_confirmation_sequence/migration.sql",
   ),
   "utf8",
 );
