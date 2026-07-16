@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRef, useState } from "react";
 
 const INITIAL_FAQ_COUNT = 8;
@@ -128,7 +127,11 @@ const faqs = [
   },
 ];
 
-export default function FAQ() {
+type FAQProps = {
+  onStartProject?: () => void;
+};
+
+export default function FAQ({ onStartProject }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAllFaqs, setShowAllFaqs] = useState(false);
   const lastPointerType = useRef<string | null>(null);
@@ -269,12 +272,13 @@ export default function FAQ() {
               </h3>
             </div>
 
-            <Link
-              href="/start-project"
+            <button
+              type="button"
+              onClick={onStartProject}
               className="relative rounded-full bg-slate-950 px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-slate-950/15 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700"
             >
               Start Project →
-            </Link>
+            </button>
           </div>
         </div>
       </div>

@@ -1,11 +1,10 @@
 import BusinessSections from "../components/BusinessSections";
 import CaseStudies from "../components/CaseStudies";
-import ContactSection from "../components/ContactSection";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import FloatingContactButton from "../components/FloatingContactButton";
 import Hero from "../components/Hero";
-import Insights from "../components/Insights";
+import HomepageContactFlow from "../components/HomepageContactFlow";
 import IntroAnimation from "../components/IntroAnimation";
 import Journey from "../components/Journey";
 import Navbar from "../components/Navbar";
@@ -13,7 +12,6 @@ import Process from "../components/Process";
 import Scroll3DSection from "../components/Scroll3DSection";
 import SmoothScroll from "../components/SmoothScroll";
 import Stats from "../components/Stats";
-import FAQ from "../components/FAQ";
 import FeaturedProducts from "../components/FeaturedProducts";
 import TrustSection from "../components/TrustSection";
 import { createPageMetadata } from "./seo";
@@ -52,19 +50,13 @@ export default function Home() {
           <Process />
         </Scroll3DSection>
         <div className="growblic-scroll-reveal">
-          <Insights />
         </div>
         <div className="growblic-scroll-reveal">
           <Journey />
         </div>
         <div className="growblic-scroll-reveal">
         </div>
-        <div className="growblic-scroll-reveal">
-          <FAQ />
-        </div>
-        <div className="growblic-scroll-reveal">
-          <ContactSection />
-        </div>
+        <HomepageContactFlow />
         <CTA />
       </main>
       <div className="growblic-scroll-reveal">

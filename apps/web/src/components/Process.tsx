@@ -10,7 +10,6 @@ import {
   Rocket,
   Sparkles,
 } from "lucide-react";
-import Link from "next/link";
 
 const steps = [
   {
@@ -149,36 +148,7 @@ export default function Process() {
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 46, scale: 0.985 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease }}
-          className="mt-10 overflow-hidden rounded-[2.2rem] border border-blue-100 bg-white/90 p-7 shadow-[0_30px_100px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:p-8"
-        >
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-blue-700">
-                Growblic Process
-              </p>
-              <h3 className="mt-3 max-w-3xl text-3xl font-black tracking-[-0.055em] text-slate-950 sm:text-4xl">
-                A smooth path from first idea to real launch.
-              </h3>
-              <p className="mt-4 max-w-3xl text-sm font-semibold leading-7 text-slate-600">
-                Every stage is structured to keep design clean, development
-                focused, timelines realistic, and final delivery ready for real
-                business use.
-              </p>
-            </div>
 
-            <Link
-              href="/process"
-              className="inline-flex w-fit items-center justify-center gap-3 rounded-full bg-slate-950 px-7 py-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-700"
-            >
-              View full process <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

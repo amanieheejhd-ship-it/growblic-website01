@@ -193,13 +193,6 @@ export default function Footer() {
             <p className="mt-3 max-w-sm text-sm font-semibold leading-6 text-slate-600">
               Building premium websites, apps, SaaS products, and automation systems.
             </p>
-
-            <Link
-              href="/start-project"
-              className="mt-5 inline-flex min-h-10 items-center justify-center rounded-full bg-slate-950 px-5 py-2.5 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-            >
-              Start Project →
-            </Link>
           </div>
 
           <div className="grid min-w-0 grid-cols-1 gap-x-6 gap-y-6 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:gap-x-8">

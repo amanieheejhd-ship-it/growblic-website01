@@ -34,93 +34,81 @@ const caseStudies = [
 ];
 
 const trustPills = ["Business Apps", "Admin Dashboards", "Automation Systems"];
-const rowLabels = ["Problem", "Solution", "Result"];
 
 export default function CaseStudies() {
   return (
-    <section className="case-studies-section relative overflow-hidden bg-white px-4 py-14 pb-20 sm:px-6 sm:py-16 sm:pb-24 lg:py-24 lg:pb-28 lg:min-h-[1100px]">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(239,246,255,0.9),rgba(255,255,255,0.72)_38%,rgba(236,254,255,0.7))]" />
-      <div className="pointer-events-none absolute left-[-10rem] top-24 h-80 w-80 rounded-full bg-blue-100/60 blur-3xl" />
-      <div className="pointer-events-none absolute right-[-12rem] bottom-16 h-96 w-96 rounded-full bg-cyan-100/55 blur-3xl" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.055)_1px,transparent_0)] bg-[size:32px_32px] opacity-45" />
+    <section className="relative overflow-hidden bg-white px-4 py-16 sm:px-6 lg:py-20">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(239,246,255,0.8),rgba(255,255,255,0.9)_45%,rgba(236,254,255,0.65))]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.045)_1px,transparent_0)] bg-[size:30px_30px]" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start lg:sticky lg:top-28 lg:self-start">
-        <aside className="growblic-card-reveal rounded-[2rem] border border-white/80 bg-white/82 p-6 shadow-2xl shadow-blue-950/8 backdrop-blur-xl lg:sticky lg:top-28 lg:p-8">
-          <span className="inline-flex rounded-full border border-blue-100 bg-blue-50/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
-            CASE STUDIES
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex rounded-full border border-blue-100 bg-blue-50/90 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
+            Case Studies
           </span>
 
-          <h2 className="mt-6 text-balance text-4xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
+          <h2 className="mt-5 text-balance text-4xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
             Real solutions Growblic can build
           </h2>
-          <p className="mt-5 text-base leading-8 text-slate-600 sm:text-lg">
+
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
             Practical software ideas shaped into launch-ready digital products.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
             {trustPills.map((pill) => (
               <span
                 key={pill}
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-slate-600 shadow-sm shadow-blue-100/40"
+                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-slate-600 shadow-sm"
               >
                 {pill}
               </span>
             ))}
           </div>
+        </div>
 
-          <a
-            href="#contact"
-            className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-xl shadow-slate-950/15 transition hover:-translate-y-0.5 hover:bg-blue-700"
-          >
-            Start a Project
-          </a>
-        </aside>
-
-        <div className="growblic-reveal-stack space-y-4">
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
           {caseStudies.map((study) => (
             <article
               key={study.title}
-              className="group rounded-[1.6rem] border border-white/80 bg-white/88 p-5 shadow-xl shadow-blue-950/6 backdrop-blur-xl transition duration-300 ease-out hover:-translate-y-1 hover:border-cyan-200 hover:shadow-2xl hover:shadow-blue-950/10 sm:p-6"
+              className="group relative overflow-hidden rounded-[28px] border border-blue-100/80 bg-white/90 p-6 shadow-[0_18px_50px_rgba(15,23,42,0.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-[0_26px_70px_rgba(37,99,235,0.12)] sm:p-7"
             >
-              <div className="grid gap-5 xl:grid-cols-[auto_1fr_auto] xl:items-center">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-black tracking-[0.2em] text-slate-400">
-                    {study.number}
-                  </span>
-                  <span className="rounded-full border border-blue-100 bg-blue-50/80 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.16em] text-blue-700">
-                    {study.category}
-                  </span>
-                </div>
+              <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-[70px] bg-gradient-to-br from-blue-100/70 to-cyan-100/70" />
 
-                <div className="min-w-0">
-                  <h3 className="text-xl font-semibold leading-tight text-slate-950 sm:text-2xl">
-                    {study.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
-                    {study.description}
-                  </p>
+              <div className="relative">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-black text-white shadow-lg shadow-slate-950/15">
+                      {study.number}
+                    </span>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {rowLabels.map((label) => (
-                      <span
-                        key={label}
-                        className="rounded-full bg-slate-50 px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.14em] text-slate-500 ring-1 ring-slate-200/80"
-                      >
-                        {label}
-                      </span>
-                    ))}
+                    <span className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.16em] text-blue-700">
+                      {study.category}
+                    </span>
                   </div>
-                </div>
 
-                <div className="flex xl:justify-end">
-                  <span className="rounded-full border border-cyan-100 bg-gradient-to-r from-blue-50 to-cyan-50 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-cyan-800">
+                  <span className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-cyan-800">
                     {study.result}
                   </span>
+                </div>
+
+                <h3 className="mt-6 max-w-md text-2xl font-semibold leading-tight text-slate-950">
+                  {study.title}
+                </h3>
+
+                <p className="mt-3 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
+                  {study.description}
+                </p>
+
+                <div className="mt-6 flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-blue-700">
+                  <span className="h-2 w-2 rounded-full bg-blue-600" />
+                  Built for practical business use
                 </div>
               </div>
             </article>
           ))}
         </div>
+
       </div>
     </section>
   );
