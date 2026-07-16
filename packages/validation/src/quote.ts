@@ -1,5 +1,5 @@
 import type { NormalizedQuoteRequest } from "@growblic/contracts";
-import { readEmail, readOptionalJsonObject, readString, readSubmissionKey } from "./common.ts";
+import { readEmail, readOptionalJsonObject, readString, readSubmissionKey } from "./common";
 
 export function validateQuoteRequest(input: Record<string, unknown>): NormalizedQuoteRequest {
   return {

@@ -1,8 +1,12 @@
 {
   "extends": "@growblic/typescript-config/library.json",
   "compilerOptions": {
-    "allowImportingTsExtensions": true
+    "noEmit": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

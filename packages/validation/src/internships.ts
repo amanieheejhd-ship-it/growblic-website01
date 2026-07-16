@@ -1,5 +1,5 @@
 import type { InstituteEnrollment, NormalizedInternshipApplication } from "@growblic/contracts";
-import { FormValidationError, readEmail, readString, readSubmissionKey } from "./common.ts";
+import { FormValidationError, readEmail, readString, readSubmissionKey } from "./common";
 
 export function validateInternshipApplication(input: Record<string, unknown>): NormalizedInternshipApplication {
   const submissionKey = readSubmissionKey(input);

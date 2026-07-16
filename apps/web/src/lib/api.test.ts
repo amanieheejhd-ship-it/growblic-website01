@@ -75,7 +75,7 @@ test("public forms send direct payloads to the configured NestJS endpoints", asy
     );
   }) as typeof fetch;
 
-  await persistWebsiteForm("/api/contact/", {
+  const result = await persistWebsiteForm("/api/contact/", {
     submissionKey: "contact-static-test",
     name: "Synthetic Contact",
     email: "contact@example.com",
@@ -90,6 +90,7 @@ test("public forms send direct payloads to the configured NestJS endpoints", asy
   assert.equal(payload.type, undefined);
   assert.equal(headers.get("authorization"), null);
   assert.equal(headers.get("apikey"), null);
+  assert.equal(result.status, 201);
 });
 
 test("project and calculator requests use distinct backend endpoints", async () => {

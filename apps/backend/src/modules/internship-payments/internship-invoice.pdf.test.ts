@@ -21,6 +21,7 @@ const syntheticApplication = {
 
 const syntheticPayment = {
   internshipApplicationId: syntheticApplication.id,
+  gateway: "RAZORPAY",
   status: "PAID",
   selectedDuration: 60,
   internshipProgram: "Backend Developer",
@@ -123,5 +124,21 @@ describe("trusted internship invoice binding", () => {
       () => trustedInvoicePdfData(paid, { ...syntheticInvoice, amountPaise: 100 }),
       InvoiceStateError,
     );
+  });
+
+  it("accepts the trusted 100-paise amount only for a persisted DEMO gateway payment", () => {
+    const demo = trustedPaidPaymentSource(
+      {
+        ...syntheticPayment,
+        gateway: "DEMO",
+        gatewayOrderId: "demo_order_fixture",
+        gatewayPaymentId: "demo_payment_fixture",
+        paymentMethod: "demo",
+        amountPaise: 100,
+      },
+      syntheticApplication,
+    );
+    assert.equal(demo.gateway, "DEMO");
+    assert.equal(demo.amountPaise, 100);
   });
 });

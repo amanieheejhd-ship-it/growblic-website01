@@ -1,5 +1,5 @@
 import type { NormalizedCareerApplication } from "@growblic/contracts";
-import { readEmail, readString, readSubmissionKey, readUrlList } from "./common.ts";
+import { readEmail, readString, readSubmissionKey, readUrlList } from "./common";
 
 export function validateCareerApplication(input: Record<string, unknown>): NormalizedCareerApplication {
   return {

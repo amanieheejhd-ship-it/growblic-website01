@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Header,
   Headers,
   Param,
   Post,
@@ -22,6 +23,11 @@ export class InternshipPaymentsController {
   @Post("orders")
   createOrder(@Body() body: unknown) {
     return this.payments.createOrder(body);
+  }
+
+  @Post("demo-sessions")
+  createDemoSession(@Body() body: unknown) {
+    return this.payments.createDemoSession(body);
   }
 
   @Post("verify")
@@ -44,6 +50,14 @@ export class InternshipPaymentsController {
     return this.payments.status({ paymentId, accessToken });
   }
 
+  @Post(":id/demo-complete")
+  completeDemoPayment(
+    @Param("id") paymentId: string,
+    @Headers("x-payment-access-token") accessToken = "",
+  ) {
+    return this.payments.completeDemoPayment({ paymentId, accessToken });
+  }
+
   @Get(":id/invoice")
   async invoice(@Param("id") paymentId: string, @Headers("x-payment-access-token") accessToken = "") {
     const invoice = await this.payments.invoice({ paymentId, accessToken });
@@ -59,5 +73,22 @@ export class InternshipPaymentsController {
     @Headers("x-payment-access-token") accessToken = "",
   ) {
     return this.payments.certificateEligibility({ paymentId, accessToken });
+  }
+
+  @Post(":id/confirmation-letter")
+  @Header("Cache-Control", "no-store")
+  async confirmationLetter(
+    @Param("id") paymentId: string,
+    @Headers("x-payment-access-token") accessToken = "",
+    @Body() body: unknown,
+  ) {
+    const letter = await this.payments.confirmationLetter(
+      { paymentId, accessToken },
+      body,
+    );
+    return new StreamableFile(Buffer.from(letter.bytes), {
+      type: "application/pdf",
+      disposition: `attachment; filename="${letter.filename}"`,
+    });
   }
 }

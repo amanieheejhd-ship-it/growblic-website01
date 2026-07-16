@@ -11,10 +11,8 @@ import Journey from "../components/Journey";
 import Navbar from "../components/Navbar";
 import Process from "../components/Process";
 import Scroll3DSection from "../components/Scroll3DSection";
-import Services from "../components/Services";
 import SmoothScroll from "../components/SmoothScroll";
 import Stats from "../components/Stats";
-import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
 import FeaturedProducts from "../components/FeaturedProducts";
 import TrustSection from "../components/TrustSection";
@@ -41,9 +39,6 @@ export default function Home() {
         <Scroll3DSection className="growblic-scroll-reveal">
           <BusinessSections />
         </Scroll3DSection>
-        <Scroll3DSection className="growblic-scroll-reveal">
-          <Services compact />
-        </Scroll3DSection>
         <div className="growblic-scroll-reveal">
           <TrustSection />
         </div>
@@ -63,7 +58,6 @@ export default function Home() {
           <Journey />
         </div>
         <div className="growblic-scroll-reveal">
-          <Testimonials />
         </div>
         <div className="growblic-scroll-reveal">
           <FAQ />

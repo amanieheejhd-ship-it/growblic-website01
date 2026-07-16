@@ -1,3 +1,13 @@
+import {
+  FormValidationError,
+  readSubmissionKey,
+} from "../../../../../packages/validation/src/common";
+import { validateContact } from "../../../../../packages/validation/src/contact";
+import { validateQuoteRequest } from "../../../../../packages/validation/src/quote";
+import { validateMeetingRequest } from "../../../../../packages/validation/src/meeting";
+import { validateCareerApplication } from "../../../../../packages/validation/src/careers";
+import { validateInternshipApplication } from "../../../../../packages/validation/src/internships";
+
 export type PublicSubmissionKind =
   | "contact"
   | "project-request"
@@ -42,53 +52,12 @@ function inputRecord(body: unknown) {
   return body as Record<string, unknown>;
 }
 
-type SharedValidators = {
-  FormValidationError: new (...args: never[]) => Error;
-  readSubmissionKey(input: Record<string, unknown>): string;
-  validateContact(input: Record<string, unknown>):
-    | { success: true; data: ContactData }
-    | { success: false; fieldErrors: Record<string, string> };
-  validateQuoteRequest(input: Record<string, unknown>): QuoteData;
-  validateMeetingRequest(input: Record<string, unknown>): SubmissionData;
-  validateCareerApplication(input: Record<string, unknown>): SubmissionData;
-  validateInternshipApplication(input: Record<string, unknown>): SubmissionData;
-};
-
-let sharedValidators: Promise<SharedValidators> | null = null;
-
-function loadSharedValidators() {
-  sharedValidators ??= Promise.all([
-    "@growblic/validation/common",
-    "@growblic/validation/contact",
-    "@growblic/validation/quote",
-    "@growblic/validation/meeting",
-    "@growblic/validation/careers",
-    "@growblic/validation/internships",
-  ].map((specifier) => import(specifier))).then(([
-    common,
-    contact,
-    quote,
-    meeting,
-    careers,
-    internships,
-  ]) => ({
-    FormValidationError: common.FormValidationError,
-    readSubmissionKey: common.readSubmissionKey,
-    validateContact: contact.validateContact,
-    validateQuoteRequest: quote.validateQuoteRequest,
-    validateMeetingRequest: meeting.validateMeetingRequest,
-    validateCareerApplication: careers.validateCareerApplication,
-    validateInternshipApplication: internships.validateInternshipApplication,
-  }) as SharedValidators);
-  return sharedValidators;
-}
-
 function quoteSubmission(
   kind: "project-request" | "price-calculator",
   input: Record<string, unknown>,
-  validateQuoteRequest: SharedValidators["validateQuoteRequest"],
+  validator: typeof validateQuoteRequest,
 ): PreparedPublicSubmission {
-  const data = validateQuoteRequest(input);
+  const data = validator(input);
 
   if (kind === "project-request" && data.calculatorData) {
     throw new PublicSubmissionValidationError();
@@ -118,13 +87,11 @@ export async function preparePublicSubmission(
     return { honeypot: true };
   }
 
-  const validators = await loadSharedValidators();
-
   try {
     switch (kind) {
       case "contact": {
-        const submissionKey = validators.readSubmissionKey(input);
-        const result = validators.validateContact(input);
+        const submissionKey = readSubmissionKey(input);
+        const result = validateContact(input);
         if (!result.success) {
           throw new PublicSubmissionValidationError(
             "Please correct the highlighted fields and try again.",
@@ -140,28 +107,30 @@ export async function preparePublicSubmission(
       case "price-calculator":
         return {
           honeypot: false,
-          submission: quoteSubmission(kind, input, validators.validateQuoteRequest),
+          submission: quoteSubmission(kind, input, validateQuoteRequest),
         };
       case "meetup":
         return {
           honeypot: false,
-          submission: { kind, data: validators.validateMeetingRequest(input) },
+          submission: { kind, data: validateMeetingRequest(input) },
         };
       case "career-application":
         return {
           honeypot: false,
-          submission: { kind, data: validators.validateCareerApplication(input) },
+          submission: { kind, data: validateCareerApplication(input) },
         };
       case "internship-application":
         return {
           honeypot: false,
-          submission: { kind, data: validators.validateInternshipApplication(input) },
+          submission: { kind, data: validateInternshipApplication(input) },
         };
     }
   } catch (error) {
     if (error instanceof PublicSubmissionValidationError) throw error;
-    if (error instanceof validators.FormValidationError) {
-      throw new PublicSubmissionValidationError(error.message);
+    if (error instanceof FormValidationError) {
+      throw new PublicSubmissionValidationError(
+        error instanceof Error ? error.message : undefined,
+      );
     }
     throw error;
   }

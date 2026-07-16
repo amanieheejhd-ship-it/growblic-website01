@@ -339,15 +339,30 @@ model InternshipPayment {
   customerPhone           String                  @map("customer_phone")
   paymentMethod           String?                 @map("payment_method")
   paidAt                  DateTime?               @map("paid_at")
+  confirmationReference   String?                 @unique @map("confirmation_reference")
+  confirmationSequence    Int?                    @map("confirmation_sequence")
+  confirmationYear        Int?                    @map("confirmation_year")
+  joiningDate             DateTime?               @map("joining_date")
+  confirmationIssuedAt    DateTime?               @map("confirmation_issued_at")
   createdAt               DateTime                @default(now()) @map("created_at")
   updatedAt               DateTime                @updatedAt @map("updated_at")
   internshipApplication   InternshipApplication   @relation(fields: [internshipApplicationId], references: [id], onDelete: Restrict)
   invoice                 Invoice?
 
+  @@unique([confirmationYear, confirmationSequence])
   @@index([internshipApplicationId, status])
   @@index([customerEmail])
   @@index([status, createdAt])
+  @@index([confirmationIssuedAt])
   @@map("internship_payments")
+}
+
+model InternshipConfirmationSequence {
+  year      Int      @id
+  lastValue Int      @map("last_value")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("internship_confirmation_sequences")
 }
 
 model Invoice {

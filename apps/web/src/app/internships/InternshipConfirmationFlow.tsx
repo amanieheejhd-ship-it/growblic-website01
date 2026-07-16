@@ -1,257 +1,150 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import {
-  confirmationFilename,
-  generateConfirmationLetter,
-  highDpiPreviewScale,
-  internshipPrograms,
-  localDateValue,
-  replaceObjectUrl,
-  validateConfirmationInput,
-  type ConfirmationLetterAssets,
-} from "./internship-confirmation-pdf";
+  initialConfirmationModalState,
+  nextConfirmationModal,
+  validJoiningDateInput,
+} from "./internship-confirmation-download";
+
+export type ConfirmationDownloadResult =
+  | { ok: true }
+  | { ok: false; error: string };
 
 type Props = {
-  durationDays: number;
-  initialFullName: string;
-  initialProgram: string;
+  downloading: boolean;
+  onDownload: (joiningDate: string) => Promise<ConfirmationDownloadResult>;
 };
 
-const fieldClass =
-  "mt-2 min-h-12 w-full rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm shadow-blue-100/40 outline-none transition placeholder:text-slate-400 focus:border-blue-300 focus:ring-4 focus:ring-blue-100";
+export default function InternshipConfirmationFlow({
+  downloading,
+  onDownload,
+}: Props) {
+  const [modal, setModal] = useState(initialConfirmationModalState);
+  const submissionLockRef = useRef(false);
+  const busy = downloading || modal.busy;
 
-async function loadAsset(url: string) {
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error("The confirmation certificate assets could not be loaded.");
+  function openModal() {
+    if (busy) return;
+    setModal((current) => nextConfirmationModal(current, { type: "open" }));
   }
 
-  return response.arrayBuffer();
-}
+  function closeModal() {
+    if (busy) return;
+    setModal((current) => nextConfirmationModal(current, { type: "cancel" }));
+  }
 
-export default function InternshipConfirmationFlow({ durationDays, initialFullName, initialProgram }: Props) {
-  const [fullName] = useState(initialFullName);
-  const [program] = useState(initialProgram);
-  const [joiningDate, setJoiningDate] = useState(() => localDateValue());
-  const [error, setError] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [pdfBytes, setPdfBytes] = useState<Uint8Array | null>(null);
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [downloadFilename, setDownloadFilename] = useState("");
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const pdfUrlRef = useRef<string | null>(null);
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (
+      busy ||
+      submissionLockRef.current ||
+      !validJoiningDateInput(modal.joiningDate)
+    ) return;
 
-  useEffect(() => {
-    if (!pdfBytes || !canvasRef.current) {
-      return;
-    }
-
-    let cancelled = false;
-    let loadingTask: { destroy: () => Promise<void> } | null = null;
-
-    void (async () => {
-      const pdfjs = await import("pdfjs-dist");
-      const basePath = process.env.NEXT_PUBLIC_SITE_BASE_PATH || "";
-      pdfjs.GlobalWorkerOptions.workerSrc = `${basePath}/vendor/pdf.worker.min.mjs`;
-      const task = pdfjs.getDocument({ data: Uint8Array.from(pdfBytes) });
-      loadingTask = task;
-      const document = await task.promise;
-      const page = await document.getPage(1);
-      const viewport = page.getViewport({
-        scale: highDpiPreviewScale(window.devicePixelRatio),
-      });
-      const canvas = canvasRef.current;
-
-      if (!canvas || cancelled) {
-        await document.cleanup();
-        return;
-      }
-
-      canvas.width = Math.floor(viewport.width);
-      canvas.height = Math.floor(viewport.height);
-      const context = canvas.getContext("2d", { alpha: false });
-
-      if (!context) {
-        await document.cleanup();
-        throw new Error("The certificate preview could not be rendered.");
-      }
-
-      await page.render({ canvas, canvasContext: context, viewport }).promise;
-      await document.cleanup();
-    })().catch(() => {
-      if (!cancelled) {
-        setError(
-          "The certificate was generated, but its preview could not be rendered.",
+    submissionLockRef.current = true;
+    setModal((current) =>
+      nextConfirmationModal(current, { type: "submit-started" }),
+    );
+    try {
+      const result = await onDownload(modal.joiningDate);
+      if (result.ok) {
+        setModal((current) =>
+          nextConfirmationModal(current, { type: "download-succeeded" }),
+        );
+      } else {
+        setModal((current) =>
+          nextConfirmationModal(current, {
+            type: "download-failed",
+            error: result.error,
+          }),
         );
       }
-    });
-
-    return () => {
-      cancelled = true;
-      void loadingTask?.destroy();
-    };
-  }, [pdfBytes]);
-
-  useEffect(
-    () => () => {
-      if (pdfUrlRef.current) {
-        URL.revokeObjectURL(pdfUrlRef.current);
-      }
-    },
-    [],
-  );
-
-  async function handleGenerate(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const input = { fullName, program, durationDays, joiningDate };
-    const errors = validateConfirmationInput(input);
-
-    if (errors.fullName || errors.program || errors.joiningDate) {
-      setError(
-        errors.fullName ??
-          errors.program ??
-          errors.joiningDate ??
-          "Complete every field.",
-      );
-      return;
-    }
-
-    setError("");
-    setIsGenerating(true);
-
-    try {
-      const basePath = process.env.NEXT_PUBLIC_SITE_BASE_PATH || "";
-      const assetRoot = `${basePath}/templates`;
-      const logo = await loadAsset(`${assetRoot}/growblic-official-logo.png`);
-      const assets: ConfirmationLetterAssets = { logo };
-      const bytes = await generateConfirmationLetter(assets, input);
-      const blobBytes = Uint8Array.from(bytes);
-      const nextUrl = URL.createObjectURL(
-        new Blob([blobBytes.buffer], { type: "application/pdf" }),
-      );
-
-      pdfUrlRef.current = replaceObjectUrl(
-        pdfUrlRef.current,
-        nextUrl,
-        URL.revokeObjectURL,
-      );
-      setPdfBytes(blobBytes);
-      setPdfUrl(nextUrl);
-      setDownloadFilename(confirmationFilename(fullName));
-
-      window.setTimeout(() => {
-        document.getElementById("internship-confirmation-preview")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 120);
-    } catch (generationError) {
-      setError(
-        generationError instanceof Error
-          ? generationError.message
-          : "The confirmation certificate could not be generated.",
-      );
     } finally {
-      setIsGenerating(false);
+      submissionLockRef.current = false;
     }
   }
 
   return (
-    <section className="mt-6 rounded-[32px] border border-blue-200 bg-white p-5 shadow-[0_20px_60px_rgba(37,99,235,0.12)] sm:p-7">
-      <form onSubmit={handleGenerate}>
-        <div className="grid gap-5 md:grid-cols-2">
-          <label className="text-sm font-black text-slate-800">
-            Full Name
-            <input
-              name="confirmationFullName"
-              value={fullName}
-              readOnly
-              className={fieldClass}
-              autoComplete="name"
-              required
-            />
-          </label>
+    <>
+      <button
+        type="button"
+        disabled={busy}
+        onClick={openModal}
+        className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-emerald-600 px-6 py-3.5 text-sm font-black text-white shadow-lg shadow-emerald-600/20 transition hover:-translate-y-0.5 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        Download Internship Confirmation Letter (PDF)
+      </button>
 
-          <label className="text-sm font-black text-slate-800">
-            Program
-            <select
-              name="confirmationProgram"
-              value={program}
-              disabled
-              className={fieldClass}
-              required
-            >
-              <option value="" disabled>
-                Select program
-              </option>
-              {internshipPrograms.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-sm font-black text-slate-800">
-            Date of Joining
-            <input
-              type="date"
-              name="confirmationJoiningDate"
-              value={joiningDate}
-              onChange={(event) => setJoiningDate(event.target.value)}
-              className={fieldClass}
-              required
-            />
-          </label>
-        </div>
-
-        {error && (
-          <p
-            role="alert"
-            className="mt-4 rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700"
-          >
-            {error}
-          </p>
-        )}
-
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-          <button
-            type="submit"
-            disabled={isGenerating}
-            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-wait disabled:bg-blue-300"
-          >
-            {isGenerating ? "Generating..." : "Generate Certificate"}
-          </button>
-
-          {pdfUrl && (
-            <a
-              href={pdfUrl}
-              download={downloadFilename}
-              className="inline-flex items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700"
-            >
-              Download PDF
-            </a>
-          )}
-        </div>
-      </form>
-
-      {pdfBytes && (
-        <section
-          id="internship-confirmation-preview"
-          className="mt-6 scroll-mt-8 border-t border-blue-100 pt-6"
+      {modal.open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="joining-date-modal-title"
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-slate-950/30 px-4 backdrop-blur-[2px]"
         >
-          <div className="mx-auto aspect-[595.28/841.89] w-full max-w-[760px] overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.14)]">
-            <canvas
-              ref={canvasRef}
-              aria-label="Internship confirmation certificate preview"
-              className="block h-auto w-full bg-white"
-            />
-          </div>
-        </section>
+          <form
+            onSubmit={(event) => void submit(event)}
+            className="w-full max-w-md rounded-[30px] border border-emerald-100 bg-white p-6 shadow-[0_28px_90px_rgba(15,23,42,0.22),0_0_48px_rgba(16,185,129,0.12)] sm:p-8"
+          >
+            <h3
+              id="joining-date-modal-title"
+              className="text-2xl font-black tracking-tight text-slate-950"
+            >
+              Select Date of Joining
+            </h3>
+            <p className="mt-3 text-sm font-semibold leading-6 text-slate-500">
+              This date will appear on your internship confirmation letter.
+            </p>
+
+            <label className="mt-6 block text-sm font-black text-slate-800">
+              Date of Joining *
+              <input
+                type="date"
+                required
+                value={modal.joiningDate}
+                disabled={busy}
+                onChange={(event) => {
+                  setModal((current) =>
+                    nextConfirmationModal(current, {
+                      type: "date-changed",
+                      value: event.target.value,
+                    }),
+                  );
+                }}
+                className="mt-2 min-h-12 w-full rounded-2xl border border-emerald-100 bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-sm outline-none transition focus:border-emerald-300 focus:ring-4 focus:ring-emerald-100 disabled:cursor-wait disabled:bg-slate-50"
+              />
+            </label>
+
+            {modal.error && (
+              <p
+                role="alert"
+                className="mt-4 rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700"
+              >
+                {modal.error}
+              </p>
+            )}
+
+            <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <button
+                type="button"
+                disabled={busy}
+                onClick={closeModal}
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-black text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={busy || !validJoiningDateInput(modal.joiningDate)}
+                className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-3 text-sm font-black text-white shadow-lg shadow-emerald-600/20 transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {busy ? "Preparing PDF..." : "Download PDF"}
+              </button>
+            </div>
+          </form>
+        </div>
       )}
-    </section>
+    </>
   );
 }

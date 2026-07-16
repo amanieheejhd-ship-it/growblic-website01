@@ -113,5 +113,5 @@ export async function persistWebsiteForm<Path extends keyof WebsiteFormRequestMa
     throw new Error(data?.message || "Form request failed.");
   }
 
-  return data;
+  return { ...data, status: response.status };
 }

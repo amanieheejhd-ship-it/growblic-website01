@@ -13,6 +13,17 @@ import {
   trustedInvoicePdfData,
   trustedPaidPaymentSource,
 } from "./internship-invoice.binding";
+import {
+  confirmationLetterFilename,
+  trustedConfirmationLetterData,
+} from "./internship-confirmation.binding";
+import { generateInternshipConfirmationPdf } from "./internship-confirmation.pdf";
+import {
+  confirmationReference,
+  JoiningDateError,
+  parseJoiningDate,
+  sameJoiningDate,
+} from "./internship-confirmation.core";
 import { generateInternshipInvoicePdf } from "./internship-invoice.pdf";
 import {
   asNonEmptyString,
@@ -34,6 +45,7 @@ import {
 type DatabaseClient = any;
 type DatabaseModule = { prisma: DatabaseClient };
 type PaymentAccess = { paymentId: string; accessToken: string };
+const demoPaymentAmountPaise = 100;
 
 function requiredEnvironment(name: string) {
   const value = process.env[name]?.trim();
@@ -53,11 +65,75 @@ function isUniqueConflict(error: unknown) {
   return Boolean(error && typeof error === "object" && "code" in error && error.code === "P2002");
 }
 
+function isSerializationConflict(error: unknown) {
+  return Boolean(error && typeof error === "object" && "code" in error && error.code === "P2034");
+}
+
+class ConfirmationAssignmentRace extends Error {}
+
 @Injectable()
 export class InternshipPaymentService {
   private databaseModule: DatabaseModule | null = null;
 
   constructor(private readonly logger: StructuredLogger) {}
+
+  async createDemoSession(body: unknown) {
+    this.requireDemoGateway();
+    const input = body && typeof body === "object"
+      ? body as Record<string, unknown>
+      : {};
+    const submissionKey = asNonEmptyString(input.applicationReference, 128);
+    const plan = trustedPlan(input.duration);
+    if (!submissionKey || !plan) throw new BadRequestException();
+
+    const database = await this.database();
+    const application = await database.internshipApplication.findUnique({
+      where: { submissionKey },
+    });
+    if (!application) throw new NotFoundException();
+    const program = trustedProgram(application.internshipSlug);
+    if (!program) throw new BadRequestException();
+
+    const accessToken = paymentAccessToken();
+    try {
+      const payment = await database.internshipPayment.create({
+        data: {
+          internshipApplicationId: application.id,
+          accessTokenHash: sha256(accessToken),
+          gateway: "DEMO",
+          gatewayOrderId: `demo_order_${paymentAccessToken().slice(0, 24)}`,
+          selectedDuration: plan.duration,
+          internshipProgram: program,
+          amountPaise: demoPaymentAmountPaise,
+          currency: plan.currency,
+          status: "PENDING",
+          customerName: application.candidateName,
+          customerEmail: application.email,
+          customerPhone: application.phone,
+        },
+      });
+      return {
+        paymentId: payment.id,
+        accessToken,
+        durationDays: payment.selectedDuration,
+        status: payment.status,
+        amount: payment.amountPaise,
+        currency: payment.currency,
+      };
+    } catch (error) {
+      if (isUniqueConflict(error)) {
+        throw new ConflictException(
+          "A payment session already exists for this application.",
+        );
+      }
+
+      if (process.env.NODE_ENV !== "production") {
+        console.error("DEMO_SESSION_CREATE_FAILED", error);
+      }
+
+      throw error;
+    }
+  }
 
   async createOrder(body: unknown) {
     const input = body && typeof body === "object" ? body as Record<string, unknown> : {};
@@ -204,6 +280,33 @@ export class InternshipPaymentService {
     return this.publicStatus(payment, ready.invoiceNumber);
   }
 
+  async completeDemoPayment(access: PaymentAccess) {
+    this.requireDemoGateway();
+    const payment = await this.authorizedPayment(access);
+    this.assertDemoPaymentSession(payment);
+    if (payment.status === "FAILED" || payment.status === "REFUNDED") {
+      throw new ConflictException("This demo payment cannot be completed.");
+    }
+
+    const gatewayPaymentId = payment.gatewayPaymentId ?? `demo_payment_${payment.id}`;
+    const settled = await this.settlePaid(payment.id, {
+      id: gatewayPaymentId,
+      orderId: payment.gatewayOrderId,
+      amount: demoPaymentAmountPaise,
+      currency: "INR",
+      status: "captured",
+      method: "demo",
+    });
+    const refreshed = await this.authorizedPayment(access);
+    const ready = this.trustedPaidInvoice(refreshed);
+    return {
+      success: true,
+      status: settled.status,
+      amount: ready.amountPaise,
+      currency: ready.currency,
+    };
+  }
+
   async certificateEligibility(access: PaymentAccess) {
     const payment = await this.authorizedPayment(access);
     if (payment.status !== "PAID") throw new ForbiddenException();
@@ -214,7 +317,114 @@ export class InternshipPaymentService {
       fullName: ready.customerName,
       program: ready.program,
       durationDays: ready.durationDays,
+      confirmation: { status: ready.status },
     };
+  }
+
+  async confirmationLetter(access: PaymentAccess, body: unknown) {
+    const input = body && typeof body === "object"
+      ? body as Record<string, unknown>
+      : {};
+    const database = await this.database();
+
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        return await database.$transaction(
+          async (transaction: DatabaseClient) => {
+            const payment = await this.authorizedPayment(access, transaction);
+            if (payment.status !== "PAID") throw new ForbiddenException();
+            this.trustedPaidInvoice(payment);
+
+            const now = this.serverNow();
+            const joiningDate = parseJoiningDate(input.joiningDate, {
+              applicationCreatedAt: payment.internshipApplication.createdAt,
+              paidAt: payment.paidAt,
+              now,
+            });
+            const confirmationFields = [
+              payment.confirmationReference,
+              payment.confirmationSequence,
+              payment.confirmationYear,
+              payment.joiningDate,
+              payment.confirmationIssuedAt,
+            ];
+            const assignedCount = confirmationFields.filter(
+              (value) => value !== null && value !== undefined,
+            ).length;
+
+            let persisted = payment;
+            if (assignedCount === confirmationFields.length) {
+              if (!sameJoiningDate(payment.joiningDate, joiningDate)) {
+                throw new ConflictException(
+                  "The date of joining has already been set.",
+                );
+              }
+            } else if (assignedCount !== 0) {
+              throw new ConflictException(
+                "The confirmation letter is temporarily unavailable.",
+              );
+            } else {
+              const year = now.getUTCFullYear();
+              const sequence = await transaction.internshipConfirmationSequence.upsert({
+                where: { year },
+                create: { year, lastValue: 1 },
+                update: { lastValue: { increment: 1 } },
+              });
+              const reference = confirmationReference(year, sequence.lastValue);
+              const claimed = await transaction.internshipPayment.updateMany({
+                where: {
+                  id: payment.id,
+                  status: "PAID",
+                  confirmationReference: null,
+                  confirmationSequence: null,
+                  confirmationYear: null,
+                  joiningDate: null,
+                  confirmationIssuedAt: null,
+                },
+                data: {
+                  confirmationReference: reference,
+                  confirmationSequence: sequence.lastValue,
+                  confirmationYear: year,
+                  joiningDate,
+                  confirmationIssuedAt: now,
+                },
+              });
+              if (claimed.count !== 1) throw new ConfirmationAssignmentRace();
+              persisted = await transaction.internshipPayment.findUniqueOrThrow({
+                where: { id: payment.id },
+                include: { invoice: true, internshipApplication: true },
+              });
+            }
+
+            const ready = this.trustedConfirmationLetter(persisted);
+            return {
+              filename: confirmationLetterFilename(ready),
+              bytes: await generateInternshipConfirmationPdf(ready),
+            };
+          },
+          { isolationLevel: "Serializable" },
+        );
+      } catch (error) {
+        if (
+          attempt < 2 &&
+          (error instanceof ConfirmationAssignmentRace ||
+            isSerializationConflict(error))
+        ) continue;
+        if (error instanceof JoiningDateError) {
+          throw new BadRequestException("Enter a valid date of joining.");
+        }
+        if (error instanceof ConfirmationAssignmentRace || isUniqueConflict(error)) {
+          throw new ConflictException(
+            "The confirmation letter is temporarily unavailable.",
+          );
+        }
+        throw error;
+      }
+    }
+
+    throw new ConflictException(
+      "The confirmation letter is temporarily unavailable.",
+    );
   }
 
   async invoice(access: PaymentAccess) {
@@ -232,8 +442,9 @@ export class InternshipPaymentService {
     return this.databaseModule.prisma;
   }
 
-  private async authorizedPayment(access: PaymentAccess) {
-    const payment = await (await this.database()).internshipPayment.findUnique({
+  private async authorizedPayment(access: PaymentAccess, client?: DatabaseClient) {
+    const database = client ?? await this.database();
+    const payment = await database.internshipPayment.findUnique({
       where: { id: access.paymentId },
       include: { invoice: true, internshipApplication: true },
     });
@@ -245,6 +456,39 @@ export class InternshipPaymentService {
 
   private safeTokenMatch(expected: string, token: string) {
     return constantTimeEqual(expected, sha256(token));
+  }
+
+  private requireDemoGateway() {
+    if (
+      process.env.NODE_ENV === "production" ||
+      process.env.DEMO_PAYMENT_GATEWAY_ENABLED !== "true"
+    ) {
+      throw new NotFoundException();
+    }
+  }
+
+  private assertDemoPaymentSession(payment: DatabaseClient) {
+    const application = payment.internshipApplication;
+    const plan = trustedPlan(payment.selectedDuration);
+    const program = application
+      ? trustedProgram(application.internshipSlug)
+      : null;
+    if (
+      !application ||
+      payment.gateway !== "DEMO" ||
+      !payment.gatewayOrderId?.startsWith("demo_order_") ||
+      payment.internshipApplicationId !== application.id ||
+      !plan ||
+      !program ||
+      payment.internshipProgram !== program ||
+      payment.amountPaise !== demoPaymentAmountPaise ||
+      payment.currency !== "INR" ||
+      payment.customerName !== application.candidateName ||
+      payment.customerEmail !== application.email ||
+      payment.customerPhone !== application.phone
+    ) {
+      throw new NotFoundException();
+    }
   }
 
   private publicStatus(payment: {
@@ -275,6 +519,24 @@ export class InternshipPaymentService {
       if (error instanceof InvoiceStateError) throw new ConflictException();
       throw error;
     }
+  }
+
+  private trustedConfirmationLetter(payment: DatabaseClient) {
+    if (!payment.invoice || !payment.internshipApplication) throw new ForbiddenException();
+    try {
+      return trustedConfirmationLetterData(
+        payment,
+        payment.internshipApplication,
+        payment.invoice,
+      );
+    } catch (error) {
+      if (error instanceof InvoiceStateError) throw new ConflictException();
+      throw error;
+    }
+  }
+
+  private serverNow() {
+    return new Date();
   }
 
   private async assertGatewayPaymentMatches(payment: { gatewayOrderId: string; amountPaise: number; currency: string }, gateway: RazorpayPaymentSnapshot) {

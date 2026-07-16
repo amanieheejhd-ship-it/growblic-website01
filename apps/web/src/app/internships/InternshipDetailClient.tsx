@@ -2,10 +2,11 @@
 
 import type { InternshipApplicationRequest } from "@growblic/contracts";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { persistWebsiteForm } from "@/lib/api";
 import type { Internship } from "./internship-data";
+import { shouldRevealInternshipPlans } from "./internship-application-flow";
 import InternshipFeePanel from "./InternshipFeePanel";
 
 type Props = {
@@ -66,18 +67,6 @@ export default function InternshipDetailClient({
   const submittingRef = useRef(false);
   const submissionKeyRef = useRef("");
 
-  useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      const reference = window.localStorage.getItem(`growblic-internship-application:${internship.slug}`) ?? "";
-      if (reference) {
-        submissionKeyRef.current = reference;
-        setApplicationReference(reference);
-        setShowFeePanel(true);
-      }
-    }, 0);
-    return () => window.clearTimeout(timeout);
-  }, [internship.slug]);
-
   async function openFeePanel(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -105,7 +94,7 @@ export default function InternshipDetailClient({
     setSubmitError("");
 
     try {
-      await persistWebsiteForm("/api/internships/applications/", {
+      const result = await persistWebsiteForm("/api/internships/applications/", {
           submissionKey: submissionKeyRef.current,
           internshipSlug: internship.slug,
           fullName: String(formData.get("fullName") || "").trim(),
@@ -125,6 +114,10 @@ export default function InternshipDetailClient({
           message: String(formData.get("query") || "").trim(),
           website: String(formData.get("website") || "").trim(),
         } satisfies InternshipApplicationRequest);
+
+      if (!shouldRevealInternshipPlans(result.status)) {
+        throw new Error("The application was not created.");
+      }
 
       setShowFeePanel(true);
       setApplicationReference(submissionKeyRef.current);

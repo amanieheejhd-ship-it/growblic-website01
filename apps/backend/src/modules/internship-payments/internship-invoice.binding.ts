@@ -17,6 +17,7 @@ export type InternshipApplicationSource = {
 
 export type InternshipPaymentSource = {
   internshipApplicationId: string;
+  gateway: string;
   status: string;
   selectedDuration: number;
   internshipProgram: string;
@@ -64,15 +65,18 @@ export function trustedPaidPaymentSource(
   const plan = trustedPlan(payment.selectedDuration);
   const gatewayOrderId = required(payment.gatewayOrderId);
   const gatewayPaymentId = required(payment.gatewayPaymentId);
+  const gateway = required(payment.gateway, 32);
+  if (!program || !plan || (gateway !== "RAZORPAY" && gateway !== "DEMO")) {
+    throw new InvoiceStateError();
+  }
+  const expectedAmount = gateway === "DEMO" ? 100 : plan.amountPaise;
 
   if (
     payment.status !== "PAID" ||
     payment.internshipApplicationId !== application.id ||
-    !program ||
-    !plan ||
     !validDate(payment.paidAt) ||
     gatewayOrderId.startsWith("reservation_") ||
-    payment.amountPaise !== plan.amountPaise ||
+    payment.amountPaise !== expectedAmount ||
     payment.currency !== plan.currency ||
     payment.internshipProgram !== program ||
     payment.customerName !== customerName ||
@@ -86,13 +90,14 @@ export function trustedPaidPaymentSource(
     customerPhone,
     program,
     durationDays: plan.duration,
-    amountPaise: plan.amountPaise,
+    amountPaise: expectedAmount,
     currency: plan.currency,
     status: "PAID" as const,
     paidAt: payment.paidAt,
     gatewayOrderId,
     gatewayPaymentId,
     paymentMethod: payment.paymentMethod ? required(payment.paymentMethod, 32) : null,
+    gateway,
   };
 }
 

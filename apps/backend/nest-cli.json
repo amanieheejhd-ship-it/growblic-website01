@@ -6,6 +6,12 @@
     "deleteOutDir": true,
     "tsConfigPath": "tsconfig.build.json",
     "webpack": true,
-    "webpackConfigPath": "webpack.config.cjs"
+    "webpackConfigPath": "webpack.config.cjs",
+    "assets": [
+      {
+        "include": "assets/fonts/*.ttf",
+        "watchAssets": true
+      }
+    ]
   }
 }
