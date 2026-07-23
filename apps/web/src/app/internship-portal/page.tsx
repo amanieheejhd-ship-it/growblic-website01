@@ -1,32 +1,30 @@
-import InternshipPortalClient from "./InternshipPortalClient";
+import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+import InternshipPortalParamsBridge from "./InternshipPortalParamsBridge";
 
-export default async function InternshipPortalPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const params = await searchParams;
-  const applicationReference = single(params.applicationReference ?? params.reference);
-  const duration = single(params.duration);
-  const resetToken = single(params.resetToken);
-  const verifyToken = single(params.verifyToken);
-  const flowToken = single(params.flowToken);
-  const authError = single(params.authError);
-
+// Static shell. The internship portal is fully client-driven — it authenticates
+// with the growblic_applicant_session cookie and fetches all dashboard data,
+// documents and payment state from internship-service via client `fetch`
+// (credentials: "include"). Nothing needs server-side rendering, so this route
+// is a plain static page: no `force-dynamic`. That makes it compatible with
+// next.config's GITHUB_PAGES `output: "export"` build (GitHub Pages).
+//
+// The URL query params it acts on (flowToken / applicationReference|reference /
+// duration / resetToken / verifyToken / authError — e.g. the OAuth callback and
+// email links) are read on the CLIENT via useSearchParams inside the Suspense
+// boundary below, instead of from a server `searchParams` prop.
+export default function InternshipPortalPage() {
   return (
-    <InternshipPortalClient
-      applicationReference={applicationReference}
-      duration={duration}
-      resetToken={resetToken}
-      verifyToken={verifyToken}
-      flowToken={flowToken}
-      authError={authError}
-    />
+    <Suspense fallback={<InternshipPortalFallback />}>
+      <InternshipPortalParamsBridge />
+    </Suspense>
   );
 }
 
-function single(value: string | string[] | undefined) {
-  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
+function InternshipPortalFallback() {
+  return (
+    <main className="flex min-h-screen items-center justify-center px-4 py-24">
+      <p className="text-sm font-bold text-slate-500">Loading your portal…</p>
+    </main>
+  );
 }
