@@ -42,6 +42,20 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
           DIRECT_URL: postgresql://postgres:postgres@localhost:5432/postgres
 
+      - name: Build workspace libraries
+        # apps/web and submissions-service import buildable workspace packages
+        # (@growblic/contracts, @growblic/validation, @growblic/nest-common, …)
+        # whose dist/ is produced by their Nx `build` target. The gate and export
+        # steps below use `pnpm --filter …`, which BYPASSES Nx's `^build`
+        # dependency graph — so on a fresh CI checkout those dist/ folders are
+        # missing and typecheck/build fail with
+        # "Cannot find module '@growblic/contracts'". Build the libs first, via
+        # Nx (which resolves inter-lib build order).
+        run: pnpm exec nx run-many -t build --projects=tag:scope:shared,tag:scope:service-lib
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+          DIRECT_URL: postgresql://postgres:postgres@localhost:5432/postgres
+
       - name: Validate submissions
         run: |
           pnpm --filter @growblic/web typecheck
