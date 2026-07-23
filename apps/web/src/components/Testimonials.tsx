@@ -53,7 +53,7 @@ export default function Testimonials() {
     <section className="relative overflow-hidden bg-[#fbfdff] px-6 py-18">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(59,130,246,0.10),transparent_28%),radial-gradient(circle_at_80%_30%,rgba(6,182,212,0.09),transparent_25%),radial-gradient(circle_at_50%_95%,rgba(168,85,247,0.07),transparent_28%)]" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1800px]">
         <div className="growblic-card-reveal mb-9 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-600">

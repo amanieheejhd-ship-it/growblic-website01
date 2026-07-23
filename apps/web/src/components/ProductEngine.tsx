@@ -60,7 +60,7 @@ export default function ProductEngine() {
       <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-28">
         <div className="aurora absolute inset-0 opacity-70" />
         <div className="subtle-grid absolute inset-0 opacity-45" />
-        <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+        <div className="relative mx-auto grid w-full max-w-[1800px] gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">The Growblic Product Engine</p>
             <h2 className="mt-5 text-balance text-4xl font-semibold leading-tight tracking-tight text-[#050505] sm:text-6xl">

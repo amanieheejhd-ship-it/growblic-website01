@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { fetchGrowblicApi, growblicApiUrl } from "@/lib/api";
 import InternshipConfirmationFlow, {
   type ConfirmationDownloadResult,
 } from "./InternshipConfirmationFlow";
@@ -9,11 +10,11 @@ import { canContinueToInternshipPayment } from "./internship-application-flow";
 import {
   canRevealPaidAssets,
   initialSuccessOverlayState,
-  isDemoPaymentGatewayEnabled,
   nextPaymentFlow,
   nextSuccessOverlay,
   scheduleSuccessOverlayDismiss,
-  shouldRenderRealPaymentQr,
+  shouldRenderPaymentQr,
+  isDemoPaymentEnabled,
   type PaymentFlowState,
 } from "./internship-payment-flow";
 
@@ -52,11 +53,25 @@ const feePlans: FeePlan[] = [
 ];
 const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
 const upiUri = "upi://pay?pa=7021617045@pthdfc&pn=MADHUBALA%20SINGH&am=1&cu=INR";
-const apiBase = (process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com").replace(/\/$/, "");
 const pollingIntervalMs = 3_000;
 const maximumPollingFailures = 3;
-const demoGatewayEnabled =
-  isDemoPaymentGatewayEnabled(process.env.NEXT_PUBLIC_DEMO_PAYMENT_GATEWAY);
+const demoPaymentEnabled =
+  isDemoPaymentEnabled(
+    process.env.NEXT_PUBLIC_ENABLE_INTERNSHIP_DEMO_PAYMENT,
+    process.env.NEXT_PUBLIC_ENABLE_DEMO_PAYMENT,
+  );
+
+function safeBackendErrorMessage(value: unknown, fallback: string) {
+  if (!value || typeof value !== "object") return fallback;
+  const response = value as { message?: unknown; error?: { message?: unknown } };
+  const message =
+    typeof response.error?.message === "string"
+      ? response.error.message
+      : typeof response.message === "string"
+        ? response.message
+        : "";
+  return message.trim() ? message.trim().slice(0, 240) : fallback;
+}
 
 export default function InternshipFeePanel({ applicationReference }: Props) {
   const [selectedDays, setSelectedDays] = useState<number | null>(null);
@@ -70,6 +85,8 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
   const [continueBusy, setContinueBusy] = useState(false);
   const [demoBusy, setDemoBusy] = useState(false);
   const [demoReady, setDemoReady] = useState(false);
+  const [demoSuccessMessage, setDemoSuccessMessage] = useState("");
+  const [statusRefreshVersion, setStatusRefreshVersion] = useState(0);
   const [paymentError, setPaymentError] = useState("");
   const [successOverlay, setSuccessOverlay] = useState(initialSuccessOverlayState);
   const lastBackendStatusRef = useRef<string | null>(null);
@@ -97,6 +114,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
       setEligibility(null);
       setPollingUnavailable(false);
       setDemoReady(false);
+      setDemoSuccessMessage("");
       setPaymentError("");
       setFlow("idle");
       setSuccessOverlay(initialSuccessOverlayState());
@@ -147,7 +165,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
 
       try {
         const response = await fetch(
-          `${apiBase}/internship-payments/${encodeURIComponent(verifiedSession.paymentId)}/status`,
+          growblicApiUrl(`/internship-payments/${encodeURIComponent(verifiedSession.paymentId)}/status`),
           {
             headers: {
               "x-payment-access-token": verifiedSession.accessToken,
@@ -172,7 +190,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
         failureCount = 0;
         setPollingUnavailable(false);
         setPaymentStatus(current);
-        if (demoGatewayEnabled && current.status === "PENDING") {
+        if (demoPaymentEnabled && current.status === "PENDING") {
           setDemoReady(true);
         }
         setSuccessOverlay((previous) =>
@@ -192,7 +210,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
         if (current.status === "PAID") {
           continuePolling = false;
           const eligibilityResponse = await fetch(
-            `${apiBase}/internship-payments/${encodeURIComponent(verifiedSession.paymentId)}/certificate-eligibility`,
+            growblicApiUrl(`/internship-payments/${encodeURIComponent(verifiedSession.paymentId)}/certificate-eligibility`),
             {
               headers: {
                 "x-payment-access-token": verifiedSession.accessToken,
@@ -237,7 +255,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
       controller.abort();
       if (nextPoll !== undefined) window.clearTimeout(nextPoll);
     };
-  }, [activeSession, paid, paymentStepOpen]);
+  }, [activeSession, paid, paymentStepOpen, statusRefreshVersion]);
 
   useEffect(() => {
     if (!successOverlay.visible) return;
@@ -260,6 +278,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
     setEligibility(null);
     setPollingUnavailable(false);
     setDemoReady(false);
+    setDemoSuccessMessage("");
     setPaymentError("");
     setSuccessOverlay(initialSuccessOverlayState());
     lastBackendStatusRef.current = null;
@@ -272,83 +291,44 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
     setPaymentError("");
     setContinueBusy(true);
     try {
-      if (demoGatewayEnabled && !activeSession) {
-        transition({ type: "order-started" });
-        const response = await fetch(
-          `${apiBase}/internship-payments/demo-sessions`,
-          {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              applicationReference,
-              duration: selectedPlan.days,
-            }),
-          },
+      const response = await fetchGrowblicApi("/internship-portal/auth/pending-flow", {
+        method: "POST",
+        credentials: "include",
+        headers: { "content-type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          applicationReference,
+          duration: selectedPlan.days,
+        }),
+      });
+      const result = (await response.json().catch(() => null)) as {
+        flowToken?: unknown;
+        applicationReference?: unknown;
+        durationDays?: unknown;
+      } | null;
+      if (!response.ok || typeof result?.flowToken !== "string") {
+        throw new Error(
+          safeBackendErrorMessage(result, "The secure login flow could not be started."),
         );
-        const created = (await response.json().catch(() => null)) as {
-          paymentId?: unknown;
-          accessToken?: unknown;
-          durationDays?: unknown;
-          status?: unknown;
-          amount?: unknown;
-          currency?: unknown;
-        } | null;
-        if (!response.ok) {
-          const backendMessage =
-            created &&
-            typeof created === "object" &&
-            "error" in created &&
-            created.error &&
-            typeof created.error === "object" &&
-            "message" in created.error &&
-            typeof created.error.message === "string"
-              ? created.error.message
-              : `Demo session failed with HTTP ${response.status}`;
-
-          throw new Error(backendMessage);
-        }
-
-        if (
-          typeof created?.paymentId !== "string" ||
-          !created.paymentId.trim() ||
-          typeof created.accessToken !== "string" ||
-          !created.accessToken.trim() ||
-          created.durationDays !== selectedPlan.days ||
-          created.status !== "PENDING" ||
-          created.amount !== 100 ||
-          created.currency !== "INR"
-        ) {
-          throw new Error("The demo payment session response was invalid.");
-        }
-        const nextSession: PaymentSession = {
-          paymentId: created.paymentId,
-          accessToken: created.accessToken,
-          durationDays: selectedPlan.days,
-        };
-        setSession(nextSession);
-        window.localStorage.setItem(
-          `growblic-internship-payment:${applicationReference}`,
-          JSON.stringify(nextSession),
-        );
-        transition({ type: "order-created" });
       }
-
-      setPaymentStepOpen(true);
-      window.setTimeout(
-        () =>
-          document
-            .getElementById("internship-payment-checkout")
-            ?.scrollIntoView({ behavior: "smooth", block: "center" }),
-        120,
-      );
+      const query = new URLSearchParams({
+        flowToken: result.flowToken,
+        applicationReference:
+          typeof result.applicationReference === "string"
+            ? result.applicationReference
+            : applicationReference,
+        duration: String(
+          typeof result.durationDays === "number"
+            ? result.durationDays
+            : selectedPlan.days,
+        ),
+      });
+      window.location.href = `/internship-portal?${query.toString()}`;
     } catch (error) {
-      transition({ type: "request-failed" });
       setPaymentError(
         error instanceof Error
           ? error.message
-          : "The payment session could not be created.",
+          : "The secure login flow could not be started.",
       );
-    } finally {
       setContinueBusy(false);
     }
   }
@@ -359,15 +339,16 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
   }
 
   async function completeDemoPayment() {
-    if (!demoGatewayEnabled || !activeSession || !demoReady || demoBusy || paid) {
+    if (!demoPaymentEnabled || !activeSession || !demoReady || demoBusy || paid) {
       return;
     }
     transition({ type: "demo-complete-requested" });
     setDemoBusy(true);
     setPaymentError("");
+    setDemoSuccessMessage("");
     try {
-      const response = await fetch(
-        `${apiBase}/internship-payments/${encodeURIComponent(activeSession.paymentId)}/demo-complete`,
+      const response = await fetchGrowblicApi(
+        `/internship-payments/${encodeURIComponent(activeSession.paymentId)}/demo-complete`,
         {
           method: "POST",
           headers: {
@@ -375,9 +356,28 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
           },
         },
       );
+      const result = (await response.json().catch(() => null)) as unknown;
       if (!response.ok) {
-        throw new Error("The demo payment could not be completed.");
+        throw new Error(
+          safeBackendErrorMessage(result, "The demo payment could not be completed."),
+        );
       }
+      const completed = result as {
+        success?: unknown;
+        status?: unknown;
+        amount?: unknown;
+        currency?: unknown;
+      } | null;
+      if (
+        completed?.success !== true ||
+        completed.status !== "SUCCESS" ||
+        completed.amount !== 1 ||
+        completed.currency !== "INR"
+      ) {
+        throw new Error("The demo payment response was invalid.");
+      }
+      setDemoSuccessMessage("Demo payment successful. ₹1 payment completed.");
+      setStatusRefreshVersion((current) => current + 1);
     } catch (error) {
       setPaymentError(
         error instanceof Error
@@ -406,7 +406,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
     setLetterBusy(true);
     try {
       const response = await fetch(
-        `${apiBase}/internship-payments/${encodeURIComponent(activeSession.paymentId)}/confirmation-letter`,
+        growblicApiUrl(`/internship-payments/${encodeURIComponent(activeSession.paymentId)}/confirmation-letter`),
         {
           method: "POST",
           headers: {
@@ -481,23 +481,17 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
               <div className="mt-6 space-y-3 rounded-[24px] border border-blue-100 bg-white p-5 shadow-sm">
                 <div className="flex items-center justify-between gap-4"><span className="text-sm font-semibold text-slate-500">Internship</span><span className="text-right text-sm font-black text-slate-950">Internship</span></div><div className="h-px bg-slate-100" />
                 <div className="flex items-center justify-between gap-4"><span className="text-sm font-semibold text-slate-500">Duration</span><span className="text-sm font-black text-slate-950">{selectedPlan.days} days</span></div><div className="h-px bg-slate-100" />
-                <div className="flex items-center justify-between gap-4"><span className="text-sm font-semibold text-slate-500">Amount</span><span className="text-xl font-black text-blue-600">{inrFormatter.format(1)}</span></div>
+                <div className="flex items-center justify-between gap-4"><span className="text-sm font-semibold text-slate-500">Amount</span><span className="text-xl font-black text-blue-600">{inrFormatter.format(selectedPlan.amount)}</span></div>
               </div>
             </div>
             <div className="mx-auto w-full max-w-[300px] rounded-[30px] border border-blue-200 bg-white p-5 text-center shadow-[0_20px_60px_rgba(37,99,235,0.18)]">
-              {demoGatewayEnabled ? (
-                <div className="flex aspect-square flex-col items-center justify-center rounded-[22px] border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-6">
-                  <span className="rounded-full bg-amber-100 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-amber-800">TEST MODE</span>
-                  <p className="mt-4 text-lg font-black text-slate-950">Demo payment only</p>
-                  <p className="mt-3 text-sm font-bold text-slate-600">Selected duration: {selectedPlan.days} days</p>
-                  <p className="mt-2 text-2xl font-black text-blue-600">Demo amount: ₹1</p>
-                  {!paid && <button type="button" disabled={!demoReady || demoBusy} onClick={() => void completeDemoPayment()} className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60">{demoBusy ? "Processing..." : "Pay ₹1 (Demo)"}</button>}
-                  <p className="mt-4 text-[11px] font-black leading-5 text-amber-800">TEST MODE — No real payment will be charged.</p>
-                </div>
-              ) : shouldRenderRealPaymentQr(flow, demoGatewayEnabled) ? (
+              {demoPaymentEnabled ? (
+                <button type="button" disabled={!demoReady || demoBusy || paid} onClick={() => void completeDemoPayment()} className="mb-4 inline-flex w-full items-center justify-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-xs font-black text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-60">{demoBusy ? "Processing demo payment..." : "Demo ₹1 Payment"}</button>
+              ) : null}
+              {shouldRenderPaymentQr(flow) ? (
                 <div className="flex aspect-square items-center justify-center rounded-[22px] border-2 border-dashed border-blue-300 bg-[linear-gradient(135deg,#eff6ff,#ecfeff)] p-6"><QRCodeSVG value={upiUri} size={192} level="H" marginSize={4} title="UPI payment QR code for Gautam" className="h-auto w-full max-w-full" /></div>
               ) : null}
-              {!paid && !demoGatewayEnabled ? (
+              {!paid ? (
                 <button
                   type="button"
                   onClick={openPaymentLink}
@@ -506,6 +500,7 @@ export default function InternshipFeePanel({ applicationReference }: Props) {
                   Open secure checkout
                 </button>
               ) : null}
+              {demoSuccessMessage ? <p role="status" className="mt-4 text-xs font-bold text-emerald-700">{demoSuccessMessage}</p> : null}
               <p className="mt-4 text-xs font-bold text-slate-500">
                 {paid
                   ? "Your payment has been verified securely."

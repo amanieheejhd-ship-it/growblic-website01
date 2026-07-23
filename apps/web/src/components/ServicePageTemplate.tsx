@@ -18,12 +18,12 @@ export default function ServicePageTemplate({
   points,
 }: Props) {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden">
       <section className="relative px-4 pb-14 pt-20 sm:px-6 sm:pb-16">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_4%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_84%_28%,rgba(6,182,212,0.11),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(168,85,247,0.08),transparent_30%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:86px_86px] opacity-35" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-[1800px]">
           <BackButton />
 
           <div className="mt-10 grid min-w-0 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">

@@ -37,11 +37,9 @@ const trustPills = ["Business Apps", "Admin Dashboards", "Automation Systems"];
 
 export default function CaseStudies() {
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-16 sm:px-6 lg:py-20">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(239,246,255,0.8),rgba(255,255,255,0.9)_45%,rgba(236,254,255,0.65))]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.045)_1px,transparent_0)] bg-[size:30px_30px]" />
+    <section className="relative overflow-hidden px-4 py-16 sm:px-6 lg:py-20">
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1800px]">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex rounded-full border border-blue-100 bg-blue-50/90 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-700">
             Case Studies

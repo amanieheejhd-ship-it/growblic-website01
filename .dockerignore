@@ -1,0 +1,17 @@
+node_modules
+**/node_modules
+**/.next
+**/dist
+**/.test-dist
+**/out
+.nx
+.git
+.turbo
+.pnpm-store
+.npm-cache
+docs
+infra
+*.md
+.env
+.env.*
+!.env.example

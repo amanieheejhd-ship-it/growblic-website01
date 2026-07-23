@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useRef, useState, type FormEvent } from "react";
-import { persistWebsiteForm, submitLead } from "@/lib/api";
+import { persistWebsiteForm } from "@/lib/api";
 
 const projectTypes = [
   "Website Development",
@@ -70,18 +70,6 @@ export default function StartProjectForm() {
         source: "start-project-page",
         website,
       });
-
-      if (!website) {
-        void submitLead("/leads/start-project", {
-          name,
-          email: email || undefined,
-          phone: phone || undefined,
-          service,
-          budget,
-          message,
-          source: "start-project-page",
-        }).catch(() => undefined);
-      }
 
       formElement.reset();
       submissionKeyRef.current = "";

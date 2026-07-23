@@ -148,13 +148,9 @@ export function shouldRenderPaymentQr(state: PaymentFlowState) {
   return true;
 }
 
-export function isDemoPaymentGatewayEnabled(value: string | undefined) {
-  return value === "true";
-}
-
-export function shouldRenderRealPaymentQr(
-  state: PaymentFlowState,
-  demoMode: boolean,
+export function isDemoPaymentEnabled(
+  value: string | undefined,
+  legacyValue?: string | undefined,
 ) {
-  return !demoMode && shouldRenderPaymentQr(state);
+  return value === "true" || legacyValue === "true";
 }

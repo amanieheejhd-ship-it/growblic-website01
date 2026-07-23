@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { persistWebsiteForm, submitLead } from "@/lib/api";
+import { persistWebsiteForm } from "@/lib/api";
 
 type SelectOption = {
   label: string;
@@ -800,18 +800,6 @@ export default function PriceCalculator() {
         source: "price-calculator",
         website,
       });
-
-      if (!website) {
-        void submitLead("/leads/contact", {
-          name: customerDetails.fullName.trim(),
-          email: customerDetails.email.trim() || undefined,
-          phone: customerDetails.phone.trim() || undefined,
-          service: selectedCategory.label,
-          budget: formatMoney(result.total, currency, usdInrRate),
-          message: requirements,
-          source: "price-calculator",
-        }).catch(() => undefined);
-      }
 
       setSubmitStatus("success");
       setSubmitMessage("Thanks, our team will contact you soon.");

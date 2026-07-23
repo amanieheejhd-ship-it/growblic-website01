@@ -417,10 +417,10 @@ export default function FastoldpPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#fbfdff] pt-24 text-slate-950">
+      <main className="pt-24 text-slate-950">
         <section className="relative px-5 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_4%,rgba(37,99,235,0.14),transparent_28%),radial-gradient(circle_at_86%_10%,rgba(6,182,212,0.13),transparent_28%),linear-gradient(180deg,rgba(239,246,255,0.88),rgba(255,255,255,0.98)_42%,rgba(248,252,255,0.96))]" />
-          <div className="relative mx-auto max-w-7xl">
+          <div className="relative mx-auto max-w-[1800px]">
             <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
               <div className="min-w-0">
                 <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-700 shadow-lg shadow-blue-100/60 sm:px-5 sm:tracking-[0.24em]">
@@ -511,7 +511,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="px-5 py-16 sm:px-6">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <SectionHeader title="What do you want to do?" />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {quickActions.map((item) => (
@@ -522,7 +522,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="bg-gradient-to-b from-white via-blue-50/55 to-white px-5 py-16 sm:px-6">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <SectionHeader
               eyebrow="Project direction"
               title="What do you need?"
@@ -567,7 +567,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="px-5 py-16 sm:px-6">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <SectionHeader
               eyebrow="Pricing shortcut"
               title="Get pricing direction before you start"
@@ -596,7 +596,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="bg-gradient-to-b from-blue-50/60 via-white to-white px-5 py-16 sm:px-6">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <SectionHeader eyebrow="Popular services" title="Popular Growblic Services" />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
               {popularServices.map((item) => (
@@ -607,7 +607,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="px-5 py-16 sm:px-6">
-          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+          <div className="mx-auto grid max-w-[1800px] gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
             <div>
               <p className="break-words text-xs font-black uppercase tracking-[0.16em] text-blue-600 sm:tracking-[0.26em]">
                 Products
@@ -644,7 +644,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="bg-gradient-to-b from-white via-cyan-50/45 to-white px-5 py-16 sm:px-6">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <SectionHeader
               eyebrow="Support"
               title="Need help with an existing project?"
@@ -678,7 +678,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="px-5 py-16 sm:px-6">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <SectionHeader
               eyebrow="Process"
               title="How Growblic guides your project"
@@ -730,7 +730,7 @@ export default function FastoldpPage() {
         </section>
 
         <section className="px-5 py-16 sm:px-6 sm:pb-20">
-          <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/90 p-7 text-center shadow-[0_32px_100px_rgba(37,99,235,0.16)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-10">
+          <div className="relative mx-auto max-w-[1800px] overflow-hidden rounded-[2rem] border border-blue-100/80 bg-white/90 p-7 text-center shadow-[0_32px_100px_rgba(37,99,235,0.16)] ring-1 ring-white/80 backdrop-blur-2xl sm:p-10">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_0%,rgba(37,99,235,0.14),transparent_30%),radial-gradient(circle_at_88%_100%,rgba(6,182,212,0.16),transparent_32%)]" />
             <div className="relative mx-auto max-w-4xl">
               <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-xl shadow-blue-200/80">

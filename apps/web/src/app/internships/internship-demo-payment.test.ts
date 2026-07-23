@@ -8,26 +8,21 @@ const panelSource = readFileSync(
 );
 
 describe("temporary internship demo checkout UI", () => {
-  it("clearly labels test mode and the ₹1 demo action", () => {
-    assert.match(panelSource, />TEST MODE</);
-    assert.match(panelSource, /Demo payment only/);
-    assert.match(panelSource, /Demo amount: ₹1/);
-    assert.match(panelSource, /Pay ₹1 \(Demo\)/);
-    assert.match(
-      panelSource,
-      /TEST MODE — No real payment will be charged\./,
-    );
+  it("adds only the requested small ₹1 demo action", () => {
+    assert.match(panelSource, /Demo ₹1 Payment/);
+    assert.match(panelSource, /Processing demo payment\.\.\./);
+    assert.match(panelSource, /Demo payment successful\. ₹1 payment completed\./);
+    assert.doesNotMatch(panelSource, />TEST MODE</);
   });
 
-  it("uses backend demo endpoints and keeps the real QR on the non-demo branch", () => {
-    assert.match(panelSource, /internship-payments\/demo-sessions/);
+  it("uses secured backend demo completion while keeping the QR and checkout", () => {
     assert.match(panelSource, /demo-complete/);
     assert.match(panelSource, /x-payment-access-token/);
-    assert.match(panelSource, /demoGatewayEnabled \? \(/);
-    assert.match(
-      panelSource,
-      /shouldRenderRealPaymentQr\(flow, demoGatewayEnabled\)/,
-    );
+    assert.doesNotMatch(panelSource, /setFlow\("paid"\)/);
+    assert.match(panelSource, /demoPaymentEnabled \? \(/);
+    assert.match(panelSource, /disabled={!demoReady \|\| demoBusy \|\| paid}/);
+    assert.match(panelSource, /shouldRenderPaymentQr\(flow\)/);
     assert.match(panelSource, /<QRCodeSVG/);
+    assert.match(panelSource, /Open secure checkout/);
   });
 });

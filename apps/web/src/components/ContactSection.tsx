@@ -87,7 +87,7 @@ export default function ContactSection() {
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl min-w-0 items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+      <div className="relative z-10 mx-auto grid max-w-[1800px] min-w-0 items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="min-w-0 space-y-6">
           <div>
             <div className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-blue-200 bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-blue-600 shadow-sm sm:tracking-[0.32em]">

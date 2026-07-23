@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import GlobalBackgroundMount from "../components/GlobalBackgroundMount";
 import SmoothScroll from "../components/SmoothScroll";
 import "./globals.css";
 import OpeningSplash from "../components/OpeningSplash";
@@ -74,7 +75,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
-      <body className="min-h-full flex flex-col bg-[#fbfdff] text-[#050505]">
+      {/* body/html are transparent (globals.css) — GlobalBackgroundMount paints
+          the page base colour plus the site-wide mouse-reactive field. */}
+      <body className="min-h-full flex flex-col text-[#050505]">
+        <GlobalBackgroundMount />
         <ScrollSound />
         <OpeningSplash />
         <SmoothScroll />

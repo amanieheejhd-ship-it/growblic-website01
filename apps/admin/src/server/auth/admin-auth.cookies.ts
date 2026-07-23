@@ -1,7 +1,8 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import { ADMIN_SESSION_COOKIE_NAME } from "./admin-auth.constants";
+
+export const ADMIN_SESSION_COOKIE_NAME = "growblic_admin_session";
 
 const sharedCookieOptions = {
   httpOnly: true,

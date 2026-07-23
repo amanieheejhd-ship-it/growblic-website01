@@ -56,7 +56,7 @@ export default function Hero() {
         className="absolute right-[8%] bottom-[18%] h-52 w-52 rounded-full bg-cyan-200/35 blur-3xl"
       />
 
-      <div className="home-hero-layout relative mx-auto grid max-w-7xl min-w-0 items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
+      <div className="home-hero-layout relative mx-auto grid max-w-[1800px] min-w-0 items-center gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
         <div className="min-w-0">
           <motion.div
             initial={{ opacity: 0, y: 18 }}

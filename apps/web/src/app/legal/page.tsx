@@ -180,12 +180,12 @@ const cardClass =
 
 export default function LegalPage() {
   return (
-    <main className="min-h-screen bg-[#fbfdff] legal-responsive-page">
+    <main className="min-h-screen legal-responsive-page">
       <section className="relative px-4 py-16 sm:px-6 sm:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_4%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_88%_24%,rgba(6,182,212,0.11),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.88),rgba(239,246,255,0.58),rgba(255,255,255,0.96))]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45 [mask-image:radial-gradient(circle_at_50%_12%,black,transparent_72%)]" />
 
-        <div className="relative mx-auto max-w-7xl min-w-0">
+        <div className="relative mx-auto max-w-[1800px] min-w-0">
           <BackButton />
 
           <div className="mt-10 grid min-w-0 gap-8 lg:grid-cols-[0.92fr_0.78fr] lg:items-center">

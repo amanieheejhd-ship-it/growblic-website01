@@ -1,8 +1,15 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
-const INITIAL_FAQ_COUNT = 8;
+// Expo-out — the entrance easing used across the site.
+const EXPO_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+// Only the first N questions render on the homepage; the data below stays
+// intact as the single source.
+const FAQ_VISIBLE_COUNT = 5;
 
 const faqs = [
   {
@@ -131,157 +138,121 @@ type FAQProps = {
   onStartProject?: () => void;
 };
 
+// Minimal two-column FAQ: a large left-aligned heading and a plain right-hand
+// question list — typography, thin dividers, and chevrons on the open
+// background. No card or pill surfaces.
 export default function FAQ({ onStartProject }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [showAllFaqs, setShowAllFaqs] = useState(false);
-  const lastPointerType = useRef<string | null>(null);
+  const reduceMotion = useReducedMotion() ?? false;
 
-  const visibleFaqs = showAllFaqs ? faqs : faqs.slice(0, INITIAL_FAQ_COUNT);
+  const visibleFaqs = faqs.slice(0, FAQ_VISIBLE_COUNT);
 
-  function toggleFaqList() {
-    setShowAllFaqs((current) => !current);
-    setOpenIndex(null);
-  }
-
-  function openFaqOnMouse(index: number, pointerType: string) {
-    if (pointerType === "mouse") {
-      setOpenIndex(index);
-    }
-  }
-
-  function closeFaqOnMouse(index: number, pointerType: string) {
-    if (pointerType === "mouse") {
-      setOpenIndex((currentIndex) =>
-        currentIndex === index ? null : currentIndex,
-      );
-    }
-  }
-
-  function toggleFaq(index: number, isOpen: boolean) {
-    if (lastPointerType.current === "mouse") {
-      return;
-    }
-
-    setOpenIndex(isOpen ? null : index);
-  }
+  const list: Variants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: reduceMotion ? 0 : 0.06 },
+    },
+  };
+  const rise: Variants = {
+    hidden: { opacity: 0, y: reduceMotion ? 0 : 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: reduceMotion ? 0 : 0.6, ease: EXPO_OUT },
+    },
+  };
 
   return (
-    <section id="faqs" className="relative overflow-hidden px-4 py-14 sm:px-6">
-      <div className="mx-auto max-w-6xl">
-        <div className="growblic-card-reveal mb-8 text-center">
+    <section id="faqs" className="relative px-4 py-16 sm:px-6 sm:py-20">
+      <motion.div
+        initial={reduceMotion ? false : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, margin: "-12% 0px" }}
+        variants={list}
+        className="mx-auto grid max-w-[1800px] gap-10 md:grid-cols-[1fr_2fr] md:gap-14 xl:gap-24"
+      >
+        {/* Left column: eyebrow + large multi-line heading + muted subtitle. */}
+        <motion.div
+          variants={rise}
+          className="motion-reduce:transform-none! motion-reduce:opacity-100!"
+        >
           <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600 sm:tracking-[0.34em]">
             FAQs
           </p>
 
-          <h2 className="mt-3 break-words text-3xl font-black tracking-tight text-slate-950 sm:text-4xl md:text-6xl">
-            Common questions.
+          <h2 className="mt-4 max-w-[11ch] break-words text-5xl font-black leading-[1.02] tracking-tight text-slate-950 md:text-6xl">
+            Frequently asked questions
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-7 text-slate-600">
+          <p className="mt-5 max-w-sm text-sm font-semibold leading-6 text-slate-500">
             Quick answers before starting your project with Growblic.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="growblic-reveal-grid grid gap-4 md:grid-cols-2">
+        {/* Right column: plain rows with thin dividers — no surfaces. */}
+        <div>
           {visibleFaqs.map((faq, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <button
-                type="button"
+              <motion.div
                 key={faq.q}
-                onClick={(event) => {
-                  if (event.detail === 0) {
-                    lastPointerType.current = null;
-                  }
-
-                  toggleFaq(index, isOpen);
-                }}
-                onPointerDown={(event) => {
-                  lastPointerType.current = event.pointerType;
-                }}
-                onPointerEnter={(event) => openFaqOnMouse(index, event.pointerType)}
-                onPointerLeave={(event) => closeFaqOnMouse(index, event.pointerType)}
-                onFocus={() => setOpenIndex(index)}
-                aria-expanded={isOpen}
-                className={`group min-w-0 cursor-pointer overflow-hidden rounded-[1.35rem] border bg-white text-left shadow-lg shadow-blue-100/45 outline-none transition-all duration-300 ease-out focus-visible:border-blue-300 focus-visible:ring-4 focus-visible:ring-blue-100/80 sm:rounded-[1.7rem] ${
-                  isOpen
-                    ? "border-blue-300 bg-blue-50/70 shadow-xl shadow-blue-100/70"
-                    : "border-blue-100/70 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-100/65"
-                }`}
+                variants={rise}
+                className="motion-reduce:transform-none! motion-reduce:opacity-100! border-b border-slate-200/80"
               >
-                <div className="flex min-w-0 items-center justify-between gap-3 p-4 sm:gap-4 sm:p-5">
-                  <span className="min-w-0 break-words text-base font-black leading-tight text-slate-950 sm:text-lg">
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  className="flex min-h-14 w-full items-center justify-between gap-6 py-5 text-left outline-none transition-colors duration-300 hover:text-blue-700 focus-visible:rounded-lg focus-visible:ring-4 focus-visible:ring-blue-100 sm:py-6"
+                >
+                  <span className="min-w-0 break-words text-base font-bold leading-snug text-slate-950 sm:text-lg">
                     {faq.q}
                   </span>
 
-                  <span
-                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-lg font-black text-white transition-all duration-300 ease-out ${
-                      isOpen ? "rotate-45 bg-blue-700" : "bg-slate-950"
+                  <ChevronDown
+                    aria-hidden
+                    className={`h-5 w-5 shrink-0 text-slate-500 transition-transform duration-300 ease-out ${
+                      isOpen ? "rotate-180" : ""
                     }`}
-                  >
-                    +
-                  </span>
-                </div>
+                  />
+                </button>
 
+                {/* Smooth expand/collapse via the grid-rows trick. */}
                 <div
                   className={`grid transition-all duration-300 ease-out ${
-                    isOpen
-                      ? "grid-rows-[1fr] opacity-100"
-                      : "grid-rows-[0fr] opacity-0"
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <div className="overflow-hidden">
-                    <p
-                      className={`px-5 pb-5 text-sm font-semibold leading-7 text-slate-600 transition-transform duration-300 ease-out ${
-                        isOpen ? "translate-y-0" : "-translate-y-2"
-                      }`}
-                    >
+                  <div className="min-h-0 overflow-hidden">
+                    <p className="max-w-3xl pb-6 text-sm font-semibold leading-7 text-slate-600">
                       {faq.a}
                     </p>
                   </div>
                 </div>
-              </button>
+              </motion.div>
             );
           })}
-        </div>
 
-        <div className="mt-8 flex justify-center">
-          <button
-            type="button"
-            onClick={toggleFaqList}
-            className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-blue-100 bg-white px-7 py-3 text-sm font-black text-slate-950 shadow-xl shadow-blue-100/60 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:text-blue-700 hover:shadow-2xl hover:shadow-blue-100/80"
-            aria-expanded={showAllFaqs}
+          {/* Kept: the contact-flow entry point (reveals the homepage contact
+              section) — restyled to sit quietly under the list. */}
+          <motion.div
+            variants={rise}
+            className="motion-reduce:transform-none! motion-reduce:opacity-100! flex flex-col gap-3 pt-8 sm:flex-row sm:items-center sm:justify-between"
           >
-            {showAllFaqs ? "Show Less" : "See More Questions"}
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </button>
-        </div>
-
-        <div className="growblic-card-reveal relative mt-8 overflow-hidden rounded-[1.5rem] border border-blue-100/80 bg-white/90 p-5 shadow-xl shadow-blue-100/50 ring-1 ring-white/80 backdrop-blur-xl sm:rounded-[2rem] sm:p-6">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_92%_100%,rgba(6,182,212,0.11),transparent_32%)]" />
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="relative">
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-600">
-                Need custom help?
-              </p>
-              <h3 className="mt-2 break-words text-xl font-black text-slate-950 sm:text-2xl">
-                Tell us your idea, we will guide you.
-              </h3>
-            </div>
-
+            <p className="text-sm font-semibold text-slate-500">
+              Need custom help? Tell us your idea, we will guide you.
+            </p>
             <button
               type="button"
               onClick={onStartProject}
-              className="relative rounded-full bg-slate-950 px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-slate-950/15 transition-all duration-300 hover:-translate-y-1 hover:bg-blue-700"
+              className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-slate-950 px-6 py-3 text-sm font-black text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700"
             >
               Start Project →
             </button>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

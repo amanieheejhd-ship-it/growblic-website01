@@ -165,7 +165,7 @@ export default function ProductGallery({ product }: ProductGalleryProps) {
   return (
     <section className="relative overflow-hidden bg-[#f5f7fb] px-6 py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_8%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_90%_70%,rgba(6,182,212,0.10),transparent_30%)]" />
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1800px]">
         <div className="max-w-4xl">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">
             Product Preview

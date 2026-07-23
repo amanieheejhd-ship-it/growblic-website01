@@ -68,16 +68,22 @@ function implementationFiles(relativePath) {
 
 for (const path of [
   "pnpm-workspace.yaml",
-  "turbo.json",
+  "nx.json",
   "apps/README.md",
   "apps/web/package.json",
   "apps/web/src",
   "apps/web/public",
   "apps/admin/package.json",
   "apps/admin/src/app",
-  "apps/backend/package.json",
-  "apps/backend/src/main.ts",
-  "apps/backend/src/modules/health/health.module.ts",
+  "apps/services/submissions-service/package.json",
+  "apps/services/submissions-service/src/main.ts",
+  "apps/services/submissions-service/src/modules/health/health.module.ts",
+  "apps/services/admin-service/package.json",
+  "apps/services/admin-service/src/main.ts",
+  "apps/services/internship-service/package.json",
+  "apps/services/internship-service/src/main.ts",
+  "apps/services/notification-worker/package.json",
+  "apps/services/notification-worker/src/main.ts",
   "packages/README.md",
   "packages/database/package.json",
   "packages/database/prisma.config.ts",
@@ -128,7 +134,10 @@ if (/^pnpm@\d+\.\d+\.\d+$/.test(packageJson.packageManager ?? "")) {
 for (const path of [
   "apps/web",
   "apps/admin",
-  "apps/backend",
+  "apps/services/submissions-service",
+  "apps/services/admin-service",
+  "apps/services/internship-service",
+  "apps/services/notification-worker",
   "packages/database",
   "packages/contracts",
   "packages/validation",
@@ -183,7 +192,10 @@ if (/from\s+["'](?:next|@prisma|@growblic\/database)/.test(validationSource)) {
 for (const [path, preset] of [
   ["apps/web/tsconfig.json", "@growblic/typescript-config/nextjs.json"],
   ["apps/admin/tsconfig.json", "@growblic/typescript-config/nextjs.json"],
-  ["apps/backend/tsconfig.json", "@growblic/typescript-config/node.json"],
+  ["apps/services/submissions-service/tsconfig.json", "@growblic/typescript-config/node.json"],
+  ["apps/services/admin-service/tsconfig.json", "@growblic/typescript-config/node.json"],
+  ["apps/services/internship-service/tsconfig.json", "@growblic/typescript-config/node.json"],
+  ["apps/services/notification-worker/tsconfig.json", "@growblic/typescript-config/node.json"],
   ["packages/database/tsconfig.json", "@growblic/typescript-config/node.json"],
   ["packages/contracts/tsconfig.json", "@growblic/typescript-config/library.json"],
   ["packages/validation/tsconfig.json", "@growblic/typescript-config/library.json"],
@@ -200,7 +212,10 @@ for (const [path, preset] of [
 for (const [path, preset] of [
   ["apps/web/eslint.config.mjs", "@growblic/eslint-config/next"],
   ["apps/admin/eslint.config.mjs", "@growblic/eslint-config/next"],
-  ["apps/backend/eslint.config.mjs", "@growblic/eslint-config/node"],
+  ["apps/services/submissions-service/eslint.config.mjs", "@growblic/eslint-config/node"],
+  ["apps/services/admin-service/eslint.config.mjs", "@growblic/eslint-config/node"],
+  ["apps/services/internship-service/eslint.config.mjs", "@growblic/eslint-config/node"],
+  ["apps/services/notification-worker/eslint.config.mjs", "@growblic/eslint-config/node"],
 ]) {
   const config = readFileSync(join(root, path), "utf8");
 

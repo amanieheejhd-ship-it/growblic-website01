@@ -1,27 +1,36 @@
 # Growblic workspace
 
-The public Growblic Next.js application lives in `apps/web`; the private administration application lives independently in `apps/admin`; the NestJS foundation lives in `apps/backend`. Browser-safe API types and pure validation live in `packages/contracts` and `packages/validation`. Shared compiler and lint presets live in the config-only `packages/typescript-config` and `packages/eslint-config` workspaces. The server-only `packages/database` workspace package owns the Prisma schema, migrations, generated client, and runtime singleton.
+An NX + pnpm monorepo. The public Next.js website lives in `apps/web` (port 3002) and the private admin UI in `apps/admin` (port 3001) — both are DB-free and talk to the NestJS microservices over HTTP. The services live in `apps/services/`:
+
+| Service | Port | Responsibility |
+| --- | --- | --- |
+| `internship-service` | 4000 | internship payments (Razorpay), applicant portal, internal certificate PDFs |
+| `submissions-service` | 4001 | public website form submissions |
+| `admin-service` | 4002 | admin auth + admin dashboard/submission/certificate APIs |
+| `notification-worker` | 4003 | certificate email/reminder jobs (health endpoint only) |
+
+Shared packages: `packages/contracts` (browser-safe types), `packages/validation` (pure validators), `packages/nest-common` (service config/logging/filters), `packages/internship-shared` (payment core, PDF generators, certificate email), `packages/database` (Prisma schema + client for PostgreSQL), plus config-only `packages/typescript-config` and `packages/eslint-config`.
+
+See `docs/NX_MICROSERVICES_ARCHITECTURE.md` for the full architecture, service boundaries, and env var matrix.
 
 ## Development
 
 ```bash
-pnpm dev
+pnpm dev              # all apps + services via nx run-many
+pnpm dev:web          # one app: dev:admin, dev:services, ...
+pnpm build            # nx run-many -t build (cached)
+pnpm typecheck
+pnpm test
+pnpm lint
+pnpm affected         # nx affected -t build,lint,typecheck,test
 ```
 
-Build from the repository root with:
+NX module boundaries are lint-enforced: browser code (`scope:frontend`) can never import `@growblic/database`; only services (`scope:service`) touch the database package.
 
-```bash
-pnpm build
-```
+Prisma commands: `pnpm prisma:format`, `pnpm prisma:validate`, `pnpm prisma:generate`, `pnpm prisma:migrate:dev`, `pnpm prisma:migrate:deploy`, `pnpm prisma:studio`. Migration commands are explicit operator actions and never run during builds or postinstall.
 
-Root commands orchestrate the application and database workspaces. Both applications consume database access through `@growblic/database`; browser modules must never import that package.
+Docker: `docker compose up --build` starts PostgreSQL, the four services, and an nginx gateway on `http://localhost:8080` that exposes a single API origin (path-routed).
 
-Use `pnpm dev:web`, `pnpm dev:admin`, or `pnpm dev:backend` to run one application. Root `pnpm dev`, `pnpm build`, `pnpm typecheck`, and `pnpm lint` orchestrate all workspaces through Turbo. The backend currently exposes only `/health/live` and `/health/ready`; no business API has migrated.
+For local development, apps and services read the ignored `.env` files. Do not stage secrets into tracked files; deployment platforms must inject environment variables directly.
 
-Prisma commands are available as `pnpm prisma:format`, `pnpm prisma:validate`, `pnpm prisma:generate`, `pnpm prisma:migrate:dev`, `pnpm prisma:migrate:deploy`, and `pnpm prisma:studio`. Migration commands are explicit operator actions and never run during builds or postinstall.
-
-For local development, applications and the database package can use ignored links to the ignored root `.env` files. Do not stage those links or copy secrets into tracked files. Deployment platforms must inject environment variables directly.
-
-The local rollback checkpoint before Phase 2F is `d2ea2e8`.
-
-The rollback checkpoint before the NestJS backend foundation is `7eaf92f`. Phase 2G-C, if separately approved, is the contact-submission pilot behind the existing Next.js adapter.
+The full pre-migration state is preserved in the git tag `pre-nx-migration-backup`.

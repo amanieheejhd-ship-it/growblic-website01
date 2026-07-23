@@ -89,11 +89,11 @@ const upcomingMeetups = [
 
 export default function MeetupPage() {
   return (
-    <main className="relative bg-white">
+    <main className="relative">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_8%,rgba(37,99,235,0.14),transparent_30%),radial-gradient(circle_at_88%_55%,rgba(6,182,212,0.12),transparent_32%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.66),#ffffff)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-      <section className="relative mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section className="relative mx-auto max-w-[1800px] px-4 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="min-w-0 overflow-hidden rounded-[2rem] border border-blue-100/90 bg-white/86 p-5 shadow-[0_38px_130px_rgba(37,99,235,0.12)] backdrop-blur-2xl sm:rounded-[2.9rem] sm:p-8 lg:p-11">
           <div className="grid gap-12 lg:grid-cols-[0.98fr_0.92fr] lg:items-center">
             <div className="min-w-0">

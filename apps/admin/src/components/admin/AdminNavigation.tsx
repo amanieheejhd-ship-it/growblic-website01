@@ -11,6 +11,8 @@ const activeLinks = [
   ["Meetup Requests", "/meetup-requests/"],
   ["Career Applications", "/career-applications/"],
   ["Internship Applications", "/internship-applications/"],
+  ["Applicant Accounts", "/internship-accounts/"],
+  ["Internship Certificates", "/internship-certificates/"],
 ] as const;
 const futureLinks = ["Products", "Services", "Portfolio", "Settings"];
 

@@ -7,12 +7,11 @@ import {
   canRevealCertificate,
   canRevealPaidAssets,
   initialSuccessOverlayState,
-  isDemoPaymentGatewayEnabled,
+  isDemoPaymentEnabled,
   nextPaymentFlow,
   nextSuccessOverlay,
   scheduleSuccessOverlayDismiss,
   shouldRenderPaymentQr,
-  shouldRenderRealPaymentQr,
   successOverlayDurationMs,
 } from "./internship-payment-flow";
 
@@ -180,13 +179,14 @@ describe("internship payment frontend gate", () => {
     assert.equal(shouldRenderPaymentQr("paid"), true);
   });
 
-  it("enables demo mode only for the exact public flag and hides the real QR", () => {
-    assert.equal(isDemoPaymentGatewayEnabled("true"), true);
-    assert.equal(isDemoPaymentGatewayEnabled("false"), false);
-    assert.equal(isDemoPaymentGatewayEnabled(undefined), false);
-    assert.equal(shouldRenderRealPaymentQr("awaiting-payment", true), false);
-    assert.equal(shouldRenderRealPaymentQr("paid", true), false);
-    assert.equal(shouldRenderRealPaymentQr("awaiting-payment", false), true);
+  it("enables demo mode only for the exact public flag without hiding the real QR", () => {
+    assert.equal(isDemoPaymentEnabled("true"), true);
+    assert.equal(isDemoPaymentEnabled("false"), false);
+    assert.equal(isDemoPaymentEnabled(undefined), false);
+    assert.equal(isDemoPaymentEnabled(undefined, "true"), true);
+    assert.equal(isDemoPaymentEnabled("false", "true"), true);
+    assert.equal(shouldRenderPaymentQr("awaiting-payment"), true);
+    assert.equal(shouldRenderPaymentQr("paid"), true);
   });
 
   it("opens the overlay only for an observed trusted non-PAID to PAID transition", () => {

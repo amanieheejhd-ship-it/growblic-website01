@@ -1,14 +1,49 @@
 import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
-import { persistWebsiteForm, submitLead } from "./api";
+import {
+  fetchGrowblicApi,
+  growblicApiUrl,
+  LOCAL_BACKEND_CONNECTION_ERROR,
+  persistWebsiteForm,
+  submissionsApiUrl,
+} from "./api";
 
 const originalFetch = globalThis.fetch;
-const apiBaseUrl = (
-  process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com"
-).replace(/\/$/, "");
+process.env.NEXT_PUBLIC_API_URL = "http://localhost:4000";
+process.env.NEXT_PUBLIC_SUBMISSIONS_API_URL = "http://localhost:4001";
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
+const submissionsBaseUrl = process.env.NEXT_PUBLIC_SUBMISSIONS_API_URL;
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
+});
+
+test("API configuration fails clearly instead of using a placeholder fallback", () => {
+  delete process.env.NEXT_PUBLIC_API_URL;
+  assert.throws(() => growblicApiUrl("/health/live"), /NEXT_PUBLIC_API_URL/);
+  process.env.NEXT_PUBLIC_API_URL = "http://localhost:4000";
+});
+
+test("submissions fall back to the primary API origin for single-origin gateways", () => {
+  delete process.env.NEXT_PUBLIC_SUBMISSIONS_API_URL;
+  assert.equal(
+    submissionsApiUrl("/public-submissions/contact"),
+    `${apiBaseUrl}/public-submissions/contact`,
+  );
+  process.env.NEXT_PUBLIC_SUBMISSIONS_API_URL = "http://localhost:4001";
+  assert.equal(
+    submissionsApiUrl("/public-submissions/contact"),
+    `${submissionsBaseUrl}/public-submissions/contact`,
+  );
+});
+
+test("local backend network failures return an actionable safe message", async () => {
+  globalThis.fetch = (async () => {
+    throw new TypeError("Failed to fetch");
+  }) as typeof fetch;
+  await assert.rejects(fetchGrowblicApi("/health/live"), {
+    message: LOCAL_BACKEND_CONNECTION_ERROR,
+  });
 });
 
 function installStalledFetch() {
@@ -33,20 +68,6 @@ function installStalledFetch() {
 
   return () => calls;
 }
-
-test("legacy lead delivery aborts once after its strict timeout", async (context) => {
-  context.mock.timers.enable({ apis: ["setTimeout"] });
-  const calls = installStalledFetch();
-  const request = submitLead("/leads/start-project", {
-    name: "Synthetic Test",
-    message: "Synthetic timeout verification",
-  });
-
-  context.mock.timers.tick(10_000);
-
-  await assert.rejects(request, { name: "AbortError" });
-  assert.equal(calls(), 1);
-});
 
 test("website persistence aborts once instead of remaining locked", async (context) => {
   context.mock.timers.enable({ apis: ["setTimeout"] });
@@ -85,7 +106,7 @@ test("public forms send direct payloads to the configured NestJS endpoints", asy
   const headers = new Headers(requestInit?.headers);
   const payload = JSON.parse(String(requestInit?.body));
 
-  assert.equal(requestedUrl, `${apiBaseUrl}/public-submissions/contact`);
+  assert.equal(requestedUrl, `${submissionsBaseUrl}/public-submissions/contact`);
   assert.equal(payload.submissionKey, "contact-static-test");
   assert.equal(payload.type, undefined);
   assert.equal(headers.get("authorization"), null);
@@ -113,7 +134,7 @@ test("project and calculator requests use distinct backend endpoints", async () 
   });
 
   assert.deepEqual(urls, [
-    `${apiBaseUrl}/public-submissions/project-requests`,
-    `${apiBaseUrl}/public-submissions/price-calculator`,
+    `${submissionsBaseUrl}/public-submissions/project-requests`,
+    `${submissionsBaseUrl}/public-submissions/price-calculator`,
   ]);
 });

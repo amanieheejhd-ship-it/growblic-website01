@@ -1,9 +1,6 @@
-import type { AdminLoginRequest, AdminLoginResponse } from "@growblic/contracts";
-import {
-  loginAdmin,
-  logoutAdmin,
-} from "@/server/auth/admin-auth.service";
+import type { AdminLoginRequest, AdminLoginResponse, AdminSafeUser } from "@growblic/contracts";
 import { setAdminSessionCookie } from "@/server/auth/admin-auth.cookies";
+import { backendAdminFetch } from "@/server/backend/backend-admin";
 
 export const runtime = "nodejs";
 
@@ -46,6 +43,15 @@ function getBoundedUserAgent(request: Request) {
   return value.replace(/[\u0000-\u001f\u007f]/g, "").slice(0, 512) || null;
 }
 
+type BackendLoginSuccess = {
+  success: true;
+  token: string;
+  expiresAt: string;
+  user: AdminSafeUser;
+};
+
+type BackendErrorBody = { error?: { message?: unknown } };
+
 export async function POST(request: Request) {
   const contentLength = Number(request.headers.get("content-length"));
 
@@ -78,28 +84,43 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await loginAdmin({
-      email: input.email,
-      password: input.password,
-      ipAddress: getTrustedClientIp(request),
-      userAgent: getBoundedUserAgent(request),
+    const clientIp = getTrustedClientIp(request);
+    const userAgent = getBoundedUserAgent(request);
+    const response = await backendAdminFetch("/admin/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email: input.email, password: input.password }),
+      headers: {
+        // The backend derives the throttling IP from its trust-proxy config.
+        ...(clientIp ? { "x-forwarded-for": clientIp } : {}),
+        ...(userAgent ? { "user-agent": userAgent } : {}),
+      },
     });
 
-    if (!result.ok) {
-      const status =
-        result.reason === "RATE_LIMITED"
-          ? 429
-          : result.reason === "INVALID_REQUEST"
-            ? 400
-            : 401;
-
-      return json({ success: false, message: result.message }, status);
+    if (!response.ok) {
+      if ([400, 401, 429].includes(response.status)) {
+        let message = "Unable to complete login.";
+        try {
+          const payload = (await response.json()) as BackendErrorBody;
+          if (typeof payload.error?.message === "string" && payload.error.message) {
+            message = payload.error.message;
+          }
+        } catch {
+          // Keep the fallback message.
+        }
+        return json({ success: false, message }, response.status);
+      }
+      throw new Error("Admin login backend request failed.");
     }
 
+    const result = (await response.json()) as BackendLoginSuccess;
+
     try {
-      await setAdminSessionCookie(result.token, result.expiresAt);
+      await setAdminSessionCookie(result.token, new Date(result.expiresAt));
     } catch {
-      await logoutAdmin(result.token).catch(() => undefined);
+      await backendAdminFetch("/admin/auth/logout", {
+        method: "POST",
+        token: result.token,
+      }).catch(() => undefined);
       throw new Error("Admin session cookie could not be set.");
     }
 

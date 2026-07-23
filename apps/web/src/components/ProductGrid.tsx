@@ -15,7 +15,7 @@ export default function ProductGrid() {
 
   return (
     <section className="overflow-hidden bg-[#f5f7fb] px-4 py-14 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-7xl min-w-0">
+      <div className="mx-auto max-w-[1800px] min-w-0">
         <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0">
           {productCategories.map((item) => (
             <button

@@ -13,5 +13,10 @@
     "./nextjs.json": "./nextjs.json",
     "./node.json": "./node.json",
     "./library.json": "./library.json"
+  },
+  "nx": {
+    "tags": [
+      "scope:tooling"
+    ]
   }
 }

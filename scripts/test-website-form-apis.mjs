@@ -1,4 +1,4 @@
-const baseUrl = (process.env.WEBSITE_FORMS_BASE_URL || "http://localhost:3000").replace(
+const baseUrl = (process.env.WEBSITE_FORMS_BASE_URL || "http://localhost:4000").replace(
   /\/$/,
   "",
 );
@@ -7,7 +7,7 @@ const timestamp = Date.now();
 const cases = [
   {
     name: "careers",
-    path: "/api/careers/applications/",
+    path: "/public-submissions/career-applications",
     valid: {
       submissionKey: `career-${timestamp}`,
       fullName: "API Test Candidate",
@@ -22,7 +22,7 @@ const cases = [
   },
   {
     name: "internships",
-    path: "/api/internships/applications/",
+    path: "/public-submissions/internship-applications",
     valid: {
       submissionKey: `internship-${timestamp}`,
       internshipSlug: "frontend-developer",
@@ -42,7 +42,7 @@ const cases = [
   },
   {
     name: "meeting requests",
-    path: "/api/meeting-requests/",
+    path: "/public-submissions/meetups",
     valid: {
       submissionKey: `meeting-${timestamp}`,
       name: "API Test Visitor",
@@ -55,7 +55,7 @@ const cases = [
   },
   {
     name: "quote requests",
-    path: "/api/quote-requests/",
+    path: "/public-submissions/price-calculator",
     valid: {
       submissionKey: `quote-${timestamp}`,
       name: "API Test Customer",

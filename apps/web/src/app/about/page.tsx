@@ -74,11 +74,11 @@ const process = ["Understand", "Design", "Build", "Launch", "Improve"];
 
 export default function AboutPage() {
   return (
-    <main className="relative bg-white">
+    <main className="relative">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_6%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_94%_60%,rgba(6,182,212,0.12),transparent_30%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.55),#ffffff)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:44px_44px]" />
 
-      <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+      <section className="relative mx-auto max-w-[1800px] px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_0.92fr] lg:items-center">
           <div className="min-w-0">
             <p className="inline-flex max-w-full break-words rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-700 shadow-[0_14px_35px_rgba(37,99,235,0.10)] sm:px-5 sm:tracking-[0.32em]">

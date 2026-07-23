@@ -3,7 +3,7 @@ import {
   clearAdminSessionCookie,
   getAdminSessionCookie,
 } from "@/server/auth/admin-auth.cookies";
-import { logoutAdmin } from "@/server/auth/admin-auth.service";
+import { backendAdminFetch } from "@/server/backend/backend-admin";
 
 export const runtime = "nodejs";
 
@@ -16,7 +16,14 @@ export async function POST() {
     const token = await getAdminSessionCookie();
 
     if (token) {
-      await logoutAdmin(token);
+      const response = await backendAdminFetch("/admin/auth/logout", {
+        method: "POST",
+        token,
+      });
+
+      if (!response.ok) {
+        throw new Error("Admin logout backend request failed.");
+      }
     }
 
     await clearAdminSessionCookie();

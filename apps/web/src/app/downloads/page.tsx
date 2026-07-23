@@ -176,9 +176,9 @@ function MobileAppCard({ app }: { app: (typeof companyApps)[number] }) {
 
 export default function DownloadsPage() {
  return (
-  <main className="min-h-screen bg-[#fbfdff]">
+  <main className="min-h-screen">
    <section className="relative px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
-    <div className="relative mx-auto max-w-7xl min-w-0">
+    <div className="relative mx-auto max-w-[1800px] min-w-0">
      <BackButton />
 
      <div className="mt-8 grid min-w-0 gap-8 sm:mt-10 lg:gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">

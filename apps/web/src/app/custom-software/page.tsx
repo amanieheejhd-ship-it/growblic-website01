@@ -30,11 +30,11 @@ const features = [
 
 export default function CustomSoftwarePage() {
   return (
-    <main className="min-h-screen bg-[#fbfdff]">
+    <main className="min-h-screen">
       <section className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,rgba(37,99,235,0.14),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(6,182,212,0.10),transparent_28%)]" />
 
-        <div className="relative mx-auto grid max-w-7xl min-w-0 gap-8 lg:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-[1800px] min-w-0 gap-8 lg:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="min-w-0">
             <BackButton />
 
@@ -78,7 +78,7 @@ export default function CustomSoftwarePage() {
       </section>
 
       <section className="px-4 pb-16 sm:px-6 sm:pb-24">
-        <div className="mx-auto mb-10 max-w-7xl min-w-0">
+        <div className="mx-auto mb-10 max-w-[1800px] min-w-0">
           <h2 className="break-words text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">
             What we include in custom software
           </h2>
@@ -88,7 +88,7 @@ export default function CustomSoftwarePage() {
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-7xl min-w-0 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-[1800px] min-w-0 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((item, index) => (
             <div key={item.title} className="min-w-0 rounded-[1.5rem] border border-blue-100/70 bg-[#fbfdff] p-5 shadow-xl shadow-blue-100/50 sm:rounded-[2rem] sm:p-7">
               <span className="text-sm font-black text-blue-600">0{index + 1}</span>

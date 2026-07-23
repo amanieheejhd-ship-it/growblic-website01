@@ -13,7 +13,7 @@ export default function CareersApplyPage() {
     <section className="relative overflow-hidden px-6 py-20 sm:px-8 lg:px-10">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(37,99,235,0.12),transparent_30%),radial-gradient(circle_at_86%_84%,rgba(6,182,212,0.10),transparent_30%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+      <div className="relative mx-auto grid max-w-[1800px] gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
           <p className="inline-flex rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-black uppercase tracking-[0.30em] text-blue-700 shadow-lg shadow-blue-100/60">
             Growblic Careers / Apply

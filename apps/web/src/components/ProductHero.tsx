@@ -15,7 +15,7 @@ export default function ProductHero({ product }: { product: Product }) {
     <section className="relative overflow-hidden bg-[#fbfdff] px-6 pb-20 pt-36">
       <div className="aurora absolute inset-0 opacity-70" />
       <div className="subtle-grid absolute inset-0 opacity-45" />
-      <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+      <div className="relative mx-auto grid max-w-[1800px] gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-100/70 bg-[#fbfdff]/74 px-4 py-2 text-sm font-semibold text-blue-700 shadow-xl shadow-slate-900/5 backdrop-blur-xl">
             <Icon size={16} />

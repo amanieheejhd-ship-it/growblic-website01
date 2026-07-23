@@ -1,5 +1,9 @@
-import { APPLICATION_STATUSES } from "@growblic/validation";
-import { createAdminSubmissionListHandler } from "@/server/submissions/admin-submissions.api";
-import { listCareerApplications } from "@/server/submissions/admin-submissions.repository";
+import { proxyAdminJson } from "@/server/backend/admin-proxy";
+
 export const runtime = "nodejs";
-export const GET = createAdminSubmissionListHandler(APPLICATION_STATUSES, listCareerApplications);
+
+export async function GET(request: Request) {
+  return proxyAdminJson(request, "/admin/submissions/career-applications", {
+    fallbackMessage: "Unable to complete the admin submission request.",
+  });
+}

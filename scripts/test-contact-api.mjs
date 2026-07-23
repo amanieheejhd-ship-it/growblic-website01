@@ -1,4 +1,4 @@
-const baseUrl = (process.env.CONTACT_API_BASE_URL || "http://localhost:3000").replace(
+const baseUrl = (process.env.CONTACT_API_BASE_URL || "http://localhost:4000").replace(
   /\/$/,
   "",
 );
@@ -7,7 +7,7 @@ const testEmail = `growblic-api-test+${timestamp}@example.com`;
 const successMessage = "Thank you. Your enquiry has been received.";
 
 async function postContact(payload) {
-  const response = await fetch(`${baseUrl}/api/contact`, {
+  const response = await fetch(`${baseUrl}/public-submissions/contact`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -30,11 +30,11 @@ const features = [
 
 export default function SaasProductsPage() {
   return (
-    <main className="min-h-screen bg-[#fbfdff]">
+    <main className="min-h-screen">
       <section className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_0%,rgba(168,85,247,0.13),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(37,99,235,0.10),transparent_28%)]" />
 
-        <div className="relative mx-auto max-w-7xl min-w-0">
+        <div className="relative mx-auto max-w-[1800px] min-w-0">
           <BackButton />
 
           <div className="mt-8 min-w-0 rounded-[2rem] border border-blue-100/70 bg-[#fbfdff]/88 p-3 shadow-2xl shadow-blue-100/60 backdrop-blur-xl sm:mt-10 sm:rounded-[3.4rem] sm:p-5">

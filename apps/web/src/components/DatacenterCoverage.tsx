@@ -236,7 +236,7 @@ export function DatacenterCoverage() {
     : activeRegion.focus;
 
   return (
-    <section className="mx-auto mt-16 w-full max-w-7xl px-0 sm:px-6 lg:px-8">
+    <section className="mx-auto mt-16 w-full max-w-[1800px] px-0 sm:px-6 lg:px-8">
       <div className="min-w-0 rounded-[2.25rem] border border-blue-100 bg-white/85 p-4 shadow-[0_30px_100px_rgba(37,99,235,0.10)] backdrop-blur-2xl sm:p-8">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0">

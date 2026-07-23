@@ -24,10 +24,9 @@ const milestones = [
 
 export default function Journey() {
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(239,246,255,0.62),rgba(255,255,255,0)_34%),radial-gradient(circle_at_50%_12%,rgba(6,182,212,0.10),transparent_30%)]" />
+    <section className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1800px]">
         <div className="growblic-card-reveal mx-auto max-w-3xl text-center">
           <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600 sm:text-sm">
             Growblic Journey

@@ -58,13 +58,11 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Process() {
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-32 sm:px-8 lg:px-10">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_12%,rgba(37,99,235,0.14),transparent_30%),radial-gradient(circle_at_92%_56%,rgba(6,182,212,0.13),transparent_34%),linear-gradient(180deg,#ffffff,rgba(239,246,255,0.72),#ffffff)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.045)_1px,transparent_1px)] bg-[size:56px_56px] opacity-70 [mask-image:radial-gradient(circle_at_50%_32%,black,transparent_78%)]" />
+    <section className="relative overflow-hidden px-6 py-32 sm:px-8 lg:px-10">
       <div className="pointer-events-none absolute left-[8%] top-28 h-52 w-52 rounded-full bg-blue-200/30 blur-3xl" />
       <div className="pointer-events-none absolute bottom-24 right-[10%] h-64 w-64 rounded-full bg-cyan-200/30 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1800px]">
         <motion.div
           initial={{ opacity: 0, y: 48, scale: 0.985 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}

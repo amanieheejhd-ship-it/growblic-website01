@@ -65,7 +65,7 @@ export default function SoftwarePage() {
       <div className="pointer-events-none absolute left-0 top-0 h-[34rem] w-[34rem] rounded-full bg-blue-200/30 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-24 h-[34rem] w-[34rem] rounded-full bg-cyan-200/35 blur-3xl" />
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-14 pt-10 sm:pb-20 sm:pt-14">
+      <section className="relative z-10 mx-auto max-w-[1800px] px-6 pb-14 pt-10 sm:pb-20 sm:pt-14">
         <Link
           href="/services"
           className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-sm font-black text-slate-700 shadow-sm backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
@@ -190,7 +190,7 @@ export default function SoftwarePage() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-16">
+      <section className="relative z-10 mx-auto max-w-[1800px] px-6 pb-16">
         <div className="rounded-[2.4rem] border border-blue-100 bg-white/72 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
           <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -254,7 +254,7 @@ export default function SoftwarePage() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20">
+      <section className="relative z-10 mx-auto max-w-[1800px] px-6 pb-20">
         <div className="overflow-hidden rounded-[2.4rem] border border-slate-800/20 bg-[radial-gradient(circle_at_20%_0%,rgba(34,211,238,0.22),transparent_30%),linear-gradient(135deg,#020617,#172554)] p-8 text-white shadow-[0_34px_110px_rgba(15,23,42,0.24)] sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>

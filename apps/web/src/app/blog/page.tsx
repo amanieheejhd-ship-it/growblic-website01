@@ -17,12 +17,12 @@ export default function BlogPage() {
   const featuredPost = blogPosts.find((post) => post.slug === "custom-software") ?? blogPosts[0];
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden">
       <section className="relative px-5 pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(37,99,235,0.13),transparent_30%),radial-gradient(circle_at_84%_18%,rgba(124,58,237,0.10),transparent_26%),radial-gradient(circle_at_50%_100%,rgba(6,182,212,0.12),transparent_34%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:78px_78px] opacity-35" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-[1800px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
             <p className="inline-flex rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700 shadow-sm shadow-blue-100/60">
               GROWBLIC BLOG
@@ -175,7 +175,7 @@ export default function BlogPage() {
       </Suspense>
 
       <section id="blog-cta" className="bg-white px-5 pb-16 sm:px-6 sm:pb-20">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.1rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 shadow-2xl shadow-blue-950/10 sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
+        <div className="mx-auto max-w-[1800px] overflow-hidden rounded-[2.1rem] border border-blue-100 bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 shadow-2xl shadow-blue-950/10 sm:p-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div>
             <p className="text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
               Planning your next software project?

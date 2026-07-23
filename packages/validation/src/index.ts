@@ -4,5 +4,6 @@ export * from "./careers";
 export * from "./common";
 export * from "./contact";
 export * from "./internships";
+export * from "./internship-certificates";
 export * from "./meeting";
 export * from "./quote";

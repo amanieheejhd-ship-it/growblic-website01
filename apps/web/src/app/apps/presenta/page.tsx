@@ -13,11 +13,11 @@ export const metadata = {
 
 export default function PresentaPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden">
       <section className="relative px-4 py-14 sm:px-6 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_0%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_84%_80%,rgba(6,182,212,0.10),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(168,85,247,0.07),transparent_30%)]" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-[1800px]">
           <BackButton />
 
           <div className="mt-8 grid min-w-0 gap-8 sm:mt-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">

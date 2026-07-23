@@ -1,0 +1,169 @@
+# Local/prod-like composition of the Growblic microservices.
+#
+#   docker compose up --build
+#
+# Frontends (apps/web on 3002, apps/admin on 3001) run with `pnpm dev` and point
+# NEXT_PUBLIC_API_URL / BACKEND_INTERNAL_URL at the gateway (http://localhost:8080)
+# or directly at the per-service ports.
+#
+# Database migrations are NEVER run here — apply them manually with
+# `pnpm prisma:migrate:deploy` (uses DIRECT_URL).
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: growblic
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  submissions-service:
+    build:
+      context: .
+      dockerfile: infra/services.Dockerfile
+      args:
+        SERVICE_NAME: "@growblic/submissions-service"
+        SERVICE_DIR: apps/services/submissions-service
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: "4001"
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/growblic
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3002}
+      TRUST_PROXY: "true"
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "4001:4001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  admin-service:
+    build:
+      context: .
+      dockerfile: infra/services.Dockerfile
+      args:
+        SERVICE_NAME: "@growblic/admin-service"
+        SERVICE_DIR: apps/services/admin-service
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: "4002"
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/growblic
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3001}
+      TRUST_PROXY: "true"
+      ADMIN_AUTH_PEPPER: ${ADMIN_AUTH_PEPPER:?set ADMIN_AUTH_PEPPER in .env}
+      INTERNSHIP_SERVICE_INTERNAL_URL: http://internship-service:4000
+      INTERNSHIP_CERTIFICATE_INTERNAL_TOKEN: ${INTERNSHIP_CERTIFICATE_INTERNAL_TOKEN:-}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "4002:4002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  internship-service:
+    build:
+      context: .
+      dockerfile: infra/services.Dockerfile
+      args:
+        SERVICE_NAME: "@growblic/internship-service"
+        SERVICE_DIR: apps/services/internship-service
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: "4000"
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/growblic
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3002}
+      TRUST_PROXY: "true"
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+      RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      INVOICE_FROM_EMAIL: ${INVOICE_FROM_EMAIL:-}
+      INVOICE_ADMIN_EMAIL: ${INVOICE_ADMIN_EMAIL:-}
+      INTERNSHIP_CERTIFICATE_INTERNAL_TOKEN: ${INTERNSHIP_CERTIFICATE_INTERNAL_TOKEN:-}
+      PUBLIC_IDENTITY_INTERNAL_TOKEN: ${PUBLIC_IDENTITY_INTERNAL_TOKEN:-}
+      ACCOUNTS_SERVICE_INTERNAL_URL: http://accounts-service:4004
+      APPLICANT_AUTH_PEPPER: ${APPLICANT_AUTH_PEPPER:-}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3002}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  notification-worker:
+    build:
+      context: .
+      dockerfile: infra/services.Dockerfile
+      args:
+        SERVICE_NAME: "@growblic/notification-worker"
+        SERVICE_DIR: apps/services/notification-worker
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: "4003"
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/growblic
+      INTERNSHIP_CERTIFICATE_JOBS_ENABLED: ${INTERNSHIP_CERTIFICATE_JOBS_ENABLED:-true}
+      INTERNSHIP_CERTIFICATE_EMAIL_PROVIDER: ${INTERNSHIP_CERTIFICATE_EMAIL_PROVIDER:-resend}
+      INTERNSHIP_CERTIFICATE_FROM_EMAIL: ${INTERNSHIP_CERTIFICATE_FROM_EMAIL:-}
+      INTERNSHIP_CERTIFICATE_ADMIN_EMAIL: ${INTERNSHIP_CERTIFICATE_ADMIN_EMAIL:-}
+      INTERNSHIP_CERTIFICATE_ADMIN_BASE_URL: ${INTERNSHIP_CERTIFICATE_ADMIN_BASE_URL:-http://localhost:3001}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "4003:4003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  accounts-service:
+    build:
+      context: .
+      dockerfile: infra/services.Dockerfile
+      args:
+        SERVICE_NAME: "@growblic/accounts-service"
+        SERVICE_DIR: apps/services/accounts-service
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: "4004"
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/growblic
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3002}
+      TRUST_PROXY: "true"
+      PUBLIC_AUTH_PEPPER: ${PUBLIC_AUTH_PEPPER:?set PUBLIC_AUTH_PEPPER in .env}
+      PUBLIC_IDENTITY_INTERNAL_TOKEN: ${PUBLIC_IDENTITY_INTERNAL_TOKEN:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      PUBLIC_AUTH_FROM_EMAIL: ${PUBLIC_AUTH_FROM_EMAIL:-}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3002}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "4004:4004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  gateway:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./infra/gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - submissions-service
+      - accounts-service
+      - admin-service
+      - internship-service
+
+volumes:
+  postgres-data:

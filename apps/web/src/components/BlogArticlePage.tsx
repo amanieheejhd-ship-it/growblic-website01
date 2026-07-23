@@ -8,7 +8,7 @@ export default function BlogArticlePage({ post }: { post: BlogPost }) {
   const articlePoints = post.sections.slice(0, 5).map((section) => section.heading);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden">
       <section className="relative px-5 pb-12 pt-8 sm:px-6 sm:pb-16 sm:pt-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(37,99,235,0.12),transparent_30%),radial-gradient(circle_at_84%_20%,rgba(124,58,237,0.10),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0),rgba(239,246,255,0.72))]" />
         <div className="relative mx-auto max-w-6xl">

@@ -15,7 +15,7 @@ const reasons = [
 export default function WhyChoose() {
   return (
     <section className="px-6 py-24">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1800px]">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-sm font-medium uppercase text-cyan-200/80">Why Growblic</p>

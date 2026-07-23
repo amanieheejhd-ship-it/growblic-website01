@@ -7,10 +7,45 @@ import type {
   QuoteRequest,
 } from "@growblic/contracts";
 
-const API_BASE_URL =
-  (process.env.NEXT_PUBLIC_API_URL || "https://growblic-api.onrender.com").replace(/\/$/, "");
-const LEAD_REQUEST_TIMEOUT_MS = 10_000;
 const WEBSITE_FORM_REQUEST_TIMEOUT_MS = 15_000;
+export const LOCAL_BACKEND_CONNECTION_ERROR =
+  "Cannot connect to the local backend at http://127.0.0.1:4000. Make sure the backend is running.";
+
+export function growblicApiUrl(path: string) {
+  const configured = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (!configured) {
+    throw new Error("NEXT_PUBLIC_API_URL is not configured.");
+  }
+  return joinApiUrl(configured, path);
+}
+
+// Public form submissions are served by the submissions-service. A dedicated
+// origin can be configured; without it the primary API origin is used so a
+// single-origin gateway deployment keeps working.
+export function submissionsApiUrl(path: string) {
+  const configured = process.env.NEXT_PUBLIC_SUBMISSIONS_API_URL?.trim();
+  if (configured) {
+    return joinApiUrl(configured, path);
+  }
+  return growblicApiUrl(path);
+}
+
+function joinApiUrl(baseUrl: string, path: string) {
+  const normalizedBase = baseUrl.replace(/\/+$/, "");
+  const normalizedPath = path.replace(/^\/+/, "");
+  return `${normalizedBase}/${normalizedPath}`;
+}
+
+export async function fetchGrowblicApi(path: string, init?: RequestInit) {
+  try {
+    return await fetch(growblicApiUrl(path), {
+      credentials: "include",
+      ...init,
+    });
+  } catch {
+    throw new Error(LOCAL_BACKEND_CONNECTION_ERROR);
+  }
+}
 
 async function postJsonWithTimeout<T>(
   url: string,
@@ -36,39 +71,6 @@ async function postJsonWithTimeout<T>(
   } finally {
     clearTimeout(timeout);
   }
-}
-
-export type LeadPayload = {
-  name: string;
-  email?: string;
-  phone?: string;
-  service?: string;
-  budget?: string;
-  message: string;
-  source?: string;
-};
-
-type LeadResponse = {
-  success?: boolean;
-  message?: string;
-  leadId?: string;
-};
-
-export async function submitLead(
-  path: "/leads/contact" | "/leads/start-project" | "/leads/meetup",
-  payload: LeadPayload,
-) {
-  const { response, data } = await postJsonWithTimeout<LeadResponse>(
-    `${API_BASE_URL}${path}`,
-    payload,
-    LEAD_REQUEST_TIMEOUT_MS,
-  );
-
-  if (!response.ok || !data?.success || !data.leadId) {
-    throw new Error(data?.message || "Lead request failed.");
-  }
-
-  return data;
 }
 
 type WebsiteFormRequestMap = {
@@ -104,7 +106,7 @@ export async function persistWebsiteForm<Path extends keyof WebsiteFormRequestMa
   payload: WebsiteFormRequestMap[Path],
 ) {
   const { response, data } = await postJsonWithTimeout<FormSubmissionResponse>(
-    `${API_BASE_URL}${submissionEndpoint(path, payload)}`,
+    submissionsApiUrl(submissionEndpoint(path, payload)),
     payload,
     WEBSITE_FORM_REQUEST_TIMEOUT_MS,
   );

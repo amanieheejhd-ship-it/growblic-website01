@@ -66,7 +66,9 @@ type ChatRequestError = Error & {
 };
 
 const API_URL =
-  process.env.NEXT_PUBLIC_GROWBLIC_API_URL || "https://growblic-api.onrender.com";
+  process.env.NEXT_PUBLIC_GROWBLIC_API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:4000";
 const FETCH_TIMEOUT_MS = 60000;
 const RETRY_DELAY_MS = 900;
 const ASSISTANT_CONNECTION_ERROR =

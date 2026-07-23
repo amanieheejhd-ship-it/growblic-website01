@@ -45,10 +45,9 @@ const capabilities = [
 
 export default function Capabilities() {
   return (
-    <section className="relative overflow-hidden bg-[#fbfdff] px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_0%,rgba(37,99,235,0.11),transparent_30%),radial-gradient(circle_at_90%_70%,rgba(6,182,212,0.09),transparent_28%)]" />
+    <section className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1800px]">
         <div className="mb-10 grid min-w-0 gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div className="min-w-0">
             <div className="inline-flex max-w-full items-center gap-3 rounded-full border border-blue-100 bg-[#fbfdff] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-blue-700 shadow-lg shadow-blue-100/60 sm:tracking-[0.24em]">
@@ -106,8 +105,9 @@ export default function Capabilities() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[2rem] border border-blue-100/70 bg-[#fbfdff]/75 p-3 shadow-2xl shadow-blue-100/50 backdrop-blur-xl sm:rounded-[3rem] sm:p-4">
-          <div className="absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent" />
+        {/* No outer box — the cards grid sits directly on the shared
+            background and stretches to the wide container. */}
+        <div className="relative">
           <div className="absolute -left-24 top-10 hidden h-64 w-64 rounded-full bg-blue-100/70 blur-3xl sm:block" />
           <div className="absolute -right-24 bottom-0 hidden h-64 w-64 rounded-full bg-cyan-100/70 blur-3xl sm:block" />
 

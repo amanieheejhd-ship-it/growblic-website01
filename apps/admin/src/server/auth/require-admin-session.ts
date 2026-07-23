@@ -1,17 +1,42 @@
 import "server-only";
 
+import type { AdminSafeUser, AdminSessionResponse } from "@growblic/contracts";
+import { backendAdminFetch } from "@/server/backend/backend-admin";
 import { AdminAuthorizationError } from "@/server/errors/admin-authorization.error";
 import { getAdminSessionCookie } from "./admin-auth.cookies";
-import { getAdminSession } from "./admin-auth.service";
 
-export async function getOptionalAdminSession() {
+export type AdminPageSession = {
+  expiresAt: Date;
+  user: AdminSafeUser;
+};
+
+export async function getOptionalAdminSession(): Promise<AdminPageSession | null> {
   const token = await getAdminSessionCookie();
 
   if (!token) {
     return null;
   }
 
-  return getAdminSession(token);
+  const response = await backendAdminFetch("/admin/auth/session", { token });
+
+  if (response.status === 401) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Unable to validate the admin session.");
+  }
+
+  const payload = (await response.json()) as AdminSessionResponse;
+
+  if (!payload.success) {
+    return null;
+  }
+
+  return {
+    expiresAt: new Date(payload.session.expiresAt),
+    user: payload.user,
+  };
 }
 
 export async function requireAdminSession() {

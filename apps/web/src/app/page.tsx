@@ -3,7 +3,7 @@ import CaseStudies from "../components/CaseStudies";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import FloatingContactButton from "../components/FloatingContactButton";
-import Hero from "../components/Hero";
+import HeroSection from "../components/HeroSection";
 import HomepageContactFlow from "../components/HomepageContactFlow";
 import IntroAnimation from "../components/IntroAnimation";
 import Journey from "../components/Journey";
@@ -30,7 +30,7 @@ export default function Home() {
       <IntroAnimation />
       <Navbar />
       <main>
-        <Hero />
+        <HeroSection />
         <Scroll3DSection className="growblic-scroll-reveal">
           <Stats />
         </Scroll3DSection>

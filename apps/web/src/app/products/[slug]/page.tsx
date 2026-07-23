@@ -68,7 +68,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <ProductGallery product={product} />
         <ProductFeatures product={product} />
         <section className="bg-[#f5f7fb] px-6 py-24">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1800px]">
             <div className="max-w-4xl">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">Related Products</p>
               <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-[#050505] sm:text-6xl">

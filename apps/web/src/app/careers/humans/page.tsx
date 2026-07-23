@@ -53,7 +53,7 @@ export default function CareersHumansPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#f8fbff] text-slate-950">
       <section className="relative border-b border-blue-100/70 px-4 py-5 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5">
+        <div className="mx-auto flex max-w-[1800px] flex-col gap-5">
           <div className="flex items-center gap-4">
             <div className="grid h-11 w-11 place-items-center rounded-full bg-black text-white shadow-xl shadow-blue-100">
               <span className="text-xl">◒</span>
@@ -85,7 +85,7 @@ export default function CareersHumansPage() {
       <section className="relative px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(37,99,235,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(37,99,235,0.08)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-[1800px]">
           <div className="mb-8 max-w-3xl">
             <p className="text-xs font-black uppercase tracking-[0.34em] text-blue-600">
               Humans of Growblic

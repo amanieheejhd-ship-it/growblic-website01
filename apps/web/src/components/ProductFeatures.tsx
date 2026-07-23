@@ -11,7 +11,7 @@ export default function ProductFeatures({ product }: { product: Product }) {
 
   return (
     <section className="bg-[#fbfdff] px-6 py-24">
-      <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-[1800px] gap-5 lg:grid-cols-4">
         {sections.map((section) => {
           const Icon = section.icon;
           return (

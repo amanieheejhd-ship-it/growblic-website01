@@ -21,12 +21,11 @@ const trustCards = [
 
 export default function TrustSection() {
   return (
-    <section className="why-growblic-section relative overflow-hidden bg-[#f7f9fd] px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
+    <section className="why-growblic-section relative overflow-hidden px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
       <div className="why-growblic-glow pointer-events-none absolute -left-24 top-8 h-72 w-72 rounded-full bg-blue-200/45 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-200/40 blur-3xl" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.08),transparent_35%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+      <div className="relative mx-auto grid max-w-[1800px] gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
         <div className="growblic-card-reveal max-w-3xl">
           <span className="inline-flex rounded-full border border-blue-100/80 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-blue-600 shadow-lg shadow-blue-100/45 backdrop-blur">
             Why Growblic

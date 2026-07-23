@@ -1,4 +1,18 @@
-import { APPLICATION_STATUSES } from "@growblic/validation";
-import { createAdminSubmissionStatusHandler } from "@/server/submissions/admin-submissions.api";
+import { proxyAdminJson } from "@/server/backend/admin-proxy";
+
 export const runtime = "nodejs";
-export const PATCH = createAdminSubmissionStatusHandler("internship-applications", APPLICATION_STATUSES);
+
+export async function PATCH(
+  request: Request,
+  context: { params: Promise<{ id: string }> },
+) {
+  const { id } = await context.params;
+  return proxyAdminJson(
+    request,
+    `/admin/submissions/internship-applications/${encodeURIComponent(id)}`,
+    {
+      errorMessages: { 404: "Submission not found." },
+      fallbackMessage: "Unable to complete the admin submission request.",
+    },
+  );
+}

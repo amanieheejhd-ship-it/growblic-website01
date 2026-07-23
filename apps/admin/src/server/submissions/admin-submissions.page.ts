@@ -1,6 +1,12 @@
 import "server-only";
 
 export type AdminPageSearchParams = Promise<Record<string, string | string[] | undefined>>;
+export type InstituteEnrollmentFilter = "all" | "yes" | "no";
+export function readInstituteEnrollmentFilter(value: string | string[] | null | undefined): InstituteEnrollmentFilter {
+  if (typeof value !== "string") return "all";
+  const normalized = value.trim().toLowerCase();
+  return normalized === "yes" || normalized === "no" ? normalized : "all";
+}
 export async function readSubmissionPageQuery(searchParams: AdminPageSearchParams, allowedStatuses: readonly string[]) {
   const values = await searchParams;
   const rawPage = typeof values.page === "string" ? values.page : "1";

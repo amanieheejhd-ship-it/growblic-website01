@@ -1,7 +1,9 @@
 packages:
   - "apps/*"
+  - "apps/services/*"
   - "packages/*"
 allowBuilds:
+  nx: true
   '@prisma/engines': true
   argon2: true
   esbuild: true

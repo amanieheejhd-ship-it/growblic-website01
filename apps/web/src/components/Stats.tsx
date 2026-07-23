@@ -84,7 +84,7 @@ function AnimatedNumber({
 
 export function Stats() {
   return (
-    <section className="relative mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <section className="relative mx-auto w-full max-w-[1800px] px-4 py-10 sm:px-6 lg:px-8">
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {stats.map((stat) => (
           <div

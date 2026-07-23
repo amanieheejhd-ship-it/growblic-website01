@@ -9,7 +9,13 @@
     "./node": "./node.mjs"
   },
   "dependencies": {
+    "@nx/eslint-plugin": "^23.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9"
+  },
+  "nx": {
+    "tags": [
+      "scope:tooling"
+    ]
   }
 }

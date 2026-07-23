@@ -21,7 +21,7 @@ export default function ServicesPage() {
       <main className="pt-28">
         <section className="relative overflow-hidden bg-[#fbfdff] px-4 py-16 sm:px-6 sm:py-20">
           <div className="aurora absolute inset-0 opacity-60" />
-          <div className="relative mx-auto grid max-w-7xl min-w-0 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-10">
+          <div className="relative mx-auto grid max-w-[1800px] min-w-0 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-10">
             <div className="min-w-0">
               <p className="text-sm font-black uppercase tracking-[0.22em] text-blue-600">Services</p>
               <h1 className="mt-4 max-w-4xl break-words text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import AdminShell from "@/components/admin/AdminShell";
-import { getAdminDashboardSummary } from "@/server/submissions/admin-submissions.repository";
+import { fetchAdminDashboardSummary } from "@/server/backend/backend-admin";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +15,7 @@ const modules = [
 const futureSections = ["Overview", "Products", "Services", "Portfolio", "Settings"];
 
 export default async function AdminPage() {
-  const counts = await getAdminDashboardSummary();
+  const counts = await fetchAdminDashboardSummary();
   return <AdminShell><section><h1 className="text-3xl font-bold tracking-tight text-slate-950">Dashboard</h1><p className="mt-2 text-sm text-slate-600">Private submission management and future CMS modules.</p>
     <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{modules.map(([title, key, href, description]) => <article key={key} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><p className="text-sm font-bold text-slate-950">{title}</p><div className="mt-3 flex items-end gap-4"><p className="text-3xl font-bold text-slate-950">{counts[key].total}</p><p className="pb-1 text-sm font-semibold text-amber-700">{counts[key].pending} NEW</p></div><p className="mt-3 min-h-10 text-sm text-slate-600">{description}</p><Link href={href} className="mt-4 inline-flex text-sm font-bold text-indigo-700">View all →</Link></article>)}</div>
     <section className="mt-8"><h2 className="text-lg font-bold text-slate-950">Future CMS modules</h2><div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">{futureSections.map((title) => <article key={title} className="rounded-xl border border-slate-200 bg-slate-50 p-4"><h3 className="font-bold text-slate-700">{title}</h3><p className="mt-1 text-xs text-slate-500">Not configured yet.</p></article>)}</div></section>

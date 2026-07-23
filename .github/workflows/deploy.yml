@@ -45,7 +45,7 @@ jobs:
       - name: Validate submissions
         run: |
           pnpm --filter @growblic/web typecheck
-          pnpm --filter @growblic/backend typecheck
+          pnpm --filter @growblic/submissions-service typecheck
           pnpm test:website-submissions
 
       - name: Build static site

@@ -99,7 +99,7 @@ export default function CareersPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(37,99,235,0.15),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(6,182,212,0.12),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.92),rgba(239,246,255,0.72))]" />
         <div className="absolute left-[12%] top-20 h-48 w-48 rounded-full bg-blue-200/35 blur-3xl" />
         <div className="absolute bottom-10 right-[12%] h-56 w-56 rounded-full bg-cyan-200/30 blur-3xl" />
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-[1800px] gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-center">
           <div>
             <Link
               href="/#footer"
@@ -262,7 +262,7 @@ export default function CareersPage() {
 
 
       <section className="px-6 pb-24 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1800px]">
           <Scroll3DSection>
             <div className="max-w-3xl">
               <p className="text-sm font-black uppercase tracking-[0.28em] text-blue-600">

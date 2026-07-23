@@ -1,77 +1,14 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider               = "prisma-client"
+  output                 = "../src/generated/prisma"
+  runtime                = "nodejs"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
 }
 
 datasource db {
   provider = "postgresql"
-}
-
-enum EnquiryStatus {
-  NEW
-  CONTACTED
-  IN_PROGRESS
-  CLOSED
-  SPAM
-}
-
-enum AdminUserStatus {
-  ACTIVE
-  INACTIVE
-  SUSPENDED
-}
-
-enum ContentStatus {
-  DRAFT
-  PUBLISHED
-  ARCHIVED
-}
-
-enum EmploymentType {
-  FULL_TIME
-  PART_TIME
-  CONTRACT
-  INTERNSHIP
-  TEMPORARY
-}
-
-enum JobOpeningStatus {
-  DRAFT
-  OPEN
-  CLOSED
-  ARCHIVED
-}
-
-enum JobApplicationStatus {
-  NEW
-  REVIEWING
-  SHORTLISTED
-  INTERVIEW
-  REJECTED
-  HIRED
-  WITHDRAWN
-}
-
-enum SettingValueType {
-  STRING
-  NUMBER
-  BOOLEAN
-  JSON
-}
-
-enum InternshipPaymentStatus {
-  CREATED
-  PENDING
-  PAID
-  FAILED
-  REFUNDED
-}
-
-enum InvoiceDeliveryStatus {
-  PENDING
-  PROCESSING
-  SENT
-  FAILED
 }
 
 model ContactEnquiry {
@@ -103,10 +40,10 @@ model AdminUser {
   createdAt    DateTime        @default(now()) @map("created_at")
   updatedAt    DateTime        @updatedAt @map("updated_at")
   deletedAt    DateTime?       @map("deleted_at")
-  roles        AdminUserRole[]
-  uploads      MediaAsset[]    @relation("MediaAssetUploader")
-  auditLogs    AuditLog[]
   sessions     AdminSession[]
+  roles        AdminUserRole[]
+  auditLogs    AuditLog[]
+  uploads      MediaAsset[]    @relation("MediaAssetUploader")
 
   @@index([status, deletedAt])
   @@index([createdAt])
@@ -130,8 +67,8 @@ model AdminUserRole {
   adminUserId String    @map("admin_user_id")
   adminRoleId String    @map("admin_role_id")
   createdAt   DateTime  @default(now()) @map("created_at")
-  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
   adminRole   AdminRole @relation(fields: [adminRoleId], references: [id], onDelete: Cascade)
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
 
   @@unique([adminUserId, adminRoleId])
   @@index([adminRoleId])
@@ -171,7 +108,7 @@ model Product {
   createdAt        DateTime      @default(now()) @map("created_at")
   updatedAt        DateTime      @updatedAt @map("updated_at")
   deletedAt        DateTime?     @map("deleted_at")
-  logoMedia        MediaAsset?   @relation("ProductLogo", fields: [logoMediaId], references: [id], onDelete: SetNull)
+  logoMedia        MediaAsset?   @relation("ProductLogo", fields: [logoMediaId], references: [id])
 
   @@index([logoMediaId])
   @@index([status, deletedAt])
@@ -195,7 +132,7 @@ model PortfolioProject {
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
   deletedAt    DateTime?     @map("deleted_at")
-  coverMedia   MediaAsset?   @relation("PortfolioCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+  coverMedia   MediaAsset?   @relation("PortfolioCover", fields: [coverMediaId], references: [id])
 
   @@index([coverMediaId])
   @@index([status, deletedAt])
@@ -218,7 +155,7 @@ model Testimonial {
   createdAt     DateTime      @default(now()) @map("created_at")
   updatedAt     DateTime      @updatedAt @map("updated_at")
   deletedAt     DateTime?     @map("deleted_at")
-  avatarMedia   MediaAsset?   @relation("TestimonialAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
+  avatarMedia   MediaAsset?   @relation("TestimonialAvatar", fields: [avatarMediaId], references: [id])
 
   @@index([avatarMediaId])
   @@index([status, deletedAt])
@@ -263,8 +200,8 @@ model JobApplication {
   status        JobApplicationStatus @default(NEW)
   createdAt     DateTime             @default(now()) @map("created_at")
   updatedAt     DateTime             @updatedAt @map("updated_at")
-  jobOpening    JobOpening           @relation(fields: [jobOpeningId], references: [id], onDelete: Restrict)
-  resumeMedia   MediaAsset?          @relation("JobApplicationResume", fields: [resumeMediaId], references: [id], onDelete: SetNull)
+  jobOpening    JobOpening           @relation(fields: [jobOpeningId], references: [id])
+  resumeMedia   MediaAsset?          @relation("JobApplicationResume", fields: [resumeMediaId], references: [id])
 
   @@index([jobOpeningId])
   @@index([resumeMediaId])
@@ -296,27 +233,39 @@ model CareerApplication {
 }
 
 model InternshipApplication {
-  id                   String               @id @default(cuid())
-  submissionKey        String               @unique @map("submission_key")
-  internshipSlug       String               @map("internship_slug")
-  candidateName        String               @map("candidate_name")
-  email                String
-  phone                String
-  state                String
-  instituteEnrollment  String               @map("institute_enrollment")
-  instituteName        String?              @map("institute_name")
-  course               String?
-  enrollmentNumber     String?              @map("enrollment_number")
-  highestQualification String?              @map("highest_qualification")
-  passingYear          String?              @map("passing_year")
-  message              String?
-  status               JobApplicationStatus @default(NEW)
-  createdAt            DateTime             @default(now()) @map("created_at")
-  updatedAt            DateTime             @updatedAt @map("updated_at")
-  payment              InternshipPayment?
+  id                      String                        @id @default(cuid())
+  submissionKey           String                        @unique @map("submission_key")
+  internshipSlug          String                        @map("internship_slug")
+  candidateName           String                        @map("candidate_name")
+  email                   String
+  phone                   String
+  state                   String
+  instituteEnrollment     String                        @map("institute_enrollment")
+  instituteName           String?                       @map("institute_name")
+  course                  String?
+  enrollmentNumber        String?                       @map("enrollment_number")
+  highestQualification    String?                       @map("highest_qualification")
+  passingYear             String?                       @map("passing_year")
+  message                 String?
+  status                  JobApplicationStatus          @default(NEW)
+  selectedPlanId          String?                       @map("selected_plan_id")
+  selectedPlanName        String?                       @map("selected_plan_name")
+  selectedPlanDuration    Int?                          @map("selected_plan_duration")
+  selectedPlanAmountPaise Int?                          @map("selected_plan_amount_paise")
+  selectedPlanCurrency    String?                       @map("selected_plan_currency")
+  planSelectedAt          DateTime?                     @map("plan_selected_at")
+  createdAt               DateTime                      @default(now()) @map("created_at")
+  updatedAt               DateTime                      @updatedAt @map("updated_at")
+  applicantAccountId      String?                       @map("applicant_account_id")
+  applicantAccount        InternshipApplicantAccount?   @relation(fields: [applicantAccountId], references: [id], onDelete: SetNull)
+  authFlows               InternshipApplicantAuthFlow[]
+  certificate             InternshipCertificate?
+  payment                 InternshipPayment?
 
+  @@index([applicantAccountId])
   @@index([email])
   @@index([internshipSlug])
+  @@index([selectedPlanDuration])
   @@index([status])
   @@index([createdAt])
   @@map("internship_applications")
@@ -339,14 +288,20 @@ model InternshipPayment {
   customerPhone           String                  @map("customer_phone")
   paymentMethod           String?                 @map("payment_method")
   paidAt                  DateTime?               @map("paid_at")
+  internshipStartedAt     DateTime?               @map("internship_started_at")
+  expectedCompletionAt    DateTime?               @map("expected_completion_at")
+  completedAt             DateTime?               @map("completed_at")
+  offerLetterGeneratedAt  DateTime?               @map("offer_letter_generated_at")
+  certificateAvailableAt  DateTime?               @map("certificate_available_at")
+  createdAt               DateTime                @default(now()) @map("created_at")
+  updatedAt               DateTime                @updatedAt @map("updated_at")
   confirmationReference   String?                 @unique @map("confirmation_reference")
   confirmationSequence    Int?                    @map("confirmation_sequence")
   confirmationYear        Int?                    @map("confirmation_year")
   joiningDate             DateTime?               @map("joining_date")
   confirmationIssuedAt    DateTime?               @map("confirmation_issued_at")
-  createdAt               DateTime                @default(now()) @map("created_at")
-  updatedAt               DateTime                @updatedAt @map("updated_at")
-  internshipApplication   InternshipApplication   @relation(fields: [internshipApplicationId], references: [id], onDelete: Restrict)
+  certificate             InternshipCertificate?
+  internshipApplication   InternshipApplication   @relation(fields: [internshipApplicationId], references: [id])
   invoice                 Invoice?
 
   @@unique([confirmationYear, confirmationSequence])
@@ -355,6 +310,251 @@ model InternshipPayment {
   @@index([status, createdAt])
   @@index([confirmationIssuedAt])
   @@map("internship_payments")
+}
+
+model InternshipApplicantAccount {
+  id                      String                                      @id @default(cuid())
+  emailNormalized         String                                      @unique @map("email_normalized")
+  emailDisplay            String                                      @map("email_display")
+  passwordHash            String?                                     @map("password_hash")
+  status                  InternshipApplicantAccountStatus            @default(ACTIVE)
+  emailVerifiedAt         DateTime?                                   @map("email_verified_at")
+  failedLoginCount        Int                                         @default(0) @map("failed_login_count")
+  lastLoginAt             DateTime?                                   @map("last_login_at")
+  createdAt               DateTime                                    @default(now()) @map("created_at")
+  updatedAt               DateTime                                    @updatedAt @map("updated_at")
+  applications            InternshipApplication[]
+  passwordResetTokens     InternshipApplicantPasswordResetToken[]
+  emailVerificationTokens InternshipApplicantEmailVerificationToken[]
+  sessions                InternshipApplicantSession[]
+  oauthIdentities         InternshipApplicantOAuthIdentity[]
+  documentAccesses        InternshipApplicantDocumentAccess[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("internship_applicant_accounts")
+}
+
+model InternshipApplicantDocumentAccess {
+  id           String                               @id @default(cuid())
+  accountId    String                               @map("account_id")
+  documentType InternshipApplicantDocumentType      @map("document_type")
+  documentId   String                               @map("document_id")
+  actorType    InternshipApplicantDocumentActorType @map("actor_type")
+  action       InternshipApplicantDocumentAction    @map("action")
+  createdAt    DateTime                             @default(now()) @map("created_at")
+  account      InternshipApplicantAccount           @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId, documentType, actorType, action, createdAt], map: "internship_applicant_document_access_account_doc_actor_action")
+  @@index([documentType, documentId])
+  @@index([createdAt])
+  @@map("internship_applicant_document_accesses")
+}
+
+model InternshipApplicantOAuthIdentity {
+  id                    String                     @id @default(cuid())
+  accountId             String                     @map("account_id")
+  provider              String
+  providerSubject       String                     @map("provider_subject")
+  providerEmail         String?                    @map("provider_email")
+  providerEmailVerified Boolean                    @default(false) @map("provider_email_verified")
+  createdAt             DateTime                   @default(now()) @map("created_at")
+  updatedAt             DateTime                   @updatedAt @map("updated_at")
+  account               InternshipApplicantAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerSubject])
+  @@index([accountId])
+  @@index([providerEmail])
+  @@map("internship_applicant_oauth_identities")
+}
+
+model InternshipApplicantAuthFlow {
+  id                      String                @id @default(cuid())
+  tokenHash               String                @unique @map("token_hash")
+  applicationId           String                @map("application_id")
+  selectedPlanId          String                @map("selected_plan_id")
+  selectedPlanName        String                @map("selected_plan_name")
+  selectedPlanDuration    Int                   @map("selected_plan_duration")
+  selectedPlanAmountPaise Int                   @map("selected_plan_amount_paise")
+  selectedPlanCurrency    String                @default("INR") @map("selected_plan_currency")
+  provider                String?
+  oauthStateHash          String?               @unique @map("oauth_state_hash")
+  oauthCodeVerifier       String?               @map("oauth_code_verifier")
+  expiresAt               DateTime              @map("expires_at")
+  consumedAt              DateTime?             @map("consumed_at")
+  createdAt               DateTime              @default(now()) @map("created_at")
+  ipAddress               String?               @map("ip_address")
+  userAgent               String?               @map("user_agent")
+  application             InternshipApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([expiresAt])
+  @@index([consumedAt])
+  @@index([provider])
+  @@map("internship_applicant_auth_flows")
+}
+
+model InternshipApplicantSession {
+  id         String                     @id @default(cuid())
+  accountId  String                     @map("account_id")
+  tokenHash  String                     @unique @map("token_hash")
+  expiresAt  DateTime                   @map("expires_at")
+  lastSeenAt DateTime?                  @map("last_seen_at")
+  revokedAt  DateTime?                  @map("revoked_at")
+  createdAt  DateTime                   @default(now()) @map("created_at")
+  ipAddress  String?                    @map("ip_address")
+  userAgent  String?                    @map("user_agent")
+  account    InternshipApplicantAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+  @@index([createdAt])
+  @@map("internship_applicant_sessions")
+}
+
+model InternshipApplicantAuthAttempt {
+  id            String   @id @default(cuid())
+  emailHash     String   @map("email_hash")
+  ipAddressHash String?  @map("ip_address_hash")
+  action        String
+  successful    Boolean
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([emailHash, action, successful, createdAt])
+  @@index([ipAddressHash, action, successful, createdAt])
+  @@index([createdAt])
+  @@map("internship_applicant_auth_attempts")
+}
+
+model InternshipApplicantPasswordResetToken {
+  id        String                     @id @default(cuid())
+  accountId String                     @map("account_id")
+  tokenHash String                     @unique @map("token_hash")
+  expiresAt DateTime                   @map("expires_at")
+  usedAt    DateTime?                  @map("used_at")
+  createdAt DateTime                   @default(now()) @map("created_at")
+  ipAddress String?                    @map("ip_address")
+  userAgent String?                    @map("user_agent")
+  account   InternshipApplicantAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([expiresAt])
+  @@index([usedAt])
+  @@index([createdAt])
+  @@map("internship_applicant_password_reset_tokens")
+}
+
+model InternshipApplicantEmailVerificationToken {
+  id        String                     @id @default(cuid())
+  accountId String                     @map("account_id")
+  tokenHash String                     @unique @map("token_hash")
+  expiresAt DateTime                   @map("expires_at")
+  usedAt    DateTime?                  @map("used_at")
+  createdAt DateTime                   @default(now()) @map("created_at")
+  ipAddress String?                    @map("ip_address")
+  userAgent String?                    @map("user_agent")
+  account   InternshipApplicantAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([expiresAt])
+  @@index([usedAt])
+  @@index([createdAt])
+  @@map("internship_applicant_email_verification_tokens")
+}
+
+model InternshipCertificate {
+  id                   String                              @id @default(cuid())
+  applicationId        String                              @unique @map("application_id")
+  paymentId            String                              @unique @map("payment_id")
+  durationDays         Int                                 @map("duration_days")
+  paidAt               DateTime                            @map("paid_at")
+  joiningDate          DateTime?                           @map("joining_date")
+  completionDate       DateTime?                           @map("completion_date")
+  reminderDueAt        DateTime?                           @map("reminder_due_at")
+  status               InternshipCertificateStatus         @default(PENDING_START_DATE)
+  domainRole           String?                             @map("domain_role")
+  designation          String?                             @map("designation")
+  projectWork          String?                             @map("project_work")
+  performanceSummary   String?                             @map("performance_summary")
+  conductNote          String?                             @map("conduct_note")
+  remarks              String?
+  certificateNumber    String?                             @unique @map("certificate_number")
+  certificateSequence  Int?                                @map("certificate_sequence")
+  certificateYear      Int?                                @map("certificate_year")
+  issuedAt             DateTime?                           @map("issued_at")
+  generatedAt          DateTime?                           @map("generated_at")
+  pdfBytes             Bytes?                              @map("pdf_bytes")
+  pdfSha256            String?                             @map("pdf_sha256")
+  reminderStatus       InternshipCertificateReminderStatus @default(PENDING) @map("reminder_status")
+  reminderAttemptCount Int                                 @default(0) @map("reminder_attempt_count")
+  reminderSentAt       DateTime?                           @map("reminder_sent_at")
+  reminderLastError    String?                             @map("reminder_last_error")
+  reminderClaimToken   String?                             @map("reminder_claim_token")
+  reminderClaimedAt    DateTime?                           @map("reminder_claimed_at")
+  emailStatus          InternshipCertificateEmailStatus    @default(PENDING) @map("email_status")
+  emailAttemptCount    Int                                 @default(0) @map("email_attempt_count")
+  emailedAt            DateTime?                           @map("emailed_at")
+  emailLastError       String?                             @map("email_last_error")
+  emailClaimToken      String?                             @map("email_claim_token")
+  emailClaimedAt       DateTime?                           @map("email_claimed_at")
+  nextEmailAttemptAt   DateTime?                           @map("next_email_attempt_at")
+  blockedAlertSentAt   DateTime?                           @map("blocked_alert_sent_at")
+  createdAt            DateTime                            @default(now()) @map("created_at")
+  updatedAt            DateTime                            @default(now()) @updatedAt @map("updated_at")
+  publicReference      String                              @unique @map("public_reference")
+  emailAttempts        InternshipCertificateEmailAttempt[]
+  skills               InternshipCertificateSkill[]
+  application          InternshipApplication               @relation(fields: [applicationId], references: [id])
+  payment              InternshipPayment                   @relation(fields: [paymentId], references: [id])
+
+  @@unique([certificateYear, certificateSequence])
+  @@index([status])
+  @@index([completionDate])
+  @@index([reminderDueAt])
+  @@index([emailedAt])
+  @@index([reminderStatus, reminderDueAt])
+  @@index([emailStatus, completionDate, nextEmailAttemptAt], map: "internship_certificates_email_status_completion_date_next_email")
+  @@map("internship_certificates")
+}
+
+model InternshipCertificateSkill {
+  id            String                @id @default(cuid())
+  certificateId String                @map("certificate_id")
+  position      Int
+  name          String
+  createdAt     DateTime              @default(now()) @map("created_at")
+  updatedAt     DateTime              @default(now()) @updatedAt @map("updated_at")
+  certificate   InternshipCertificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+
+  @@unique([certificateId, position])
+  @@index([certificateId])
+  @@map("internship_certificate_skills")
+}
+
+model InternshipCertificateEmailAttempt {
+  id             String                         @id @default(cuid())
+  certificateId  String                         @map("certificate_id")
+  kind           InternshipCertificateEmailKind
+  idempotencyKey String                         @unique @map("idempotency_key")
+  recipient      String
+  successful     Boolean
+  providerId     String?                        @map("provider_id")
+  safeError      String?                        @map("safe_error")
+  attemptedAt    DateTime                       @default(now()) @map("attempted_at")
+  certificate    InternshipCertificate          @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+
+  @@index([certificateId, kind, attemptedAt], map: "internship_certificate_email_attempts_certificate_id_kind_attem")
+  @@index([successful, attemptedAt], map: "internship_certificate_email_attempts_successful_attempted_at_i")
+  @@map("internship_certificate_email_attempts")
+}
+
+model InternshipCertificateSequence {
+  year      Int      @id
+  lastValue Int      @map("last_value")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("internship_certificate_sequences")
 }
 
 model InternshipConfirmationSequence {
@@ -382,7 +582,7 @@ model Invoice {
   deliveredAt    DateTime?             @map("delivered_at")
   createdAt      DateTime              @default(now()) @map("created_at")
   updatedAt      DateTime              @updatedAt @map("updated_at")
-  payment        InternshipPayment     @relation(fields: [paymentId], references: [id], onDelete: Restrict)
+  payment        InternshipPayment     @relation(fields: [paymentId], references: [id])
 
   @@index([issuedAt])
   @@index([deliveryStatus])
@@ -471,11 +671,11 @@ model MediaAsset {
   createdAt             DateTime           @default(now()) @map("created_at")
   updatedAt             DateTime           @updatedAt @map("updated_at")
   deletedAt             DateTime?          @map("deleted_at")
-  uploadedByAdminUser   AdminUser?         @relation("MediaAssetUploader", fields: [uploadedByAdminUserId], references: [id], onDelete: SetNull)
-  productLogos          Product[]          @relation("ProductLogo")
-  portfolioCovers       PortfolioProject[] @relation("PortfolioCover")
-  testimonialAvatars    Testimonial[]      @relation("TestimonialAvatar")
   jobApplicationResumes JobApplication[]   @relation("JobApplicationResume")
+  uploadedByAdminUser   AdminUser?         @relation("MediaAssetUploader", fields: [uploadedByAdminUserId], references: [id])
+  portfolioCovers       PortfolioProject[] @relation("PortfolioCover")
+  productLogos          Product[]          @relation("ProductLogo")
+  testimonialAvatars    Testimonial[]      @relation("TestimonialAvatar")
 
   @@unique([storageProvider, storagePath])
   @@index([uploadedByAdminUserId])
@@ -494,7 +694,7 @@ model AuditLog {
   ipAddress   String?    @map("ip_address")
   userAgent   String?    @map("user_agent")
   createdAt   DateTime   @default(now()) @map("created_at")
-  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  adminUser   AdminUser? @relation(fields: [adminUserId], references: [id])
 
   @@index([adminUserId])
   @@index([action])
@@ -533,4 +733,204 @@ model AdminLoginAttempt {
   @@index([ipAddressHash, successful, createdAt])
   @@index([createdAt])
   @@map("admin_login_attempts")
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  CLOSED
+  SPAM
+}
+
+enum AdminUserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+  TEMPORARY
+}
+
+enum JobOpeningStatus {
+  DRAFT
+  OPEN
+  CLOSED
+  ARCHIVED
+}
+
+enum JobApplicationStatus {
+  NEW
+  REVIEWING
+  SHORTLISTED
+  INTERVIEW
+  REJECTED
+  HIRED
+  WITHDRAWN
+}
+
+enum SettingValueType {
+  STRING
+  NUMBER
+  BOOLEAN
+  JSON
+}
+
+enum InternshipPaymentStatus {
+  CREATED
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum InternshipApplicantAccountStatus {
+  ACTIVE
+  SUSPENDED
+  DISABLED
+}
+
+enum InternshipApplicantDocumentType {
+  INTERNSHIP_LETTER
+  CERTIFICATE
+}
+
+enum InternshipApplicantDocumentActorType {
+  APPLICANT
+  ADMIN
+}
+
+enum InternshipApplicantDocumentAction {
+  VIEW
+  DOWNLOAD
+}
+
+enum InvoiceDeliveryStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+}
+
+enum InternshipCertificateStatus {
+  PENDING_START_DATE
+  PENDING_SKILLS
+  READY
+  GENERATED
+  EMAILED
+  EMAIL_FAILED
+  CANCELLED
+}
+
+enum InternshipCertificateReminderStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+}
+
+enum InternshipCertificateEmailStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+}
+
+enum InternshipCertificateEmailKind {
+  ADMIN_REMINDER
+  ADMIN_BLOCKED
+  CANDIDATE_CERTIFICATE
+}
+
+// -----------------------------------------------------------------------------
+// Public end-user accounts (accounts-service, /public-auth).
+// Fully independent of the internship applicant portal and admin auth: own
+// tables, own session cookie (growblic_user_session), own throttling.
+// -----------------------------------------------------------------------------
+
+model PublicUserAccount {
+  id                  String                         @id @default(cuid())
+  emailNormalized     String                         @unique @map("email_normalized")
+  emailDisplay        String                         @map("email_display")
+  passwordHash        String                         @map("password_hash")
+  displayName         String?                        @map("display_name")
+  fullName            String?                        @map("full_name")
+  phone               String?                        @map("phone")
+  company             String?                        @map("company")
+  status              PublicUserAccountStatus         @default(ACTIVE)
+  failedLoginCount    Int                            @default(0) @map("failed_login_count")
+  lastLoginAt         DateTime?                      @map("last_login_at")
+  createdAt           DateTime                       @default(now()) @map("created_at")
+  updatedAt           DateTime                       @updatedAt @map("updated_at")
+  deletedAt           DateTime?                      @map("deleted_at")
+  sessions            PublicUserSession[]
+  passwordResetTokens PublicUserPasswordResetToken[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("public_user_accounts")
+}
+
+model PublicUserSession {
+  id         String            @id @default(cuid())
+  accountId  String            @map("account_id")
+  tokenHash  String            @unique @map("token_hash")
+  expiresAt  DateTime          @map("expires_at")
+  lastSeenAt DateTime?         @map("last_seen_at")
+  revokedAt  DateTime?         @map("revoked_at")
+  createdAt  DateTime          @default(now()) @map("created_at")
+  ipAddress  String?           @map("ip_address")
+  userAgent  String?           @map("user_agent")
+  account    PublicUserAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+  @@index([createdAt])
+  @@map("public_user_sessions")
+}
+
+model PublicUserPasswordResetToken {
+  id        String            @id @default(cuid())
+  accountId String            @map("account_id")
+  tokenHash String            @unique @map("token_hash")
+  expiresAt DateTime          @map("expires_at")
+  usedAt    DateTime?         @map("used_at")
+  createdAt DateTime          @default(now()) @map("created_at")
+  ipAddress String?           @map("ip_address")
+  userAgent String?           @map("user_agent")
+  account   PublicUserAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([accountId])
+  @@index([expiresAt])
+  @@map("public_user_password_reset_tokens")
+}
+
+model PublicUserAuthAttempt {
+  id            String   @id @default(cuid())
+  emailHash     String   @map("email_hash")
+  ipAddressHash String?  @map("ip_address_hash")
+  action        String
+  successful    Boolean
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([emailHash, action, createdAt])
+  @@index([ipAddressHash, action, createdAt])
+  @@map("public_user_auth_attempts")
+}
+
+enum PublicUserAccountStatus {
+  ACTIVE
+  DISABLED
 }

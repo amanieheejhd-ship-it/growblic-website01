@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: monorepoRoot,
   transpilePackages: [
     "@growblic/contracts",
-    "@growblic/database",
     "@growblic/validation",
   ],
   turbopack: {

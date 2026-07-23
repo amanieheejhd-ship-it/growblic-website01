@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useRef, useState, type FormEvent } from "react";
-import { persistWebsiteForm, submitLead } from "@/lib/api";
+import { persistWebsiteForm } from "@/lib/api";
 
 type FormStatus =
   | { type: "idle"; message: "" }
@@ -48,16 +48,6 @@ export default function MeetupInterestForm() {
         source: "meetup-page",
         website,
       });
-
-      if (!website) {
-        void submitLead("/leads/meetup", {
-          name,
-          email: email || undefined,
-          phone: phone || undefined,
-          message,
-          source: "meetup-page",
-        }).catch(() => undefined);
-      }
 
       form.reset();
       submissionKeyRef.current = "";

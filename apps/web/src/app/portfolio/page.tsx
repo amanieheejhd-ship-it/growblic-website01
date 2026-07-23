@@ -94,12 +94,12 @@ const industries = [
 
 export default function PortfolioPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden">
       <section className="relative px-6 py-16 sm:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_8%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_86%_28%,rgba(6,182,212,0.08),transparent_30%),linear-gradient(180deg,#ffffff_0%,#f8fbff_54%,#ffffff_100%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.028)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.028)_1px,transparent_1px)] bg-[size:48px_48px]" />
 
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-[1800px]">
           <BackButton />
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">

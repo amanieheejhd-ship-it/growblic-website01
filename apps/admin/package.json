@@ -3,17 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "eslint",
+    "test": "tsx --test src/components/internship-certificates/internship-certificate-skill-selection.test.ts src/components/internship-accounts/internship-account-view-model.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@growblic/contracts": "workspace:*",
-    "@growblic/database": "workspace:*",
     "@growblic/validation": "workspace:*",
-    "argon2": "^0.44.0",
     "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -29,5 +28,10 @@
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "nx": {
+    "tags": [
+      "scope:frontend"
+    ]
   }
 }

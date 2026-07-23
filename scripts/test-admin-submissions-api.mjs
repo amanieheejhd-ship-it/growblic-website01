@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 
 const adminBaseUrl = (process.env.ADMIN_AUTH_BASE_URL || "http://127.0.0.1:3001").replace(/\/$/, "");
-const webBaseUrl = (process.env.WEBSITE_FORMS_BASE_URL || "http://127.0.0.1:3002").replace(/\/$/, "");
+const backendBaseUrl = (process.env.WEBSITE_FORMS_BASE_URL || "http://localhost:4000").replace(/\/$/, "");
 const email = process.env.ADMIN_AUTH_TEST_EMAIL?.trim();
 const password = process.env.ADMIN_AUTH_TEST_PASSWORD;
 const endpoints = ["contact-messages", "project-requests", "price-calculator-leads", "meetup-requests", "career-applications", "internship-applications"];
@@ -36,8 +36,8 @@ async function main() {
   console.log("PASS dashboard summary: numeric total and pending counts");
 
   const marker = `admin-submissions-test-${randomUUID()}`;
-  const projectCreate = await request(webBaseUrl, "/api/quote-requests/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ submissionKey: `${marker}-project`, name: "Synthetic Project Request Test", requirements: marker, source: "start-project-page" }) });
-  const calculatorCreate = await request(webBaseUrl, "/api/quote-requests/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ submissionKey: `${marker}-calculator`, name: "Synthetic Calculator Lead Test", requirements: marker, source: "price-calculator", calculatorData: { category: "Synthetic", selectedOptions: ["Synthetic option"] } }) });
+  const projectCreate = await request(backendBaseUrl, "/public-submissions/project-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ submissionKey: `${marker}-project`, name: "Synthetic Project Request Test", requirements: marker, source: "start-project-page" }) });
+  const calculatorCreate = await request(backendBaseUrl, "/public-submissions/price-calculator", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ submissionKey: `${marker}-calculator`, name: "Synthetic Calculator Lead Test", requirements: marker, source: "price-calculator", calculatorData: { category: "Synthetic", selectedOptions: ["Synthetic option"] } }) });
   assert(projectCreate.response.status === 201 && calculatorCreate.response.status === 201, "Synthetic classification records could not be created.");
   const projectList = await request(adminBaseUrl, `/api/project-requests/?search=${encodeURIComponent(marker)}`, { headers });
   const calculatorList = await request(adminBaseUrl, `/api/price-calculator-leads/?search=${encodeURIComponent(marker)}`, { headers });
@@ -45,6 +45,12 @@ async function main() {
   assert(projectList.data.items[0].id !== calculatorList.data.items[0].id, "Project and calculator classifications overlapped.");
   assertSafe("project-requests", projectList.data.items[0]); assertSafe("price-calculator-leads", calculatorList.data.items[0]);
   console.log("PASS QuoteRequest classification: project and calculator records are isolated");
+  const internshipCreate = await request(backendBaseUrl, "/public-submissions/internship-applications", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ submissionKey: `${marker}-internship`, internshipSlug: "frontend-developer", fullName: `Synthetic Intern ${marker}`, email: `${marker}@example.com`, phone: "+91 90000 00002", state: "Delhi", instituteEnrollment: "Yes", instituteName: "Synthetic Test Institute", course: "BCA", enrollmentNumber: `TEST-${marker}`, highestQualification: "", passingYear: "", message: marker, website: "" }) });
+  assert(internshipCreate.response.status === 201 && internshipCreate.data?.success === true, "Synthetic internship application could not be created.");
+  const internshipList = await request(adminBaseUrl, `/api/internship-applications/?search=${encodeURIComponent(marker)}`, { headers });
+  assert(internshipList.response.status === 200 && internshipList.data?.items?.length === 1, "Admin could not read the synthetic internship application.");
+  assertSafe("internship-applications", internshipList.data.items[0]);
+  console.log("PASS internship submission: backend save is immediately visible through the admin API");
   const syntheticId = projectList.data.items[0].id;
   const invalid = await request(adminBaseUrl, `/api/project-requests/${syntheticId}/`, { method: "PATCH", headers: { ...headers, "Content-Type": "application/json" }, body: JSON.stringify({ status: "INVALID" }) });
   assert(invalid.response.status === 400, "Invalid status was not rejected.");

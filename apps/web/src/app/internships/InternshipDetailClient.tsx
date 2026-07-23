@@ -2,9 +2,23 @@
 
 import type { InternshipApplicationRequest } from "@growblic/contracts";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { persistWebsiteForm } from "@/lib/api";
+import {
+  bridgeIntoInternshipPortal,
+  getSession,
+  logoutUser,
+  type PublicUser,
+} from "@/lib/accounts";
+import {
+  clearInternshipSwitch,
+  normalizeEmailForCompare,
+  readInternshipSwitch,
+  saveInternshipSwitch,
+  type InternshipSwitchForm,
+} from "@/lib/internship-switch";
 import type { Internship } from "./internship-data";
 import { shouldRevealInternshipPlans } from "./internship-application-flow";
 import InternshipFeePanel from "./InternshipFeePanel";
@@ -59,27 +73,72 @@ function PremiumDetailCard({
 export default function InternshipDetailClient({
   internship,
 }: Props) {
+  const router = useRouter();
   const [isEnrolled, setIsEnrolled] = useState("");
   const [showFeePanel, setShowFeePanel] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [applicationReference, setApplicationReference] = useState("");
+
+  // Email is auth-aware. When a public user is signed in we prefill + lock the
+  // field to their account email; "Use a different email" unlocks it, and a
+  // mismatch at submit opens the continue/switch choice (never a silent orphan).
+  const [account, setAccount] = useState<PublicUser | null>(null);
+  const [email, setEmail] = useState("");
+  const [emailLocked, setEmailLocked] = useState(false);
+  const [mismatch, setMismatch] = useState<string | null>(null);
+  // Set when returning from a completed account switch: the saved answers to
+  // restore (via a keyed remount) and a flag to land on the portal dashboard
+  // after this submit instead of revealing the fee panel.
+  const [restored, setRestored] = useState<InternshipSwitchForm | null>(null);
+  const [switchReturn, setSwitchReturn] = useState(false);
+
   const submittingRef = useRef(false);
   const submissionKeyRef = useRef("");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  async function openFeePanel(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  useEffect(() => {
+    let active = true;
+    // Returning from a switch? Restore the in-progress answers for a single
+    // confirm-and-submit. The email is re-derived from the authenticated
+    // session — never trusted from storage.
+    const pending = readInternshipSwitch();
+    const isReturn = Boolean(
+      pending &&
+        pending.stage === "authenticated" &&
+        pending.slug === internship.slug,
+    );
 
-    if (submittingRef.current) {
-      return;
-    }
+    // All state is set inside the async callback (never synchronously in the
+    // effect body), matching the app's hydration-safe on-mount session pattern.
+    const apply = (user: PublicUser | null) => {
+      if (!active) return;
+      if (isReturn && pending) {
+        setRestored(pending.form);
+        setIsEnrolled(pending.form.instituteEnrollment ?? "");
+        setSwitchReturn(true);
+        clearInternshipSwitch();
+      }
+      setAccount(user);
+      if (user) {
+        // Signed in → applications must use THIS account's email.
+        setEmail(user.email);
+        setEmailLocked(true);
+      } else if (isReturn && pending) {
+        setEmail(pending.email);
+      }
+    };
 
-    const form = event.currentTarget;
+    getSession()
+      .then(apply)
+      .catch(() => apply(null));
+    return () => {
+      active = false;
+    };
+  }, [internship.slug]);
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
+  async function submitApplication(form: HTMLFormElement, emailToUse: string) {
+    if (submittingRef.current) return;
 
     const formData = new FormData(form);
     if (showFeePanel) {
@@ -95,37 +154,50 @@ export default function InternshipDetailClient({
 
     try {
       const result = await persistWebsiteForm("/api/internships/applications/", {
-          submissionKey: submissionKeyRef.current,
-          internshipSlug: internship.slug,
-          fullName: String(formData.get("fullName") || "").trim(),
-          email: String(formData.get("email") || "").trim(),
-          phone: String(formData.get("phone") || "").trim(),
-          state: String(formData.get("state") || "").trim(),
-          instituteEnrollment: String(
-            formData.get("instituteEnrollment") || "",
-          ).trim(),
-          instituteName: String(formData.get("instituteName") || "").trim(),
-          course: String(formData.get("course") || "").trim(),
-          enrollmentNumber: String(formData.get("enrollmentNo") || "").trim(),
-          highestQualification: String(
-            formData.get("highestQualification") || "",
-          ).trim(),
-          passingYear: String(formData.get("passingYear") || "").trim(),
-          message: String(formData.get("query") || "").trim(),
-          website: String(formData.get("website") || "").trim(),
-        } satisfies InternshipApplicationRequest);
+        submissionKey: submissionKeyRef.current,
+        internshipSlug: internship.slug,
+        fullName: String(formData.get("fullName") || "").trim(),
+        email: emailToUse.trim(),
+        phone: String(formData.get("phone") || "").trim(),
+        state: String(formData.get("state") || "").trim(),
+        instituteEnrollment: String(
+          formData.get("instituteEnrollment") || "",
+        ).trim(),
+        instituteName: String(formData.get("instituteName") || "").trim(),
+        course: String(formData.get("course") || "").trim(),
+        enrollmentNumber: String(formData.get("enrollmentNo") || "").trim(),
+        highestQualification: String(
+          formData.get("highestQualification") || "",
+        ).trim(),
+        passingYear: String(formData.get("passingYear") || "").trim(),
+        message: String(formData.get("query") || "").trim(),
+        website: String(formData.get("website") || "").trim(),
+      } satisfies InternshipApplicationRequest);
 
       if (!shouldRevealInternshipPlans(result.status)) {
         throw new Error("The application was not created.");
       }
 
-      setShowFeePanel(true);
-      setApplicationReference(submissionKeyRef.current);
       window.localStorage.setItem(
         `growblic-internship-application:${internship.slug}`,
         submissionKeyRef.current,
       );
 
+      // Switch flow: the application is now under the authenticated account —
+      // send them to their portal dashboard (email-matched SSO mints the
+      // applicant session; empty state if they have no applicant account yet).
+      if (switchReturn) {
+        try {
+          await bridgeIntoInternshipPortal();
+        } catch {
+          /* navigate regardless — the portal decides dashboard vs login */
+        }
+        router.push("/internship-portal");
+        return;
+      }
+
+      setShowFeePanel(true);
+      setApplicationReference(submissionKeyRef.current);
       window.setTimeout(() => {
         document.getElementById("internship-fee-panel")?.scrollIntoView({
           behavior: "smooth",
@@ -140,9 +212,75 @@ export default function InternshipDetailClient({
     }
   }
 
+  function openFeePanel(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (submittingRef.current) return;
+
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Mismatch guard: a signed-in user whose typed email differs from their
+    // account email must explicitly choose — never submit an orphan silently.
+    if (
+      account &&
+      normalizeEmailForCompare(email) !== normalizeEmailForCompare(account.email)
+    ) {
+      setMismatch(email.trim());
+      return;
+    }
+
+    void submitApplication(form, email);
+  }
+
+  function continueAsAccount() {
+    if (!account) return;
+    setEmail(account.email);
+    setEmailLocked(true);
+    setMismatch(null);
+    const form = formRef.current;
+    if (form) void submitApplication(form, account.email);
+  }
+
+  function switchToTypedEmail(typedEmail: string) {
+    const form = formRef.current;
+    const data = form ? new FormData(form) : new FormData();
+    const read = (name: string) => String(data.get(name) || "").trim();
+    saveInternshipSwitch({
+      stage: "pending-auth",
+      email: normalizeEmailForCompare(typedEmail),
+      slug: internship.slug,
+      returnTo: `/internships/${internship.slug}`,
+      form: {
+        fullName: read("fullName"),
+        phone: read("phone"),
+        state: read("state"),
+        instituteEnrollment: read("instituteEnrollment"),
+        instituteName: read("instituteName"),
+        course: read("course"),
+        enrollmentNumber: read("enrollmentNo"),
+        highestQualification: read("highestQualification"),
+        passingYear: read("passingYear"),
+        message: read("query"),
+      },
+    });
+    setMismatch(null);
+    // Revoke the OLD public session server-side BEFORE the new sign-in, so there
+    // is never a lingering session or two identities in play.
+    void logoutUser()
+      .catch(() => {
+        /* best-effort revoke; the new login replaces the cookie regardless */
+      })
+      .finally(() => {
+        router.push("/login");
+      });
+  }
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(6,182,212,0.10),transparent_36%),linear-gradient(135deg,#f7f9ff_0%,#ffffff_55%,#eff9ff_100%)] px-4 py-12 sm:px-8 sm:py-16 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1800px]">
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
@@ -261,6 +399,8 @@ export default function InternshipDetailClient({
           </div>
 
           <form
+            ref={formRef}
+            key={restored ? "restored" : "fresh"}
             onSubmit={openFeePanel}
             className="space-y-7 p-5 sm:p-8 lg:p-10"
           >
@@ -277,6 +417,15 @@ export default function InternshipDetailClient({
                 autoComplete="off"
               />
             </div>
+
+            {switchReturn ? (
+              <div className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-bold leading-6 text-blue-800">
+                Signed in as{" "}
+                <span className="font-black">{email || account?.email}</span>.
+                Your answers were kept — review and submit to finish your
+                application.
+              </div>
+            ) : null}
             <section className="rounded-[28px] border border-slate-100 bg-slate-50/70 p-5 sm:p-7">
               <div className="mb-6">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-600">
@@ -291,6 +440,7 @@ export default function InternshipDetailClient({
                     name="fullName"
                     required
                     autoComplete="name"
+                    defaultValue={restored?.fullName ?? ""}
                     placeholder="Enter your full name"
                     className={inputClass}
                   />
@@ -304,8 +454,51 @@ export default function InternshipDetailClient({
                     required
                     autoComplete="email"
                     placeholder="you@example.com"
-                    className={inputClass}
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    readOnly={emailLocked}
+                    aria-describedby="internship-email-help"
+                    className={`${inputClass} ${
+                      emailLocked ? "cursor-not-allowed bg-slate-100 text-slate-600" : ""
+                    }`}
                   />
+                  {account ? (
+                    <span
+                      id="internship-email-help"
+                      className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-bold"
+                    >
+                      <span className="font-semibold text-slate-500">
+                        Applying as{" "}
+                        <span className="font-black text-slate-700">
+                          {account.email}
+                        </span>
+                      </span>
+                      {emailLocked ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEmailLocked(false);
+                            setMismatch(null);
+                          }}
+                          className="font-black text-blue-700 underline underline-offset-2 transition hover:text-blue-800"
+                        >
+                          Use a different email
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEmail(account.email);
+                            setEmailLocked(true);
+                            setMismatch(null);
+                          }}
+                          className="font-black text-blue-700 underline underline-offset-2 transition hover:text-blue-800"
+                        >
+                          Use my account email
+                        </button>
+                      )}
+                    </span>
+                  ) : null}
                 </label>
 
                 <label className="text-sm font-black text-slate-800">
@@ -315,6 +508,7 @@ export default function InternshipDetailClient({
                     name="phone"
                     required
                     autoComplete="tel"
+                    defaultValue={restored?.phone ?? ""}
                     placeholder="+91 98765 43210"
                     className={inputClass}
                   />
@@ -326,6 +520,7 @@ export default function InternshipDetailClient({
                     name="state"
                     required
                     autoComplete="address-level1"
+                    defaultValue={restored?.state ?? ""}
                     placeholder="Enter your state"
                     className={inputClass}
                   />
@@ -375,6 +570,7 @@ export default function InternshipDetailClient({
                       <input
                         name="instituteName"
                         required
+                        defaultValue={restored?.instituteName ?? ""}
                         placeholder="Enter your college name"
                         className={inputClass}
                       />
@@ -385,7 +581,7 @@ export default function InternshipDetailClient({
                       <select
                         name="course"
                         required
-                        defaultValue=""
+                        defaultValue={restored?.course ?? ""}
                         className={inputClass}
                       >
                         <option value="" disabled>
@@ -416,6 +612,7 @@ export default function InternshipDetailClient({
                       <input
                         name="enrollmentNo"
                         required
+                        defaultValue={restored?.enrollmentNumber ?? ""}
                         placeholder="Enter your enrollment number"
                         className={inputClass}
                       />
@@ -442,7 +639,7 @@ export default function InternshipDetailClient({
                       <select
                         name="highestQualification"
                         required
-                        defaultValue=""
+                        defaultValue={restored?.highestQualification ?? ""}
                         className={inputClass}
                       >
                         <option value="" disabled>
@@ -463,7 +660,7 @@ export default function InternshipDetailClient({
                       <select
                         name="passingYear"
                         required
-                        defaultValue=""
+                        defaultValue={restored?.passingYear ?? ""}
                         className={inputClass}
                       >
                         <option value="" disabled>
@@ -493,11 +690,47 @@ export default function InternshipDetailClient({
                 <textarea
                   name="query"
                   rows={4}
+                  defaultValue={restored?.message ?? ""}
                   placeholder="Write your question or message for Growblic."
                   className={`${inputClass} resize-y`}
                 />
               </label>
             </section>
+
+            {mismatch && account ? (
+              <div
+                role="group"
+                aria-label="Email does not match your account"
+                className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm font-semibold text-amber-900"
+              >
+                <p className="font-black">
+                  This application uses a different email than your account.
+                </p>
+                <p className="mt-1 leading-6">
+                  You’re signed in as{" "}
+                  <span className="font-black">{account.email}</span>, but you
+                  entered <span className="font-black">{mismatch}</span>.
+                  Applications are linked to your signed-in account’s email —
+                  otherwise they won’t appear on your dashboard.
+                </p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={continueAsAccount}
+                    className="inline-flex items-center justify-center rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-700"
+                  >
+                    Continue as {account.email}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => switchToTypedEmail(mismatch)}
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+                  >
+                    Switch to {mismatch}
+                  </button>
+                </div>
+              </div>
+            ) : null}
 
             <div className="flex justify-end">
               <button
@@ -509,7 +742,9 @@ export default function InternshipDetailClient({
                   ? "Submitting..."
                   : showFeePanel
                     ? "Fee plans opened"
-                    : "Apply now →"}
+                    : switchReturn
+                      ? "Confirm & submit →"
+                      : "Apply now →"}
               </button>
             </div>
             {submitError ? (

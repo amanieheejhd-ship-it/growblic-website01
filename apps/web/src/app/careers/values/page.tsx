@@ -50,11 +50,11 @@ const values = [
 
 export default function CareersValuesPage() {
   return (
-    <main className="relative overflow-hidden bg-white px-6 py-16 sm:px-8 lg:px-10">
+    <main className="relative overflow-hidden px-6 py-16 sm:px-8 lg:px-10">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_10%,rgba(37,99,235,0.10),transparent_30%),radial-gradient(circle_at_86%_18%,rgba(6,182,212,0.09),transparent_28%),linear-gradient(180deg,rgba(255,255,255,1),rgba(239,246,255,0.50),rgba(255,255,255,1))]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.035)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-      <section className="relative mx-auto max-w-7xl">
+      <section className="relative mx-auto max-w-[1800px]">
         <div className="max-w-3xl">
           <p className="inline-flex rounded-full border border-blue-100 bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-blue-700 shadow-sm">
             Growblic values

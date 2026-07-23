@@ -69,7 +69,7 @@ export default function WebsiteDevelopmentPage() {
       <div className="pointer-events-none absolute left-0 top-0 h-[36rem] w-[36rem] rounded-full bg-blue-200/35 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-24 h-[36rem] w-[36rem] rounded-full bg-cyan-200/40 blur-3xl" />
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-14 pt-10 sm:pb-20 sm:pt-14">
+      <section className="relative z-10 mx-auto max-w-[1800px] px-6 pb-14 pt-10 sm:pb-20 sm:pt-14">
         <Link
           href="/services"
           className="mb-8 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-2 text-sm font-black text-slate-700 shadow-[0_12px_35px_rgba(15,23,42,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
@@ -216,7 +216,7 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-16">
+      <section className="relative z-10 mx-auto max-w-[1800px] px-6 pb-16">
         <div className="rounded-[2.4rem] border border-blue-100 bg-white/76 p-5 shadow-[0_30px_100px_rgba(15,23,42,0.08)] backdrop-blur-2xl sm:p-6">
           <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -279,7 +279,7 @@ export default function WebsiteDevelopmentPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20">
+      <section className="relative z-10 mx-auto max-w-[1800px] px-6 pb-20">
         <div className="overflow-hidden rounded-[2.4rem] border border-blue-100 bg-white/88 p-8 text-slate-950 shadow-[0_34px_110px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:p-10">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(37,99,235,0.12),transparent_28%),radial-gradient(circle_at_90%_0%,rgba(6,182,212,0.14),transparent_30%)]" />
           <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">

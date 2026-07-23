@@ -10,7 +10,7 @@ import {
   normalizeAdminEmail,
   safeEqual,
   verifyPassword,
-} from "../apps/admin/src/server/auth/admin-auth.crypto";
+} from "../apps/services/admin-service/src/modules/admin/admin-auth.crypto";
 
 async function main() {
   const password = "temporary-verification-password";

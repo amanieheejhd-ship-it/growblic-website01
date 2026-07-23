@@ -129,7 +129,7 @@ export default function BlogFilterGrid({
   return (
     <>
       <section className="bg-white px-5 py-10 sm:px-6">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1800px]">
           <div className="grid gap-3 border-y border-blue-100/70 py-5 sm:grid-cols-2 lg:grid-cols-4">
             {statCards.map((card) => {
               const Icon = card.icon;
@@ -238,7 +238,7 @@ export default function BlogFilterGrid({
       </section>
 
       <section id="recent-blogs" className="bg-white px-5 py-12 sm:px-6 sm:py-16">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1800px]">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.2em] text-blue-600">

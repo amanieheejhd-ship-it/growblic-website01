@@ -20,7 +20,7 @@ export const metadata = createPageMetadata({
 
 export default function StartProjectPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfdff]">
+    <main className="min-h-screen overflow-hidden">
       <section className="relative px-4 py-16 sm:px-6 sm:py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_0%,rgba(37,99,235,0.13),transparent_32%),radial-gradient(circle_at_82%_80%,rgba(6,182,212,0.10),transparent_30%)]" />
 
